@@ -3,6 +3,11 @@
 Analytics::Analytics()
   : QWidget()
 {
+
+  maxVolume = 0;
+  maxBank = 0;
+  maxCharges = 0;
+
   setAnalytics();
   createGraph();
   graphBank();
@@ -44,9 +49,19 @@ void Analytics::createGraph()
   sellSeries = new QLineSeries();
 
   sellVolume->addSeries(sellSeries);
-  sellVolume->createDefaultAxes();
+
+  axeVVolumes = new QValueAxis(this);
+  axeHVolumes = new QValueAxis(this);
+
+  sellVolume->addAxis(axeVVolumes, Qt::AlignLeft);
+  sellVolume->addAxis(axeHVolumes, Qt::AlignBottom);
+
+  sellSeries->attachAxis(axeVVolumes);
+  sellSeries->attachAxis(axeHVolumes);
 
   QChartView* viewerSell = new QChartView(sellVolume);
+
+  widgetRight->addWidget(viewerSell);
 
   // Banque Graph
   QChart* bank = new QChart();
@@ -54,7 +69,15 @@ void Analytics::createGraph()
   bankSeries = new QLineSeries();
 
   bank->addSeries(bankSeries);
-  bank->createDefaultAxes();
+
+  axeVBank = new QValueAxis(this);
+  axeHBank = new QValueAxis(this);
+
+  bank->addAxis(axeVBank, Qt::AlignLeft);
+  bank->addAxis(axeHBank, Qt::AlignBottom);
+
+  bankSeries->attachAxis(axeVBank);
+  bankSeries->attachAxis(axeHBank);
 
   QChartView* viewerBanque = new QChartView(bank);
 
@@ -67,7 +90,15 @@ void Analytics::createGraph()
   chargeSeries = new QLineSeries();
 
   charge->addSeries(chargeSeries);
-  charge->createDefaultAxes();
+
+  axeVCharges = new QValueAxis(this);
+  axeHCharges = new QValueAxis(this);
+
+  charge->addAxis(axeVCharges, Qt::AlignLeft);
+  charge->addAxis(axeHCharges, Qt::AlignBottom);
+
+  chargeSeries->attachAxis(axeVCharges);
+  chargeSeries->attachAxis(axeHCharges);
 
   QChartView* viewerCharges = new QChartView(charge);
 
@@ -79,6 +110,28 @@ void Analytics::updateAnalytics(int addDay, double addVolumes, double addBank, d
   sellSeries->append(addDay, addVolumes);
   bankSeries->append(addDay, addBank);
   chargeSeries->append(addDay, addCharges);
+
+  axeHVolumes->setMax(addDay * 1.5);
+  axeHBank->setMax(addDay * 1.5);
+  axeHCharges->setMax(addDay * 1.5);
+
+  if (addVolumes > maxVolume)
+  {
+    maxVolume = addVolumes;
+    axeVVolumes->setMax(addVolumes * 1.5);
+  }
+
+  if (addBank > maxBank)
+  {
+    maxBank = addBank;
+    axeVBank->setMax(addBank * 1.5);
+  }
+
+  if (addCharges > maxCharges)
+  {
+    maxCharges = addCharges;
+    axeVCharges->setMax(addCharges * 1.5);
+  }
 }
 
 void Analytics::graphVolumes()

@@ -12,11 +12,13 @@ using namespace QtDataVisualization;
 
 class Analytics : public QWidget
 {
+  Q_OBJECT
+
 public:
   Analytics();
   void updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges);
 
-public slots:
+private slots:
   void graphVolumes();
   void graphBank();
   void graphCharges();
@@ -30,4 +32,15 @@ private:
   QLineSeries* sellSeries;
   QLineSeries* bankSeries;
   QLineSeries* chargeSeries;
+
+  double maxVolume;
+  double maxBank;
+  double maxCharges;
+
+  QValueAxis* axeVVolumes;
+  QValueAxis* axeHVolumes;
+  QValueAxis* axeVBank;
+  QValueAxis* axeHBank;
+  QValueAxis* axeVCharges;
+  QValueAxis* axeHCharges;
 };

@@ -15,6 +15,11 @@ Swich::Swich(QWidget* parent)
   createDefaultWidget();
   ini(swichLayout);
   setDefaultItem();
+
+  // TEMPORAIRE ------------
+  widgetAnalytics->updateAnalytics(day++, a++, b++, c++);
+  widgetAnalytics->updateAnalytics(day++, a++, b++, c++);
+  widgetAnalytics->updateAnalytics(day++, a++, b++, c++);
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -49,6 +54,7 @@ void Swich::ini(QGridLayout* layout)
 
   swichZoneWidget->addWidget(widgetHub);
   swichZoneWidget->addWidget(widgetAnalytics);
+  swichZoneWidget->addWidget(widgetSell);
   swichZoneWidget->addWidget(widgetAd);
 
   swichZoneWidget->setCurrentIndex(0);
@@ -61,6 +67,7 @@ void Swich::ini(QGridLayout* layout)
   // Connection Menu
   connect(hub, SIGNAL(clicked()), this, SLOT(connectToHub()));
   connect(analytics, SIGNAL(clicked()), this, SLOT(connectToAnalytics()));
+  connect(vente, SIGNAL(clicked()), this, SLOT(connectToSell()));
   connect(pub, SIGNAL(clicked()), this, SLOT(connectToAd()));
 }
 
@@ -68,6 +75,7 @@ void Swich::createDefaultWidget()
 {
   widgetHub = new Hub();
   widgetAnalytics = new Analytics();
+  widgetSell = new Sell();
   widgetAd = new Ad();
 }
 
@@ -86,8 +94,6 @@ void Swich::setDefaultItem()
 void Swich::connectToHub()
 {
   swichZoneWidget->setCurrentIndex(0);
-  // TEMPORAIRE ------------
-  widgetAnalytics->updateAnalytics(day++, a++, b++, c++);
 }
 
 void Swich::connectToAnalytics()
@@ -95,7 +101,12 @@ void Swich::connectToAnalytics()
   swichZoneWidget->setCurrentIndex(1);
 }
 
-void Swich::connectToAd()
+void Swich::connectToSell()
 {
   swichZoneWidget->setCurrentIndex(2);
+}
+
+void Swich::connectToAd()
+{
+  swichZoneWidget->setCurrentIndex(3);
 }

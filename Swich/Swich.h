@@ -7,6 +7,7 @@
 #include "Hub.h"
 #include "Item.h"
 #include "Ad.h"
+#include "Sell.h"
 
 class Swich : public QMainWindow
 {
@@ -15,9 +16,10 @@ class Swich : public QMainWindow
 public:
   Swich(QWidget* parent = Q_NULLPTR);
 
-public slots:
+private slots:
   void connectToHub();
   void connectToAnalytics();
+  void connectToSell();
   void connectToAd();
 
 private:
@@ -34,6 +36,7 @@ private:
   QStackedWidget* swichZoneWidget;
   Hub* widgetHub;
   Analytics* widgetAnalytics;
+  Sell* widgetSell;
   Ad* widgetAd;
 
   std::vector<Item> itemList;
