@@ -62,6 +62,21 @@
     <ClCompile Include="Sell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="City.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Production.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Contact.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hub.h">
@@ -73,12 +88,27 @@
     <ClInclude Include="Ad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Sell.h">
+    <ClInclude Include="City.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Production.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Contact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="Analytics.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Sell.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Chat.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

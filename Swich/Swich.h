@@ -8,6 +8,11 @@
 #include "Item.h"
 #include "Ad.h"
 #include "Sell.h"
+#include "City.h"
+#include "Production.h"
+#include "Stock.h"
+#include "Chat.h"
+#include "Contact.h"
 
 class Swich : public QMainWindow
 {
@@ -17,17 +22,15 @@ public:
   Swich(QWidget* parent = Q_NULLPTR);
 
 private slots:
-  void connectToHub();
-  void connectToAnalytics();
-  void connectToSell();
-  void connectToAd();
+  void connectToMenu();
 
 private:
   void ini(QGridLayout* widget);
   void createDefaultWidget();
-  void setDefaultItem();
+  void setDefaultList();
 
   int day;
+  int id;
   // TEMPORAIRE ------------
   double a;
   double b;
@@ -37,9 +40,14 @@ private:
   Hub* widgetHub;
   Analytics* widgetAnalytics;
   Sell* widgetSell;
+  Production* widgetProduction;
   Ad* widgetAd;
+  Stock* widgetStock;
+  Chat* widgetChat;
 
   std::vector<Item> itemList;
+  std::vector<City> cityList;
+  std::vector<Contact> contactList;
 
   Ui::SwichClass ui;
 };

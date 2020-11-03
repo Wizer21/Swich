@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="Swich">
+    <qresource prefix="/Swich">
+        <file>simon_id.jpg</file>
+        <file>dino.png</file>
     </qresource>
 </RCC>
