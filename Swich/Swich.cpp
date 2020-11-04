@@ -82,8 +82,9 @@ void Swich::ini(QGridLayout* layout)
   chat->setObjectName(QString::number(id++));
 
   layoutMenu->setAlignment(Qt::AlignTop);
-  swichZoneWidget->setMaximumWidth(this->width() * 0.8);
-  swichZoneWidget->setMinimumWidth(this->width() * 0.8);
+
+  widgetMenu->setMaximumWidth(this->width() * 0.3);
+  widgetMenu->setMinimumWidth(this->width() * 0.3);
 
   // Connection Menu
   connect(hub, SIGNAL(clicked()), this, SLOT(connectToMenu()));
@@ -102,15 +103,15 @@ void Swich::createDefaultWidget()
   widgetSell = new Sell(itemList, cityList);
   widgetProduction = new Production();
   widgetAd = new Ad();
-  widgetStock = new Stock();
+  widgetStock = new Stock(itemList);
   widgetChat = new Chat(contactList);
 }
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 10, 10, 20, 100);
-  Item item2("Hubble", 5, 20, 40, 200);
-  Item item3("ISS", 0, 30, 50, 300);
+  Item item1("Ariane", 10, 10, 20, 100, "", 0);
+  Item item2("Hubble", 5, 20, 40, 200, "", 0);
+  Item item3("ISS", 0, 30, 50, 300, ":/Swich/iss.png", 0);
 
   itemList.push_back(item1);
   itemList.push_back(item2);
