@@ -7,6 +7,7 @@ Swich::Swich(QWidget* parent)
   ui.setupUi(this);
   day = 0;
   id = 0;
+  bank = 1156;
   // TEMPORAIRE ------------
   a = 10;
   b = 12;
@@ -45,6 +46,7 @@ void Swich::ini(QGridLayout* layout)
   QPushButton* pub = new QPushButton(tr("Ad"), this);
   QPushButton* stock = new QPushButton(tr("Stock"), this);
   QPushButton* chat = new QPushButton(tr("Chat"), this);
+  QLineEdit* sold = new QLineEdit(QString::number(bank), this);
 
   layout->addWidget(widgetMenu, 0, 0);
   widgetMenu->setLayout(layoutMenu);
@@ -56,6 +58,7 @@ void Swich::ini(QGridLayout* layout)
   layoutMenu->addWidget(pub);
   layoutMenu->addWidget(stock);
   layoutMenu->addWidget(chat);
+  layoutMenu->addWidget(sold);
 
   // Right Zone
   swichZoneWidget = new QStackedWidget(this);
@@ -81,8 +84,9 @@ void Swich::ini(QGridLayout* layout)
   stock->setObjectName(QString::number(id++));
   chat->setObjectName(QString::number(id++));
 
+  sold->setReadOnly(true);
+  sold->setAcceptDrops(false);
   layoutMenu->setAlignment(Qt::AlignTop);
-
   widgetMenu->setMaximumWidth(this->width() * 0.3);
   widgetMenu->setMinimumWidth(this->width() * 0.3);
 
@@ -109,9 +113,9 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 10, 10, 20, 100, "", 0);
-  Item item2("Hubble", 5, 20, 40, 200, "", 0);
-  Item item3("ISS", 0, 30, 50, 300, ":/Swich/iss.png", 0);
+  Item item1("Ariane", 10, 10, 20, 100, "", 0, 0);
+  Item item2("Hubble", 5, 20, 40, 200, "", 0, 1);
+  Item item3("ISS", 0, 30, 50, 300, ":/Swich/iss.png", 0, 2);
 
   itemList.push_back(item1);
   itemList.push_back(item2);

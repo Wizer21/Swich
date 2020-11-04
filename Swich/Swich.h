@@ -31,6 +31,7 @@ private:
 
   int day;
   int id;
+  double bank;
   // TEMPORAIRE ------------
   double a;
   double b;

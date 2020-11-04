@@ -101,6 +101,8 @@
     <QtMoc Include="Chat.h" />
     <ClInclude Include="City.h" />
     <ClInclude Include="Contact.h" />
+    <ClInclude Include="Dragwidget.h" />
+    <QtMoc Include="DropWidget.h" />
     <ClInclude Include="Production.h" />
     <ClInclude Include="Stock.h" />
     <QtRcc Include="Swich.qrc" />
@@ -109,6 +111,8 @@
     <ClCompile Include="Ad.cpp" />
     <ClCompile Include="Analytics.cpp" />
     <ClCompile Include="Contact.cpp" />
+    <ClCompile Include="Dragwidget.cpp" />
+    <ClCompile Include="DropWidget.cpp" />
     <ClCompile Include="Hub.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Production.cpp" />

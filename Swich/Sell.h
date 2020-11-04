@@ -3,6 +3,8 @@
 #include "stdafx.h"
 #include "Item.h"
 #include "City.h"
+#include "Dragwidget.h"
+#include "DropWidget.h"
 
 class Sell : public QWidget
 {
@@ -13,12 +15,14 @@ public:
 
 private slots:
   void dynamicStock(int);
+  void setNewItem(QString nom, QString vol, int id);
 
 private:
   int id;
   void setSell();
   void setList(QVBoxLayout*);
   void setCity(QTabWidget*);
+  QTabWidget* tabWidget;
   std::vector<Item>* getItemList;
   std::vector<City>* getCityList;
 };
