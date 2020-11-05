@@ -5,7 +5,7 @@ class Item
 {
 public:
   Item(QString addNom, int addStock, double addPrixAchat, double addPrixVente, int addPoid, QString addPix, double addAveSell, int addId);
-  Item(QString addNom, int addStock, double addPrixVente);
+  Item(QString addNom, int addStock, double addPrixVente, int addId);
   QString getNom();
   int getStock();
   double getBuyP();

@@ -1,0 +1,2 @@
+sell::
+changer le slider d'un item déjà drag emèche de delete

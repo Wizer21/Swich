@@ -14,14 +14,18 @@ public:
   Sell(std::vector<Item>& item, std::vector<City>& city);
 
 private slots:
-  void dynamicStock(int);
+  void dynamicStockSender(int vol);
+  void dynamicStockId(int vol, int id);
   void setNewItem(QString nom, QString vol, int id);
+  void cancelSell();
 
 private:
   int id;
   void setSell();
   void setList(QVBoxLayout*);
   void setCity(QTabWidget*);
+  void setTabCity(QTableWidget*, std::vector<Item>);
+  void updateCityOnDrop(QString vol, int idItem);
   QTabWidget* tabWidget;
   std::vector<Item>* getItemList;
   std::vector<City>* getCityList;

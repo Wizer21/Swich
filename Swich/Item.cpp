@@ -12,11 +12,16 @@ Item::Item(QString addNom, int addStock, double addPrixAchat, double addPrixVent
   id = addId;
 }
 
-Item::Item(QString addNom, int addStock, double addPrixVente)
+Item::Item(QString addNom, int addStock, double addPrixVente, int addId)
 {
   nom = addNom;
   stock = addStock;
+  prixAchat = 0;
   prixVente = addPrixVente;
+  poid = 0;
+  pix = "";
+  aveSell = 0;
+  id = addId;
 }
 
 QString Item::getNom()

@@ -121,13 +121,18 @@ void Swich::setDefaultList()
   itemList.push_back(item2);
   itemList.push_back(item3);
 
-  City city1(tr("Paris"), 1);
-  City city2(tr("Tokyo"), 1);
-  City city3(tr("London"), 1);
+  std::vector<Item> listCity1;
+  std::vector<Item> listCity2;
+  std::vector<Item> listCity3;
+
+  City city1(tr("Paris"), 1, listCity1);
+  City city2(tr("Tokyo"), 1, listCity2);
+  City city3(tr("London"), 1, listCity3);
 
   cityList.push_back(city1);
   cityList.push_back(city2);
   cityList.push_back(city3);
+  cityList.at(0).addToList(item1);
 
   Contact contact1("Simon", ":/Swich/simon_id.jpg");
   Contact contact2("Bob", "");
