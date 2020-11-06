@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Item.h"
+#include "Static.h"
 
 class City
 {
@@ -11,6 +12,7 @@ public:
   void addToList(Item);
   void removeStock(int id, int vol);
   void eraseIfEmpty();
+  QString randSells();
 
 private:
   QString nom;

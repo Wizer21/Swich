@@ -55,3 +55,29 @@ void City::eraseIfEmpty()
     }
   }
 }
+
+QString City::randSells()
+{
+  double newBank = 0;
+  int newVolSold = 0;
+  int SoldQuantity;
+  int stockCurrentItem;
+  for (int i = 0; i < cityItemList.size(); i++)
+  {
+    stockCurrentItem = cityItemList.at(i).getStock();
+    if (stockCurrentItem != 0)
+    {
+      SoldQuantity = stockCurrentItem * popularity + Static::randNegativeIntToPercentage(SoldQuantity * 5);
+
+      if (stockCurrentItem - SoldQuantity < 0)
+      {
+        SoldQuantity += (stockCurrentItem - SoldQuantity);
+      }
+      newBank += cityItemList.at(i).getSellP() * SoldQuantity;
+      newVolSold += SoldQuantity;
+
+      cityItemList.at(i).setStock(stockCurrentItem - SoldQuantity);
+    }
+  }
+  return QString("%1$%2").arg(newBank).arg(newVolSold);
+}

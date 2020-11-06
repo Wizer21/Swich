@@ -18,6 +18,7 @@ private slots:
   void dynamicStockId(int vol, int id);
   void setNewItem(QString nom, QString vol, int id);
   void cancelSell();
+  void validate();
 
 private:
   int id;
@@ -29,4 +30,5 @@ private:
   QTabWidget* tabWidget;
   std::vector<Item>* getItemList;
   std::vector<City>* getCityList;
+  std::vector<QWidget*> widgetToDelete;
 };

@@ -5,9 +5,9 @@ Swich::Swich(QWidget* parent)
   : QMainWindow(parent)
 {
   ui.setupUi(this);
-  day = 0;
+  turnId = 0;
   id = 0;
-  bank = 1156;
+  bankDisplayed = 1156;
   // TEMPORAIRE ------------
   a = 10;
   b = 12;
@@ -19,9 +19,9 @@ Swich::Swich(QWidget* parent)
   ini(swichLayout);
 
   // TEMPORAIRE ------------
-  widgetAnalytics->updateAnalytics(day++, a++, b++, c++);
-  widgetAnalytics->updateAnalytics(day++, a++, b++, c++);
-  widgetAnalytics->updateAnalytics(day++, a++, b++, c++);
+  widgetAnalytics->updateAnalytics(turnId++, a++, b++, c++);
+  widgetAnalytics->updateAnalytics(turnId++, a++, b++, c++);
+  widgetAnalytics->updateAnalytics(turnId++, a++, b++, c++);
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -46,7 +46,7 @@ void Swich::ini(QGridLayout* layout)
   QPushButton* pub = new QPushButton(tr("Ad"), this);
   QPushButton* stock = new QPushButton(tr("Stock"), this);
   QPushButton* chat = new QPushButton(tr("Chat"), this);
-  QLineEdit* sold = new QLineEdit(QString::number(bank), this);
+  QLineEdit* sold = new QLineEdit(QString::number(bankDisplayed), this);
 
   layout->addWidget(widgetMenu, 0, 0);
   widgetMenu->setLayout(layoutMenu);
@@ -98,6 +98,8 @@ void Swich::ini(QGridLayout* layout)
   connect(pub, SIGNAL(clicked()), this, SLOT(connectToMenu()));
   connect(stock, SIGNAL(clicked()), this, SLOT(connectToMenu()));
   connect(chat, SIGNAL(clicked()), this, SLOT(connectToMenu()));
+
+  connect(widgetHub, SIGNAL(transfertNewMounth()), this, SLOT(startNewMonth()));
 }
 
 void Swich::createDefaultWidget()
@@ -141,8 +143,28 @@ void Swich::setDefaultList()
   contactList.push_back(contact2);
 }
 
-//Connection Menu Left
 void Swich::connectToMenu()
 {
   swichZoneWidget->setCurrentIndex(sender()->objectName().toInt());
+}
+
+void Swich::startNewMonth()
+{
+  double temporaryBank = 0;
+  double temporarySoldVol = 0;
+
+  for (int i = 0; i < cityList.size(); i++)
+  {
+    QStringList getValue = (cityList.at(i).randSells()).split("$");
+    temporaryBank += getValue.at(0).toInt();
+    temporarySoldVol += getValue.at(1).toInt();
+  }
+
+  bankDisplayed += temporaryBank;
+  QString date = widgetHub->updateCurrentMonth(temporaryBank, temporarySoldVol, 30 + Static::randZeroToVal(5));
+  widgetHub->updateAndScrollWidgets(date, QString::number(temporarySoldVol), QString::number(bankDisplayed));
+
+  moneyMovements.insert(moneyMovements.begin(), temporaryBank);
+  historyBank.insert(historyBank.begin(), bankDisplayed);
+  historySoldVol.insert(historySoldVol.begin(), temporarySoldVol);
 }

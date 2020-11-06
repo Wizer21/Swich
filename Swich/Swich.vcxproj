@@ -104,6 +104,7 @@
     <ClInclude Include="Dragwidget.h" />
     <QtMoc Include="DropWidget.h" />
     <ClInclude Include="Production.h" />
+    <ClInclude Include="Static.h" />
     <ClInclude Include="Stock.h" />
     <QtRcc Include="Swich.qrc" />
     <QtUic Include="Swich.ui" />
@@ -117,12 +118,13 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Production.cpp" />
     <ClCompile Include="Sell.cpp" />
+    <ClCompile Include="Static.cpp" />
     <ClCompile Include="Stock.cpp" />
     <ClCompile Include="Swich.cpp" />
     <ClCompile Include="main.cpp" />
     <ClInclude Include="Ad.h" />
     <QtMoc Include="Analytics.h" />
-    <ClInclude Include="Hub.h" />
+    <QtMoc Include="Hub.h" />
     <ClInclude Include="Item.h" />
     <QtMoc Include="Sell.h" />
     <ClInclude Include="stdafx.h" />

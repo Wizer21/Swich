@@ -18,9 +18,11 @@ void Sell::setSell()
 
   tabWidget = new QTabWidget(this);
 
+  QPushButton* validSend = new QPushButton(tr("Validate"), this);
+
   this->setLayout(layoutSell);
 
-  layoutSell->addWidget(scrollArea, 0, 0);
+  layoutSell->addWidget(scrollArea, 0, 0, 2, 1);
   scrollArea->setWidget(widArea);
   widArea->setLayout(layoutArea);
 
@@ -30,6 +32,10 @@ void Sell::setSell()
 
   layoutSell->addWidget(tabWidget, 0, 1);
   setCity(tabWidget);
+
+  layoutSell->addWidget(validSend, 1, 1);
+
+  connect(validSend, SIGNAL(clicked()), this, SLOT(validate()));
 }
 
 void Sell::setList(QVBoxLayout* layout)
@@ -145,6 +151,7 @@ void Sell::setNewItem(QString nom, QString vol, int id)
     volDragged->setObjectName(QString::number(id) + "d");
     draggedItem->setObjectName(QString::number(id) + "d");
     kill->setObjectName(QString::number(id) + "d");
+    widgetToDelete.push_back(draggedItem);
 
     connect(kill, SIGNAL(clicked()), this, SLOT(cancelSell()));
   }
@@ -181,6 +188,15 @@ void Sell::cancelSell()
 
   setTabCity(tableWidget, getCityList->at(tabWidget->currentIndex()).getList());
 
+  for (int i = 0; i < widgetToDelete.size(); i++)
+  {
+    if (widgetToDelete.at(i) == getWidget)
+    {
+      widgetToDelete.erase(widgetToDelete.begin() + i);
+      break;
+    }
+  }
+
   delete getWidget;
   getWidget = nullptr;
   dynamicStockId(0, id.toInt());
@@ -200,4 +216,17 @@ void Sell::setTabCity(QTableWidget* tab, std::vector<Item> list)
     tab->setItem(i, 1, stockItem);
   }
   tab->setSortingEnabled(true);
+}
+
+void Sell::validate()
+{
+  for (int i = 0; i < widgetToDelete.size(); i++)
+  {
+    if (widgetToDelete.at(i))
+    {
+      delete widgetToDelete.at(i);
+      widgetToDelete.at(i) = nullptr;
+    }
+    widgetToDelete.erase(widgetToDelete.begin() + i);
+  }
 }

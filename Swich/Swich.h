@@ -13,6 +13,7 @@
 #include "Stock.h"
 #include "Chat.h"
 #include "Contact.h"
+#include "Static.h"
 
 class Swich : public QMainWindow
 {
@@ -23,15 +24,16 @@ public:
 
 private slots:
   void connectToMenu();
+  void startNewMonth();
 
 private:
   void ini(QGridLayout* widget);
   void createDefaultWidget();
   void setDefaultList();
 
-  int day;
+  int turnId;
   int id;
-  double bank;
+  double bankDisplayed;
   // TEMPORAIRE ------------
   double a;
   double b;
@@ -46,6 +48,9 @@ private:
   Stock* widgetStock;
   Chat* widgetChat;
 
+  std::vector<double> historyBank;
+  std::vector<double> moneyMovements;
+  std::vector<int> historySoldVol;
   std::vector<Item> itemList;
   std::vector<City> cityList;
   std::vector<Contact> contactList;
