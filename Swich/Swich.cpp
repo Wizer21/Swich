@@ -94,6 +94,8 @@ void Swich::ini(QGridLayout* layout)
   connect(widgetSell, SIGNAL(callUpdateStock()), this, SLOT(applyUpdateStock()));
   connect(widgetProduction, SIGNAL(transfertUpgrade(int, int)), this, SLOT(applyUpgradeFactory(int, int)));
   connect(widgetProduction, SIGNAL(transfertNewFactory(int, int)), this, SLOT(applyNewFactory(int, int)));
+  connect(options, SIGNAL(triggered()), this, SLOT(openOptions()));
+  connect(credits, SIGNAL(triggered()), this, SLOT(openCredits()));
 }
 
 void Swich::createDefaultWidget()
@@ -222,4 +224,16 @@ void Swich::applyNewFactory(int cost, int id)
   bankDisplayed -= cost;
   sold->setText(QString::number(bankDisplayed));
   widgetProduction->validateNewFactory(id);
+}
+
+void Swich::openOptions()
+{
+  Options windowO(this);
+  windowO.exec();
+}
+
+void Swich::openCredits()
+{
+  Credits windowC(this);
+  windowC.exec();
 }

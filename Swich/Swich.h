@@ -14,6 +14,8 @@
 #include "Chat.h"
 #include "Contact.h"
 #include "Static.h"
+#include "Options.h"
+#include "Credits.h"
 
 class Swich : public QMainWindow
 {
@@ -28,6 +30,8 @@ private slots:
   void applyUpdateStock();
   void applyUpgradeFactory(int cost, int id);
   void applyNewFactory(int cost, int id);
+  void openOptions();
+  void openCredits();
 
 private:
   void ini(QGridLayout* widget);

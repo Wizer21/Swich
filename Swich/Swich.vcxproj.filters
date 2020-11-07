@@ -89,6 +89,12 @@
     <ClCompile Include="Factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Options.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Credits.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -133,6 +139,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Production.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Options.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Credits.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

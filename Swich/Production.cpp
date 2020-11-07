@@ -29,6 +29,8 @@ void Production::setProduction()
   layoutProduction->addWidget(lockedFactory1, 0, 1);
   layoutProduction->addWidget(lockedFactory2, 1, 1);
 
+  lockedFactory1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  lockedFactory2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   lockedFactory1->setObjectName("a0");
   lockedFactory2->setObjectName("a1");
   Factory fact1;
