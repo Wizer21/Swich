@@ -2,29 +2,12 @@
 
 Factory::Factory()
 {
-  level = 0;
-  dailyProduction = 0;
+  level = 1;
+  dailyProduction = 1;
   productionCost = 0;
-  randProd = 0;
-  nextUpgrade = 0;
+  randProd = 1;
+  nextUpgrade = 500 + Static::randZeroToVal(500);
   evolution = true;
-}
-
-Factory::Factory(int addLevel, double addDailyProduction, double addDailyCost, double addRandProd, int addNextUpgrade)
-{
-  level = addLevel;
-  dailyProduction = addDailyProduction;
-  productionCost = addDailyCost;
-  randProd = addRandProd;
-  nextUpgrade = addNextUpgrade;
-  evolution = true;
-}
-
-Factory Factory::setUpNewOne()
-{
-  double newProd = 100 + Static::randNegativeIntToPercentage(10);
-  double newCost = newProd * 2;
-  return Factory(1, newProd, newCost * Static::randNegativeIntToPercentage(10), 1, 1000);
 }
 
 void Factory::newMonthFactory(int days)
@@ -68,6 +51,12 @@ void Factory::calculEvolution()
   {
     randProd -= Static::randOnlyPositivePercentage(5);
   }
+}
+
+void Factory::upgradeAccepted()
+{
+  level++;
+  nextUpgrade *= (2 + Static::randOnlyPositivePercentage(50));
 }
 
 int Factory::getLevel()

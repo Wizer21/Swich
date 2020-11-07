@@ -92,6 +92,8 @@ void Swich::ini(QGridLayout* layout)
 
   connect(widgetHub, SIGNAL(transfertNewMounth()), this, SLOT(startNewMonth()));
   connect(widgetSell, SIGNAL(callUpdateStock()), this, SLOT(applyUpdateStock()));
+  connect(widgetProduction, SIGNAL(transfertUpgrade(int, int)), this, SLOT(applyUpgradeFactory(int, int)));
+  connect(widgetProduction, SIGNAL(transfertNewFactory(int, int)), this, SLOT(applyNewFactory(int, int)));
 }
 
 void Swich::createDefaultWidget()
@@ -198,4 +200,26 @@ void Swich::addProductionToInventory(double production)
     int randoItem = Static::randZeroToVal(items);
     itemList.at(randoItem).setStock(itemList.at(randoItem).getStock() + prodToPush);
   }
+}
+
+void Swich::applyUpgradeFactory(int cost, int id)
+{
+  if (cost > bankDisplayed)
+  {
+    return;
+  }
+  bankDisplayed -= cost;
+  sold->setText(QString::number(bankDisplayed));
+  widgetProduction->validatedUpgrade(id);
+}
+
+void Swich::applyNewFactory(int cost, int id)
+{
+  if (cost > bankDisplayed)
+  {
+    return;
+  }
+  bankDisplayed -= cost;
+  sold->setText(QString::number(bankDisplayed));
+  widgetProduction->validateNewFactory(id);
 }

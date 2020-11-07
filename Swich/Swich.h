@@ -26,6 +26,8 @@ private slots:
   void connectToMenu();
   void startNewMonth();
   void applyUpdateStock();
+  void applyUpgradeFactory(int cost, int id);
+  void applyNewFactory(int cost, int id);
 
 private:
   void ini(QGridLayout* widget);

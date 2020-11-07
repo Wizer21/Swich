@@ -104,7 +104,7 @@
     <ClInclude Include="Contact.h" />
     <ClInclude Include="Dragwidget.h" />
     <QtMoc Include="DropWidget.h" />
-    <ClInclude Include="Production.h" />
+    <QtMoc Include="Production.h" />
     <ClInclude Include="Static.h" />
     <ClInclude Include="Stock.h" />
     <QtRcc Include="Swich.qrc" />

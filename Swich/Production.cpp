@@ -2,16 +2,22 @@
 
 Production::Production()
 {
+  idButton = 0;
+  lockedPrice1 = 2000 + Static::randZeroToVal(2000);
+  lockedPrice2 = 5000 + Static::randZeroToVal(5000);
+
   setProduction();
 }
 
 void Production::setProduction()
 {
-  QGridLayout* layoutProduction = new QGridLayout(this);
+  layoutProduction = new QGridLayout(this);
 
   QWidget* widgetText = new QWidget(this);
   QHBoxLayout* layoutText = new QHBoxLayout(this);
   QLabel* dailyProduction = new QLabel("Contain Daily prod", this);
+  lockedFactory1 = new QPushButton("Locked \n" + QString::number(lockedPrice1), this);
+  lockedFactory2 = new QPushButton("Locked \n" + QString::number(lockedPrice2), this);
 
   this->setLayout(layoutProduction);
 
@@ -20,11 +26,17 @@ void Production::setProduction()
   layoutText->addWidget(dailyProduction);
 
   layoutProduction->addWidget(newFactoryWidget(), 1, 0);
-  layoutProduction->addWidget(newFactoryWidget(), 0, 1);
-  layoutProduction->addWidget(newFactoryWidget(), 1, 1);
+  layoutProduction->addWidget(lockedFactory1, 0, 1);
+  layoutProduction->addWidget(lockedFactory2, 1, 1);
 
-  listFactory.push_back(factoryFunctions.setUpNewOne());
+  lockedFactory1->setObjectName("a0");
+  lockedFactory2->setObjectName("a1");
+  Factory fact1;
+  listFactory.push_back(fact1);
   updateWidgets();
+
+  connect(lockedFactory1, SIGNAL(clicked()), this, SLOT(askNewFactory()));
+  connect(lockedFactory2, SIGNAL(clicked()), this, SLOT(askNewFactory()));
 }
 
 QWidget* Production::newFactoryWidget()
@@ -44,6 +56,8 @@ QWidget* Production::newFactoryWidget()
   productionlist.push_back(displayProduction);
   upgradeList.push_back(upgrade);
 
+  upgrade->setObjectName(QString::number(idButton++));
+  connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
   return widgetFactory;
 }
 
@@ -70,4 +84,54 @@ QString Production::newMonthProd(int days)
   updateWidgets();
 
   return QString("%1$%2").arg(totalProduction).arg(totalCost);
+}
+
+void Production::upgradeFactory()
+{
+  int id = sender()->objectName().toInt();
+  int cost = listFactory.at(id).getNextUpgrade();
+  emit transfertUpgrade(cost, id);
+}
+
+void Production::validatedUpgrade(int id)
+{
+  listFactory.at(id).upgradeAccepted();
+  upgradeList.at(id)->setText(QString::number(listFactory.at(id).getNextUpgrade()));
+  levelList.at(id)->setText(QString::number(listFactory.at(id).getLevel()));
+}
+
+void Production::askNewFactory()
+{
+  QString getId = sender()->objectName().at(1);
+  int id = getId.toInt();
+  if (id == 0)
+  {
+    emit transfertNewFactory(lockedPrice1, id);
+  }
+  else
+  {
+    emit transfertNewFactory(lockedPrice2, id);
+  }
+}
+
+void Production::validateNewFactory(int id)
+{
+  if (id == 0)
+  {
+    delete lockedFactory1;
+    lockedFactory1 = nullptr;
+    layoutProduction->addWidget(newFactoryWidget(), 0, 1);
+    Factory fact2;
+    listFactory.push_back(fact2);
+    updateWidgets();
+  }
+  if (id == 1)
+  {
+    delete lockedFactory2;
+    lockedFactory2 = nullptr;
+    layoutProduction->addWidget(newFactoryWidget(), 1, 1);
+    Factory fact3;
+    listFactory.push_back(fact3);
+    updateWidgets();
+  }
 }

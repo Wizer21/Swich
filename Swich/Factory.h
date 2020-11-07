@@ -6,9 +6,8 @@ class Factory
 {
 public:
   Factory();
-  Factory(int addLevel, double addDailyProduction, double addDailyCost, double addRandProd, int addNextUpgrade);
-  Factory setUpNewOne();
   void newMonthFactory(int days);
+  void upgradeAccepted();
 
   int getLevel();
   double getProduction();

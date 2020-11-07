@@ -154,9 +154,7 @@ void Hub::setDefaultWidgets()
 
 void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBank)
 {
-  QString stockDate;
-  QString gainStock;
-  QString bankStock;
+
   for (int i = 1; i < 6; i++)
   {
     int pos = i - 1;
@@ -170,5 +168,5 @@ void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBa
 
   date_1 = newDate;
   gain_1 = newGain;
-  bank_1 = newBank;
+  bank_1 = QString::number(round(newBank.toDouble()));
 }

@@ -103,9 +103,6 @@
     <ClInclude Include="Stock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Production.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Contact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -133,6 +130,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Hub.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Production.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
