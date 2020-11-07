@@ -25,9 +25,9 @@ void Hub::setHub()
 
   QWidget* uptdateWidget = new QWidget(this);
   QGridLayout* gridRight = new QGridLayout(this);
-  displayGain = new QLineEdit(this);
-  displaySells = new QLineEdit(this);
-  displayDate = new QLineEdit(this);
+  displayGain = new QLabel(this);
+  displaySells = new QLabel(this);
+  displayDate = new QLabel(this);
 
   // bot
   QWidget* widgetHubBot = new QWidget(this);
@@ -49,6 +49,8 @@ void Hub::setHub()
   gridRight->addWidget(displaySells, 1, 0, 1, 1);
   gridRight->addWidget(displayDate, 2, 0, 1, 1);
 
+  displayGain->setFont(QFont("", 50));
+
   //bot
   layoutHub->addWidget(widgetHubBot, 1, 0, 1, 2);
   widgetHubBot->setLayout(layoutGridBot);
@@ -59,7 +61,7 @@ void Hub::setHub()
   connect(newMonth, SIGNAL(clicked()), this, SLOT(newMonthClicked()));
 }
 
-void Hub::updateLabels(std::vector<double> bankHisto, std::vector<double> volHisto)
+void Hub::updateLabels(std::vector<double> bankHisto, std::vector<int> volHisto)
 {
   double bankThisYear = 0;
   double bankLastYear = 0;
@@ -77,10 +79,9 @@ void Hub::updateLabels(std::vector<double> bankHisto, std::vector<double> volHis
     bankLastYear += bankHisto.at(i);
     volLastYear += volHisto.at(i);
   }
-
-  bankEvo->setText("+" + QString::number(bankThisYear / bankLastYear * 100) + "% Bank");
+  bankEvo->setText("+" + QString::number(round(bankThisYear / bankLastYear * 100)) + "% Bank");
   //prodEvo->setText("+" + QString::number(evoProd) + "% Production");
-  sellsEvo->setText("+" + QString::number(volThisYear / volLastYear * 100) + "% Sells");
+  sellsEvo->setText("+" + QString::number(round(volThisYear / volLastYear * 100)) + "% Sells");
 }
 
 QString Hub::updateCurrentMonth(int gain, int sells, int addDays)
@@ -146,6 +147,8 @@ void Hub::setDefaultWidgets()
     bank.insert(bank.begin(), bankCT);
 
     layoutGridBot->addWidget(widgetContainerT, 0, pos--);
+
+    gainCT->setFont(QFont("", 20));
   }
 }
 

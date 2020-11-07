@@ -17,7 +17,7 @@ public:
 
 private:
   int level;
-  int dailyProduction;
+  double dailyProduction;
   double productionCost;
   double randProd;
   int nextUpgrade;

@@ -1,6 +1,7 @@
 #pragma once
 #include <qwidget.h>
 #include "stdafx.h"
+#include <cmath>
 
 class Hub : public QWidget
 {
@@ -8,7 +9,7 @@ class Hub : public QWidget
 
 public:
   Hub();
-  void updateLabels(std::vector<double> bankHisto, std::vector<double> volHisto);
+  void updateLabels(std::vector<double> bankHisto, std::vector<int> volHisto);
   QString updateCurrentMonth(int gain, int sells, int addDays);
   void updateAndScrollWidgets(QString date, QString gain, QString bank);
 
@@ -26,9 +27,9 @@ private:
   QLabel* prodEvo;
   QLabel* sellsEvo;
 
-  QLineEdit* displayGain;
-  QLineEdit* displaySells;
-  QLineEdit* displayDate;
+  QLabel* displayGain;
+  QLabel* displaySells;
+  QLabel* displayDate;
 
   int day;
   int month;

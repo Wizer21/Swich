@@ -75,12 +75,12 @@ void Sell::dynamicStockSender(int value)
   getWidget->setVolume(value);
 }
 
-void Sell::dynamicStockId(int value, int id)
+void Sell::dynamicStockId(int id)
 {
   QLineEdit* getLine = this->findChild<QLineEdit*>(QString::number(id));
   Dragwidget* getWidget = this->findChild<Dragwidget*>(QString::number(id));
-  getLine->setText(QString::number(getItemList->at(QString::number(id).toInt()).getStock()));
-  getWidget->setVolume(value);
+  getLine->setText(QString::number(getItemList->at(id).getStock()));
+  getWidget->setVolume(0);
 }
 
 void Sell::setCity(QTabWidget* tab)
@@ -160,7 +160,7 @@ void Sell::setNewItem(QString nom, QString vol, int id)
   getSlider->setValue(0);
   getItemList->at(id).setStock(getItemList->at(id).getStock() - vol.toInt());
 
-  dynamicStockId(vol.toInt(), id);
+  dynamicStockId(id);
 
   updateCityOnDrop(vol, id);
 }
@@ -199,7 +199,7 @@ void Sell::cancelSell()
 
   delete getWidget;
   getWidget = nullptr;
-  dynamicStockId(0, id.toInt());
+  dynamicStockId(id.toInt());
 }
 
 void Sell::setTabCity(QTableWidget* tab, std::vector<Item> list)
@@ -228,14 +228,23 @@ void Sell::validate()
       widgetToDelete.at(i) = nullptr;
     }
     widgetToDelete.erase(widgetToDelete.begin() + i);
+    i--;
   }
+  emit callUpdateStock();
 }
 
-void Sell::refreshTable()
+void Sell::refreshStock()
 {
   for (int i = 0; i < getCityList->size(); i++)
   {
     QTableWidget* getTable = this->findChild<QTableWidget*>(QString::number(i));
     setTabCity(getTable, getCityList->at(i).getList());
+  }
+  for (int i = 0; i < getItemList->size(); i++)
+  {
+    QSlider* getSliderR = this->findChild<QSlider*>(QString::number(i));
+    QLineEdit* getLine = this->findChild<QLineEdit*>(QString::number(i));
+    getLine->setText(QString::number(getItemList->at(i).getStock()));
+    getSliderR->setMaximum(getItemList->at(i).getStock());
   }
 }

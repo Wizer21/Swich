@@ -5,6 +5,7 @@
 #include "City.h"
 #include "Dragwidget.h"
 #include "DropWidget.h"
+#include "Stock.h"
 
 class Sell : public QWidget
 {
@@ -12,11 +13,14 @@ class Sell : public QWidget
 
 public:
   Sell(std::vector<Item>& item, std::vector<City>& city);
-  void refreshTable();
+  void refreshStock();
+
+signals:
+  void callUpdateStock();
 
 private slots:
   void dynamicStockSender(int vol);
-  void dynamicStockId(int vol, int id);
+  void dynamicStockId(int id);
   void setNewItem(QString nom, QString vol, int id);
   void cancelSell();
   void validate();
@@ -29,6 +33,7 @@ private:
   void setTabCity(QTableWidget*, std::vector<Item>);
   void updateCityOnDrop(QString vol, int idItem);
   QTabWidget* tabWidget;
+  Stock* getStock;
   std::vector<Item>* getItemList;
   std::vector<City>* getCityList;
   std::vector<QWidget*> widgetToDelete;

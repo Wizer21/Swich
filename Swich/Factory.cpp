@@ -31,7 +31,7 @@ void Factory::newMonthFactory(int days)
 {
   calculEvolution();
   expodentialProduction(days);
-  productionCost = dailyProduction * 3;
+  productionCost = dailyProduction * 3.0;
   productionCost += Static::randNegativeIntToPercentage(5);
 }
 

@@ -6,10 +6,11 @@
 class Stock : public QWidget
 {
 public:
-  Stock(std::vector<Item> getItemList);
+  Stock(std::vector<Item>& getItemList);
+  void setList();
 
 private:
   void setStock();
-  void setList(QTableWidget* tab);
+  QTableWidget* tab;
   std::vector<Item>* listItem;
 };

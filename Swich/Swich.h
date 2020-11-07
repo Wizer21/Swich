@@ -25,11 +25,13 @@ public:
 private slots:
   void connectToMenu();
   void startNewMonth();
+  void applyUpdateStock();
 
 private:
   void ini(QGridLayout* widget);
   void createDefaultWidget();
   void setDefaultList();
+  void addProductionToInventory(double production);
 
   int turnId;
   int id;
@@ -43,6 +45,8 @@ private:
   Ad* widgetAd;
   Stock* widgetStock;
   Chat* widgetChat;
+
+  QLineEdit* sold;
 
   std::vector<double> historyBank;
   std::vector<double> moneyMovements;

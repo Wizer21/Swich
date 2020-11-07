@@ -37,7 +37,7 @@ void Swich::ini(QGridLayout* layout)
   QPushButton* pub = new QPushButton(tr("Ad"), this);
   QPushButton* stock = new QPushButton(tr("Stock"), this);
   QPushButton* chat = new QPushButton(tr("Chat"), this);
-  QLineEdit* sold = new QLineEdit(QString::number(bankDisplayed), this);
+  sold = new QLineEdit(QString::number(bankDisplayed), this);
 
   layout->addWidget(widgetMenu, 0, 0);
   widgetMenu->setLayout(layoutMenu);
@@ -91,6 +91,7 @@ void Swich::ini(QGridLayout* layout)
   connect(chat, SIGNAL(clicked()), this, SLOT(connectToMenu()));
 
   connect(widgetHub, SIGNAL(transfertNewMounth()), this, SLOT(startNewMonth()));
+  connect(widgetSell, SIGNAL(callUpdateStock()), this, SLOT(applyUpdateStock()));
 }
 
 void Swich::createDefaultWidget()
@@ -132,6 +133,12 @@ void Swich::setDefaultList()
 
   contactList.push_back(contact1);
   contactList.push_back(contact2);
+
+  for (int i = 0; i < 24; i++)
+  {
+    historyBank.push_back(1156);
+    historySoldVol.push_back(10);
+  }
 }
 
 void Swich::connectToMenu()
@@ -139,9 +146,14 @@ void Swich::connectToMenu()
   swichZoneWidget->setCurrentIndex(sender()->objectName().toInt());
 }
 
+void Swich::applyUpdateStock()
+{
+  widgetStock->setList();
+}
+
 void Swich::startNewMonth()
 {
-  double temporaryBank = 0;
+  double temporaryGain = 0;
   double temporarySoldVol = 0;
   double temporaryCharges = 0;
   int addedDays = 30 + Static::randZeroToVal(5);
@@ -149,23 +161,41 @@ void Swich::startNewMonth()
   for (int i = 0; i < cityList.size(); i++)
   {
     QStringList getValue = (cityList.at(i).randSells()).split("$");
-    temporaryBank += getValue.at(0).toInt();
+    temporaryGain += getValue.at(0).toInt();
     temporarySoldVol += getValue.at(1).toInt();
   }
 
-  bankDisplayed += temporaryBank;
-  QString date = widgetHub->updateCurrentMonth(temporaryBank, temporarySoldVol, addedDays);
-  widgetHub->updateAndScrollWidgets(date, QString::number(temporarySoldVol), QString::number(bankDisplayed));
-
-  moneyMovements.insert(moneyMovements.begin(), temporaryBank);
-  historyBank.insert(historyBank.begin(), bankDisplayed);
-  historySoldVol.insert(historySoldVol.begin(), temporarySoldVol);
-
   //Update Widgets
-  widgetSell->refreshTable();
   QString prod_Cost = widgetProduction->newMonthProd(addedDays);
   QStringList listProd_Cost = prod_Cost.split("$");
   temporaryCharges += listProd_Cost.at(1).toDouble();
 
+  bankDisplayed += temporaryGain - temporaryCharges;
+
+  sold->setText(QString::number(bankDisplayed));
+  QString date = widgetHub->updateCurrentMonth(temporaryGain, temporarySoldVol, addedDays);
+  widgetHub->updateAndScrollWidgets(date, QString::number(temporarySoldVol), QString::number(bankDisplayed));
+
+  moneyMovements.insert(moneyMovements.begin(), temporaryGain);
+  historyBank.insert(historyBank.begin(), bankDisplayed);
+  historySoldVol.insert(historySoldVol.begin(), temporarySoldVol);
+
   widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
+  addProductionToInventory(listProd_Cost.at(0).toDouble());
+  widgetHub->updateLabels(historyBank, historySoldVol);
+  widgetSell->refreshStock();
+  widgetStock->setList();
+}
+
+void Swich::addProductionToInventory(double production)
+{
+  int items = itemList.size();
+  int nrbIteration = 15 + Static::randZeroToVal(10);
+  double prodToPush = production / nrbIteration;
+
+  for (int i = 0; i < nrbIteration; i++)
+  {
+    int randoItem = Static::randZeroToVal(items);
+    itemList.at(randoItem).setStock(itemList.at(randoItem).getStock() + prodToPush);
+  }
 }
