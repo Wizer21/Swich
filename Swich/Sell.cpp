@@ -45,13 +45,13 @@ void Sell::setList(QVBoxLayout* layout)
     Dragwidget* widgetContainer = new Dragwidget(this, getItemList->at(i).getNom(), 0, getItemList->at(i).getId());
     QGridLayout* layoutGrid = new QGridLayout(this);
     QLabel* titre = new QLabel(getItemList->at(i).getNom(), this);
-    QLineEdit* stock = new QLineEdit(QString::number(getItemList->at(i).getStock()), this);
+    QLineEdit* stock = new QLineEdit(QString::number(getItemList->at(i).getRoundedStock()), this);
     QSlider* slider = new QSlider(Qt::Horizontal, this);
 
     widgetContainer->setObjectName(QString::number(id));
     stock->setObjectName(QString::number(id));
     slider->setObjectName(QString::number(id++));
-    slider->setMaximum(getItemList->at(i).getStock());
+    slider->setMaximum(getItemList->at(i).getRoundedStock());
 
     layout->addWidget(widgetContainer);
     widgetContainer->setLayout(layoutGrid);
@@ -71,7 +71,7 @@ void Sell::dynamicStockSender(int value)
 {
   QLineEdit* getLine = this->findChild<QLineEdit*>(sender()->objectName());
   Dragwidget* getWidget = this->findChild<Dragwidget*>(sender()->objectName());
-  getLine->setText(QString::number(getItemList->at(sender()->objectName().toInt()).getStock() - value));
+  getLine->setText(QString::number(getItemList->at(sender()->objectName().toInt()).getRoundedStock() - value));
   getWidget->setVolume(value);
 }
 
@@ -79,7 +79,7 @@ void Sell::dynamicStockId(int id)
 {
   QLineEdit* getLine = this->findChild<QLineEdit*>(QString::number(id));
   Dragwidget* getWidget = this->findChild<Dragwidget*>(QString::number(id));
-  getLine->setText(QString::number(getItemList->at(id).getStock()));
+  getLine->setText(QString::number(getItemList->at(id).getRoundedStock()));
   getWidget->setVolume(0);
 }
 
@@ -168,7 +168,8 @@ void Sell::setNewItem(QString nom, QString vol, int id)
 void Sell::updateCityOnDrop(QString vol, int idItem)
 {
   QTableWidget* getTable = this->findChild<QTableWidget*>(QString::number(tabWidget->currentIndex()));
-  getCityList->at(tabWidget->currentIndex()).addToList(Item(getItemList->at(idItem).getNom(), vol.toInt(), getItemList->at(idItem).getSellP(), getItemList->at(idItem).getId()));
+  Item getItem = getItemList->at(idItem);
+  getCityList->at(tabWidget->currentIndex()).addToList(Item(getItem.getNom(), vol.toInt(), getItem.getSellP(), getItem.getId()));
   setTabCity(getTable, getCityList->at(tabWidget->currentIndex()).getList());
 }
 
@@ -180,7 +181,7 @@ void Sell::cancelSell()
   QSlider* getSlider = this->findChild<QSlider*>(id);
 
   getItemList->at(id.toInt()).setStock(getItemList->at(id.toInt()).getStock() + getVol->text().toInt());
-  getSlider->setMaximum(getItemList->at(id.toInt()).getStock());
+  getSlider->setMaximum(getItemList->at(id.toInt()).getRoundedStock());
 
   //Tableau
   QTableWidget* tableWidget = this->findChild<QTableWidget*>(QString::number(tabWidget->currentIndex()));
@@ -210,7 +211,7 @@ void Sell::setTabCity(QTableWidget* tab, std::vector<Item> list)
   for (int i = 0; i < list.size(); i++)
   {
     QTableWidgetItem* nameItem = new QTableWidgetItem(list.at(i).getNom());
-    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(list.at(i).getStock()));
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(list.at(i).getRoundedStock()));
 
     tab->setItem(i, 0, nameItem);
     tab->setItem(i, 1, stockItem);
@@ -244,7 +245,7 @@ void Sell::refreshStock()
   {
     QSlider* getSliderR = this->findChild<QSlider*>(QString::number(i));
     QLineEdit* getLine = this->findChild<QLineEdit*>(QString::number(i));
-    getLine->setText(QString::number(getItemList->at(i).getStock()));
-    getSliderR->setMaximum(getItemList->at(i).getStock());
+    getLine->setText(QString::number(getItemList->at(i).getRoundedStock()));
+    getSliderR->setMaximum(getItemList->at(i).getRoundedStock());
   }
 }

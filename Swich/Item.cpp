@@ -1,6 +1,6 @@
 #include "Item.h"
 
-Item::Item(QString addNom, int addStock, double addPrixAchat, double addPrixVente, int addPoid, QString addPix, double addAveSell, int addId)
+Item::Item(QString addNom, double addStock, double addPrixAchat, double addPrixVente, int addPoid, QString addPix, double addAveSell, int addId)
 {
   nom = addNom;
   stock = addStock;
@@ -12,7 +12,7 @@ Item::Item(QString addNom, int addStock, double addPrixAchat, double addPrixVent
   id = addId;
 }
 
-Item::Item(QString addNom, int addStock, double addPrixVente, int addId)
+Item::Item(QString addNom, double addStock, double addPrixVente, int addId)
 {
   nom = addNom;
   stock = addStock;
@@ -29,9 +29,14 @@ QString Item::getNom()
   return nom;
 }
 
-int Item::getStock()
+double Item::getStock()
 {
   return stock;
+}
+
+int Item::getRoundedStock()
+{
+  return round(stock);
 }
 
 double Item::getBuyP()
@@ -64,7 +69,7 @@ int Item::getId()
   return id;
 }
 
-void Item::setStock(int newStock)
+void Item::setStock(double newStock)
 {
   stock = newStock;
 }

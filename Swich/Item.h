@@ -1,24 +1,28 @@
 #pragma once
 #include "stdafx.h"
+#include <math.h>
 
 class Item
 {
 public:
-  Item(QString addNom, int addStock, double addPrixAchat, double addPrixVente, int addPoid, QString addPix, double addAveSell, int addId);
-  Item(QString addNom, int addStock, double addPrixVente, int addId);
+  Item(QString addNom, double addStock, double addPrixAchat, double addPrixVente, int addPoid, QString addPix, double addAveSell, int addId);
+  Item(QString addNom, double addStock, double addPrixVente, int addId);
+
   QString getNom();
-  int getStock();
+  double getStock();
+  int getRoundedStock();
   double getBuyP();
   double getSellP();
   int getPoid();
   QString getPix();
   double getAveSell();
+
   int getId();
-  void setStock(int newStock);
+  void setStock(double newStock);
 
 private:
   QString nom;
-  int stock;
+  double stock;
   double prixAchat;
   double prixVente;
   int poid;

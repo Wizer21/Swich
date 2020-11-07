@@ -12,7 +12,7 @@ void Stock::setStock()
 
   tab = new QTableWidget(listItem->size(), 7, this);
   QStringList columnName;
-  columnName << tr("View") << tr("Name") << tr("BuyP.") << tr("SellP.") << tr("Stock") << tr("City's Stocks") << tr("Mounthly Sells");
+  columnName << tr("View") << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.") << tr("City's Stocks") << tr("Mounthly Sells");
   tab->setHorizontalHeaderLabels(columnName);
 
   this->setLayout(layoutStock);
@@ -37,10 +37,10 @@ void Stock::setList()
     y = 0;
     QLabel* pixItem = new QLabel(this);
     QTableWidgetItem* nameItem = new QTableWidgetItem(listItem->at(i).getNom());
-    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(listItem->at(i).getStock()));
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
     QTableWidgetItem* buyPItem = new QTableWidgetItem(QString::number(listItem->at(i).getBuyP()));
     QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(listItem->at(i).getSellP()));
-    QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(listItem->at(i).getStock()));
+    QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
     QTableWidgetItem* mounthlySellItem = new QTableWidgetItem(QString::number(listItem->at(i).getAveSell()));
 
     tab->setCellWidget(i, y++, pixItem);
