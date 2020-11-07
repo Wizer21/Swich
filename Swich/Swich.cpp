@@ -8,20 +8,11 @@ Swich::Swich(QWidget* parent)
   turnId = 0;
   id = 0;
   bankDisplayed = 1156;
-  // TEMPORAIRE ------------
-  a = 10;
-  b = 12;
-  c = 2;
 
   setDefaultList();
   createDefaultWidget();
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
   ini(swichLayout);
-
-  // TEMPORAIRE ------------
-  widgetAnalytics->updateAnalytics(turnId++, a++, b++, c++);
-  widgetAnalytics->updateAnalytics(turnId++, a++, b++, c++);
-  widgetAnalytics->updateAnalytics(turnId++, a++, b++, c++);
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -152,6 +143,8 @@ void Swich::startNewMonth()
 {
   double temporaryBank = 0;
   double temporarySoldVol = 0;
+  double temporaryCharges = 0;
+  int addedDays = 30 + Static::randZeroToVal(5);
 
   for (int i = 0; i < cityList.size(); i++)
   {
@@ -161,10 +154,18 @@ void Swich::startNewMonth()
   }
 
   bankDisplayed += temporaryBank;
-  QString date = widgetHub->updateCurrentMonth(temporaryBank, temporarySoldVol, 30 + Static::randZeroToVal(5));
+  QString date = widgetHub->updateCurrentMonth(temporaryBank, temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(temporarySoldVol), QString::number(bankDisplayed));
 
   moneyMovements.insert(moneyMovements.begin(), temporaryBank);
   historyBank.insert(historyBank.begin(), bankDisplayed);
   historySoldVol.insert(historySoldVol.begin(), temporarySoldVol);
+
+  //Update Widgets
+  widgetSell->refreshTable();
+  QString prod_Cost = widgetProduction->newMonthProd(addedDays);
+  QStringList listProd_Cost = prod_Cost.split("$");
+  temporaryCharges += listProd_Cost.at(1).toDouble();
+
+  widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
 }

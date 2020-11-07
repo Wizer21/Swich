@@ -100,6 +100,7 @@
     <ClCompile Include="City.cpp" />
     <QtMoc Include="Chat.h" />
     <ClInclude Include="City.h" />
+    <ClInclude Include="Factory.h" />
     <ClInclude Include="Contact.h" />
     <ClInclude Include="Dragwidget.h" />
     <QtMoc Include="DropWidget.h" />
@@ -111,6 +112,7 @@
     <QtMoc Include="Swich.h" />
     <ClCompile Include="Ad.cpp" />
     <ClCompile Include="Analytics.cpp" />
+    <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Contact.cpp" />
     <ClCompile Include="Dragwidget.cpp" />
     <ClCompile Include="DropWidget.cpp" />

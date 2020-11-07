@@ -230,3 +230,12 @@ void Sell::validate()
     widgetToDelete.erase(widgetToDelete.begin() + i);
   }
 }
+
+void Sell::refreshTable()
+{
+  for (int i = 0; i < getCityList->size(); i++)
+  {
+    QTableWidget* getTable = this->findChild<QTableWidget*>(QString::number(i));
+    setTabCity(getTable, getCityList->at(i).getList());
+  }
+}

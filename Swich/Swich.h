@@ -34,10 +34,6 @@ private:
   int turnId;
   int id;
   double bankDisplayed;
-  // TEMPORAIRE ------------
-  double a;
-  double b;
-  double c;
 
   QStackedWidget* swichZoneWidget;
   Hub* widgetHub;

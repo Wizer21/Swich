@@ -7,5 +7,12 @@ double Static::randZeroToVal(int val)
 
 double Static::randNegativeIntToPercentage(int val)
 {
-  return (rand() % val - (rand() % val) * 2) * 0.01;
+  int positive = rand() % val;
+  int negative = (rand() % val) * 2;
+  return val * 0.01;
+}
+
+double Static::randOnlyPositivePercentage(int val)
+{
+  return rand() % val * 0.01;
 }

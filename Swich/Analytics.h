@@ -16,12 +16,10 @@ class Analytics : public QWidget
 
 public:
   Analytics();
-  void updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges);
+  void updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction);
 
 private slots:
-  void graphVolumes();
-  void graphBank();
-  void graphCharges();
+  void setDisplayedGraph();
 
 private:
   QStackedWidget* widgetRight;
@@ -32,10 +30,13 @@ private:
   QLineSeries* sellSeries;
   QLineSeries* bankSeries;
   QLineSeries* chargeSeries;
+  QLineSeries* productionSeries;
 
+  int idGraph;
   double maxVolume;
   double maxBank;
   double maxCharges;
+  double maxProduction;
 
   QValueAxis* axeVVolumes;
   QValueAxis* axeHVolumes;
@@ -43,4 +44,6 @@ private:
   QValueAxis* axeHBank;
   QValueAxis* axeVCharges;
   QValueAxis* axeHCharges;
+  QValueAxis* axeVProduction;
+  QValueAxis* axeHProduction;
 };

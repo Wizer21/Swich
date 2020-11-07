@@ -12,6 +12,7 @@ class Sell : public QWidget
 
 public:
   Sell(std::vector<Item>& item, std::vector<City>& city);
+  void refreshTable();
 
 private slots:
   void dynamicStockSender(int vol);
