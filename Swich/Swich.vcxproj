@@ -101,6 +101,8 @@
     <QtMoc Include="Chat.h" />
     <ClInclude Include="City.h" />
     <QtMoc Include="Credits.h" />
+    <ClInclude Include="DragEmployee.h" />
+    <QtMoc Include="DropEmployee.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Contact.h" />
     <ClInclude Include="Dragwidget.h" />
@@ -115,6 +117,8 @@
     <ClCompile Include="Ad.cpp" />
     <ClCompile Include="Analytics.cpp" />
     <ClCompile Include="Credits.cpp" />
+    <ClCompile Include="DragEmployee.cpp" />
+    <ClCompile Include="DropEmployee.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Contact.cpp" />
     <ClCompile Include="Dragwidget.cpp" />
@@ -128,7 +132,7 @@
     <ClCompile Include="Stock.cpp" />
     <ClCompile Include="Swich.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClInclude Include="Ad.h" />
+    <QtMoc Include="Ad.h" />
     <QtMoc Include="Analytics.h" />
     <QtMoc Include="Hub.h" />
     <ClInclude Include="Item.h" />

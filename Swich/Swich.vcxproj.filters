@@ -95,12 +95,15 @@
     <ClCompile Include="Credits.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DragEmployee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DropEmployee.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="City.h">
@@ -119,6 +122,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Factory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DragEmployee.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -145,6 +151,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Credits.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="DropEmployee.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Ad.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
