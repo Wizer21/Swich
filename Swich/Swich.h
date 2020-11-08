@@ -37,7 +37,7 @@ private:
   void ini(QGridLayout* widget);
   void createDefaultWidget();
   void setDefaultList();
-  void addProductionToInventory(double production);
+  double addProductionToInventory(double production);
 
   int turnId;
   int id;

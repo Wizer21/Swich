@@ -14,16 +14,16 @@ void Factory::newMonthFactory(int days)
 {
   calculEvolution();
   expodentialProduction(days);
-  productionCost = dailyProduction * 3.0;
-  productionCost += Static::randNegativeIntToPercentage(5);
 }
 
 void Factory::expodentialProduction(int days)
 {
   dailyProduction = 1;
+  productionCost = 100;
   for (int i = 0; i < level; i++)
   {
     dailyProduction *= 1.5;
+    productionCost *= 1.2;
   }
   dailyProduction *= randProd;
   dailyProduction *= days;

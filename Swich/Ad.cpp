@@ -4,6 +4,7 @@ Ad::Ad()
   : QWidget()
 {
   idEmploye = 0;
+  day = 0;
   setAd();
 }
 
@@ -30,9 +31,13 @@ void Ad::setAd()
   QLabel* newEmploye = new QLabel(tr("New"), this);
   displayNewEmploye = new QWidget(this);
 
+  DropEmployee* trash = new DropEmployee(this);
+  QVBoxLayout* trashlayout = new QVBoxLayout(this);
+  QLabel* trashlabel = new QLabel(this);
+
   iniGraph();
   this->setLayout(layoutAd);
-  layoutAd->addWidget(graphAd, 0, 0, 2, 2);
+  layoutAd->addWidget(graphAd, 0, 0, 2, 3);
 
   layoutAd->addWidget(managment, 2, 0, 1, 1);
   layoutAd->addWidget(manager, 3, 0, 1, 1);
@@ -49,8 +54,12 @@ void Ad::setAd()
   artisana->setLayout(layoutArtisan);
   layoutArtisan->addWidget(widgetArtisanaTempo);
 
-  layoutAd->addWidget(newEmploye, 0, 2, 1, 1);
-  layoutAd->addWidget(displayNewEmploye, 1, 2, 1, 1);
+  layoutAd->addWidget(newEmploye, 0, 3, 1, 1);
+  layoutAd->addWidget(displayNewEmploye, 1, 3, 2, 1);
+
+  layoutAd->addWidget(trash, 3, 3, 1, 1);
+  trash->setLayout(trashlayout);
+  trashlayout->addWidget(trashlabel);
 
   manager->setObjectName("0");
   designer->setObjectName("1");
@@ -64,11 +73,17 @@ void Ad::setAd()
   widgetDesignerTempo->setObjectName("a1");
   widgetArtisanaTempo->setObjectName("a2");
   displayNewEmploye->setObjectName("new");
+  trash->setObjectName("trash");
   callNewEmploye();
+
+  QPixmap pix(":/Swich/trash-can-outline.png");
+  pix = pix.scaled(100, 100);
+  trashlabel->setPixmap(pix);
 
   connect(manager, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
   connect(designer, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
   connect(artisana, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
+  connect(trash, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
 }
 
 QChart* Ad::iniGraph()
@@ -97,23 +112,64 @@ void Ad::callNewEmploye()
   delete getNew;
   getNew = nullptr;
 
-  DragEmployee* newEmplo1 = new DragEmployee("0", 1, "Bob", "Web", 1531, -1, -1);
-  layoutAd->addWidget(newEmplo1, 1, 2, 1, 1);
+  DragEmployee* newEmplo1 = new DragEmployee("0", "Bob", "Web");
+  layoutAd->addWidget(newEmplo1, 1, 3, 2, 1);
   newEmplo1->setObjectName("new");
+}
+
+QString Ad::getSalary_Production(int addDays)
+{
+  int lvls = 0;
+  int salary = 0;
+  double efficiency = 1;
+  day += addDays;
+
+  for (int i = 0; i < employeList.size(); i++)
+  {
+    lvls += employeList.at(i)->getLvl();
+  }
+  for (int i = 0; i < lvls; i++)
+  {
+    efficiency += 0.1 + Static::randOnlyPositivePercentage(15);
+  }
+  for (int i = 0; i < employeList.size(); i++)
+  {
+    salary += employeList.at(i)->getSalary();
+    lvls += employeList.at(i)->getLvl();
+  }
+  if (day < 30)
+  {
+    salary = 0;
+  }
+  else
+  {
+    day -= 30;
+  }
+
+  callNewEmploye();
+  return QString("%1$%2").arg(salary).arg(efficiency);
 }
 
 void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos)
 {
-  QWidget* oldEmploye = this->findChild<QWidget*>("a" + sender()->objectName());
-  delete oldEmploye;
-  oldEmploye = nullptr;
-
-  DragEmployee* newEmplo1 = new DragEmployee("0", 1, "Marcel", "Web", 1531, -1, -1);
-  layoutAd->addWidget(newEmplo1, 1, 2, 1, 1);
-  newEmplo1->setObjectName("new");
-
   bool emptyDestination = true;
-
+  if (sender()->objectName() == "trash")
+  {
+    if (pos == -1)
+    {
+      return;
+    }
+    for (int i = 0; i < employeList.size(); i++)
+    {
+      if (employeList.at(i)->getId() == id)
+      {
+        delete employeList.at(i);
+        employeList.at(i) = nullptr;
+        employeList.erase(employeList.begin() + i);
+        return;
+      }
+    }
+  }
   if (id == -1)
   {
     QWidget* getNewE = this->findChild<QWidget*>("new");
@@ -167,7 +223,7 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
         pos1 = employeList.at(i)->getPos();
         pos1List = i;
       }
-      if (employeList.at(i)->getPos() == sender()->objectName().toInt())
+      else if (employeList.at(i)->getPos() == sender()->objectName().toInt())
       {
         pos2 = employeList.at(i)->getPos();
         pos2List = i;

@@ -56,8 +56,9 @@ void City::eraseIfEmpty()
   }
 }
 
-QString City::randSells()
+QString City::randSells(double valAd)
 {
+  int sold = 1 + Static::randZeroToVal(5);
   double newBank = 0;
   int newVolSold = 0;
   int SoldQuantity;
@@ -67,7 +68,7 @@ QString City::randSells()
     stockCurrentItem = cityItemList.at(i).getStock();
     if (stockCurrentItem != 0)
     {
-      SoldQuantity = stockCurrentItem * popularity + Static::randNegativeIntToPercentage(SoldQuantity * 5);
+      SoldQuantity = sold * valAd;
 
       if (stockCurrentItem - SoldQuantity < 0)
       {

@@ -7,7 +7,7 @@ Swich::Swich(QWidget* parent)
   ui.setupUi(this);
   turnId = 0;
   id = 0;
-  bankDisplayed = 1156;
+  bankDisplayed = 11560;
 
   setDefaultList();
   createDefaultWidget();
@@ -111,9 +111,9 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 10, 10, 20, 100, "", 0, 0);
-  Item item2("Hubble", 5, 20, 40, 200, "", 0, 1);
-  Item item3("ISS", 0, 30, 50, 300, ":/Swich/iss.png", 0, 2);
+  Item item1("Ariane", 10, 10, 30, 100, "", 0, 0);
+  Item item2("Hubble", 5, 18, 50, 200, "", 0, 1);
+  Item item3("ISS", 0, 25, 75, 300, ":/Swich/iss.png", 0, 2);
 
   itemList.push_back(item1);
   itemList.push_back(item2);
@@ -160,22 +160,28 @@ void Swich::startNewMonth()
   double temporaryGain = 0;
   double temporarySoldVol = 0;
   double temporaryCharges = 0;
-  int addedDays = 30 + Static::randZeroToVal(5);
-
-  for (int i = 0; i < cityList.size(); i++)
-  {
-    QStringList getValue = (cityList.at(i).randSells()).split("$");
-    temporaryGain += getValue.at(0).toInt();
-    temporarySoldVol += getValue.at(1).toInt();
-  }
+  int addedDays = 25 + Static::randZeroToVal(10);
 
   //Update Widgets
   QString prod_Cost = widgetProduction->newMonthProd(addedDays);
   QStringList listProd_Cost = prod_Cost.split("$");
   temporaryCharges += listProd_Cost.at(1).toDouble();
+  //AD
+  QString salary_Efficiency = widgetAd->getSalary_Production(addedDays);
+  QStringList splitSalary_Efficiency = salary_Efficiency.split("$");
+  //city Sell
+  for (int i = 0; i < cityList.size(); i++)
+  {
+    QStringList getValue = (cityList.at(i).randSells(splitSalary_Efficiency.at(1).toDouble())).split("$");
+    temporaryGain += getValue.at(0).toInt();
+    temporarySoldVol += getValue.at(1).toInt();
+  }
+
+  temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
+
+  temporaryCharges += splitSalary_Efficiency.at(0).toInt();
 
   bankDisplayed += temporaryGain - temporaryCharges;
-
   sold->setText(QString::number(bankDisplayed));
   QString date = widgetHub->updateCurrentMonth(temporaryGain, temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(temporarySoldVol), QString::number(bankDisplayed));
@@ -185,23 +191,25 @@ void Swich::startNewMonth()
   historySoldVol.insert(historySoldVol.begin(), temporarySoldVol);
 
   widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
-  addProductionToInventory(listProd_Cost.at(0).toDouble());
   widgetHub->updateLabels(historyBank, historySoldVol);
   widgetSell->refreshStock();
   widgetStock->setList();
 }
 
-void Swich::addProductionToInventory(double production)
+double Swich::addProductionToInventory(double production)
 {
   int items = itemList.size();
   int nrbIteration = 15 + Static::randZeroToVal(10);
   double prodToPush = production / nrbIteration;
+  double price = 0;
 
   for (int i = 0; i < nrbIteration; i++)
   {
     int randoItem = Static::randZeroToVal(items);
     itemList.at(randoItem).setStock(itemList.at(randoItem).getStock() + prodToPush);
+    price += itemList.at(randoItem).getBuyP() * prodToPush;
   }
+  return price;
 }
 
 void Swich::applyUpgradeFactory(int cost, int id)

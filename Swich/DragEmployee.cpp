@@ -1,17 +1,5 @@
 #include "DragEmployee.h"
 
-DragEmployee::DragEmployee(DragEmployee* getEmploye)
-{
-  idPhoto = getEmploye->idPhoto;
-  level = getEmploye->level;
-  name = getEmploye->name;
-  talent = getEmploye->talent;
-  salary = getEmploye->salary;
-  id = getEmploye->id;
-  pos = getEmploye->pos;
-  ini();
-}
-
 DragEmployee::DragEmployee(QString addIdPhoto, int addLevel, QString addName, QString addTalent, int addSalary, int addId, int addPos)
 {
   idPhoto = addIdPhoto;
@@ -21,6 +9,18 @@ DragEmployee::DragEmployee(QString addIdPhoto, int addLevel, QString addName, QS
   salary = addSalary;
   id = addId;
   pos = addPos;
+  ini();
+}
+DragEmployee::DragEmployee(QString addIdPhoto, QString addName, QString addTalent)
+{
+  idPhoto = addIdPhoto;
+  level = 0;
+  name = addName;
+  talent = addTalent;
+  salary = 0;
+  id = -1;
+  pos = -1;
+  calculRandStats();
   ini();
 }
 
@@ -39,6 +39,30 @@ void DragEmployee::ini()
   layoutEmployee->addWidget(displayName, 1, 0);
   layoutEmployee->addWidget(displayTalent, 2, 0);
   layoutEmployee->addWidget(displaySalary, 3, 0);
+}
+
+void DragEmployee::calculRandStats()
+{
+  //Level
+  bool diceValidated = true;
+  int dice = 0;
+  level = 0;
+  while (diceValidated)
+  {
+    level += 1;
+    dice = Static::randZeroToVal(100);
+    if (dice < 25)
+    {
+      diceValidated = false;
+    }
+  }
+  //Salary
+  double calculSalary = 400 + Static::randZeroToVal(500);
+  for (int i = 0; i < level; i++)
+  {
+    calculSalary *= (1.15 + Static::randOnlyPositivePercentage(20));
+  }
+  salary = calculSalary;
 }
 
 void DragEmployee::mouseMoveEvent(QMouseEvent* event)
@@ -68,4 +92,14 @@ int DragEmployee::getId()
 void DragEmployee::setPos(int addPos)
 {
   pos = addPos;
+}
+
+int DragEmployee::getSalary()
+{
+  return salary;
+}
+
+int DragEmployee::getLvl()
+{
+  return level;
 }
