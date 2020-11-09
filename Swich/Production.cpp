@@ -14,21 +14,30 @@ void Production::setProduction()
   layoutProduction = new QGridLayout(this);
 
   QWidget* widgetText = new QWidget(this);
-  QHBoxLayout* layoutText = new QHBoxLayout(this);
-  QLabel* dailyProduction = new QLabel("Contain Daily prod", this);
-  lockedFactory1 = new QPushButton("Locked \n" + QString::number(lockedPrice1), this);
-  lockedFactory2 = new QPushButton("Locked \n" + QString::number(lockedPrice2), this);
+  QVBoxLayout* layoutText = new QVBoxLayout(this);
+  QLabel* dailyProduction = new QLabel(tr("Last iteration production"), this);
+  displayProduction = new QLabel("0", this);
+  lockedFactory1 = new QPushButton(tr("Locked \n") + QString::number(lockedPrice1), this);
+  lockedFactory2 = new QPushButton(tr("Locked \n") + QString::number(lockedPrice2), this);
 
   this->setLayout(layoutProduction);
 
   layoutProduction->addWidget(widgetText, 0, 0);
   widgetText->setLayout(layoutText);
   layoutText->addWidget(dailyProduction);
+  layoutText->addWidget(displayProduction);
 
   layoutProduction->addWidget(newFactoryWidget(), 1, 0);
   layoutProduction->addWidget(lockedFactory1, 0, 1);
   layoutProduction->addWidget(lockedFactory2, 1, 1);
 
+  layoutText->setSpacing(0);
+  layoutText->setAlignment(Qt::AlignBottom);
+  dailyProduction->setAlignment(Qt::AlignRight);
+  displayProduction->setAlignment(Qt::AlignRight);
+  QFont font(qApp->font());
+  font.setPixelSize(50);
+  displayProduction->setFont(font);
   lockedFactory1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   lockedFactory2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   lockedFactory1->setObjectName("a0");
@@ -84,6 +93,7 @@ QString Production::newMonthProd(int days)
     totalCost += listFactory.at(i).getCost();
   }
   updateWidgets();
+  displayProduction->setText(QString::number(round(totalProduction)));
 
   return QString("%1$%2").arg(totalProduction).arg(totalCost);
 }

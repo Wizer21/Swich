@@ -58,6 +58,7 @@ void Analytics::createGraph()
   QChart* sellVolume = new QChart();
 
   sellSeries = new QLineSeries();
+  sellSeries->setName(tr("Sales Volumer"));
 
   sellVolume->addSeries(sellSeries);
 
@@ -78,6 +79,7 @@ void Analytics::createGraph()
   QChart* bank = new QChart();
 
   bankSeries = new QLineSeries();
+  bankSeries->setName(tr("Bank"));
 
   bank->addSeries(bankSeries);
 
@@ -99,6 +101,7 @@ void Analytics::createGraph()
   QChart* charge = new QChart();
 
   chargeSeries = new QLineSeries();
+  chargeSeries->setName(tr("Charges"));
 
   charge->addSeries(chargeSeries);
 
@@ -120,6 +123,7 @@ void Analytics::createGraph()
   QChart* production = new QChart();
 
   productionSeries = new QLineSeries();
+  productionSeries->setName(tr("Production"));
 
   production->addSeries(productionSeries);
 

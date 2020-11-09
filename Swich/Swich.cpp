@@ -8,7 +8,6 @@ Swich::Swich(QWidget* parent)
   turnId = 0;
   id = 0;
   bankDisplayed = 11560;
-
   setDefaultList();
   createDefaultWidget();
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
@@ -184,7 +183,7 @@ void Swich::startNewMonth()
   bankDisplayed += temporaryGain - temporaryCharges;
 
   sold->setText(QString::number(bankDisplayed));
-  QString date = widgetHub->updateCurrentMonth(temporaryGain, temporarySoldVol, addedDays);
+  QString date = widgetHub->updateCurrentMonth(evoBanque, temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
   moneyMovements.insert(moneyMovements.begin(), temporaryGain);

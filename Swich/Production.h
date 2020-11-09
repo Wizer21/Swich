@@ -1,5 +1,6 @@
 #pragma once
 #include <qwidget.h>
+#include <math.h>
 #include "stdafx.h"
 #include "Factory.h"
 #include "Static.h"
@@ -31,6 +32,7 @@ private:
   QWidget* newFactoryWidget();
   void updateWidgets();
 
+  QLabel* displayProduction;
   QGridLayout* layoutProduction;
   QPushButton* lockedFactory1;
   QPushButton* lockedFactory2;

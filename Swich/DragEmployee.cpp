@@ -30,17 +30,15 @@ void DragEmployee::ini()
 {
   QGridLayout* layoutEmployee = new QGridLayout(this);
   QLabel* displayPix = new QLabel(this);
-  QLabel* displayLvl = new QLabel(QString::number(level), this);
+  QLabel* displayLvl = new QLabel(note, this);
   QLabel* displayName = new QLabel(name, this);
-  QLabel* displayTalent = new QLabel(note, this);
   QLabel* displaySalary = new QLabel(QString::number(salary), this);
 
   this->setLayout(layoutEmployee);
   layoutEmployee->addWidget(displayPix, 0, 0);
   layoutEmployee->addWidget(displayLvl, 0, 1);
   layoutEmployee->addWidget(displayName, 1, 0);
-  layoutEmployee->addWidget(displayTalent, 2, 0);
-  layoutEmployee->addWidget(displaySalary, 3, 0);
+  layoutEmployee->addWidget(displaySalary, 2, 0);
 }
 
 void DragEmployee::calculRandStats()
@@ -59,10 +57,10 @@ void DragEmployee::calculRandStats()
     }
   }
   //Salary
-  double calculSalary = 400 + Static::randZeroToVal(500);
+  double calculSalary = 350 + Static::randZeroToVal(300);
   for (int i = 0; i < level; i++)
   {
-    calculSalary *= (1.10 + Static::randOnlyPositivePercentage(15));
+    calculSalary *= (1.10 + Static::randOnlyPositivePercentage(10));
   }
   salary = calculSalary;
   note = calculNote(level);

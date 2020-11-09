@@ -3,6 +3,8 @@
 Credits::Credits(QWidget* parent)
   : QDialog(parent)
 {
+  this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+  this->setAttribute(Qt::WA_DeleteOnClose);
   QVBoxLayout* layout = new QVBoxLayout(this);
   ini(layout);
 }

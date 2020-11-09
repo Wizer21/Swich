@@ -6,6 +6,7 @@
 #include "Dragwidget.h"
 #include "DropWidget.h"
 #include "Stock.h"
+#include "Jumpslider.h"
 
 class Sell : public QWidget
 {

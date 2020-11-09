@@ -3,6 +3,8 @@
 Options::Options(QWidget* parent)
   : QDialog(parent)
 {
+  this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+  this->setAttribute(Qt::WA_DeleteOnClose);
   QVBoxLayout* layoutOption = new QVBoxLayout(this);
   ini(layoutOption);
 }

@@ -49,7 +49,10 @@ void Hub::setHub()
   gridRight->addWidget(displaySells, 1, 0, 1, 1);
   gridRight->addWidget(displayDate, 2, 0, 1, 1);
 
-  displayGain->setFont(QFont("", 50));
+  gridRight->setSpacing(50);
+  QFont font(qApp->font());
+  font.setPixelSize(50);
+  displayGain->setFont(font);
 
   //bot
   layoutHub->addWidget(widgetHubBot, 1, 0, 1, 2);
@@ -86,7 +89,14 @@ void Hub::updateLabels(std::vector<double> bankHisto, std::vector<int> volHisto)
 
 QString Hub::updateCurrentMonth(int gain, int sells, int addDays)
 {
-  displayGain->setText("+" + QString::number(gain));
+  QString cGain = QString::number(gain);
+
+  if (gain >= 0)
+  {
+    cGain.insert(0, "+");
+  }
+
+  displayGain->setText(cGain);
   displaySells->setText(QString::number(sells) + tr("Items Sells"));
 
   day += addDays;
@@ -111,7 +121,6 @@ QString Hub::updateCurrentMonth(int gain, int sells, int addDays)
     yearToStr = yearToStr.right(2);
   }
   else
-    ;
   {
     yearToStr = QString::number(year).rightJustified(2, '0');
   }
@@ -138,8 +147,8 @@ void Hub::setDefaultWidgets()
 
     layoutGridBot->addWidget(widgetContainerT);
     widgetContainerT->setLayout(gridLayoutWT);
-    gridLayoutWT->addWidget(dateCT, 0, 0, 1, 2);
-    gridLayoutWT->addWidget(gainCT, 1, 0, 1, 1);
+    gridLayoutWT->addWidget(dateCT, 0, 0, 1, 3);
+    gridLayoutWT->addWidget(gainCT, 1, 0, 1, 3);
     gridLayoutWT->addWidget(bankCT, 2, 1, 1, 2);
 
     date.insert(date.begin(), dateCT);
@@ -148,6 +157,9 @@ void Hub::setDefaultWidgets()
 
     layoutGridBot->addWidget(widgetContainerT, 0, pos--);
 
+    gainCT->setAlignment(Qt::AlignRight);
+    bankCT->setAlignment(Qt::AlignRight);
+    gridLayoutWT->setSpacing(0);
     gainCT->setFont(QFont("", 20));
   }
 }

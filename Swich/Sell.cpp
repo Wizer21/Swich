@@ -18,7 +18,7 @@ void Sell::setSell()
 
   tabWidget = new QTabWidget(this);
 
-  QPushButton* validSend = new QPushButton(tr("Validate"), this);
+  QPushButton* validSend = new QPushButton(tr("Validate all"), this);
 
   this->setLayout(layoutSell);
 
@@ -46,7 +46,7 @@ void Sell::setList(QVBoxLayout* layout)
     QGridLayout* layoutGrid = new QGridLayout(this);
     QLabel* titre = new QLabel(getItemList->at(i).getNom(), this);
     QLineEdit* stock = new QLineEdit(QString::number(getItemList->at(i).getRoundedStock()), this);
-    QSlider* slider = new QSlider(Qt::Horizontal, this);
+    Jumpslider* slider = new Jumpslider(Qt::Horizontal, this);
 
     widgetContainer->setObjectName(QString::number(id));
     stock->setObjectName(QString::number(id));
@@ -124,9 +124,10 @@ void Sell::setCity(QTabWidget* tab)
 
 void Sell::setNewItem(QString nom, QString vol, int id)
 {
-  if (this->findChild<QWidget*>(QString::number(id) + "d"))
+  QString pos = QString("%1d%2").arg(id).arg(tabWidget->currentIndex());
+  if (this->findChild<QWidget*>(pos))
   {
-    QLineEdit* getLine = this->findChild<QLineEdit*>(QString::number(id) + "d");
+    QLineEdit* getLine = this->findChild<QLineEdit*>(pos);
     QString stockStock = getLine->text();
     getLine->setText(QString::number(stockStock.toInt() + vol.toInt()));
   }
@@ -148,9 +149,9 @@ void Sell::setNewItem(QString nom, QString vol, int id)
     volDragged->setDisabled(true);
     volDragged->setAcceptDrops(false);
     volDragged->isReadOnly();
-    volDragged->setObjectName(QString::number(id) + "d");
-    draggedItem->setObjectName(QString::number(id) + "d");
-    kill->setObjectName(QString::number(id) + "d");
+    volDragged->setObjectName(pos);
+    draggedItem->setObjectName(pos);
+    kill->setObjectName(pos);
     widgetToDelete.push_back(draggedItem);
 
     connect(kill, SIGNAL(clicked()), this, SLOT(cancelSell()));
