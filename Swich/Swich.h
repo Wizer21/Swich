@@ -16,6 +16,7 @@
 #include "Static.h"
 #include "Options.h"
 #include "Credits.h"
+#include <math.h>
 
 class Swich : public QMainWindow
 {

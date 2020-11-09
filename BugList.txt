@@ -1,2 +1,4 @@
 sell::
-changer le slider d'un item déjà drag emèche de delete
+Impossible de grad deux fois le même item dans deux villes, le deuxème n'apparait pas
+
+clicker sur un employe -> nullpt

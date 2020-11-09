@@ -22,7 +22,7 @@ void Factory::expodentialProduction(int days)
   productionCost = 100;
   for (int i = 0; i < level; i++)
   {
-    dailyProduction *= 1.5;
+    dailyProduction *= 1.3;
     productionCost *= 1.2;
   }
   dailyProduction *= randProd;

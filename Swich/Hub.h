@@ -22,6 +22,7 @@ signals:
 private:
   void setHub();
   void setDefaultWidgets();
+  void setColorScroll();
 
   QLabel* bankEvo;
   QLabel* prodEvo;

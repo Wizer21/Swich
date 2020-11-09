@@ -42,6 +42,7 @@ void Analytics::setAnalytics()
   evoCharges->setObjectName(QString::number(idGraph++));
   evoProduction->setObjectName(QString::number(idGraph++));
 
+  widgetList->setAlignment(Qt::AlignCenter);
   widgetRight->setCurrentIndex(1);
 
   connect(volVente, SIGNAL(clicked()), this, SLOT(setDisplayedGraph()));

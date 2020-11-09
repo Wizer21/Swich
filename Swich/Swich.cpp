@@ -111,9 +111,9 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 10, 10, 30, 100, "", 0, 0);
-  Item item2("Hubble", 5, 18, 50, 200, "", 0, 1);
-  Item item3("ISS", 0, 25, 75, 300, ":/Swich/iss.png", 0, 2);
+  Item item1("Ariane", 10, 5, 35, 100, "", 0, 0);
+  Item item2("Hubble", 5, 18, 68, 200, "", 0, 1);
+  Item item3("ISS", 0, 20, 75, 300, ":/Swich/iss.png", 0, 2);
 
   itemList.push_back(item1);
   itemList.push_back(item2);
@@ -180,11 +180,12 @@ void Swich::startNewMonth()
   temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
 
   temporaryCharges += splitSalary_Efficiency.at(0).toInt();
-
+  double evoBanque = temporaryGain - temporaryCharges;
   bankDisplayed += temporaryGain - temporaryCharges;
+
   sold->setText(QString::number(bankDisplayed));
   QString date = widgetHub->updateCurrentMonth(temporaryGain, temporarySoldVol, addedDays);
-  widgetHub->updateAndScrollWidgets(date, QString::number(temporarySoldVol), QString::number(bankDisplayed));
+  widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
   moneyMovements.insert(moneyMovements.begin(), temporaryGain);
   historyBank.insert(historyBank.begin(), bankDisplayed);
