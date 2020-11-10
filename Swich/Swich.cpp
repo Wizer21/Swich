@@ -182,7 +182,7 @@ void Swich::startNewMonth()
   double evoBanque = temporaryGain - temporaryCharges;
   bankDisplayed += temporaryGain - temporaryCharges;
 
-  sold->setText(QString::number(bankDisplayed));
+  sold->setText(QString::number(round(bankDisplayed)));
   QString date = widgetHub->updateCurrentMonth(evoBanque, temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
@@ -219,7 +219,7 @@ void Swich::applyUpgradeFactory(int cost, int id)
     return;
   }
   bankDisplayed -= cost;
-  sold->setText(QString::number(bankDisplayed));
+  sold->setText(QString::number(round(bankDisplayed)));
   widgetProduction->validatedUpgrade(id);
 }
 
@@ -230,7 +230,7 @@ void Swich::applyNewFactory(int cost, int id)
     return;
   }
   bankDisplayed -= cost;
-  sold->setText(QString::number(bankDisplayed));
+  sold->setText(QString::number(round(bankDisplayed)));
   widgetProduction->validateNewFactory(id);
 }
 

@@ -54,19 +54,25 @@ QWidget* Production::newFactoryWidget()
 {
   QWidget* widgetFactory = new QWidget(this);
   QGridLayout* layoutWidget = new QGridLayout(this);
+  QLabel* iconFactory = new QLabel(this);
   QLabel* displayLevel = new QLabel(this);
-  QLabel* displayProduction = new QLabel(this);
+  QLabel* displayProductionFactory = new QLabel(this);
   QPushButton* upgrade = new QPushButton(this);
 
   widgetFactory->setLayout(layoutWidget);
-  layoutWidget->addWidget(displayLevel, 0, 0);
-  layoutWidget->addWidget(displayProduction, 1, 0);
+  layoutWidget->addWidget(iconFactory, 0, 0);
+  layoutWidget->addWidget(displayLevel, 0, 1);
+  layoutWidget->addWidget(displayProductionFactory, 1, 0);
   layoutWidget->addWidget(upgrade, 1, 1);
 
   levelList.push_back(displayLevel);
-  productionlist.push_back(displayProduction);
+  productionlist.push_back(displayProductionFactory);
   upgradeList.push_back(upgrade);
 
+  QPixmap pix(":/Swich/factoryDark.png");
+  pix = pix.scaled(40, 40);
+  iconFactory->setPixmap(pix);
+  upgrade->setIcon(QIcon(":/Swich/cash-multiple.png"));
   upgrade->setObjectName(QString::number(idButton++));
   connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
   return widgetFactory;
@@ -76,8 +82,8 @@ void Production::updateWidgets()
 {
   for (int i = 0; i < listFactory.size(); i++)
   {
-    levelList.at(i)->setText(QString::number(listFactory.at(i).getLevel()));
-    productionlist.at(i)->setText(QString::number(listFactory.at(i).getProduction()));
+    levelList.at(i)->setText("Lvl " + QString::number(listFactory.at(i).getLevel()));
+    productionlist.at(i)->setText(QString::number(round(listFactory.at(i).getProduction())));
     upgradeList.at(i)->setText(QString::number(listFactory.at(i).getNextUpgrade()));
   }
 }
@@ -109,7 +115,7 @@ void Production::validatedUpgrade(int id)
 {
   listFactory.at(id).upgradeAccepted();
   upgradeList.at(id)->setText(QString::number(listFactory.at(id).getNextUpgrade()));
-  levelList.at(id)->setText(QString::number(listFactory.at(id).getLevel()));
+  levelList.at(id)->setText("Lvl " + QString::number(listFactory.at(id).getLevel()));
 }
 
 void Production::askNewFactory()

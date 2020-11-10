@@ -18,15 +18,15 @@ void Ad::setAd()
 
   DropEmployee* manager = new DropEmployee(this);
   QVBoxLayout* layoutManager = new QVBoxLayout(this);
-  QWidget* widgetManageTempo = new QWidget(this);
+  //QWidget* widgetManageTempo = new QWidget(this);
 
   DropEmployee* designer = new DropEmployee(this);
   QVBoxLayout* layoutDesigner = new QVBoxLayout(this);
-  QWidget* widgetDesignerTempo = new QWidget(this);
+  //QWidget* widgetDesignerTempo = new QWidget(this);
 
   DropEmployee* artisana = new DropEmployee(this);
   QVBoxLayout* layoutArtisan = new QVBoxLayout(this);
-  QWidget* widgetArtisanaTempo = new QWidget(this);
+  //QWidget* widgetArtisanaTempo = new QWidget(this);
 
   QLabel* newEmploye = new QLabel(tr("New"), this);
   displayNewEmploye = new QWidget(this);
@@ -42,15 +42,15 @@ void Ad::setAd()
 
   layoutAd->addWidget(manager, 3, 0, 1, 1);
   manager->setLayout(layoutManager);
-  layoutManager->addWidget(widgetManageTempo);
+  //layoutManager->addWidget(widgetManageTempo);
 
   layoutAd->addWidget(designer, 3, 1, 1, 1);
   designer->setLayout(layoutDesigner);
-  layoutDesigner->addWidget(widgetDesignerTempo);
+  //layoutDesigner->addWidget(widgetDesignerTempo);
 
   layoutAd->addWidget(artisana, 3, 2, 1, 1);
   artisana->setLayout(layoutArtisan);
-  layoutArtisan->addWidget(widgetArtisanaTempo);
+  //layoutArtisan->addWidget(widgetArtisanaTempo);
 
   layoutAd->addWidget(newEmploye, 0, 3, 1, 1);
   layoutAd->addWidget(displayNewEmploye, 1, 3, 2, 1);
@@ -67,9 +67,9 @@ void Ad::setAd()
   layoutDesigner->setObjectName("l1");
   layoutArtisan->setObjectName("l2");
 
-  widgetManageTempo->setObjectName("a0");
-  widgetDesignerTempo->setObjectName("a1");
-  widgetArtisanaTempo->setObjectName("a2");
+  //widgetManageTempo->setObjectName("a0");
+  //widgetDesignerTempo->setObjectName("a1");
+  //widgetArtisanaTempo->setObjectName("a2");
   displayNewEmploye->setObjectName("new");
   trash->setObjectName("trash");
   callNewEmploye();
@@ -159,6 +159,9 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
   }
   if (id == -1)
   {
+    //QWidget* defaultWidget = this->findChild<QWidget*>("a" + sender()->objectName());
+    //delete defaultWidget;
+    //defaultWidget = nullptr;
     QWidget* getNewE = this->findChild<QWidget*>("new");
     delete getNewE;
     getNewE = nullptr;
@@ -212,7 +215,7 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
         pos1 = employeList.at(i)->getPos();
         pos1List = i;
       }
-      else if (employeList.at(i)->getPos() == sender()->objectName().toInt())
+      if (employeList.at(i)->getPos() == sender()->objectName().toInt())
       {
         pos2 = employeList.at(i)->getPos();
         pos2List = i;

@@ -5,5 +5,7 @@
         <file>iss.png</file>
         <file>SwichLogo.png</file>
         <file>trash-can-outline.png</file>
+        <file>factoryDark.png</file>
+        <file>cash-multiple.png</file>
     </qresource>
 </RCC>
