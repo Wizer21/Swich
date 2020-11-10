@@ -90,6 +90,7 @@ void Sell::setCity(QTabWidget* tab)
     QWidget* widgetCity = new QWidget(this);
     QGridLayout* layoutCity = new QGridLayout(this);
 
+    QSplitter* split = new QSplitter(Qt::Horizontal, this);
     //Scroll
     DropWidget* scrollArea = new DropWidget(this);
     QWidget* widgetArea = new QWidget(this);
@@ -107,11 +108,16 @@ void Sell::setCity(QTabWidget* tab)
 
     tab->addTab(widgetCity, getCityList->at(i).getNom());
     widgetCity->setLayout(layoutCity);
-    layoutCity->addWidget(scrollArea, 0, 0, 2, 1);
-    layoutCity->addWidget(tabCity, 0, 1, 1, 2);
+    layoutCity->addWidget(split, 0, 0);
+    split->addWidget(scrollArea);
+    split->addWidget(tabCity);
     scrollArea->setWidget(widgetArea);
     widgetArea->setLayout(layoutWidget);
 
+    scrollArea->setMinimumWidth(10);
+    split->setCollapsible(0, false);
+    split->setCollapsible(1, false);
+    split->show();
     layoutWidget->setAlignment(Qt::AlignTop);
     scrollArea->setWidgetResizable(true);
     scrollArea->setMinimumWidth(this->width() * 0.3);
@@ -207,12 +213,14 @@ void Sell::cancelSell()
 void Sell::setTabCity(QTableWidget* tab, std::vector<Item> list)
 {
   tab->setSortingEnabled(false);
-  tab->clearContents();
   tab->setRowCount(list.size());
   for (int i = 0; i < list.size(); i++)
   {
     QTableWidgetItem* nameItem = new QTableWidgetItem(list.at(i).getNom());
     QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(list.at(i).getRoundedStock()));
+
+    nameItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
     tab->setItem(i, 0, nameItem);
     tab->setItem(i, 1, stockItem);

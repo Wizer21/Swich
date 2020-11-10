@@ -97,7 +97,7 @@ QString Hub::updateCurrentMonth(int gain, int sells, int addDays)
   }
 
   displayGain->setText(cGain);
-  displaySells->setText(QString::number(sells) + tr("Items Sells"));
+  displaySells->setText(QString::number(sells) + tr(" Items Sold"));
 
   day += addDays;
 

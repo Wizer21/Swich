@@ -17,8 +17,8 @@ void Production::setProduction()
   QVBoxLayout* layoutText = new QVBoxLayout(this);
   QLabel* dailyProduction = new QLabel(tr("Last iteration production"), this);
   displayProduction = new QLabel("0", this);
-  lockedFactory1 = new QPushButton(tr("Locked \n") + QString::number(lockedPrice1), this);
-  lockedFactory2 = new QPushButton(tr("Locked \n") + QString::number(lockedPrice2), this);
+  lockedFactory1 = new QPushButton(QString::number(lockedPrice1), this);
+  lockedFactory2 = new QPushButton(QString::number(lockedPrice2), this);
 
   this->setLayout(layoutProduction);
 
@@ -42,6 +42,11 @@ void Production::setProduction()
   lockedFactory2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   lockedFactory1->setObjectName("a0");
   lockedFactory2->setObjectName("a1");
+  QPixmap pix(":/Swich/lock-open-alert.png");
+  lockedFactory1->setIcon(QIcon(pix));
+  lockedFactory2->setIcon(QIcon(pix));
+  lockedFactory1->setIconSize(QSize(100, 100));
+  lockedFactory2->setIconSize(QSize(100, 100));
   Factory fact1;
   listFactory.push_back(fact1);
   updateWidgets();
@@ -72,7 +77,9 @@ QWidget* Production::newFactoryWidget()
   QPixmap pix(":/Swich/factoryDark.png");
   pix = pix.scaled(40, 40);
   iconFactory->setPixmap(pix);
-  upgrade->setIcon(QIcon(":/Swich/cash-multiple.png"));
+  QPixmap pix1(":/Swich/cash-multiple.png");
+  upgrade->setIcon(QIcon(pix1));
+  upgrade->setIconSize(QSize(50, 50));
   upgrade->setObjectName(QString::number(idButton++));
   connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
   return widgetFactory;

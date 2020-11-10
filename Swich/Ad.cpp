@@ -18,19 +18,18 @@ void Ad::setAd()
 
   DropEmployee* manager = new DropEmployee(this);
   QVBoxLayout* layoutManager = new QVBoxLayout(this);
-  //QWidget* widgetManageTempo = new QWidget(this);
 
   DropEmployee* designer = new DropEmployee(this);
   QVBoxLayout* layoutDesigner = new QVBoxLayout(this);
-  //QWidget* widgetDesignerTempo = new QWidget(this);
 
   DropEmployee* artisana = new DropEmployee(this);
   QVBoxLayout* layoutArtisan = new QVBoxLayout(this);
-  //QWidget* widgetArtisanaTempo = new QWidget(this);
 
   QLabel* newEmploye = new QLabel(tr("New"), this);
   displayNewEmploye = new QWidget(this);
 
+  QWidget* widgetTrash = new QWidget(this);
+  QVBoxLayout* layoutTrash = new QVBoxLayout(this);
   DropEmployee* trash = new DropEmployee(this);
   QVBoxLayout* trashlayout = new QVBoxLayout(this);
   QLabel* trashlabel = new QLabel(this);
@@ -42,20 +41,19 @@ void Ad::setAd()
 
   layoutAd->addWidget(manager, 3, 0, 1, 1);
   manager->setLayout(layoutManager);
-  //layoutManager->addWidget(widgetManageTempo);
 
   layoutAd->addWidget(designer, 3, 1, 1, 1);
   designer->setLayout(layoutDesigner);
-  //layoutDesigner->addWidget(widgetDesignerTempo);
 
   layoutAd->addWidget(artisana, 3, 2, 1, 1);
   artisana->setLayout(layoutArtisan);
-  //layoutArtisan->addWidget(widgetArtisanaTempo);
 
   layoutAd->addWidget(newEmploye, 0, 3, 1, 1);
   layoutAd->addWidget(displayNewEmploye, 1, 3, 2, 1);
 
-  layoutAd->addWidget(trash, 3, 3, 1, 1);
+  layoutAd->addWidget(widgetTrash, 3, 3, 1, 1);
+  widgetTrash->setLayout(layoutTrash);
+  layoutTrash->addWidget(trash);
   trash->setLayout(trashlayout);
   trashlayout->addWidget(trashlabel);
 
@@ -67,12 +65,12 @@ void Ad::setAd()
   layoutDesigner->setObjectName("l1");
   layoutArtisan->setObjectName("l2");
 
-  //widgetManageTempo->setObjectName("a0");
-  //widgetDesignerTempo->setObjectName("a1");
-  //widgetArtisanaTempo->setObjectName("a2");
+  layoutTrash->setAlignment(Qt::AlignBottom);
   displayNewEmploye->setObjectName("new");
   trash->setObjectName("trash");
   callNewEmploye();
+  trash->setMaximumSize(100, 100);
+  trash->setMaximumSize(100, 100);
 
   manager->setStyleSheet("background-color:#C8C8C8;");
   designer->setStyleSheet("background-color:#C8C8C8;");
@@ -159,9 +157,6 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
   }
   if (id == -1)
   {
-    //QWidget* defaultWidget = this->findChild<QWidget*>("a" + sender()->objectName());
-    //delete defaultWidget;
-    //defaultWidget = nullptr;
     QWidget* getNewE = this->findChild<QWidget*>("new");
     delete getNewE;
     getNewE = nullptr;

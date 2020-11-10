@@ -39,6 +39,8 @@ void DragEmployee::ini()
   layoutEmployee->addWidget(displayLvl, 0, 1);
   layoutEmployee->addWidget(displayName, 1, 0);
   layoutEmployee->addWidget(displaySalary, 2, 0);
+
+  layoutEmployee->setAlignment(Qt::AlignTop);
 }
 
 void DragEmployee::calculRandStats()

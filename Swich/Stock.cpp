@@ -12,9 +12,8 @@ void Stock::setStock()
 
   tab = new QTableWidget(listItem->size(), 7, this);
   QStringList columnName;
-  columnName << tr("View") << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.") << tr("City's Stocks") << tr("Mounthly Sells");
+  columnName << tr("View") << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.") << tr("City's Stocks") << tr("Monthly Sells");
   tab->setHorizontalHeaderLabels(columnName);
-
   this->setLayout(layoutStock);
 
   layoutStock->addWidget(tab, 0, 0);
@@ -42,6 +41,13 @@ void Stock::setList()
     QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(listItem->at(i).getSellP()));
     QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
     QTableWidgetItem* mounthlySellItem = new QTableWidgetItem(QString::number(listItem->at(i).getAveSell()));
+
+    nameItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    buyPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    sellPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    cityStockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    mounthlySellItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
     tab->setCellWidget(i, y++, pixItem);
     tab->setItem(i, y++, nameItem);

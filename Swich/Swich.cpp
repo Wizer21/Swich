@@ -110,8 +110,8 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 10, 5, 35, 100, "", 0, 0);
-  Item item2("Hubble", 5, 18, 68, 200, "", 0, 1);
+  Item item1("Ariane", 0, 5, 35, 100, "", 0, 0);
+  Item item2("Hubble", 0, 18, 68, 200, "", 0, 1);
   Item item3("ISS", 0, 20, 75, 300, ":/Swich/iss.png", 0, 2);
 
   itemList.push_back(item1);
@@ -142,6 +142,19 @@ void Swich::setDefaultList()
     historyBank.push_back(1156);
     historySoldVol.push_back(10);
   }
+  int sizeA = cityList.size();
+  int sizeB = itemList.size();
+  for (int a = 0; a < sizeA; a++)
+  {
+    for (int i = 0; i < sizeB; i++)
+    {
+      cityList.at(a).addToList(itemList.at(i));
+    }
+  }
+
+  itemList.at(0).setStock(10);
+  itemList.at(1).setStock(5);
+  itemList.at(2).setStock(0);
 }
 
 void Swich::connectToMenu()

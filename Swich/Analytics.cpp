@@ -8,6 +8,7 @@ Analytics::Analytics()
   maxBank = 0;
   maxCharges = 0;
   idGraph = 0;
+  minBank = 0;
 
   setAnalytics();
   createGraph();
@@ -58,7 +59,7 @@ void Analytics::createGraph()
   QChart* sellVolume = new QChart();
 
   sellSeries = new QLineSeries();
-  sellSeries->setName(tr("Sales Volumer"));
+  sellSeries->setName(tr("Sales Volumes"));
 
   sellVolume->addSeries(sellSeries);
 
@@ -78,10 +79,13 @@ void Analytics::createGraph()
   // Banque Graph
   QChart* bank = new QChart();
 
+  zeroSeries = new QLineSeries();
   bankSeries = new QLineSeries();
   bankSeries->setName(tr("Bank"));
+  zeroSeries->setPen(QPen(QColor(0, 0, 0, 255)));
 
   bank->addSeries(bankSeries);
+  bank->addSeries(zeroSeries);
 
   axeVBank = new QValueAxis(this);
   axeHBank = new QValueAxis(this);
@@ -91,6 +95,8 @@ void Analytics::createGraph()
 
   bankSeries->attachAxis(axeVBank);
   bankSeries->attachAxis(axeHBank);
+  zeroSeries->attachAxis(axeVBank);
+  zeroSeries->attachAxis(axeHBank);
 
   QChartView* viewerBanque = new QChartView(bank);
 
@@ -145,6 +151,7 @@ void Analytics::updateAnalytics(int addDay, double addVolumes, double addBank, d
 {
   sellSeries->append(addDay, addVolumes);
   bankSeries->append(addDay, addBank);
+  zeroSeries->append(addDay * 1.5, 0);
   chargeSeries->append(addDay, addCharges);
   productionSeries->append(addDay, addProduction);
 
@@ -153,6 +160,11 @@ void Analytics::updateAnalytics(int addDay, double addVolumes, double addBank, d
   axeHCharges->setMax(addDay * 1.5);
   axeHProduction->setMax(addDay * 1.5);
 
+  if (minBank > addBank)
+  {
+    axeVBank->setMin(addBank * 1.5);
+    minBank = addBank;
+  }
   if (addVolumes > maxVolume)
   {
     maxVolume = addVolumes;

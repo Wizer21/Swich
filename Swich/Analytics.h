@@ -6,6 +6,8 @@
 #include <QChartView>
 #include <QtDataVisualization>
 #include <QValueAxis>
+#include <QCategoryAxis>
+#include <QSplineSeries>
 
 using namespace QtCharts;
 using namespace QtDataVisualization;
@@ -27,12 +29,14 @@ private:
   void setAnalytics();
   void createGraph();
 
+  QLineSeries* zeroSeries;
   QLineSeries* sellSeries;
   QLineSeries* bankSeries;
   QLineSeries* chargeSeries;
   QLineSeries* productionSeries;
 
   int idGraph;
+  double minBank;
   double maxVolume;
   double maxBank;
   double maxCharges;
