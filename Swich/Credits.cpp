@@ -7,6 +7,7 @@ Credits::Credits(QWidget* parent)
   this->setAttribute(Qt::WA_DeleteOnClose);
   QVBoxLayout* layout = new QVBoxLayout(this);
   ini(layout);
+  this->exec();
 }
 
 void Credits::ini(QVBoxLayout* layout)

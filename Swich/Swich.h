@@ -41,7 +41,6 @@ private:
   double addProductionToInventory(double production);
 
   int turnId;
-  int id;
   double bankDisplayed;
 
   QStackedWidget* swichZoneWidget;
@@ -61,6 +60,14 @@ private:
   std::vector<Item> itemList;
   std::vector<City> cityList;
   std::vector<Contact> contactList;
+
+  QPushButton* hub;
+  QPushButton* analytics;
+  QPushButton* sell;
+  QPushButton* production;
+  QPushButton* pub;
+  QPushButton* stock;
+  QPushButton* chat;
 
   Ui::SwichClass ui;
 };

@@ -6,12 +6,20 @@ Swich::Swich(QWidget* parent)
 {
   ui.setupUi(this);
   turnId = 0;
-  id = 0;
   bankDisplayed = 11560;
   setDefaultList();
   createDefaultWidget();
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
   ini(swichLayout);
+
+  // TO Delete
+  QFile lQSSFile(":/Swich/dark.qss");
+  if (lQSSFile.open(QIODevice::ReadOnly | QIODevice::Text))
+  {
+    QTextStream lStream(&lQSSFile);
+    qApp->setStyleSheet(lStream.readAll());
+    lQSSFile.close();
+  }
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -29,13 +37,13 @@ void Swich::ini(QGridLayout* layout)
   QWidget* widgetMenu = new QWidget(this);
   QVBoxLayout* layoutMenu = new QVBoxLayout(this);
   QLabel* swich = new QLabel(tr("Swich"), this);
-  QPushButton* hub = new QPushButton(tr("Hub"), this);
-  QPushButton* analytics = new QPushButton(tr("Analytics"), this);
-  QPushButton* sell = new QPushButton(tr("Sell"), this);
-  QPushButton* production = new QPushButton(tr("Production"), this);
-  QPushButton* pub = new QPushButton(tr("Ad"), this);
-  QPushButton* stock = new QPushButton(tr("Stock"), this);
-  QPushButton* chat = new QPushButton(tr("Chat"), this);
+  hub = new QPushButton(tr("Hub"), this);
+  analytics = new QPushButton(tr("Analytics"), this);
+  sell = new QPushButton(tr("Sell"), this);
+  production = new QPushButton(tr("Production"), this);
+  pub = new QPushButton(tr("Ad"), this);
+  stock = new QPushButton(tr("Stock"), this);
+  chat = new QPushButton(tr("Chat"), this);
   sold = new QLineEdit(QString::number(bankDisplayed), this);
 
   layout->addWidget(widgetMenu, 0, 0);
@@ -63,16 +71,27 @@ void Swich::ini(QGridLayout* layout)
   swichZoneWidget->addWidget(widgetStock);
   swichZoneWidget->addWidget(widgetChat);
 
-  swichZoneWidget->setCurrentIndex(0);
+  //Theme Name
+  QFont font(qApp->font());
+  swich->setStyleSheet("font-size:40px;" + font.toString() + ";");
 
-  // Set some options
-  hub->setObjectName(QString::number(id++));
-  analytics->setObjectName(QString::number(id++));
-  sell->setObjectName(QString::number(id++));
-  production->setObjectName(QString::number(id++));
-  pub->setObjectName(QString::number(id++));
-  stock->setObjectName(QString::number(id++));
-  chat->setObjectName(QString::number(id++));
+  hub->setObjectName("index0");
+  analytics->setObjectName("index1");
+  sell->setObjectName("index2");
+  production->setObjectName("index3");
+  pub->setObjectName("index4");
+  stock->setObjectName("index5");
+  chat->setObjectName("index6");
+
+  widgetHub->setObjectName("hub");
+  widgetAnalytics->setObjectName("analytics");
+  widgetSell->setObjectName("sell");
+  widgetProduction->setObjectName("production");
+  widgetAd->setObjectName("ad");
+  widgetStock->setObjectName("stock");
+  widgetChat->setObjectName("chat");
+
+  swichZoneWidget->setCurrentIndex(0);
 
   sold->setReadOnly(true);
   sold->setAcceptDrops(false);
@@ -159,7 +178,35 @@ void Swich::setDefaultList()
 
 void Swich::connectToMenu()
 {
-  swichZoneWidget->setCurrentIndex(sender()->objectName().toInt());
+  auto getSender = qobject_cast<QPushButton*>(sender());
+  if (hub == getSender)
+  {
+    swichZoneWidget->setCurrentIndex(0);
+  }
+  else if (analytics == getSender)
+  {
+    swichZoneWidget->setCurrentIndex(1);
+  }
+  else if (sell == getSender)
+  {
+    swichZoneWidget->setCurrentIndex(2);
+  }
+  else if (production == getSender)
+  {
+    swichZoneWidget->setCurrentIndex(3);
+  }
+  else if (pub == getSender)
+  {
+    swichZoneWidget->setCurrentIndex(4);
+  }
+  else if (stock == getSender)
+  {
+    swichZoneWidget->setCurrentIndex(5);
+  }
+  else if (chat == getSender)
+  {
+    swichZoneWidget->setCurrentIndex(6);
+  }
 }
 
 void Swich::applyUpdateStock()
@@ -249,12 +296,10 @@ void Swich::applyNewFactory(int cost, int id)
 
 void Swich::openOptions()
 {
-  Options windowO(this);
-  windowO.exec();
+  new Options(this);
 }
 
 void Swich::openCredits()
 {
-  Credits windowC(this);
-  windowC.exec();
+  new Credits(this);
 }

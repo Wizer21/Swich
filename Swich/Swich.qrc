@@ -8,5 +8,6 @@
         <file>factoryDark.png</file>
         <file>cash-multiple.png</file>
         <file>lock-open-alert.png</file>
+        <file>dark.qss</file>
     </qresource>
 </RCC>

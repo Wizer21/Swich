@@ -1,0 +1,270 @@
+QWidget{
+  background-color:#1c1c1c;
+  color:#ffffff;
+}
+QWidget::focus {
+  outline: none;
+}
+
+/* -- Button List ---- Main Window -- */
+QPushButton#index0 {
+    background-color: #262626; 
+    color: #ff5252   ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #ff5252   ; 
+    border-bottom: 2px solid #ff5252   ; 
+    font-size:18px;
+    }
+QPushButton#index0::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #ff5252   ; 
+    border-bottom: 0px solid #ff5252   ; 
+    }
+ QPushButton#index0::pressed{
+         background-color: #ff5252   ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QPushButton#index1 {
+    background-color: #262626; 
+    color: #e040fb   ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #e040fb   ; 
+    border-bottom: 2px solid #e040fb   ; 
+    font-size:18px;
+    }
+QPushButton#index1::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #e040fb   ; 
+    border-bottom: 0px solid #e040fb   ; 
+    }
+ QPushButton#index1::pressed{
+         background-color: #e040fb   ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QPushButton#index2 {
+    background-color: #262626; 
+    color: #536dfe   ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #536dfe   ; 
+    border-bottom: 2px solid #536dfe   ; 
+    font-size:18px;
+    }
+QPushButton#index2::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #536dfe   ; 
+    border-bottom: 0px solid #536dfe   ; 
+    }
+ QPushButton#index2::pressed{
+         background-color: #536dfe   ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QPushButton#index3 {
+    background-color: #262626; 
+    color: #64ffda  ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #64ffda  ; 
+    border-bottom: 2px solid #64ffda  ; 
+    font-size:18px;
+    }
+QPushButton#index3::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #64ffda  ; 
+    border-bottom: 0px solid #64ffda  ; 
+    }
+ QPushButton#index3::pressed{
+         background-color: #64ffda  ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QPushButton#index4 {
+    background-color: #262626; 
+    color: #b2ff59   ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #b2ff59   ; 
+    border-bottom: 2px solid #b2ff59   ; 
+    font-size:18px;
+    }
+QPushButton#index4::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #b2ff59   ; 
+    border-bottom: 0px solid #b2ff59   ; 
+    }
+ QPushButton#index4::pressed{
+         background-color: #b2ff59   ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QPushButton#index5 {
+    background-color: #262626; 
+    color: #ffd740   ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #ffd740   ; 
+    border-bottom: 2px solid #ffd740   ; 
+    font-size:18px;
+    }
+QPushButton#index5::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #ff0000; 
+    border-bottom: 0px solid #ff0000; 
+    }
+ QPushButton#index5::pressed{
+         background-color: #ffd740   ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QPushButton#index6 {
+    background-color: #262626; 
+    color: #ff6e40  ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #ff6e40  ; 
+    border-bottom: 2px solid #ff6e40  ; 
+    font-size:18px;
+    }
+QPushButton#index6::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #e040fb  ; 
+    border-bottom: 0px solid #e040fb  ; 
+    }
+ QPushButton#index6::pressed{
+         background-color: #ff6e40  ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ /* ------------ Menue List ------------ */
+QWidget#hub QPushButton{
+    background-color: #262626; 
+    color: #ff3d40; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #ff0000; 
+    border-bottom: 2px solid #ff0000; 
+    font-size:18px;
+    }
+QWidget#hub QPushButton::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #ff0000; 
+    border-bottom: 0px solid #ff0000; 
+    }
+ QWidget#hub QPushButton::pressed{
+         background-color: #ff3d40; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+QWidget#hub QPushButton::focus{
+     
+ } 
+ QWidget#hub QLabel#hubEvolution {
+     color:#ff3d40;
+     font-size:22px;
+ }
+  QWidget#hub QWidget#lastIteration {
+    background-color:#262626;
+ }
+
+QWidget#hub QWidget#hubScroll{
+  background-color:#262626;
+}
+
+ /* ------------ Analytics ------------ */
+QWidget#analytics QPushButton{
+    background-color: #262626; 
+    color: #e040fb; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #e040fb; 
+    border-bottom: 2px solid #e040fb; 
+    font-size:18px;
+    }
+QWidget#analytics QPushButton::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #e040fb; 
+    border-bottom: 0px solid #e040fb; 
+    }
+ QWidget#analytics QPushButton::pressed{
+    background-color: #e040fb; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+
+ /* ------------ Sell ------------ */
+
+QWidget#sell QPushButton{
+    background-color: #262626; 
+    color: #536dfe; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #536dfe; 
+    border-bottom: 2px solid #536dfe; 
+    font-size:18px;
+    }
+QWidget#sell QPushButton::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #536dfe; 
+    border-bottom: 0px solid #536dfe; 
+    }
+ QWidget#sell QPushButton::pressed{
+    background-color: #536dfe; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QWidget#sell QTabBar::tab{
+   background-color: transparent;
+
+   border: 2px solid #536dfe;
+   margin-left: 2px;
+   margin-right: 2px;
+
+   padding: 0px;
+   min-height: 26px;
+   min-width: 70px;
+   font-size: 18px;
+ }  
+ QWidget#sell QTabBar::tab::hover{
+   border: 0px solid #536dfe;
+ } 
+  QWidget#sell QTabBar::tab::selected{
+   background-color: #536dfe;
+   
+ } 
+ QWidget#sell QTabWidget::pane{
+  border: 2px solid #536dfe;
+ }
+
+ QWidget#sell QTableWidget QTableCornerButton::section{
+   background: transparent;
+ }
+  QWidget#sell QHeaderView::section:vertical{
+   background: transparent;
+   font-size: 15px;
+   padding: 5px;
+ }
+   QWidget#sell QHeaderView::section:horizontal{
+   background: transparent;
+   font-size: 15px;
+   padding-left: 15px;
+   padding-right: 15px;
+ }
+
+
+    
+    

@@ -56,7 +56,7 @@ void Analytics::createGraph()
 {
   // Sell Volumes
 
-  QChart* sellVolume = new QChart();
+  sellVolume = new QChart();
 
   sellSeries = new QLineSeries();
   sellSeries->setName(tr("Sales Volumes"));
@@ -77,7 +77,7 @@ void Analytics::createGraph()
   widgetRight->addWidget(viewerSell);
 
   // Banque Graph
-  QChart* bank = new QChart();
+  bank = new QChart();
 
   zeroSeries = new QLineSeries();
   bankSeries = new QLineSeries();
@@ -104,7 +104,7 @@ void Analytics::createGraph()
 
   // Evo Charges
 
-  QChart* charge = new QChart();
+  charge = new QChart();
 
   chargeSeries = new QLineSeries();
   chargeSeries->setName(tr("Charges"));
@@ -126,7 +126,7 @@ void Analytics::createGraph()
 
   // Evo Charges
 
-  QChart* production = new QChart();
+  production = new QChart();
 
   productionSeries = new QLineSeries();
   productionSeries->setName(tr("Production"));
@@ -145,6 +145,8 @@ void Analytics::createGraph()
   QChartView* viewerProduction = new QChartView(production);
 
   widgetRight->addWidget(viewerProduction);
+
+  setColors(1);
 }
 
 void Analytics::updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction)
@@ -192,4 +194,48 @@ void Analytics::updateAnalytics(int addDay, double addVolumes, double addBank, d
 void Analytics::setDisplayedGraph()
 {
   widgetRight->setCurrentIndex(sender()->objectName().toInt());
+}
+
+void Analytics::setColors(int id)
+{
+  QString color = "";
+  switch (id)
+  {
+    case 0:
+      color = "black";
+      break;
+    case 1:
+      color = "white";
+      break;
+    default:
+      break;
+  }
+
+  sellVolume->setBackgroundVisible(false);
+  sellSeries->setColor(QColor(color));
+  axeVVolumes->setLabelsColor(QColor(color));
+  axeHVolumes->setLabelsColor(QColor(color));
+  QLegend* legendVolume = sellVolume->legend();
+  legendVolume->setLabelColor(QColor(color));
+
+  bank->setBackgroundVisible(false);
+  bankSeries->setColor(QColor(color));
+  axeVBank->setLabelsColor(QColor(color));
+  axeHBank->setLabelsColor(QColor(color));
+  QLegend* legendBank = bank->legend();
+  legendBank->setLabelColor(QColor(color));
+
+  charge->setBackgroundVisible(false);
+  chargeSeries->setColor(QColor(color));
+  axeVCharges->setLabelsColor(QColor(color));
+  axeHCharges->setLabelsColor(QColor(color));
+  QLegend* legendCharges = charge->legend();
+  legendCharges->setLabelColor(QColor(color));
+
+  production->setBackgroundVisible(false);
+  productionSeries->setColor(QColor(color));
+  axeVProduction->setLabelsColor(QColor(color));
+  axeHProduction->setLabelsColor(QColor(color));
+  QLegend* legendProduction = production->legend();
+  legendProduction->setLabelColor(QColor(color));
 }

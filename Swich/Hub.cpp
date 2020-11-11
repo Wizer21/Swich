@@ -62,6 +62,13 @@ void Hub::setHub()
   gridTop->setObjectName("grid");
 
   connect(newMonth, SIGNAL(clicked()), this, SLOT(newMonthClicked()));
+
+  //Theme name
+  widgetHubBot->setObjectName("hubScroll");
+  evo->setObjectName("hubEvolution");
+  uptdateWidget->setObjectName("lastIteration");
+  displaySells->setStyleSheet("background-color:transparent");
+  displayDate->setStyleSheet("background-color:transparent");
 }
 
 void Hub::updateLabels(std::vector<double> bankHisto, std::vector<int> volHisto)
@@ -94,6 +101,11 @@ QString Hub::updateCurrentMonth(int gain, int sells, int addDays)
   if (gain >= 0)
   {
     cGain.insert(0, "+");
+    displayGain->setStyleSheet("color:#b2ff59; font-size:45px;background-color:transparent;");
+  }
+  else
+  {
+    displayGain->setStyleSheet("color:#ff5252; font-size:45px;background-color:transparent;");
   }
 
   displayGain->setText(cGain);
@@ -160,7 +172,7 @@ void Hub::setDefaultWidgets()
     gainCT->setAlignment(Qt::AlignRight);
     bankCT->setAlignment(Qt::AlignRight);
     gridLayoutWT->setSpacing(0);
-    gainCT->setFont(QFont("", 20));
+    gainCT->setFont(QFont("", 50));
   }
 }
 
@@ -186,15 +198,17 @@ void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBa
 
 void Hub::setColorScroll()
 {
+  QFont font(qApp->font());
+
   for (int i = 0; i < gain.size(); i++)
   {
     if (gain.at(i)->text().toInt() < 0)
     {
-      gain.at(i)->setStyleSheet("color:#ff3f3f;");
+      gain.at(i)->setStyleSheet("font-size:25px;color:#ff5252;font:" + font.toString() + ";");
     }
     else
     {
-      gain.at(i)->setStyleSheet("color:#51ff41;");
+      gain.at(i)->setStyleSheet("font-size:25px;color:#b2ff59;font:" + font.toString() + ";");
     }
   }
 }

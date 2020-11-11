@@ -1,5 +1,4 @@
 #pragma once
-
 #include <QObject>
 #include "stdafx.h"
 
@@ -13,6 +12,7 @@ public:
 
 private slots:
   void newFont();
+  void setTheme(int index);
 
 private:
   void ini(QVBoxLayout* layout);

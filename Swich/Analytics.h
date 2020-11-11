@@ -19,6 +19,7 @@ class Analytics : public QWidget
 public:
   Analytics();
   void updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction);
+  void setColors(int colorId);
 
 private slots:
   void setDisplayedGraph();
@@ -41,6 +42,11 @@ private:
   double maxBank;
   double maxCharges;
   double maxProduction;
+
+  QChart* sellVolume;
+  QChart* bank;
+  QChart* charge;
+  QChart* production;
 
   QValueAxis* axeVVolumes;
   QValueAxis* axeHVolumes;

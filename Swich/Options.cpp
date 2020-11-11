@@ -7,6 +7,8 @@ Options::Options(QWidget* parent)
   this->setAttribute(Qt::WA_DeleteOnClose);
   QVBoxLayout* layoutOption = new QVBoxLayout(this);
   ini(layoutOption);
+
+  this->exec();
 }
 
 void Options::ini(QVBoxLayout* layout)
@@ -17,6 +19,7 @@ void Options::ini(QVBoxLayout* layout)
   QComboBox* themeList = new QComboBox(this);
   QLabel* font = new QLabel(tr("Font"), this);
   QPushButton* fontChoser = new QPushButton(tr("Font choser"), this);
+  QPushButton* closeButton = new QPushButton(tr("Close"), this);
 
   layout->addWidget(langue);
   layout->addWidget(langList);
@@ -24,13 +27,16 @@ void Options::ini(QVBoxLayout* layout)
   layout->addWidget(themeList);
   layout->addWidget(font);
   layout->addWidget(fontChoser);
+  layout->addWidget(closeButton);
 
   langList->addItem("Francais");
   langList->addItem("English");
-  themeList->addItem("Light");
-  themeList->addItem("Dark");
+  themeList->addItem(tr("Light"));
+  themeList->addItem(tr("Dark"));
 
   connect(fontChoser, SIGNAL(clicked()), this, SLOT(newFont()));
+  connect(themeList, SIGNAL(activated(int)), this, SLOT(setTheme(int)));
+  connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void Options::newFont()
@@ -43,6 +49,34 @@ void Options::newFont()
   }
   font.setStyleStrategy(QFont::PreferAntialias);
   qApp->setFont(font);
+}
+
+void Options::setTheme(int index)
+{
+  QFile lightQSSFile(":/Swich/dark.qss");
+  QFile darkQSSFile(":/Swich/dark.qss");
+
+  switch (index)
+  {
+    case 0:
+      if (lightQSSFile.open(QIODevice::ReadOnly | QIODevice::Text))
+      {
+        QTextStream lStream(&lightQSSFile);
+        qApp->setStyleSheet(lStream.readAll());
+        lightQSSFile.close();
+      }
+      break;
+    case 1:
+      if (darkQSSFile.open(QIODevice::ReadOnly | QIODevice::Text))
+      {
+        QTextStream lStream(&darkQSSFile);
+        qApp->setStyleSheet(lStream.readAll());
+        darkQSSFile.close();
+      }
+      break;
+    default:
+      break;
+  }
 }
 
 Options::~Options()
