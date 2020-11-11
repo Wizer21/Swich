@@ -66,6 +66,27 @@ void DragEmployee::calculRandStats()
   }
   salary = calculSalary;
   note = calculNote(level);
+
+  if (level < 3)
+  {
+    this->setStyleSheet("background-color:#ff5252");
+  }
+  else if (level < 6)
+  {
+    this->setStyleSheet("background-color:#7c4dff");
+  }
+  else if (level < 9)
+  {
+    this->setStyleSheet("background-color:#536dfe");
+  }
+  else if (level < 12)
+  {
+    this->setStyleSheet("background-color:#b2ff59");
+  }
+  else
+  {
+    this->setStyleSheet("QWidget{background-color:#ffd740;} QLabel{color:#262626;}");
+  }
 }
 
 QString DragEmployee::calculNote(int lvl)

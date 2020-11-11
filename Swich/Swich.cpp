@@ -25,9 +25,9 @@ Swich::Swich(QWidget* parent)
 void Swich::ini(QGridLayout* layout)
 {
   //Menu Bar
-  QMenuBar* bar = new QMenuBar(this);
-  QAction* options = new QAction(tr("Options"));
-  QAction* credits = new QAction(tr("Credits"));
+  bar = new QMenuBar(this);
+  options = new QAction(tr("Options"));
+  credits = new QAction(tr("Credits"));
 
   this->setMenuBar(bar);
   bar->addAction(options);
@@ -92,6 +92,7 @@ void Swich::ini(QGridLayout* layout)
   widgetChat->setObjectName("chat");
 
   swichZoneWidget->setCurrentIndex(0);
+  setTheme();
 
   sold->setReadOnly(true);
   sold->setAcceptDrops(false);
@@ -129,8 +130,8 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 0, 5, 35, 100, "", 0, 0);
-  Item item2("Hubble", 0, 18, 68, 200, "", 0, 1);
+  Item item1("Ariane", 0, 5, 35, 100, ":/Swich/ariane.jpg", 0, 0);
+  Item item2("Hubble", 0, 18, 68, 200, ":/Swich/hubble.jpeg", 0, 1);
   Item item3("ISS", 0, 20, 75, 300, ":/Swich/iss.png", 0, 2);
 
   itemList.push_back(item1);
@@ -207,6 +208,7 @@ void Swich::connectToMenu()
   {
     swichZoneWidget->setCurrentIndex(6);
   }
+  setTheme();
 }
 
 void Swich::applyUpdateStock()
@@ -253,7 +255,7 @@ void Swich::startNewMonth()
   widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
   widgetHub->updateLabels(historyBank, historySoldVol);
   widgetSell->refreshStock();
-  widgetStock->setList();
+  widgetStock->updateStock();
 }
 
 double Swich::addProductionToInventory(double production)
@@ -302,4 +304,37 @@ void Swich::openOptions()
 void Swich::openCredits()
 {
   new Credits(this);
+}
+
+void Swich::setTheme()
+{
+  QString backgroundColor = "";
+  switch (swichZoneWidget->currentIndex())
+  {
+    case 0:
+      backgroundColor = "#ff5252";
+      break;
+    case 1:
+      backgroundColor = "#7c4dff";
+      break;
+    case 2:
+      backgroundColor = "#536dfe";
+      break;
+    case 3:
+      backgroundColor = "#64ffda";
+      break;
+    case 4:
+      backgroundColor = "#b2ff59";
+      break;
+    case 5:
+      backgroundColor = "#ffd740";
+      break;
+    case 6:
+      backgroundColor = "#ff6e40";
+      break;
+    default:
+      break;
+  }
+
+  bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-bottom: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
 }

@@ -9,5 +9,7 @@
         <file>cash-multiple.png</file>
         <file>lock-open-alert.png</file>
         <file>dark.qss</file>
+        <file>ariane.jpg</file>
+        <file>hubble.jpeg</file>
     </qresource>
 </RCC>

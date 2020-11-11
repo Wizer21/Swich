@@ -8,6 +8,6 @@ class Credits : public QDialog
 
 public:
   Credits(QWidget* parent);
-  void ini(QVBoxLayout* layout);
+  void ini(QHBoxLayout* layout);
   ~Credits();
 };

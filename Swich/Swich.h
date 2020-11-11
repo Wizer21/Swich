@@ -39,6 +39,7 @@ private:
   void createDefaultWidget();
   void setDefaultList();
   double addProductionToInventory(double production);
+  void setTheme();
 
   int turnId;
   double bankDisplayed;
@@ -52,6 +53,9 @@ private:
   Stock* widgetStock;
   Chat* widgetChat;
 
+  QMenuBar* bar;
+  QAction* options;
+  QAction* credits;
   QLineEdit* sold;
 
   std::vector<double> historyBank;

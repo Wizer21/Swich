@@ -212,28 +212,28 @@ void Analytics::setColors(int id)
   }
 
   sellVolume->setBackgroundVisible(false);
-  sellSeries->setColor(QColor(color));
+  sellSeries->setColor(QColor(83, 109, 254));
   axeVVolumes->setLabelsColor(QColor(color));
   axeHVolumes->setLabelsColor(QColor(color));
   QLegend* legendVolume = sellVolume->legend();
   legendVolume->setLabelColor(QColor(color));
 
   bank->setBackgroundVisible(false);
-  bankSeries->setColor(QColor(color));
+  bankSeries->setColor(QColor(255, 82, 82));
   axeVBank->setLabelsColor(QColor(color));
   axeHBank->setLabelsColor(QColor(color));
   QLegend* legendBank = bank->legend();
   legendBank->setLabelColor(QColor(color));
 
   charge->setBackgroundVisible(false);
-  chargeSeries->setColor(QColor(color));
+  chargeSeries->setColor(QColor(178, 255, 89));
   axeVCharges->setLabelsColor(QColor(color));
   axeHCharges->setLabelsColor(QColor(color));
   QLegend* legendCharges = charge->legend();
   legendCharges->setLabelColor(QColor(color));
 
   production->setBackgroundVisible(false);
-  productionSeries->setColor(QColor(color));
+  productionSeries->setColor(QColor(100, 255, 218));
   axeVProduction->setLabelsColor(QColor(color));
   axeHProduction->setLabelsColor(QColor(color));
   QLegend* legendProduction = production->legend();

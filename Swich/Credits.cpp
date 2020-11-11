@@ -5,13 +5,14 @@ Credits::Credits(QWidget* parent)
 {
   this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
   this->setAttribute(Qt::WA_DeleteOnClose);
-  QVBoxLayout* layout = new QVBoxLayout(this);
+  QHBoxLayout* layout = new QHBoxLayout(this);
   ini(layout);
   this->exec();
 }
 
-void Credits::ini(QVBoxLayout* layout)
+void Credits::ini(QHBoxLayout* layout)
 {
+  QLabel* logo = new QLabel(this);
   QLabel* text = new QLabel(
     QStringLiteral("<h1>This project</h1>"
                    "<p>This project was mainly made to showcase my skills and keep an history of my progression.</p>"
@@ -25,6 +26,12 @@ void Credits::ini(QVBoxLayout* layout)
   text->setTextInteractionFlags(Qt::TextBrowserInteraction);
   text->setOpenExternalLinks(true);
   text->adjustSize();
+
+  QPixmap pix(":/Swich/SwichLogo.png");
+  pix = pix.scaled(200, 200, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  logo->setPixmap(pix);
+
+  layout->addWidget(logo);
   layout->addWidget(text);
 }
 

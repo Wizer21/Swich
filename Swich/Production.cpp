@@ -53,6 +53,9 @@ void Production::setProduction()
 
   connect(lockedFactory1, SIGNAL(clicked()), this, SLOT(askNewFactory()));
   connect(lockedFactory2, SIGNAL(clicked()), this, SLOT(askNewFactory()));
+
+  //Theme
+  displayProduction->setObjectName("lastProduction");
 }
 
 QWidget* Production::newFactoryWidget()

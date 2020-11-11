@@ -70,7 +70,13 @@ void Chat::setContactList(QGridLayout* layout)
 
 void Chat::enterText()
 {
-  displayText(1, text->text());
+  QString textEntered(text->text());
+  if (textEntered.trimmed().size() == 0)
+  {
+    return;
+  }
+
+  displayText(1, textEntered);
   text->clear();
 }
 

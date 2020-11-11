@@ -29,20 +29,20 @@ QPushButton#index0::hover{
  } 
  QPushButton#index1 {
     background-color: #262626; 
-    color: #e040fb   ; 
+    color: #7c4dff    ; 
     padding: 5px;
     border: 2px solid transparent;
-    border-right: 2px solid #e040fb   ; 
-    border-bottom: 2px solid #e040fb   ; 
+    border-right: 2px solid #7c4dff    ; 
+    border-bottom: 2px solid #7c4dff    ; 
     font-size:18px;
     }
 QPushButton#index1::hover{
     border: 0px solid transparent;
-    border-right: 0px solid #e040fb   ; 
-    border-bottom: 0px solid #e040fb   ; 
+    border-right: 0px solid #7c4dff    ; 
+    border-bottom: 0px solid #7c4dff    ; 
     }
  QPushButton#index1::pressed{
-         background-color: #e040fb   ; 
+         background-color: #7c4dff    ; 
     color: #262626; 
     padding: 5px;
     border: 0px solid transparent;
@@ -138,8 +138,8 @@ QPushButton#index5::hover{
     }
 QPushButton#index6::hover{
     border: 0px solid transparent;
-    border-right: 0px solid #e040fb  ; 
-    border-bottom: 0px solid #e040fb  ; 
+    border-right: 0px solid #7c4dff   ; 
+    border-bottom: 0px solid #7c4dff   ; 
     }
  QPushButton#index6::pressed{
          background-color: #ff6e40  ; 
@@ -147,20 +147,22 @@ QPushButton#index6::hover{
     padding: 5px;
     border: 0px solid transparent;
  } 
+
  /* ------------ Menue List ------------ */
+
 QWidget#hub QPushButton{
     background-color: #262626; 
     color: #ff3d40; 
     padding: 5px;
     border: 2px solid transparent;
-    border-right: 2px solid #ff0000; 
-    border-bottom: 2px solid #ff0000; 
+    border-right: 2px solid #ff5252; 
+    border-bottom: 2px solid #ff5252; 
     font-size:18px;
     }
 QWidget#hub QPushButton::hover{
     border: 0px solid transparent;
-    border-right: 0px solid #ff0000; 
-    border-bottom: 0px solid #ff0000; 
+    border-right: 0px solid #ff5252; 
+    border-bottom: 0px solid #ff5252; 
     }
  QWidget#hub QPushButton::pressed{
          background-color: #ff3d40; 
@@ -183,29 +185,34 @@ QWidget#hub QWidget#hubScroll{
   background-color:#262626;
 }
 
- /* ------------ Analytics ------------ */
+ /* ------------------------------ */
+ /* ---------- Analytics---------- */
+ /* ------------------------------ */
+
 QWidget#analytics QPushButton{
     background-color: #262626; 
-    color: #e040fb; 
+    color: #7c4dff ; 
     padding: 5px;
     border: 2px solid transparent;
-    border-right: 2px solid #e040fb; 
-    border-bottom: 2px solid #e040fb; 
+    border-right: 2px solid #7c4dff ; 
+    border-bottom: 2px solid #7c4dff ; 
     font-size:18px;
     }
 QWidget#analytics QPushButton::hover{
     border: 0px solid transparent;
-    border-right: 0px solid #e040fb; 
-    border-bottom: 0px solid #e040fb; 
+    border-right: 0px solid #7c4dff ; 
+    border-bottom: 0px solid #7c4dff ; 
     }
  QWidget#analytics QPushButton::pressed{
-    background-color: #e040fb; 
+    background-color: #7c4dff ; 
     color: #262626; 
     padding: 5px;
     border: 0px solid transparent;
  } 
 
+ /* ------------------------------ */
  /* ------------ Sell ------------ */
+ /* ------------------------------ */
 
 QWidget#sell QPushButton{
     background-color: #262626; 
@@ -230,7 +237,6 @@ QWidget#sell QPushButton::hover{
  QWidget#sell QTabBar::tab{
    background-color: transparent;
 
-   border: 2px solid #536dfe;
    margin-left: 2px;
    margin-right: 2px;
 
@@ -240,7 +246,7 @@ QWidget#sell QPushButton::hover{
    font-size: 18px;
  }  
  QWidget#sell QTabBar::tab::hover{
-   border: 0px solid #536dfe;
+   border-bottom: 3px solid #536dfe;
  } 
   QWidget#sell QTabBar::tab::selected{
    background-color: #536dfe;
@@ -256,15 +262,118 @@ QWidget#sell QPushButton::hover{
   QWidget#sell QHeaderView::section:vertical{
    background: transparent;
    font-size: 15px;
-   padding: 5px;
  }
    QWidget#sell QHeaderView::section:horizontal{
    background: transparent;
    font-size: 15px;
-   padding-left: 15px;
-   padding-right: 15px;
+   padding: 0px;
+   margin: 0px;
+   /* padding-left: 15px;
+   padding-right: 15px; */
+   min-width: 100px;
  }
+QWidget#sell QHeaderView::section:horizontal:hover{
+      border-bottom: 4px solid white;
+ }
+QWidget#sell QHeaderView::section:horizontal:pressed{
+      background: #536dfe;
+}
+QWidget#sell QHeaderView::section:vertical:hover{
+      border-bottom: 4px solid white;
+ }
+QWidget#sell QHeaderView::section:vertical:pressed{
+      background: #536dfe;
+}
+QWidget#sell QTableWidget::item:selected{
+      background: #536dfe;
+}
 
+ /* ------------------------------ */
+ /* ------------ Prod ------------ */
+ /* ------------------------------ */
 
-    
-    
+QWidget#production QPushButton{
+    background-color: #262626; 
+    color: #64ffda; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #64ffda; 
+    border-bottom: 2px solid #64ffda; 
+    font-size:18px;
+    }
+QWidget#production QPushButton::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #64ffda; 
+    border-bottom: 0px solid #64ffda; 
+    }
+ QWidget#production QPushButton::pressed{
+    background-color: #64ffda; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+
+QWidget#production QLabel#lastProduction {
+   color:#64ffda;
+}
+ /* ------------------------------ */
+ /* ------------   Ad  ----------- */
+ /* ------------------------------ */
+QWidget#ad QLabel#titleAd{
+   color:#b2ff59;
+}
+
+ /* ------------------------------ */
+ /* ------------ Stock ----------- */
+ /* ------------------------------ */
+
+ QWidget#stock QTableWidget QTableCornerButton::section{
+   background: transparent;
+ }
+   QWidget#stock QHeaderView::section:vertical{
+   background: transparent;
+   font-size: 15px;
+ }
+   QWidget#stock QHeaderView::section:horizontal{
+   background: transparent;
+   font-size: 15px;
+   padding: 0px;
+   margin: 0px;
+   /* padding-left: 15px;
+   padding-right: 15px; */
+   min-width: 100px;
+ }
+QWidget#stock QHeaderView::section:hover{
+      border-bottom: 4px solid white;
+ }
+QWidget#stock QHeaderView::section:pressed{
+      background: #ffd740;
+      color: #262626;
+}
+QWidget#stock QTableWidget::item:selected{
+      background: #ffd740;
+      color: #262626;
+}
+ /* ------------------------------ */
+ /* ------------ Chat  ----------- */
+ /* ------------------------------ */
+ QWidget#chat QPushButton{
+    background-color: #262626; 
+    color: #ff6e40; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #ff6e40; 
+    border-bottom: 2px solid #ff6e40; 
+    font-size:18px;
+    }
+QWidget#chat QPushButton::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #ff6e40; 
+    border-bottom: 0px solid #ff6e40; 
+    }
+ QWidget#chat QPushButton::pressed{
+    background-color: #ff6e40; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 

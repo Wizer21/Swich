@@ -72,9 +72,6 @@ void Ad::setAd()
   trash->setMaximumSize(100, 100);
   trash->setMaximumSize(100, 100);
 
-  manager->setStyleSheet("background-color:#C8C8C8;");
-  designer->setStyleSheet("background-color:#C8C8C8;");
-  artisana->setStyleSheet("background-color:#C8C8C8;");
   manager->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   designer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   artisana->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -87,6 +84,9 @@ void Ad::setAd()
   connect(designer, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
   connect(artisana, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
   connect(trash, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
+
+  //Theme
+  team->setObjectName("titleAd");
 }
 
 void Ad::callNewEmploye()

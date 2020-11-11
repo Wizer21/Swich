@@ -8,9 +8,11 @@ class Stock : public QWidget
 public:
   Stock(std::vector<Item>& getItemList);
   void setList();
+  void updateStock();
 
 private:
   void setStock();
   QTableWidget* tab;
   std::vector<Item>* listItem;
+  QHeaderView* head;
 };

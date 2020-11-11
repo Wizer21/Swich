@@ -24,7 +24,6 @@ void Stock::setStock()
 
 void Stock::setList()
 {
-
   tab->setSortingEnabled(false);
   tab->clearContents();
   tab->setRowCount(listItem->size());
@@ -49,6 +48,10 @@ void Stock::setList()
     cityStockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     mounthlySellItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
+    QPixmap pix(listItem->at(i).getPix());
+    pix = pix.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pixItem->setPixmap(pix);
+
     tab->setCellWidget(i, y++, pixItem);
     tab->setItem(i, y++, nameItem);
     tab->setItem(i, y++, stockItem);
@@ -56,6 +59,24 @@ void Stock::setList()
     tab->setItem(i, y++, sellPItem);
     tab->setItem(i, y++, cityStockItem);
     tab->setItem(i, y++, mounthlySellItem);
+  }
+  tab->setSortingEnabled(true);
+}
+
+void Stock::updateStock()
+{
+
+  tab->setSortingEnabled(false);
+  tab->sortItems(1, Qt::AscendingOrder);
+  int y = 0;
+
+  for (int i = 0; i < listItem->size(); i++)
+  {
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
+
+    stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+
+    tab->setItem(i, 2, stockItem);
   }
   tab->setSortingEnabled(true);
 }
