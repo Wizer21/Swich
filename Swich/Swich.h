@@ -56,7 +56,7 @@ private:
   QMenuBar* bar;
   QAction* options;
   QAction* credits;
-  QLineEdit* sold;
+  QLabel* sold;
 
   std::vector<double> historyBank;
   std::vector<double> moneyMovements;

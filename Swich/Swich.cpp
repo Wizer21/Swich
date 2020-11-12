@@ -44,7 +44,10 @@ void Swich::ini(QGridLayout* layout)
   pub = new QPushButton(tr("Ad"), this);
   stock = new QPushButton(tr("Stock"), this);
   chat = new QPushButton(tr("Chat"), this);
-  sold = new QLineEdit(QString::number(bankDisplayed), this);
+  QWidget* containSold = new QWidget(this);
+  QHBoxLayout* layoutSold = new QHBoxLayout(this);
+  QLabel* logoSol = new QLabel(this);
+  sold = new QLabel(QString::number(bankDisplayed), this);
 
   layout->addWidget(widgetMenu, 0, 0);
   widgetMenu->setLayout(layoutMenu);
@@ -56,12 +59,15 @@ void Swich::ini(QGridLayout* layout)
   layoutMenu->addWidget(pub);
   layoutMenu->addWidget(stock);
   layoutMenu->addWidget(chat);
-  layoutMenu->addWidget(sold);
+  layout->addWidget(containSold, 1, 0);
+  containSold->setLayout(layoutSold);
+  layoutSold->addWidget(logoSol);
+  layoutSold->addWidget(sold);
 
   // Right Zone
   swichZoneWidget = new QStackedWidget(this);
 
-  layout->addWidget(swichZoneWidget, 0, 1);
+  layout->addWidget(swichZoneWidget, 0, 1, 2, 1);
 
   swichZoneWidget->addWidget(widgetHub);
   swichZoneWidget->addWidget(widgetAnalytics);
@@ -74,6 +80,10 @@ void Swich::ini(QGridLayout* layout)
   //Theme Name
   QFont font(qApp->font());
   swich->setStyleSheet("font-size:40px;" + font.toString() + ";");
+  sold->setStyleSheet("font-size:40px;" + font.toString() + ";");
+  QPixmap pixM(":/Swich/piece.png");
+  pixM = pixM.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+  logoSol->setPixmap(pixM);
 
   hub->setObjectName("index0");
   analytics->setObjectName("index1");
@@ -94,8 +104,6 @@ void Swich::ini(QGridLayout* layout)
   swichZoneWidget->setCurrentIndex(0);
   setTheme();
 
-  sold->setReadOnly(true);
-  sold->setAcceptDrops(false);
   layoutMenu->setAlignment(Qt::AlignTop);
   widgetMenu->setMaximumWidth(this->width() * 0.3);
   widgetMenu->setMinimumWidth(this->width() * 0.3);
@@ -336,5 +344,5 @@ void Swich::setTheme()
       break;
   }
 
-  bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-bottom: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
+  bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 4px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
 }

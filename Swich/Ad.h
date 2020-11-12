@@ -14,7 +14,7 @@ public:
   QString getSalary_Production(int addDays);
 
 private slots:
-  void employeChanged(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos);
+  void employeChanged(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos, QString styleSheet);
 
 private:
   int day;

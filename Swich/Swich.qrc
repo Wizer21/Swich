@@ -11,5 +11,6 @@
         <file>dark.qss</file>
         <file>ariane.jpg</file>
         <file>hubble.jpeg</file>
+        <file>piece.png</file>
     </qresource>
 </RCC>

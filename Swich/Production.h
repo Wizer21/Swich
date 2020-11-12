@@ -36,6 +36,8 @@ private:
   QGridLayout* layoutProduction;
   QPushButton* lockedFactory1;
   QPushButton* lockedFactory2;
+  QVBoxLayout* layout1;
+  QVBoxLayout* layout2;
 
   std::vector<Factory> listFactory;
   std::vector<QLabel*> levelList;

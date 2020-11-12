@@ -101,11 +101,11 @@ QString Hub::updateCurrentMonth(int gain, int sells, int addDays)
   if (gain >= 0)
   {
     cGain.insert(0, "+");
-    displayGain->setStyleSheet("color:#b2ff59; font-size:45px;background-color:transparent;");
+    displayGain->setStyleSheet("color:#b2ff59; font-size:65px;background-color:transparent;");
   }
   else
   {
-    displayGain->setStyleSheet("color:#ff5252; font-size:45px;background-color:transparent;");
+    displayGain->setStyleSheet("color:#ff5252; font-size:65px;background-color:transparent;");
   }
 
   displayGain->setText(cGain);

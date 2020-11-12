@@ -8,7 +8,7 @@ class DragEmployee : public QWidget
 
 public:
   DragEmployee();
-  DragEmployee(QString addIdPhoto, int addLevel, QString addName, QString addNote, int addSalary, int addId, int addPos);
+  DragEmployee(QString addIdPhoto, int addLevel, QString addName, QString addNote, int addSalary, int addId, int addPos, QString addSyleSheet);
   DragEmployee(QString addIdPhoto, QString addName, QString addNote);
   int getId();
   int getPos();
@@ -28,6 +28,7 @@ private:
   int salary;
   int id;
   int pos;
+  QString styleSheet;
 
   void calculRandStats();
   void ini();

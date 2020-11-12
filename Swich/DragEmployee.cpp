@@ -2,7 +2,7 @@
 
 DragEmployee::DragEmployee() {}
 
-DragEmployee::DragEmployee(QString addIdPhoto, int addLevel, QString addName, QString addNote, int addSalary, int addId, int addPos)
+DragEmployee::DragEmployee(QString addIdPhoto, int addLevel, QString addName, QString addNote, int addSalary, int addId, int addPos, QString addSyleSheet)
 {
   idPhoto = addIdPhoto;
   level = addLevel;
@@ -11,7 +11,9 @@ DragEmployee::DragEmployee(QString addIdPhoto, int addLevel, QString addName, QS
   salary = addSalary;
   id = addId;
   pos = addPos;
+  styleSheet = addSyleSheet;
   ini();
+  this->setStyleSheet(addSyleSheet);
 }
 DragEmployee::DragEmployee(QString addIdPhoto, QString addName, QString addNote)
 {
@@ -22,6 +24,7 @@ DragEmployee::DragEmployee(QString addIdPhoto, QString addName, QString addNote)
   salary = 0;
   id = -1;
   pos = -1;
+  styleSheet = "";
   calculRandStats();
   ini();
 }
@@ -70,22 +73,27 @@ void DragEmployee::calculRandStats()
   if (level < 3)
   {
     this->setStyleSheet("background-color:#ff5252");
+    styleSheet = "background-color:#ff5252";
   }
   else if (level < 6)
   {
     this->setStyleSheet("background-color:#7c4dff");
+    styleSheet = "background-color:#7c4dff";
   }
   else if (level < 9)
   {
     this->setStyleSheet("background-color:#536dfe");
+    styleSheet = "background-color:#536dfe";
   }
   else if (level < 12)
   {
     this->setStyleSheet("background-color:#b2ff59");
+    styleSheet = "background-color:#b2ff59";
   }
   else
   {
     this->setStyleSheet("QWidget{background-color:#ffd740;} QLabel{color:#262626;}");
+    styleSheet = "QWidget{background-color:#ffd740;} QLabel{color:#262626;}";
   }
 }
 
@@ -159,7 +167,7 @@ void DragEmployee::mouseMoveEvent(QMouseEvent* event)
   QDrag* drag = new QDrag(this);
   QMimeData* mimeData = new QMimeData();
 
-  mimeData->setText(QString("%1$%2$%3$%4$%5$%6$%7").arg(idPhoto).arg(level).arg(name).arg(note).arg(salary).arg(id).arg(pos));
+  mimeData->setText(QString("%1$%2$%3$%4$%5$%6$%7$%8").arg(idPhoto).arg(level).arg(name).arg(note).arg(salary).arg(id).arg(pos).arg(styleSheet));
 
   drag->setMimeData(mimeData);
   drag->exec(Qt::MoveAction);

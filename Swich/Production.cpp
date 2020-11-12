@@ -38,8 +38,17 @@ void Production::setProduction()
   QFont font(qApp->font());
   font.setPixelSize(50);
   displayProduction->setFont(font);
+
+  connect(lockedFactory1, SIGNAL(clicked()), this, SLOT(askNewFactory()));
+  connect(lockedFactory2, SIGNAL(clicked()), this, SLOT(askNewFactory()));
+
+  // Theme
+  lockedFactory1->setMaximumWidth(this->width() * 0.5);
+  lockedFactory2->setMaximumWidth(this->width() * 0.5);
+
   lockedFactory1->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   lockedFactory2->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
   lockedFactory1->setObjectName("a0");
   lockedFactory2->setObjectName("a1");
   QPixmap pix(":/Swich/lock-open-alert.png");
@@ -51,10 +60,6 @@ void Production::setProduction()
   listFactory.push_back(fact1);
   updateWidgets();
 
-  connect(lockedFactory1, SIGNAL(clicked()), this, SLOT(askNewFactory()));
-  connect(lockedFactory2, SIGNAL(clicked()), this, SLOT(askNewFactory()));
-
-  //Theme
   displayProduction->setObjectName("lastProduction");
 }
 

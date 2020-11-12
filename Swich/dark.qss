@@ -268,8 +268,6 @@ QWidget#sell QPushButton::hover{
    font-size: 15px;
    padding: 0px;
    margin: 0px;
-   /* padding-left: 15px;
-   padding-right: 15px; */
    min-width: 100px;
  }
 QWidget#sell QHeaderView::section:horizontal:hover{
@@ -329,6 +327,9 @@ QWidget#ad QLabel#titleAd{
 
  QWidget#stock QTableWidget QTableCornerButton::section{
    background: transparent;
+ }
+  QWidget#stock QTableWidget{
+   border: 3px solid #ffd740;
  }
    QWidget#stock QHeaderView::section:vertical{
    background: transparent;

@@ -80,10 +80,10 @@ void Ad::setAd()
   pix = pix.scaled(100, 100);
   trashlabel->setPixmap(pix);
 
-  connect(manager, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
-  connect(designer, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
-  connect(artisana, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
-  connect(trash, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int)));
+  connect(manager, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
+  connect(designer, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
+  connect(artisana, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
+  connect(trash, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
 
   //Theme
   team->setObjectName("titleAd");
@@ -133,7 +133,7 @@ QString Ad::getSalary_Production(int addDays)
   return QString("%1$%2").arg(salary).arg(efficiency);
 }
 
-void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos)
+void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos, QString styleSheet)
 {
   bool emptyDestination = true;
 
@@ -161,7 +161,7 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
     delete getNewE;
     getNewE = nullptr;
 
-    DragEmployee* newEmploye = new DragEmployee(IdPhoto, Level, Name, Talent, Salary, idEmploye++, sender()->objectName().toInt());
+    DragEmployee* newEmploye = new DragEmployee(IdPhoto, Level, Name, Talent, Salary, idEmploye++, sender()->objectName().toInt(), styleSheet);
     QVBoxLayout* layoutToAdd = this->findChild<QVBoxLayout*>("l" + sender()->objectName());
     layoutToAdd->addWidget(newEmploye);
     employeList.push_back(newEmploye);
