@@ -285,6 +285,22 @@ QWidget#sell QHeaderView::section:vertical:pressed{
 QWidget#sell QTableWidget::item:selected{
       background: #536dfe;
 }
+QWidget#sell QSlider::handle{
+    top: 9px;
+    bottom: 9px;
+    width: 5px;
+      background: #ffd740;
+}
+QWidget#sell QSlider::groove{
+    background: white;
+   top: 12px; bottom: 12px;
+}
+QWidget#sell QSlider::sub-page{
+      background: #ffd740;
+}
+QWidget#sell QScrollArea{
+      border: 0px solid white;
+}
 
  /* ------------------------------ */
  /* ------------ Prod ------------ */
@@ -318,7 +334,7 @@ QWidget#production QLabel#lastProduction {
  /* ------------   Ad  ----------- */
  /* ------------------------------ */
 QWidget#ad QLabel#titleAd{
-   color:#b2ff59;
+   color:#b2ff59
 }
 
  /* ------------------------------ */

@@ -29,7 +29,7 @@ private:
   int lockedPrice2;
 
   void setProduction();
-  QWidget* newFactoryWidget();
+  QWidget* newFactoryWidget(QString getName, QString objName);
   void updateWidgets();
 
   QLabel* displayProduction;
