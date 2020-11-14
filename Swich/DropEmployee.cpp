@@ -18,5 +18,5 @@ void DropEmployee::dragMoveEvent(QDragMoveEvent* event)
 void DropEmployee::dropEvent(QDropEvent* event)
 {
   auto lText = event->mimeData()->text().split("$");
-  emit transfertDataEmployee(lText.at(0), lText.at(1).toInt(), lText.at(2), lText.at(3), lText.at(4).toInt(), lText.at(5).toInt(), lText.at(6).toInt(), lText.at(7));
+  emit transfertDataEmployee(lText.at(0).toInt(), lText.at(1).toInt());
 }

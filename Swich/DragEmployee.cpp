@@ -1,41 +1,28 @@
 #include "DragEmployee.h"
 
-DragEmployee::DragEmployee() {}
-
-DragEmployee::DragEmployee(QString addIdPhoto, int addLevel, QString addName, QString addNote, int addSalary, int addId, int addPos, QString addSyleSheet)
+DragEmployee::DragEmployee()
 {
-  idPhoto = addIdPhoto;
-  level = addLevel;
-  name = addName;
-  note = addNote;
-  salary = addSalary;
-  id = addId;
-  pos = addPos;
-  styleSheet = addSyleSheet;
-  ini();
-  this->setStyleSheet(addSyleSheet);
-}
-DragEmployee::DragEmployee(QString addIdPhoto, QString addName, QString addNote)
-{
-  idPhoto = addIdPhoto;
-  level = 0;
-  name = addName;
-  note = addNote;
-  salary = 0;
+  QPair pair = Static::getRandCharacter();
+  level = -1;
+  name = pair.first;
+  note = -1;
+  salary = -1;
   id = -1;
   pos = -1;
-  styleSheet = "";
+
   calculRandStats();
-  ini();
+  ini(pair.second);
 }
 
-void DragEmployee::ini()
+void DragEmployee::ini(const QPixmap* pix)
 {
   QGridLayout* layoutEmployee = new QGridLayout(this);
   QLabel* displayPix = new QLabel(this);
   QLabel* displayLvl = new QLabel(note, this);
   QLabel* displayName = new QLabel(name, this);
   QLabel* displaySalary = new QLabel(QString::number(salary), this);
+
+  displayPix->setPixmap(*pix);
 
   this->setLayout(layoutEmployee);
   layoutEmployee->addWidget(displayPix, 0, 0);
@@ -73,27 +60,22 @@ void DragEmployee::calculRandStats()
   if (level < 3)
   {
     this->setStyleSheet("background-color:#ff5252");
-    styleSheet = "background-color:#ff5252";
   }
   else if (level < 6)
   {
     this->setStyleSheet("background-color:#7c4dff");
-    styleSheet = "background-color:#7c4dff";
   }
   else if (level < 9)
   {
     this->setStyleSheet("background-color:#536dfe");
-    styleSheet = "background-color:#536dfe";
   }
   else if (level < 12)
   {
     this->setStyleSheet("background-color:#b2ff59");
-    styleSheet = "background-color:#b2ff59";
   }
   else
   {
     this->setStyleSheet("QWidget{background-color:#ffd740;} QLabel{color:#262626;}");
-    styleSheet = "QWidget{background-color:#ffd740;} QLabel{color:#262626;}";
   }
 }
 
@@ -167,7 +149,7 @@ void DragEmployee::mouseMoveEvent(QMouseEvent* event)
   QDrag* drag = new QDrag(this);
   QMimeData* mimeData = new QMimeData();
 
-  mimeData->setText(QString("%1$%2$%3$%4$%5$%6$%7$%8").arg(idPhoto).arg(level).arg(name).arg(note).arg(salary).arg(id).arg(pos).arg(styleSheet));
+  mimeData->setText(QString("%1$%2").arg(id).arg(pos));
 
   drag->setMimeData(mimeData);
   drag->exec(Qt::MoveAction);

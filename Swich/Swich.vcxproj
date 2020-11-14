@@ -46,6 +46,18 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
   </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level4</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <WarningLevel>Level4</WarningLevel>
+    </ClCompile>
+  </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>Qt 1.15.1 x64</QtInstall>
     <QtModules>charts;core;datavisualization;gui;widgets</QtModules>
@@ -110,7 +122,7 @@
     <QtMoc Include="Production.h" />
     <QtMoc Include="Options.h" />
     <ClInclude Include="Jumpslider.h" />
-    <ClInclude Include="Static.h" />
+    <QtMoc Include="Static.h" />
     <ClInclude Include="Stock.h" />
     <QtRcc Include="Swich.qrc" />
     <QtUic Include="Swich.ui" />

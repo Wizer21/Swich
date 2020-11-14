@@ -148,7 +148,7 @@ QPushButton#index6::hover{
     border: 0px solid transparent;
  } 
 
- /* ------------ Menue List ------------ */
+ /* ------------ Menu List ------------ */
 
 QWidget#hub QPushButton{
     background-color: #262626; 

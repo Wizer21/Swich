@@ -14,7 +14,7 @@ public:
   QString getSalary_Production(int addDays);
 
 private slots:
-  void employeChanged(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos, QString styleSheet);
+  void employeChanged(const int& id, const int& pos);
 
 private:
   int day;
@@ -23,7 +23,7 @@ private:
   void setTotalLvl();
   int idEmploye;
 
-  QLabel* displayTotalLvl;
+  QLabel* teamValueDisplay;
   QGridLayout* layoutAd;
   QWidget* displayNewEmploye;
   std::vector<DragEmployee*> employeList;

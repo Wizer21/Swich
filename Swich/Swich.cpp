@@ -170,8 +170,8 @@ void Swich::setDefaultList()
     historyBank.push_back(1156);
     historySoldVol.push_back(10);
   }
-  int sizeA = cityList.size();
-  int sizeB = itemList.size();
+  int sizeA = (int)cityList.size();
+  int sizeB = (int)itemList.size();
   for (int a = 0; a < sizeA; a++)
   {
     for (int i = 0; i < sizeB; i++)
@@ -266,11 +266,11 @@ void Swich::startNewMonth()
   widgetStock->updateStock();
 }
 
-double Swich::addProductionToInventory(double production)
+double Swich::addProductionToInventory(double addedProduction)
 {
-  int items = itemList.size();
+  int items = (int)itemList.size();
   int nrbIteration = 15 + Static::randZeroToVal(10);
-  double prodToPush = production / nrbIteration;
+  double prodToPush = addedProduction / nrbIteration;
   double price = 0;
 
   for (int i = 0; i < nrbIteration; i++)
@@ -344,5 +344,5 @@ void Swich::setTheme()
       break;
   }
 
-  bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 4px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
+  bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
 }

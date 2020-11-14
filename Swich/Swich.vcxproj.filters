@@ -121,9 +121,6 @@
     <ClInclude Include="Dragwidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Static.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Factory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -163,6 +160,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Ad.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Static.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

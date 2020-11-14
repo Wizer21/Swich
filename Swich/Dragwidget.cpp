@@ -1,6 +1,7 @@
 #include "Dragwidget.h"
 
 Dragwidget::Dragwidget(QWidget* parent, QString addNom, int addVolume, int addId)
+  : QWidget(parent)
 {
   nom = addNom;
   volume = addVolume;

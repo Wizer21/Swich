@@ -2,14 +2,13 @@
 #include <qwidget.h>
 #include "stdafx.h"
 #include "Static.h"
+#include <QPair>
 
 class DragEmployee : public QWidget
 {
 
 public:
   DragEmployee();
-  DragEmployee(QString addIdPhoto, int addLevel, QString addName, QString addNote, int addSalary, int addId, int addPos, QString addSyleSheet);
-  DragEmployee(QString addIdPhoto, QString addName, QString addNote);
   int getId();
   int getPos();
   int getSalary();
@@ -21,15 +20,13 @@ protected:
   void mouseMoveEvent(QMouseEvent* event);
 
 private:
-  QString idPhoto;
   int level;
   QString name;
   QString note;
   int salary;
   int id;
   int pos;
-  QString styleSheet;
 
   void calculRandStats();
-  void ini();
+  void ini(const QPixmap* pix);
 };

@@ -40,7 +40,7 @@ void Production::setProduction()
   testInvested->setAlignment(Qt::AlignLeft | Qt::AlignBottom);
 
   QFont font(qApp->font());
-  font.setPixelSize(100);
+  font.setPixelSize(80);
   displayProduction->setFont(font);
   font.setPixelSize(50);
   investedProduction->setFont(font);
@@ -104,7 +104,7 @@ QWidget* Production::newFactoryWidget(QString getName, QString objName)
   QPixmap pix1(":/Swich/cash-multiple.png");
   upgrade->setIcon(QIcon(pix1));
   upgrade->setIconSize(QSize(50, 50));
-  widgetFactory->setStyleSheet("background-color:#565656;");
+  widgetFactory->setStyleSheet("background-color:#262626;");
 
   upgrade->setObjectName(QString::number(idButton++));
   widgetFactory->setObjectName("factory" + objName);

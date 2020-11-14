@@ -12,9 +12,11 @@ void Ad::setAd()
 {
   layoutAd = new QGridLayout(this);
 
-  QLabel* team = new QLabel(tr("Your team"), this);
+  teamValueDisplay = new QLabel("+100%", this);
+  QLabel* valueText = new QLabel(tr("Increase in sales estimates"), this);
 
-  displayTotalLvl = new QLabel("dab", this);
+  QGroupBox* groupTeam = new QGroupBox(tr("Team"), this);
+  QHBoxLayout* layoutGroup = new QHBoxLayout(this);
 
   DropEmployee* manager = new DropEmployee(this);
   QVBoxLayout* layoutManager = new QVBoxLayout(this);
@@ -24,6 +26,10 @@ void Ad::setAd()
 
   DropEmployee* artisana = new DropEmployee(this);
   QVBoxLayout* layoutArtisan = new QVBoxLayout(this);
+
+  QLabel* textCommercial = new QLabel(tr("Commercial"), this);
+  DropEmployee* commercial = new DropEmployee(this);
+  QVBoxLayout* layoutcommercial = new QVBoxLayout(this);
 
   QLabel* newEmploye = new QLabel(tr("New"), this);
   displayNewEmploye = new QWidget(this);
@@ -36,26 +42,33 @@ void Ad::setAd()
 
   this->setLayout(layoutAd);
 
-  layoutAd->addWidget(team, 0, 0, 1, 1);
-  layoutAd->addWidget(displayTotalLvl, 1, 1, 1, 1);
+  layoutAd->addWidget(teamValueDisplay, 0, 0, 2, 4);
+  layoutAd->addWidget(valueText, 2, 0, 1, 4);
 
-  layoutAd->addWidget(manager, 3, 0, 1, 1);
+  layoutAd->addWidget(groupTeam, 3, 0, 2, 6);
+  groupTeam->setLayout(layoutGroup);
+  layoutGroup->addWidget(manager);
+  layoutGroup->addWidget(designer);
+  layoutGroup->addWidget(artisana);
+
   manager->setLayout(layoutManager);
 
-  layoutAd->addWidget(designer, 3, 1, 1, 1);
   designer->setLayout(layoutDesigner);
 
-  layoutAd->addWidget(artisana, 3, 2, 1, 1);
   artisana->setLayout(layoutArtisan);
 
-  layoutAd->addWidget(newEmploye, 0, 3, 1, 1);
-  layoutAd->addWidget(displayNewEmploye, 1, 3, 2, 1);
+  layoutAd->addWidget(newEmploye, 0, 5, 1, 1);
+  layoutAd->addWidget(displayNewEmploye, 0, 6, 3, 2);
 
-  layoutAd->addWidget(widgetTrash, 3, 3, 1, 1);
+  layoutAd->addWidget(widgetTrash, 2, 5, 1, 1);
   widgetTrash->setLayout(layoutTrash);
   layoutTrash->addWidget(trash);
   trash->setLayout(trashlayout);
   trashlayout->addWidget(trashlabel);
+
+  layoutAd->addWidget(textCommercial, 3, 6, 1, 2);
+  layoutAd->addWidget(commercial);
+  commercial->setLayout(layoutcommercial);
 
   manager->setObjectName("0");
   designer->setObjectName("1");
@@ -72,6 +85,10 @@ void Ad::setAd()
   trash->setMaximumSize(100, 100);
   trash->setMaximumSize(100, 100);
 
+  layoutAd->setAlignment(teamValueDisplay, Qt::AlignBottom | Qt::AlignRight);
+  layoutAd->setAlignment(valueText, Qt::AlignTop | Qt::AlignRight);
+  layoutAd->setAlignment(newEmploye, Qt::AlignRight);
+
   manager->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   designer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   artisana->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -79,24 +96,26 @@ void Ad::setAd()
   QPixmap pix(":/Swich/trash-can-outline.png");
   pix = pix.scaled(100, 100);
   trashlabel->setPixmap(pix);
+  QFont font(qApp->font());
+  teamValueDisplay->setFont(QFont(font.toString(), 45));
 
-  connect(manager, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
-  connect(designer, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
-  connect(artisana, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
-  connect(trash, SIGNAL(transfertDataEmployee(QString, int, QString, QString, int, int, int, QString)), this, SLOT(employeChanged(QString, int, QString, QString, int, int, int, QString)));
+  connect(manager, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
+  connect(designer, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
+  connect(artisana, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
+  connect(trash, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
 
   //Theme
-  team->setObjectName("titleAd");
+  teamValueDisplay->setObjectName("titleAd");
 }
 
 void Ad::callNewEmploye()
 {
-  QWidget* getNew = this->findChild<QWidget*>("new");
+  DragEmployee* getNew = this->findChild<DragEmployee*>("new");
   delete getNew;
   getNew = nullptr;
 
-  DragEmployee* newEmplo1 = new DragEmployee("0", "Bob", "Web");
-  layoutAd->addWidget(newEmplo1, 1, 3, 2, 1);
+  DragEmployee* newEmplo1 = new DragEmployee();
+  layoutAd->addWidget(newEmplo1, 0, 6, 3, 2);
   newEmplo1->setObjectName("new");
 }
 
@@ -133,9 +152,10 @@ QString Ad::getSalary_Production(int addDays)
   return QString("%1$%2").arg(salary).arg(efficiency);
 }
 
-void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos, QString styleSheet)
+void Ad::employeChanged(const int& id, const int& pos)
 {
   bool emptyDestination = true;
+  int sizeList = (int)employeList.size();
 
   if (sender()->objectName() == "trash")
   {
@@ -143,7 +163,7 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
     {
       return;
     }
-    for (int i = 0; i < employeList.size(); i++)
+    for (int i = 0; i < sizeList; i++)
     {
       if (employeList.at(i)->getId() == id)
       {
@@ -157,19 +177,17 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
   }
   if (id == -1)
   {
-    QWidget* getNewE = this->findChild<QWidget*>("new");
-    delete getNewE;
-    getNewE = nullptr;
+    DragEmployee* getNewE = this->findChild<DragEmployee*>("new");
+    layoutAd->removeWidget(getNewE);
 
-    DragEmployee* newEmploye = new DragEmployee(IdPhoto, Level, Name, Talent, Salary, idEmploye++, sender()->objectName().toInt(), styleSheet);
     QVBoxLayout* layoutToAdd = this->findChild<QVBoxLayout*>("l" + sender()->objectName());
-    layoutToAdd->addWidget(newEmploye);
-    employeList.push_back(newEmploye);
-    newEmploye->setObjectName("z");
+    layoutToAdd->addWidget(getNewE);
+    employeList.push_back(getNewE);
+    getNewE->setObjectName("z");
     setTotalLvl();
     return;
   }
-  for (int i = 0; i < employeList.size(); i++)
+  for (int i = 0; i < sizeList; i++)
   {
     if (employeList.at(i)->getPos() == sender()->objectName().toInt())
     {
@@ -180,7 +198,7 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
   {
     int pos1 = -2;
     int pos1List = -2;
-    for (int i = 0; i < employeList.size(); i++)
+    for (int i = 0; i < sizeList; i++)
     {
       if (employeList.at(i)->getPos() == pos)
       {
@@ -203,7 +221,7 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
     int pos1List = -2;
     int pos2 = -2;
     int pos2List = -2;
-    for (int i = 0; i < employeList.size(); i++)
+    for (int i = 0; i < sizeList; i++)
     {
       if (employeList.at(i)->getPos() == pos)
       {
@@ -233,10 +251,8 @@ void Ad::employeChanged(QString IdPhoto, int Level, QString Name, QString Talent
 void Ad::setTotalLvl()
 {
   int totalLvl = 0;
-  DragEmployee getEmploye;
   for (int i = 0; i < employeList.size(); i++)
   {
     totalLvl += employeList.at(i)->getLvl();
   }
-  displayTotalLvl->setText(getEmploye.calculNote(totalLvl));
 }

@@ -80,9 +80,9 @@ void Chat::enterText()
   text->clear();
 }
 
-void Chat::displayText(int pos, QString text)
+void Chat::displayText(int pos, QString newText)
 {
-  QLabel* textDisplayed = new QLabel(text, this);
+  QLabel* textDisplayed = new QLabel(newText, this);
   QVBoxLayout* layoutBox = this->findChild<QVBoxLayout*>(QString::number(chatZone->currentIndex()));
 
   layoutBox->addWidget(textDisplayed);

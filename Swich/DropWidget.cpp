@@ -1,6 +1,7 @@
 #include "DropWidget.h"
 
 DropWidget::DropWidget(QWidget* parent)
+  : QScrollArea(parent)
 {
   this->setAcceptDrops(true);
 }

@@ -10,13 +10,13 @@ void Stock::setStock()
 {
   QHBoxLayout* layoutStock = new QHBoxLayout(this);
 
-  tab = new QTableWidget(listItem->size(), 7, this);
+  tab = new QTableWidget((int)listItem->size(), 7, this);
   QStringList columnName;
   columnName << tr("View") << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.") << tr("City's Stocks") << tr("Monthly Sells");
   tab->setHorizontalHeaderLabels(columnName);
   this->setLayout(layoutStock);
 
-  layoutStock->addWidget(tab, 0, 0);
+  layoutStock->addWidget(tab);
 
   setList();
   tab->resizeColumnsToContents();
@@ -24,13 +24,14 @@ void Stock::setStock()
 
 void Stock::setList()
 {
+  int sizeInventory = (int)listItem->size();
   tab->setSortingEnabled(false);
   tab->clearContents();
-  tab->setRowCount(listItem->size());
+  tab->setRowCount(sizeInventory);
 
   int y = 0;
 
-  for (int i = 0; i < listItem->size(); i++)
+  for (int i = 0; i < sizeInventory; i++)
   {
     y = 0;
     QLabel* pixItem = new QLabel(this);
@@ -68,7 +69,6 @@ void Stock::updateStock()
 
   tab->setSortingEnabled(false);
   tab->sortItems(1, Qt::AscendingOrder);
-  int y = 0;
 
   for (int i = 0; i < listItem->size(); i++)
   {

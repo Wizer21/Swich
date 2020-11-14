@@ -10,7 +10,7 @@ public:
   DropEmployee(QWidget* parent);
 
 signals:
-  void transfertDataEmployee(QString IdPhoto, int Level, QString Name, QString Talent, int Salary, int id, int pos, QString styleSheey);
+  void transfertDataEmployee(const int& id, const int& pos);
 
 protected:
   void dragEnterEvent(QDragEnterEvent* event) override;

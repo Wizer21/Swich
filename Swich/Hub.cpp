@@ -94,11 +94,11 @@ void Hub::updateLabels(std::vector<double> bankHisto, std::vector<int> volHisto)
   sellsEvo->setText("+" + QString::number(round(volThisYear / volLastYear * 100)) + "% Sells");
 }
 
-QString Hub::updateCurrentMonth(int gain, int sells, int addDays)
+QString Hub::updateCurrentMonth(int newGain, int sells, int addDays)
 {
-  QString cGain = QString::number(gain);
+  QString cGain = QString::number(newGain);
 
-  if (gain >= 0)
+  if (newGain >= 0)
   {
     cGain.insert(0, "+");
     displayGain->setStyleSheet("color:#b2ff59; font-size:65px;background-color:transparent;");
