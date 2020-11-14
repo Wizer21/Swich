@@ -17,6 +17,7 @@
 #include "Options.h"
 #include "Credits.h"
 #include <math.h>
+#include "DragEmployee.h"
 
 class Swich : public QMainWindow
 {
@@ -33,6 +34,9 @@ private slots:
   void applyNewFactory(int cost, int id);
   void openOptions();
   void openCredits();
+  void applyNewCommercial(DragEmployee* getActualEmployee);
+  void applyFireCommercial();
+  void applyCommercialIsActivated(bool);
 
 private:
   void ini(QGridLayout* widget);
@@ -40,9 +44,12 @@ private:
   void setDefaultList();
   double addProductionToInventory(double production);
   void setTheme();
+  void commercialTransfertStock();
 
   int turnId;
   double bankDisplayed;
+  bool gotCommercial;
+  bool commercialActivated;
 
   QStackedWidget* swichZoneWidget;
   Hub* widgetHub;
@@ -64,6 +71,7 @@ private:
   std::vector<Item> itemList;
   std::vector<City> cityList;
   std::vector<Contact> contactList;
+  DragEmployee* getCommercial;
 
   QPushButton* hub;
   QPushButton* analytics;

@@ -13,7 +13,10 @@ public:
   int getPos();
   int getSalary();
   int getLvl();
+  QString getName();
   void setPos(int pos);
+  void setId(int newId);
+  void setTrashable(bool canBeFire);
   QString calculNote(int lvl);
 
 protected:
@@ -24,8 +27,10 @@ private:
   QString name;
   QString note;
   int salary;
+  QString fonction;
   int id;
   int pos;
+  bool canBeTrash;
 
   void calculRandStats();
   void ini(const QPixmap pix);

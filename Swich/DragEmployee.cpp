@@ -2,14 +2,16 @@
 
 DragEmployee::DragEmployee()
 {
-  SingleData* getVar = getVar->getInstance();
-  std::pair pairStore = getVar->getCharacter();
+  SingleData* getSingle = getSingle->getInstance();
+  std::pair pairStore = getSingle->getCharacter();
   level = -1;
   name = pairStore.first;
   note = -1;
   salary = -1;
+  fonction = "none";
   id = -1;
   pos = -1;
+  canBeTrash = false;
 
   calculRandStats();
   ini(pairStore.second);
@@ -31,7 +33,19 @@ void DragEmployee::ini(const QPixmap pix)
   layoutEmployee->addWidget(displayName, 1, 0);
   layoutEmployee->addWidget(displaySalary, 2, 0);
 
-  layoutEmployee->setAlignment(Qt::AlignTop);
+  //layoutEmployee->setAlignment(Qt::AlignTop);
+  layoutEmployee->setAlignment(displayLvl, Qt::AlignLeft | Qt::AlignBottom);
+  this->setFixedSize(120, 130);
+  this->setContentsMargins(0, 0, 0, 0);
+
+  if (fonction == "commercial")
+  {
+    SingleData* getSingle = getSingle->getInstance();
+    QLabel* labelCommercial = new QLabel(this);
+    labelCommercial->setPixmap(getSingle->getPixmap("commercial"));
+
+    layoutEmployee->addWidget(labelCommercial, 2, 1);
+  }
 }
 
 void DragEmployee::calculRandStats()
@@ -72,11 +86,18 @@ void DragEmployee::calculRandStats()
   }
   else if (level < 12)
   {
-    this->setStyleSheet("background-color:#b2ff59");
+    this->setStyleSheet("QWidget{background-color:#b2ff59;} QLabel{color:#262626;}");
   }
   else
   {
     this->setStyleSheet("QWidget{background-color:#ffd740;} QLabel{color:#262626;}");
+  }
+
+  // Role
+  dice = Static::randZeroToVal(100);
+  if (dice > 60)
+  {
+    fonction = "commercial";
   }
 }
 
@@ -150,7 +171,7 @@ void DragEmployee::mouseMoveEvent(QMouseEvent* event)
   QDrag* drag = new QDrag(this);
   QMimeData* mimeData = new QMimeData();
 
-  mimeData->setText(QString("%1$%2").arg(id).arg(pos));
+  mimeData->setText(QString("%1$%2$%3$%4").arg(id).arg(pos).arg(fonction).arg(QString::number(canBeTrash)));
 
   drag->setMimeData(mimeData);
   drag->exec(Qt::MoveAction);
@@ -179,4 +200,19 @@ int DragEmployee::getSalary()
 int DragEmployee::getLvl()
 {
   return level;
+}
+
+QString DragEmployee::getName()
+{
+  return name;
+}
+
+void DragEmployee::setId(int newId)
+{
+  id = newId;
+}
+
+void DragEmployee::setTrashable(bool canBeFire)
+{
+  canBeTrash = canBeFire;
 }

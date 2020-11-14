@@ -27,9 +27,8 @@ void Ad::setAd()
   DropEmployee* artisana = new DropEmployee(this);
   QVBoxLayout* layoutArtisan = new QVBoxLayout(this);
 
-  QLabel* textCommercial = new QLabel(tr("Commercial"), this);
   DropEmployee* commercial = new DropEmployee(this);
-  QVBoxLayout* layoutcommercial = new QVBoxLayout(this);
+  layoutcommercial = new QVBoxLayout(this);
 
   QLabel* newEmploye = new QLabel(tr("New"), this);
   displayNewEmploye = new QWidget(this);
@@ -42,8 +41,8 @@ void Ad::setAd()
 
   this->setLayout(layoutAd);
 
-  layoutAd->addWidget(teamValueDisplay, 0, 0, 2, 4);
-  layoutAd->addWidget(valueText, 2, 0, 1, 4);
+  layoutAd->addWidget(teamValueDisplay, 2, 0, 1, 4);
+  layoutAd->addWidget(valueText, 1, 0, 1, 4);
 
   layoutAd->addWidget(groupTeam, 3, 0, 2, 6);
   groupTeam->setLayout(layoutGroup);
@@ -66,8 +65,7 @@ void Ad::setAd()
   trash->setLayout(trashlayout);
   trashlayout->addWidget(trashlabel);
 
-  layoutAd->addWidget(textCommercial, 3, 6, 1, 2);
-  layoutAd->addWidget(commercial);
+  layoutAd->addWidget(commercial, 3, 6, 1, 2);
   commercial->setLayout(layoutcommercial);
 
   manager->setObjectName("0");
@@ -78,15 +76,21 @@ void Ad::setAd()
   layoutDesigner->setObjectName("l1");
   layoutArtisan->setObjectName("l2");
 
+  layoutGroup->setContentsMargins(0, 0, 0, 0);
+
+  commercial->setAcceptableType("commercial");
   layoutTrash->setAlignment(Qt::AlignBottom);
   displayNewEmploye->setObjectName("new");
   trash->setObjectName("trash");
   callNewEmploye();
   trash->setMaximumSize(100, 100);
   trash->setMaximumSize(100, 100);
+  groupTeam->setMinimumHeight(200);
+  groupTeam->setMinimumWidth(500);
+  trash->setIsTrash(true);
 
-  layoutAd->setAlignment(teamValueDisplay, Qt::AlignBottom | Qt::AlignRight);
-  layoutAd->setAlignment(valueText, Qt::AlignTop | Qt::AlignRight);
+  layoutAd->setAlignment(valueText, Qt::AlignBottom | Qt::AlignRight);
+  layoutAd->setAlignment(teamValueDisplay, Qt::AlignTop | Qt::AlignRight);
   layoutAd->setAlignment(newEmploye, Qt::AlignRight);
 
   manager->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
@@ -94,7 +98,7 @@ void Ad::setAd()
   artisana->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
   QPixmap pix(":/Swich/trash-can-outline.png");
-  pix = pix.scaled(100, 100);
+  pix = pix.scaled(100, 100, Qt::KeepAspectRatio);
   trashlabel->setPixmap(pix);
   QFont font(qApp->font());
   teamValueDisplay->setFont(QFont(font.toString(), 45));
@@ -102,7 +106,8 @@ void Ad::setAd()
   connect(manager, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
   connect(designer, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
   connect(artisana, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
-  connect(trash, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
+  connect(trash, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeeToTrash(const int&, const int&)));
+  connect(commercial, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(commercialChanged(const int&, const int&)));
 
   //Theme
   teamValueDisplay->setObjectName("titleAd");
@@ -156,27 +161,25 @@ void Ad::employeChanged(const int& id, const int& pos)
 {
   bool emptyDestination = true;
   int sizeList = (int)employeList.size();
+  int idOldEmploye = 0;
 
-  if (sender()->objectName() == "trash")
+  for (int i = 0; i < sizeList; i++)
   {
-    if (pos == -1)
+    if (employeList.at(i)->getPos() == sender()->objectName().toInt())
     {
-      return;
-    }
-    for (int i = 0; i < sizeList; i++)
-    {
-      if (employeList.at(i)->getId() == id)
-      {
-        delete employeList.at(i);
-        employeList.at(i) = nullptr;
-        employeList.erase(employeList.begin() + i);
-        setTotalLvl();
-        return;
-      }
+      emptyDestination = false;
+      idOldEmploye = i;
     }
   }
   if (id == -1)
   {
+    if (!emptyDestination)
+    {
+      delete employeList.at(idOldEmploye);
+      employeList.at(idOldEmploye) = nullptr;
+      employeList.erase(employeList.begin() + idOldEmploye);
+      setTotalLvl();
+    }
     DragEmployee* getNewE = this->findChild<DragEmployee*>("new");
     layoutAd->removeWidget(getNewE);
 
@@ -184,15 +187,11 @@ void Ad::employeChanged(const int& id, const int& pos)
     layoutToAdd->addWidget(getNewE);
     employeList.push_back(getNewE);
     getNewE->setObjectName("z");
+    getNewE->setId(idEmploye++);
+    getNewE->setTrashable(true);
+    getNewE->setPos(sender()->objectName().toInt());
     setTotalLvl();
     return;
-  }
-  for (int i = 0; i < sizeList; i++)
-  {
-    if (employeList.at(i)->getPos() == sender()->objectName().toInt())
-    {
-      emptyDestination = false;
-    }
   }
   if (emptyDestination)
   {
@@ -245,6 +244,58 @@ void Ad::employeChanged(const int& id, const int& pos)
     employeList.at(pos1List)->setPos(sender()->objectName().toInt());
     employeList.at(pos2List)->setPos(pos);
     setTotalLvl();
+  }
+}
+
+void Ad::employeeToTrash(const int& id, const int& pos)
+{
+  int sizeEmploye = employeList.size();
+
+  if (commercial.size() > 0)
+  {
+    if (commercial.at(0)->getId() == id)
+    {
+      delete commercial.at(0);
+      commercial.at(0) = nullptr;
+      commercial.erase(commercial.begin());
+      setTotalLvl();
+      emit fireCommercial();
+      return;
+    }
+  }
+  for (int i = 0; i < sizeEmploye; i++)
+  {
+    if (employeList.at(i)->getId() == id)
+    {
+      delete employeList.at(i);
+      employeList.at(i) = nullptr;
+      employeList.erase(employeList.begin() + i);
+      setTotalLvl();
+      return;
+    }
+  }
+}
+
+void Ad::commercialChanged(const int& id, const int& pos)
+{
+  if (id == -1)
+  {
+    if (commercial.size() > 0)
+    {
+      delete commercial.at(0);
+      commercial.at(0) = nullptr;
+      commercial.erase(commercial.begin());
+    }
+    DragEmployee* getNewC = this->findChild<DragEmployee*>("new");
+    layoutAd->removeWidget(getNewC);
+
+    layoutcommercial->addWidget(getNewC);
+    commercial.push_back(getNewC);
+    getNewC->setId(idEmploye++);
+    getNewC->setTrashable(true);
+    getNewC->setObjectName("z");
+    setTotalLvl();
+    emit newCommercial(getNewC);
   }
 }
 

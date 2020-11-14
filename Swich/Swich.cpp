@@ -7,6 +7,8 @@ Swich::Swich(QWidget* parent)
   ui.setupUi(this);
   turnId = 0;
   bankDisplayed = 11560;
+  gotCommercial = false;
+  commercialActivated = true;
   setDefaultList();
   createDefaultWidget();
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
@@ -123,6 +125,9 @@ void Swich::ini(QGridLayout* layout)
   connect(widgetProduction, SIGNAL(transfertNewFactory(int, int)), this, SLOT(applyNewFactory(int, int)));
   connect(options, SIGNAL(triggered()), this, SLOT(openOptions()));
   connect(credits, SIGNAL(triggered()), this, SLOT(openCredits()));
+  connect(widgetAd, SIGNAL(fireCommercial()), this, SLOT(applyFireCommercial()));
+  connect(widgetAd, SIGNAL(newCommercial(DragEmployee*)), this, SLOT(applyNewCommercial(DragEmployee*)));
+  connect(widgetStock, SIGNAL(setIsActivated(bool)), this, SLOT(applyCommercialIsActivated(bool)));
 }
 
 void Swich::createDefaultWidget()
@@ -238,17 +243,21 @@ void Swich::startNewMonth()
   //AD
   QString salary_Efficiency = widgetAd->getSalary_Production(addedDays);
   QStringList splitSalary_Efficiency = salary_Efficiency.split("$");
+
   //city Sell
   for (int i = 0; i < cityList.size(); i++)
   {
     QStringList getValue = (cityList.at(i).randSells(splitSalary_Efficiency.at(1).toDouble())).split("$");
-    temporaryGain += getValue.at(0).toInt();
-    temporarySoldVol += getValue.at(1).toInt();
+    temporaryGain += getValue.at(0).toDouble();
+    temporarySoldVol += getValue.at(1).toDouble();
   }
-
+  if (gotCommercial && commercialActivated)
+  {
+    commercialTransfertStock();
+  }
   temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
 
-  temporaryCharges += splitSalary_Efficiency.at(0).toInt();
+  temporaryCharges += splitSalary_Efficiency.at(0).toDouble();
   double evoBanque = temporaryGain - temporaryCharges;
   bankDisplayed += temporaryGain - temporaryCharges;
 
@@ -345,4 +354,48 @@ void Swich::setTheme()
   }
 
   bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
+}
+
+void Swich::applyNewCommercial(DragEmployee* getActualEmployee)
+{
+  getCommercial = getActualEmployee;
+  gotCommercial = true;
+  widgetStock->updateCommercialSlot(getActualEmployee);
+}
+
+void Swich::applyFireCommercial()
+{
+  widgetStock->firedCommercial();
+  gotCommercial = false;
+  getCommercial = nullptr;
+}
+
+void Swich::applyCommercialIsActivated(bool val)
+{
+  commercialActivated = val;
+}
+
+void Swich::commercialTransfertStock()
+{
+  double nbrItemToTransfert = 2;
+  int getLvl = getCommercial->getLvl();
+  while (getLvl > 0)
+  {
+    nbrItemToTransfert *= (1 + Static::randOnlyPositivePercentage(50));
+    getLvl--;
+  }
+
+  int itemsListSize = (int)itemList.size();
+  int cityListSize = (int)cityList.size();
+  int nrbIteration = 15 + Static::randZeroToVal(10);
+  double prodToPush = nbrItemToTransfert / nrbIteration;
+
+  for (int i = 0; i < nrbIteration; i++)
+  {
+    int randoItem = Static::randZeroToVal(itemsListSize);
+    int randoCity = Static::randZeroToVal(cityListSize);
+
+    itemList.at(randoItem).setStock(itemList.at(randoItem).getStock() - prodToPush);
+    cityList.at(randoCity).pushStockToList(itemList.at(randoItem).getId(), prodToPush);
+  }
 }

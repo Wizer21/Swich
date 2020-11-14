@@ -15,6 +15,12 @@ public:
 
 private slots:
   void employeChanged(const int& id, const int& pos);
+  void commercialChanged(const int& id, const int& pos);
+  void employeeToTrash(const int& id, const int& pos);
+
+signals:
+  void newCommercial(DragEmployee* actualEmploye);
+  void fireCommercial();
 
 private:
   int day;
@@ -25,6 +31,8 @@ private:
 
   QLabel* teamValueDisplay;
   QGridLayout* layoutAd;
+  QVBoxLayout* layoutcommercial;
   QWidget* displayNewEmploye;
   std::vector<DragEmployee*> employeList;
+  std::vector<DragEmployee*> commercial;
 };

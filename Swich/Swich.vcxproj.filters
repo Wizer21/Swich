@@ -115,9 +115,6 @@
     <ClInclude Include="City.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Stock.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Contact.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -169,6 +166,9 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Static.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Stock.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

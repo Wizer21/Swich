@@ -13,6 +13,7 @@ public:
   void removeStock(int id, int vol);
   void eraseIfEmpty();
   QString randSells(double valAd);
+  void pushStockToList(int idCurrentItem, double addedStock);
 
 private:
   QString nom;

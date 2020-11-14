@@ -60,9 +60,9 @@ QString City::randSells(double valAd)
 {
   int sold = 1 + Static::randZeroToVal(5);
   double newBank = 0;
-  int newVolSold = 0;
-  int SoldQuantity;
-  int stockCurrentItem;
+  double newVolSold = 0;
+  double SoldQuantity;
+  double stockCurrentItem;
   for (int i = 0; i < cityItemList.size(); i++)
   {
     stockCurrentItem = cityItemList.at(i).getStock();
@@ -81,4 +81,17 @@ QString City::randSells(double valAd)
     }
   }
   return QString("%1$%2").arg(newBank).arg(newVolSold);
+}
+
+void City::pushStockToList(int idCurrentItem, double addedStock)
+{
+  int sizeList = (int)cityItemList.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    if (cityItemList.at(i).getId() == idCurrentItem)
+    {
+      cityItemList.at(i).setStock(cityItemList.at(i).getStock() + addedStock);
+      return;
+    }
+  }
 }

@@ -124,7 +124,7 @@
     <ClInclude Include="Jumpslider.h" />
     <QtMoc Include="Static.h" />
     <ClInclude Include="SingleData.h" />
-    <ClInclude Include="Stock.h" />
+    <QtMoc Include="Stock.h" />
     <QtRcc Include="Swich.qrc" />
     <QtUic Include="Swich.ui" />
     <QtMoc Include="Swich.h" />
