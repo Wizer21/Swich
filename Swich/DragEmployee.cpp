@@ -2,19 +2,20 @@
 
 DragEmployee::DragEmployee()
 {
-  QPair pair = Static::getRandCharacter();
+  SingleData* getVar = getVar->getInstance();
+  std::pair pairStore = getVar->getCharacter();
   level = -1;
-  name = pair.first;
+  name = pairStore.first;
   note = -1;
   salary = -1;
   id = -1;
   pos = -1;
 
   calculRandStats();
-  ini(pair.second);
+  ini(pairStore.second);
 }
 
-void DragEmployee::ini(const QPixmap* pix)
+void DragEmployee::ini(const QPixmap pix)
 {
   QGridLayout* layoutEmployee = new QGridLayout(this);
   QLabel* displayPix = new QLabel(this);
@@ -22,7 +23,7 @@ void DragEmployee::ini(const QPixmap* pix)
   QLabel* displayName = new QLabel(name, this);
   QLabel* displaySalary = new QLabel(QString::number(salary), this);
 
-  displayPix->setPixmap(*pix);
+  displayPix->setPixmap(pix);
 
   this->setLayout(layoutEmployee);
   layoutEmployee->addWidget(displayPix, 0, 0);

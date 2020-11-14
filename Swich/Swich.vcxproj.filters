@@ -104,6 +104,9 @@
     <ClCompile Include="Jumpslider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SingleData.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -128,6 +131,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Jumpslider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

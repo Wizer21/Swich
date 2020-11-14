@@ -2,7 +2,7 @@
 #include <qwidget.h>
 #include "stdafx.h"
 #include "Static.h"
-#include <QPair>
+#include "SingleData.h"
 
 class DragEmployee : public QWidget
 {
@@ -28,5 +28,5 @@ private:
   int pos;
 
   void calculRandStats();
-  void ini(const QPixmap* pix);
+  void ini(const QPixmap pix);
 };
