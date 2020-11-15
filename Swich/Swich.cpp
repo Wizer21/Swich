@@ -43,7 +43,7 @@ void Swich::ini(QGridLayout* layout)
   analytics = new QPushButton(tr("Analytics"), this);
   sell = new QPushButton(tr("Sell"), this);
   production = new QPushButton(tr("Production"), this);
-  pub = new QPushButton(tr("Ad"), this);
+  pub = new QPushButton(tr("Team"), this);
   stock = new QPushButton(tr("Stock"), this);
   chat = new QPushButton(tr("Chat"), this);
   QWidget* containSold = new QWidget(this);
@@ -143,9 +143,9 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 0, 5, 35, 100, ":/Swich/ariane.jpg", 0, 0);
-  Item item2("Hubble", 0, 18, 68, 200, ":/Swich/hubble.jpeg", 0, 1);
-  Item item3("ISS", 0, 20, 75, 300, ":/Swich/iss.png", 0, 2);
+  Item item1("Ariane", 0, 5, 45, 100, ":/Swich/ariane.jpg", 0, 0);
+  Item item2("Hubble", 0, 18, 78, 200, ":/Swich/hubble.jpeg", 0, 1);
+  Item item3("ISS", 0, 20, 85, 300, ":/Swich/iss.png", 0, 2);
 
   itemList.push_back(item1);
   itemList.push_back(item2);
@@ -254,6 +254,7 @@ void Swich::startNewMonth()
   if (gotCommercial && commercialActivated)
   {
     commercialTransfertStock();
+    temporaryCharges += getCommercial->getSalary();
   }
   temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
 
@@ -377,17 +378,17 @@ void Swich::applyCommercialIsActivated(bool val)
 
 void Swich::commercialTransfertStock()
 {
-  double nbrItemToTransfert = 2;
+  double nbrItemToTransfert = 3;
   int getLvl = getCommercial->getLvl();
   while (getLvl > 0)
   {
-    nbrItemToTransfert *= (1 + Static::randOnlyPositivePercentage(50));
+    nbrItemToTransfert *= (1.2 + Static::randOnlyPositivePercentage(50));
     getLvl--;
   }
 
   int itemsListSize = (int)itemList.size();
   int cityListSize = (int)cityList.size();
-  int nrbIteration = 15 + Static::randZeroToVal(10);
+  int nrbIteration = 10 + Static::randZeroToVal(10);
   double prodToPush = nbrItemToTransfert / nrbIteration;
 
   for (int i = 0; i < nrbIteration; i++)
@@ -398,4 +399,5 @@ void Swich::commercialTransfertStock()
     itemList.at(randoItem).setStock(itemList.at(randoItem).getStock() - prodToPush);
     cityList.at(randoCity).pushStockToList(itemList.at(randoItem).getId(), prodToPush);
   }
+  widgetStock->setItemPushed(round(nbrItemToTransfert));
 }

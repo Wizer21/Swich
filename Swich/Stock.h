@@ -15,6 +15,7 @@ public:
   void updateStock();
   void updateCommercialSlot(DragEmployee* getEmploye);
   void firedCommercial();
+  void setItemPushed(int nrbItem);
 
 public slots:
   void updateRadioButton(int);
@@ -33,6 +34,5 @@ private:
   QLabel* name;
   QLabel* salary;
   QLabel* displayPushedItems;
-
   QLabel* textDefault;
 };

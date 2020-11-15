@@ -13,9 +13,11 @@ void Ad::setAd()
   layoutAd = new QGridLayout(this);
 
   teamValueDisplay = new QLabel("+100%", this);
-  QLabel* valueText = new QLabel(tr("Increase in sales estimates"), this);
+  QLabel* valueText = new QLabel(tr("Last performance"), this);
 
   QGroupBox* groupTeam = new QGroupBox(tr("Team"), this);
+  QVBoxLayout* layoutGroupTemporaire = new QVBoxLayout(this);
+  QWidget* widgetTeam = new QWidget(this);
   QHBoxLayout* layoutGroup = new QHBoxLayout(this);
 
   DropEmployee* manager = new DropEmployee(this);
@@ -27,10 +29,15 @@ void Ad::setAd()
   DropEmployee* artisana = new DropEmployee(this);
   QVBoxLayout* layoutArtisan = new QVBoxLayout(this);
 
+  QGroupBox* groupCommercial = new QGroupBox(tr("Commercial"), this);
+  QVBoxLayout* widgetCommercial = new QVBoxLayout(this);
   DropEmployee* commercial = new DropEmployee(this);
   layoutcommercial = new QVBoxLayout(this);
 
-  QLabel* newEmploye = new QLabel(tr("New"), this);
+  QGroupBox* groupNew = new QGroupBox(tr("New"), this);
+  QVBoxLayout* layoutNewT = new QVBoxLayout(this);
+  QWidget* widgetNewT = new QWidget(this);
+  widgetNew = new QVBoxLayout(this);
   displayNewEmploye = new QWidget(this);
 
   QWidget* widgetTrash = new QWidget(this);
@@ -41,11 +48,13 @@ void Ad::setAd()
 
   this->setLayout(layoutAd);
 
-  layoutAd->addWidget(teamValueDisplay, 2, 0, 1, 4);
-  layoutAd->addWidget(valueText, 1, 0, 1, 4);
+  layoutAd->addWidget(teamValueDisplay, 1, 0, 1, 4);
+  layoutAd->addWidget(valueText, 0, 0, 1, 4);
 
-  layoutAd->addWidget(groupTeam, 3, 0, 2, 6);
-  groupTeam->setLayout(layoutGroup);
+  layoutAd->addWidget(groupTeam, 2, 0, 2, 6);
+  groupTeam->setLayout(layoutGroupTemporaire);
+  layoutGroupTemporaire->addWidget(widgetTeam);
+  widgetTeam->setLayout(layoutGroup);
   layoutGroup->addWidget(manager);
   layoutGroup->addWidget(designer);
   layoutGroup->addWidget(artisana);
@@ -56,16 +65,21 @@ void Ad::setAd()
 
   artisana->setLayout(layoutArtisan);
 
-  layoutAd->addWidget(newEmploye, 0, 5, 1, 1);
-  layoutAd->addWidget(displayNewEmploye, 0, 6, 3, 2);
+  layoutAd->addWidget(groupNew, 0, 6, 2, 1);
+  groupNew->setLayout(layoutNewT);
+  layoutNewT->addWidget(widgetNewT);
+  widgetNewT->setLayout(widgetNew);
+  widgetNew->addWidget(displayNewEmploye);
 
-  layoutAd->addWidget(widgetTrash, 2, 5, 1, 1);
+  layoutAd->addWidget(widgetTrash, 1, 5, 1, 1);
   widgetTrash->setLayout(layoutTrash);
   layoutTrash->addWidget(trash);
   trash->setLayout(trashlayout);
   trashlayout->addWidget(trashlabel);
 
-  layoutAd->addWidget(commercial, 3, 6, 1, 2);
+  layoutAd->addWidget(groupCommercial, 2, 6, 2, 1);
+  groupCommercial->setLayout(widgetCommercial);
+  widgetCommercial->addWidget(commercial);
   commercial->setLayout(layoutcommercial);
 
   manager->setObjectName("0");
@@ -76,30 +90,14 @@ void Ad::setAd()
   layoutDesigner->setObjectName("l1");
   layoutArtisan->setObjectName("l2");
 
-  layoutGroup->setContentsMargins(0, 0, 0, 0);
-
   commercial->setAcceptableType("commercial");
-  layoutTrash->setAlignment(Qt::AlignBottom);
   displayNewEmploye->setObjectName("new");
   trash->setObjectName("trash");
   callNewEmploye();
-  trash->setMaximumSize(100, 100);
-  trash->setMaximumSize(100, 100);
-  groupTeam->setMinimumHeight(200);
-  groupTeam->setMinimumWidth(500);
   trash->setIsTrash(true);
 
-  layoutAd->setAlignment(valueText, Qt::AlignBottom | Qt::AlignRight);
-  layoutAd->setAlignment(teamValueDisplay, Qt::AlignTop | Qt::AlignRight);
-  layoutAd->setAlignment(newEmploye, Qt::AlignRight);
-
-  manager->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  designer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-  artisana->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-  QPixmap pix(":/Swich/trash-can-outline.png");
-  pix = pix.scaled(100, 100, Qt::KeepAspectRatio);
-  trashlabel->setPixmap(pix);
+  SingleData* data = data->getInstance();
+  trashlabel->setPixmap(data->getPixmap("trash"));
   QFont font(qApp->font());
   teamValueDisplay->setFont(QFont(font.toString(), 45));
 
@@ -110,6 +108,25 @@ void Ad::setAd()
   connect(commercial, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(commercialChanged(const int&, const int&)));
 
   //Theme
+  groupTeam->setMinimumHeight(200);
+  groupTeam->setMinimumWidth(500);
+  layoutGroupTemporaire->setSpacing(0);
+  layoutGroup->setContentsMargins(0, 0, 0, 0);
+  groupNew->setMinimumHeight(195);
+  groupNew->setMinimumWidth(groupNew->height() * 0.90);
+
+  layoutTrash->setContentsMargins(0, 0, 0, 0);
+  trashlayout->setContentsMargins(0, 0, 0, 0);
+
+  layoutAd->setAlignment(groupNew, Qt::AlignBottom);
+  layoutAd->setAlignment(valueText, Qt::AlignBottom | Qt::AlignRight);
+  layoutAd->setAlignment(teamValueDisplay, Qt::AlignTop | Qt::AlignRight);
+  trashlayout->setAlignment(trashlabel, Qt::AlignBottom | Qt::AlignRight);
+
+  manager->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  designer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  artisana->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
   teamValueDisplay->setObjectName("titleAd");
 }
 
@@ -120,7 +137,7 @@ void Ad::callNewEmploye()
   getNew = nullptr;
 
   DragEmployee* newEmplo1 = new DragEmployee();
-  layoutAd->addWidget(newEmplo1, 0, 6, 3, 2);
+  widgetNew->addWidget(newEmplo1);
   newEmplo1->setObjectName("new");
 }
 
@@ -153,6 +170,7 @@ QString Ad::getSalary_Production(int addDays)
     day -= 30;
   }
 
+  teamValueDisplay->setText("+" + QString::number(efficiency * 100) + "%");
   callNewEmploye();
   return QString("%1$%2").arg(salary).arg(efficiency);
 }
@@ -178,7 +196,6 @@ void Ad::employeChanged(const int& id, const int& pos)
       delete employeList.at(idOldEmploye);
       employeList.at(idOldEmploye) = nullptr;
       employeList.erase(employeList.begin() + idOldEmploye);
-      setTotalLvl();
     }
     DragEmployee* getNewE = this->findChild<DragEmployee*>("new");
     layoutAd->removeWidget(getNewE);
@@ -190,7 +207,6 @@ void Ad::employeChanged(const int& id, const int& pos)
     getNewE->setId(idEmploye++);
     getNewE->setTrashable(true);
     getNewE->setPos(sender()->objectName().toInt());
-    setTotalLvl();
     return;
   }
   if (emptyDestination)
@@ -212,7 +228,6 @@ void Ad::employeChanged(const int& id, const int& pos)
     getLTo->addWidget(employeList.at(pos1List));
 
     employeList.at(pos1List)->setPos(sender()->objectName().toInt());
-    setTotalLvl();
   }
   else
   {
@@ -243,7 +258,6 @@ void Ad::employeChanged(const int& id, const int& pos)
 
     employeList.at(pos1List)->setPos(sender()->objectName().toInt());
     employeList.at(pos2List)->setPos(pos);
-    setTotalLvl();
   }
 }
 
@@ -258,7 +272,6 @@ void Ad::employeeToTrash(const int& id, const int& pos)
       delete commercial.at(0);
       commercial.at(0) = nullptr;
       commercial.erase(commercial.begin());
-      setTotalLvl();
       emit fireCommercial();
       return;
     }
@@ -270,7 +283,6 @@ void Ad::employeeToTrash(const int& id, const int& pos)
       delete employeList.at(i);
       employeList.at(i) = nullptr;
       employeList.erase(employeList.begin() + i);
-      setTotalLvl();
       return;
     }
   }
@@ -294,16 +306,6 @@ void Ad::commercialChanged(const int& id, const int& pos)
     getNewC->setId(idEmploye++);
     getNewC->setTrashable(true);
     getNewC->setObjectName("z");
-    setTotalLvl();
     emit newCommercial(getNewC);
-  }
-}
-
-void Ad::setTotalLvl()
-{
-  int totalLvl = 0;
-  for (int i = 0; i < employeList.size(); i++)
-  {
-    totalLvl += employeList.at(i)->getLvl();
   }
 }

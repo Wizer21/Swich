@@ -20,30 +20,52 @@ void Stock::setStock()
   //Inactivate Commercial
   commercialWidget = new QWidget(this);
   QGridLayout* layoutCommercial = new QGridLayout(this);
+  QWidget* widgetLeft = new QWidget(this);
+  QHBoxLayout* layoutLeft = new QHBoxLayout(this);
+  QWidget* centralWidget = new QWidget(this);
+  QHBoxLayout* layoutCentral = new QHBoxLayout(this);
+  QWidget* widgetRight = new QWidget(this);
+  QHBoxLayout* layoutRight = new QHBoxLayout(this);
   pictureId = new QLabel(this);
   name = new QLabel(this);
-  salary = new QLabel(this);
-  displayPushedItems = new QLabel(this);
+  salary = new QLabel("0", this);
+  displayPushedItems = new QLabel("0", this);
   QLabel* textPushedItems = new QLabel(tr("Items pushed"), this);
   QCheckBox* buttonRadio = new QCheckBox(this);
 
   commercialWidget->setLayout(layoutCommercial);
-  layoutCommercial->addWidget(pictureId, 0, 0);
-  layoutCommercial->addWidget(name, 0, 1);
-  layoutCommercial->addWidget(salary, 0, 2);
-  layoutCommercial->addWidget(displayPushedItems, 0, 3);
-  layoutCommercial->addWidget(textPushedItems, 0, 4);
-  layoutCommercial->addWidget(buttonRadio, 0, 5);
+  layoutCommercial->addWidget(widgetLeft, 0, 0);
+  widgetLeft->setLayout(layoutLeft);
+  layoutCommercial->addWidget(centralWidget, 0, 1);
+  centralWidget->setLayout(layoutCentral);
+  layoutCommercial->addWidget(widgetRight, 0, 2);
+  widgetRight->setLayout(layoutRight);
+  layoutLeft->addWidget(pictureId);
+  layoutLeft->addWidget(name);
+  layoutLeft->addWidget(salary);
+  layoutCentral->addWidget(displayPushedItems);
+  layoutCentral->addWidget(textPushedItems);
+  layoutRight->addWidget(buttonRadio);
   commercialWidget->setVisible(false);
+  layoutCentral->setAlignment(Qt::AlignLeft);
+  layoutLeft->setAlignment(Qt::AlignLeft);
+  layoutRight->setAlignment(Qt::AlignRight);
+  //layoutRight->setAlignment(displayPushedItems, Qt::AlignLeft);
 
   this->setLayout(layoutStock);
   layoutStock->addWidget(tab);
   layoutStock->addWidget(textDefault);
   layoutStock->addWidget(commercialWidget);
 
+  layoutLeft->setContentsMargins(0, 0, 0, 0);
+  layoutRight->setContentsMargins(0, 0, 0, 0);
+  buttonRadio->setChecked(true);
   commercialWidget->setObjectName("widget");
   setList();
   tab->resizeColumnsToContents();
+  layoutStock->setAlignment(textDefault, Qt::AlignCenter);
+  textDefault->setMinimumHeight(60);
+
   connect(buttonRadio, SIGNAL(stateChanged(int)), this, SLOT(updateRadioButton(int)));
 }
 
@@ -85,6 +107,8 @@ void Stock::setList()
     tab->setItem(i, y++, sellPItem);
     tab->setItem(i, y++, cityStockItem);
     tab->setItem(i, y++, mounthlySellItem);
+
+    commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #ffd740;}");
   }
   tab->setSortingEnabled(true);
 }
@@ -113,8 +137,11 @@ void Stock::updateCommercialSlot(DragEmployee* getEmploye)
   SingleData* single = single->getInstance();
   pictureId->setPixmap(single->getPixmap(getEmploye->getName()));
   name->setText(getEmploye->getName());
-  salary->setText(QString::number(getEmploye->getSalary()));
+  salary->setText(QString::number(getEmploye->getSalary()) + tr("$"));
 
+  updateRadioButton(2);
+
+  displayPushedItems->setAlignment(Qt::AlignLeft);
   textDefault->setVisible(false);
 }
 
@@ -129,11 +156,21 @@ void Stock::updateRadioButton(int position)
   if (position == 2)
   {
     commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #ffd740;}");
+    displayPushedItems->setStyleSheet("color:#ffd740; font-size:28px;");
+    salary->setStyleSheet("color:#ffd740; font-size:18px;");
     emit setIsActivated(true);
   }
   else
   {
     commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #262626;}");
+    displayPushedItems->setStyleSheet("color:#262626; font-size:28px;");
+    salary->setStyleSheet("color:#262626; font-size:18px;");
     emit setIsActivated(false);
   }
+}
+
+void Stock::setItemPushed(int nrbItem)
+{
+  displayPushedItems->setText(QString::number(nrbItem));
+  displayPushedItems->setStyleSheet("color:#ffd740; font-size:28px;");
 }

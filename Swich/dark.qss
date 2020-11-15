@@ -337,6 +337,17 @@ QWidget#ad QLabel#titleAd{
    color:#b2ff59
 }
 
+QWidget#ad QGroupBox {
+  margin-top: 8px;
+    font-size: 15px;
+    padding: 0 0px;
+}
+QWidget#ad QGroupBox:title{
+  top: -8px;
+  left: 7px;
+}
+
+
  /* ------------------------------ */
  /* ------------ Stock ----------- */
  /* ------------------------------ */

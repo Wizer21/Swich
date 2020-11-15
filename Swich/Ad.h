@@ -26,9 +26,9 @@ private:
   int day;
   void setAd();
   void callNewEmploye();
-  void setTotalLvl();
   int idEmploye;
 
+  QVBoxLayout* widgetNew;
   QLabel* teamValueDisplay;
   QGridLayout* layoutAd;
   QVBoxLayout* layoutcommercial;

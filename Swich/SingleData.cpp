@@ -25,6 +25,8 @@ void SingleData::loadPixmap()
 
   // push Soft Pixmap
   pushPixmapToSoft("commercial", ":/Swich/briefcase.png", 20, 20);
+  pushPixmapToSoft("creditLogo", ":/Swich/SwichLogo.png", 200, 200);
+  pushPixmapToSoft("trash", ":/Swich/trash-can-outline.png", 80, 80);
 }
 
 void SingleData::pushCharacter(const QString& addNom, const QString& pixMap)

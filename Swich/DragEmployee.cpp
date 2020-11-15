@@ -33,7 +33,6 @@ void DragEmployee::ini(const QPixmap pix)
   layoutEmployee->addWidget(displayName, 1, 0);
   layoutEmployee->addWidget(displaySalary, 2, 0);
 
-  //layoutEmployee->setAlignment(Qt::AlignTop);
   layoutEmployee->setAlignment(displayLvl, Qt::AlignLeft | Qt::AlignBottom);
   this->setFixedSize(120, 130);
   this->setContentsMargins(0, 0, 0, 0);
