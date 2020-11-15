@@ -135,9 +135,9 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 0, 5, 45, 100, ":/Swich/ariane.jpg", 0, 0);
-  Item item2("Hubble", 0, 18, 78, 200, ":/Swich/hubble.jpeg", 0, 1);
-  Item item3("ISS", 0, 20, 85, 300, ":/Swich/iss.png", 0, 2);
+  Item item1("Ariane", 0, 5, 45, 100, ":/Swich/images/ariane.jpg", 0, 0);
+  Item item2("Hubble", 0, 18, 78, 200, ":/Swich/images/hubble.jpeg", 0, 1);
+  Item item3("ISS", 0, 20, 85, 300, ":/Swich/images/iss.png", 0, 2);
 
   itemList.push_back(item1);
   itemList.push_back(item2);
@@ -156,7 +156,7 @@ void Swich::setDefaultList()
   cityList.push_back(city3);
   cityList.at(0).addToList(item1);
 
-  Contact contact1("Simon", ":/Swich/simon_id.jpg");
+  Contact contact1("Simon", ":/Swich/images/simon_id.jpg");
   Contact contact2("Bob", "");
 
   contactList.push_back(contact1);

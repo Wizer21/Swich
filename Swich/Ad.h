@@ -15,8 +15,8 @@ public:
 
 private slots:
   void employeChanged(const int& id, const int& pos);
-  void commercialChanged(const int& id, const int& pos);
-  void employeeToTrash(const int& id, const int& pos);
+  void commercialChanged(const int& id, const int&);
+  void employeeToTrash(const int& id, const int&);
 
 signals:
   void newCommercial(DragEmployee* actualEmploye);
@@ -34,5 +34,5 @@ private:
   QVBoxLayout* layoutcommercial;
   QWidget* displayNewEmploye;
   std::vector<DragEmployee*> employeList;
-  std::vector<DragEmployee*> commercial;
+  std::vector<DragEmployee*> commercialCurrent;
 };

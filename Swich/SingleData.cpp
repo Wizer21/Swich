@@ -10,32 +10,32 @@ SingleData* SingleData::instance = 0;
 void SingleData::loadPixmap()
 {
   // Character
-  pushCharacter("Frederic", ":/Swich/Frederic.jpg");
-  pushCharacter("Francis", ":/Swich/Francis.jpg");
-  pushCharacter("Karine", ":/Swich/Karine.jpg");
-  pushCharacter("Marie", ":/Swich/Marie.jpg");
-  pushCharacter("Camille", ":/Swich/Camille.jpg");
-  pushCharacter("Emilie", ":/Swich/Emilie.jpg");
-  pushCharacter("Leonie", ":/Swich/Leonie.jpg");
-  pushCharacter("Bob", ":/Swich/Bob.jpg");
-  pushCharacter("Christophe", ":/Swich/Christophe.jpg");
-  pushCharacter("Maxime", ":/Swich/Maxime.jpg");
+  pushCharacter("Frederic", ":/character/Frederic");
+  pushCharacter("Francis", ":/character/Francis");
+  pushCharacter("Karine", ":/character/Karine");
+  pushCharacter("Marie", ":/character/Marie");
+  pushCharacter("Camille", ":/character/Camille");
+  pushCharacter("Emilie", ":/character/Emilie");
+  pushCharacter("Leonie", ":/character/Leonie");
+  pushCharacter("Bob", ":/character/Bob");
+  pushCharacter("Christophe", ":/character/Christophe");
+  pushCharacter("Maxime", ":/character/Maxime");
 
   // push Soft Pixmap
-  pushPixmapToSoft("commercial", ":/Swich/briefcase.png", 20, 20);
-  pushPixmapToSoft("creditLogo", ":/Swich/SwichLogo.png", 200, 200);
-  pushPixmapToSoft("factory", ":/Swich/factoryBlue.png", 80, 80);
+  pushPixmapToSoft("commercial", ":/Swich/images/briefcase.png", 20, 20);
+  pushPixmapToSoft("creditLogo", ":/Swich/images/SwichLogo.png", 200, 200);
+  pushPixmapToSoft("factory", ":/Swich/images/factoryBlue.png", 80, 80);
 
-  pushPixmapToSoft("trashlight", ":/Swich/trashdark.png", 80, 80);
-  pushPixmapToSoft("trashdark", ":/Swich/trashlight.png", 80, 80);
-  pushPixmapToSoft("cashlight", ":/Swich/cashdark.png", 50, 50);
-  pushPixmapToSoft("cashdark", ":/Swich/cashlight.png", 50, 50);
-  pushPixmapToSoft("dinolight", ":/Swich/dinodark.png", 50, 50);
-  pushPixmapToSoft("dinodark", ":/Swich/dinolight.png", 50, 50);
-  pushPixmapToSoft("locklight", ":/Swich/lockdark.png", 50, 50);
-  pushPixmapToSoft("lockdark", ":/Swich/locklight.png", 50, 50);
-  pushPixmapToSoft("piecelight", ":/Swich/piecedark.png", 50, 50);
-  pushPixmapToSoft("piecedark", ":/Swich/piecelight.png", 50, 50);
+  pushPixmapToSoft("trashlight", ":/icon/images/trashdark.png", 80, 80);
+  pushPixmapToSoft("trashdark", ":/icon/images/trashlight.png", 80, 80);
+  pushPixmapToSoft("cashlight", ":/icon/images/cashdark.png", 50, 50);
+  pushPixmapToSoft("cashdark", ":/icon/images/cashlight.png", 50, 50);
+  pushPixmapToSoft("dinolight", ":/icon/images/dinodark.png", 50, 50);
+  pushPixmapToSoft("dinodark", ":/icon/images/dinolight.png", 50, 50);
+  pushPixmapToSoft("locklight", ":/icon/images/lockdark.png", 50, 50);
+  pushPixmapToSoft("lockdark", ":/icon/images/locklight.png", 50, 50);
+  pushPixmapToSoft("piecelight", ":/icon/images/piecedark.png", 50, 50);
+  pushPixmapToSoft("piecedark", ":/icon/images/piecelight.png", 50, 50);
 }
 
 void SingleData::pushCharacter(const QString& addNom, const QString& pixMap)
@@ -82,7 +82,7 @@ void SingleData::setColoredIcon(int themeIndex)
     listLabelToAdapt.at(i).second->setPixmap(getPixmap(listLabelToAdapt.at(i).first + subName));
   }
 
-  list = listButtonToAdapt.size();
+  list = (int)listButtonToAdapt.size();
 
   for (int i = 0; i < list; i++)
   {

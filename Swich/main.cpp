@@ -9,12 +9,12 @@ int main(int argc, char* argv[])
 {
   srand(time(NULL));
   QApplication a(argc, argv);
-  QPixmap splashMap(":/Swich/splashReducted.png");
+  QPixmap splashMap(":/Swich/images/splashReducted.png");
   QSplashScreen splash(splashMap.scaled(1000, 500, Qt::KeepAspectRatio, Qt::SmoothTransformation));
   splash.show();
 
   SingleData* s = s->getInstance();
-  QPixmap pix(":/Swich/SwichLogo.png");
+  QPixmap pix(":/Swich/images/SwichLogo.png");
   pix = pix.scaled(50, 50);
   a.setWindowIcon(QIcon(pix));
 

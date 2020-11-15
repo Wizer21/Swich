@@ -96,8 +96,8 @@ void Ad::setAd()
   callNewEmploye();
   trash->setIsTrash(true);
 
-  SingleData* data = data->getInstance();
-  data->addLabelToAdaptOnTheme("trash", trashlabel);
+  SingleData* getData = getData->getInstance();
+  getData->addLabelToAdaptOnTheme("trash", trashlabel);
 
   QFont font(qApp->font());
   teamValueDisplay->setFont(QFont(font.toString(), 45));
@@ -265,17 +265,17 @@ void Ad::employeChanged(const int& id, const int& pos)
   }
 }
 
-void Ad::employeeToTrash(const int& id, const int& pos)
+void Ad::employeeToTrash(const int& id, const int&)
 {
-  int sizeEmploye = employeList.size();
+  int sizeEmploye = (int)employeList.size();
 
-  if (commercial.size() > 0)
+  if (commercialCurrent.size() > 0)
   {
-    if (commercial.at(0)->getId() == id)
+    if (commercialCurrent.at(0)->getId() == id)
     {
-      delete commercial.at(0);
-      commercial.at(0) = nullptr;
-      commercial.erase(commercial.begin());
+      delete commercialCurrent.at(0);
+      commercialCurrent.at(0) = nullptr;
+      commercialCurrent.erase(commercialCurrent.begin());
       emit fireCommercial();
       return;
     }
@@ -292,21 +292,21 @@ void Ad::employeeToTrash(const int& id, const int& pos)
   }
 }
 
-void Ad::commercialChanged(const int& id, const int& pos)
+void Ad::commercialChanged(const int& id, const int&)
 {
   if (id == -1)
   {
-    if (commercial.size() > 0)
+    if (commercialCurrent.size() > 0)
     {
-      delete commercial.at(0);
-      commercial.at(0) = nullptr;
-      commercial.erase(commercial.begin());
+      delete commercialCurrent.at(0);
+      commercialCurrent.at(0) = nullptr;
+      commercialCurrent.erase(commercialCurrent.begin());
     }
     DragEmployee* getNewC = this->findChild<DragEmployee*>("new");
     layoutAd->removeWidget(getNewC);
 
     layoutcommercial->addWidget(getNewC);
-    commercial.push_back(getNewC);
+    commercialCurrent.push_back(getNewC);
     getNewC->setId(idEmploye++);
     getNewC->setTrashable(true);
     getNewC->setObjectName("z");

@@ -46,8 +46,8 @@ void Utils::saveSettingsToJsonFile(StructSettings::Settings getSettings)
 
 void Utils::applyNewTheme(int index)
 {
-  QFile lightQSSFile(":/Swich/light.qss");
-  QFile darkQSSFile(":/Swich/dark.qss");
+  QFile lightQSSFile(":/Swich/qss/light.qss");
+  QFile darkQSSFile(":/Swich/qss/dark.qss");
 
   switch (index)
   {
@@ -92,7 +92,7 @@ void Utils::applyNewLanguage(int index)
   }
 
   auto lTranslator{new QTranslator()};
-  if (lTranslator->load(QString(":/Swich/swich_%1.qm").arg(langueToSet)))
+  if (lTranslator->load(QString(":/Swich/translations/swich_%1.qm").arg(langueToSet)))
   {
     qApp->installTranslator(lTranslator);
   }

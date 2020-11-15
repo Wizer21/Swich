@@ -1,6 +1,7 @@
 #include "DropEmployee.h"
 
 DropEmployee::DropEmployee(QWidget* parent)
+  : QWidget(parent)
 {
   this->setAcceptDrops(true);
   type = "none";

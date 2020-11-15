@@ -1,36 +1,39 @@
 <RCC>
     <qresource prefix="/Swich">
-        <file>simon_id.jpg</file>
-        <file>iss.png</file>
-        <file>SwichLogo.png</file>
-        <file>dark.qss</file>
-        <file>ariane.jpg</file>
-        <file>hubble.jpeg</file>
-        <file>Bob.jpg</file>
-        <file>Camille.jpg</file>
-        <file>Christophe.jpg</file>
-        <file>Emilie.jpg</file>
-        <file>Karine.jpg</file>
-        <file>Leonie.jpg</file>
-        <file>Marie.jpg</file>
-        <file>Maxime.jpg</file>
-        <file>Francis.jpg</file>
-        <file>Frederic.jpg</file>
-        <file>briefcase.png</file>
-        <file>splashReducted.png</file>
-        <file>factoryBlue.png</file>
-        <file>light.qss</file>
-        <file>swich_en.qm</file>
-        <file>swich_fr.qm</file>
-        <file>cashdark.png</file>
-        <file>cashlight.png</file>
-        <file>dinodark.png</file>
-        <file>dinolight.png</file>
-        <file>lockdark.png</file>
-        <file>locklight.png</file>
-        <file>piecedark.png</file>
-        <file>piecelight.png</file>
-        <file>trashdark.png</file>
-        <file>trashlight.png</file>
+        <file>images/simon_id.jpg</file>
+        <file>images/iss.png</file>
+        <file>images/SwichLogo.png</file>
+        <file>qss/dark.qss</file>
+        <file>images/ariane.jpg</file>
+        <file>images/hubble.jpeg</file>
+        <file>images/briefcase.png</file>
+        <file>images/splashReducted.png</file>
+        <file>images/factoryBlue.png</file>
+        <file>qss/light.qss</file>
+        <file>translations/swich_en.qm</file>
+        <file>translations/swich_fr.qm</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>images/cashdark.png</file>
+        <file>images/cashlight.png</file>
+        <file>images/dinodark.png</file>
+        <file>images/dinolight.png</file>
+        <file>images/lockdark.png</file>
+        <file>images/piecedark.png</file>
+        <file>images/piecelight.png</file>
+        <file>images/trashdark.png</file>
+        <file>images/trashlight.png</file>
+    </qresource>
+    <qresource prefix="/character">
+        <file alias="Bob">images/Bob.jpg</file>
+        <file alias="Camille">images/Camille.jpg</file>
+        <file alias="Christophe">images/Christophe.jpg</file>
+        <file alias="Emilie">images/Emilie.jpg</file>
+        <file alias="Frederic">images/Frederic.jpg</file>
+        <file alias="Karine">images/Karine.jpg</file>
+        <file alias="Leonie">images/Leonie.jpg</file>
+        <file alias="Marie">images/Marie.jpg</file>
+        <file alias="Maxime">images/Maxime.jpg</file>
+        <file alias="Francis">images/Francis.jpg</file>
     </qresource>
 </RCC>

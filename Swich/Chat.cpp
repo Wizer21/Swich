@@ -108,7 +108,7 @@ void Chat::setTextZone()
 void Chat::clickedDinausor()
 {
   QLabel* iconClick = new QLabel(this);
-  iconClick->setPixmap(QPixmap(":/Swich/dino.png"));
+  iconClick->setPixmap(QPixmap(":/Swich/images/dino.png"));
   QVBoxLayout* layoutBoxDino = this->findChild<QVBoxLayout*>(QString::number(chatZone->currentIndex()));
   layoutBoxDino->addWidget(iconClick);
   iconClick->setAlignment(Qt::AlignRight);
