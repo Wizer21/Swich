@@ -7,7 +7,6 @@ int main(int argc, char* argv[])
 {
   srand(time(NULL));
   QApplication a(argc, argv);
-
   QPixmap splashMap(":/Swich/splashReducted.png");
   QSplashScreen splash(splashMap.scaled(1000, 500, Qt::KeepAspectRatio, Qt::SmoothTransformation));
   splash.show();
@@ -19,7 +18,6 @@ int main(int argc, char* argv[])
   Swich w;
 
   splash.finish(&w);
-
   w.show();
   return a.exec();
 }

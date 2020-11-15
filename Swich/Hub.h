@@ -9,7 +9,7 @@ class Hub : public QWidget
 
 public:
   Hub();
-  void updateLabels(std::vector<double> bankHisto, std::vector<int> volHisto);
+  void updateLabels(double addBank, double addProd, double addSell);
   QString updateCurrentMonth(int gain, int sells, int addDays);
   void updateAndScrollWidgets(QString date, QString gain, QString bank);
 
@@ -24,9 +24,13 @@ private:
   void setDefaultWidgets();
   void setColorScroll();
 
-  QLabel* bankEvo;
-  QLabel* prodEvo;
-  QLabel* sellsEvo;
+  QLabel* bankMax;
+  QLabel* prodMax;
+  QLabel* sellsMax;
+
+  double storeMaxBank;
+  double storeMaxProd;
+  double storeMaxSell;
 
   QLabel* displayGain;
   QLabel* displaySells;

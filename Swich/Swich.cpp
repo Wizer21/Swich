@@ -41,7 +41,7 @@ void Swich::ini(QGridLayout* layout)
   QLabel* swich = new QLabel(tr("Swich"), this);
   hub = new QPushButton(tr("Hub"), this);
   analytics = new QPushButton(tr("Analytics"), this);
-  sell = new QPushButton(tr("Sell"), this);
+  sell = new QPushButton(tr("Sales"), this);
   production = new QPushButton(tr("Production"), this);
   pub = new QPushButton(tr("Team"), this);
   stock = new QPushButton(tr("Stock"), this);
@@ -104,6 +104,7 @@ void Swich::ini(QGridLayout* layout)
   widgetChat->setObjectName("chat");
 
   swichZoneWidget->setCurrentIndex(0);
+  widgetHub->updateLabels(bankDisplayed, 0, 0);
   setTheme();
 
   layoutMenu->setAlignment(Qt::AlignTop);
@@ -170,11 +171,6 @@ void Swich::setDefaultList()
   contactList.push_back(contact1);
   contactList.push_back(contact2);
 
-  for (int i = 0; i < 24; i++)
-  {
-    historyBank.push_back(1156);
-    historySoldVol.push_back(10);
-  }
   int sizeA = (int)cityList.size();
   int sizeB = (int)itemList.size();
   for (int a = 0; a < sizeA; a++)
@@ -240,6 +236,7 @@ void Swich::startNewMonth()
   QString prod_Cost = widgetProduction->newMonthProd(addedDays);
   QStringList listProd_Cost = prod_Cost.split("$");
   temporaryCharges += listProd_Cost.at(1).toDouble();
+
   //AD
   QString salary_Efficiency = widgetAd->getSalary_Production(addedDays);
   QStringList splitSalary_Efficiency = salary_Efficiency.split("$");
@@ -254,7 +251,7 @@ void Swich::startNewMonth()
   if (gotCommercial && commercialActivated)
   {
     commercialTransfertStock();
-    temporaryCharges += getCommercial->getSalary();
+    temporaryCharges += (getCommercial->getSalary() / 30) * addedDays;
   }
   temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
 
@@ -266,12 +263,8 @@ void Swich::startNewMonth()
   QString date = widgetHub->updateCurrentMonth(evoBanque, temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
-  moneyMovements.insert(moneyMovements.begin(), temporaryGain);
-  historyBank.insert(historyBank.begin(), bankDisplayed);
-  historySoldVol.insert(historySoldVol.begin(), temporarySoldVol);
-
   widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
-  widgetHub->updateLabels(historyBank, historySoldVol);
+  widgetHub->updateLabels(bankDisplayed, listProd_Cost.at(0).toDouble(), temporarySoldVol);
   widgetSell->refreshStock();
   widgetStock->updateStock();
 }

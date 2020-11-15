@@ -65,9 +65,6 @@ private:
   QAction* credits;
   QLabel* sold;
 
-  std::vector<double> historyBank;
-  std::vector<double> moneyMovements;
-  std::vector<int> historySoldVol;
   std::vector<Item> itemList;
   std::vector<City> cityList;
   std::vector<Contact> contactList;

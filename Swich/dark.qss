@@ -147,8 +147,54 @@ QPushButton#index6::hover{
     padding: 5px;
     border: 0px solid transparent;
  } 
+ /* ------------------------------ */
+ /* ------------ Dialog----------- */
+ /* ------------------------------ */
 
+QDialog QPushButton{
+    background-color: #262626; 
+    color: #ff5252   ; 
+    padding: 5px;
+    border: 2px solid transparent;
+    border-right: 2px solid #ff5252   ; 
+    border-bottom: 2px solid #ff5252   ; 
+    font-size:18px;
+    }
+QDialog QPushButton::hover{
+    border: 0px solid transparent;
+    border-right: 0px solid #ff5252   ; 
+    border-bottom: 0px solid #ff5252   ; 
+    }
+ QDialog QPushButton::pressed{
+         background-color: #ff5252   ; 
+    color: #262626; 
+    padding: 5px;
+    border: 0px solid transparent;
+ } 
+ QDialog QComboBox {
+    padding: 1px 18px 1px 3px;
+    min-width: 6em;
+    border: 0px solid yellow;
+
+    font-size:15px;
+    background-color:#262626;
+}
+QDialog QComboBox:hover {
+    border-right: 3px solid #ff5252;
+}
+QDialog QComboBox:drop-down {
+    border: 0px;
+}
+QDialog QComboBox QAbstractItemView {
+  color: #262626;
+    background-color: #ff5252;
+}
+QDialog QComboBox QAbstractItemView {
+  border: 0px solid white;
+}
  /* ------------ Menu List ------------ */
+ /* ------------ ---------- ------------ */
+ /* ------------ Hub       ------------ */
 
 QWidget#hub QPushButton{
     background-color: #262626; 
@@ -337,12 +383,32 @@ QWidget#ad QLabel#titleAd{
    color:#b2ff59
 }
 
-QWidget#ad QGroupBox {
+QWidget#ad QGroupBox#groupTeam {
+  margin-top: 8px;
+    font-size: 15px;
+    padding: 0 0px;
+    border: 4px solid #b2ff59;
+}
+QWidget#ad QGroupBox#groupTeam:title{
+  top: -8px;
+  left: 7px;
+}
+QWidget#ad QGroupBox#groupCommercial {
+  margin-top: 8px;
+    font-size: 15px;
+    padding: 0 0px;
+    border: 4px solid #b2ff59;
+}
+QWidget#ad QGroupBox#groupCommercial:title{
+  top: -8px;
+  left: 7px;
+}
+QWidget#ad QGroupBox#groupNew {
   margin-top: 8px;
     font-size: 15px;
     padding: 0 0px;
 }
-QWidget#ad QGroupBox:title{
+QWidget#ad QGroupBox#groupNew:title{
   top: -8px;
   left: 7px;
 }

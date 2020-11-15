@@ -128,6 +128,9 @@ void Ad::setAd()
   artisana->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
   teamValueDisplay->setObjectName("titleAd");
+  groupTeam->setObjectName("groupTeam");
+  groupCommercial->setObjectName("groupCommercial");
+  groupNew->setObjectName("groupNew");
 }
 
 void Ad::callNewEmploye()

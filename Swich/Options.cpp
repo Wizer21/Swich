@@ -5,6 +5,7 @@ Options::Options(QWidget* parent)
 {
   this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
   this->setAttribute(Qt::WA_DeleteOnClose);
+  this->setMinimumSize(300, 300);
   QVBoxLayout* layoutOption = new QVBoxLayout(this);
   ini(layoutOption);
 

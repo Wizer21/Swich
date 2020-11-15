@@ -18,9 +18,12 @@ void Hub::setHub()
   QWidget* widgetHubTop = new QWidget(this);
   QGridLayout* gridTop = new QGridLayout(this);
   QLabel* evo = new QLabel(tr("Evolution over the last Year"), this);
-  bankEvo = new QLabel("test", this);
-  prodEvo = new QLabel("test", this);
-  sellsEvo = new QLabel("test", this);
+  bankMax = new QLabel("0", this);
+  QLabel* textBankMax = new QLabel("Top Bank", this);
+  prodMax = new QLabel("0", this);
+  QLabel* textProdMax = new QLabel("Top Production", this);
+  sellsMax = new QLabel("0", this);
+  QLabel* textSellMax = new QLabel("Top Sales", this);
   QPushButton* newMonth = new QPushButton(tr("Reach new month !"), this);
 
   QWidget* uptdateWidget = new QWidget(this);
@@ -37,11 +40,14 @@ void Hub::setHub()
   this->setLayout(layoutHub);
   layoutHub->addWidget(widgetHubTop, 0, 0);
   widgetHubTop->setLayout(gridTop);
-  gridTop->addWidget(evo, 0, 0);
-  gridTop->addWidget(bankEvo, 1, 0);
-  gridTop->addWidget(prodEvo, 2, 0);
-  gridTop->addWidget(sellsEvo, 3, 0);
-  gridTop->addWidget(newMonth, 4, 0);
+  gridTop->addWidget(evo, 0, 0, 1, 2);
+  gridTop->addWidget(bankMax, 1, 0, Qt::AlignRight);
+  gridTop->addWidget(textBankMax, 1, 1);
+  gridTop->addWidget(prodMax, 2, 0, Qt::AlignRight);
+  gridTop->addWidget(textProdMax, 2, 1);
+  gridTop->addWidget(sellsMax, 3, 0, Qt::AlignRight);
+  gridTop->addWidget(textSellMax, 3, 1);
+  gridTop->addWidget(newMonth, 4, 0, 1, 2);
 
   layoutHub->addWidget(uptdateWidget, 0, 1);
   uptdateWidget->setLayout(gridRight);
@@ -71,27 +77,26 @@ void Hub::setHub()
   displayDate->setStyleSheet("background-color:transparent");
 }
 
-void Hub::updateLabels(std::vector<double> bankHisto, std::vector<int> volHisto)
+void Hub::updateLabels(double addBank, double addProd, double addSell)
 {
-  double bankThisYear = 0;
-  double bankLastYear = 0;
-  double volThisYear = 0;
-  double volLastYear = 0;
-
-  for (int i = 0; i < 12; i++)
+  if (addBank > storeMaxBank)
   {
-    bankThisYear += bankHisto.at(i);
-    volThisYear += volHisto.at(i);
+    storeMaxBank = addBank;
+    bankMax->setText(QString::number(round(addBank)));
+    bankMax->setStyleSheet("color: #ffd740; font-size:22px;");
   }
-
-  for (int i = 12; i < 24; i++)
+  if (addProd > storeMaxProd)
   {
-    bankLastYear += bankHisto.at(i);
-    volLastYear += volHisto.at(i);
+    storeMaxProd = addProd;
+    prodMax->setText(QString::number(round(addProd)));
+    prodMax->setStyleSheet("color: #ffd740; font-size:22px;");
   }
-  bankEvo->setText("+" + QString::number(round(bankThisYear / bankLastYear * 100)) + "% Bank");
-  //prodEvo->setText("+" + QString::number(evoProd) + "% Production");
-  sellsEvo->setText("+" + QString::number(round(volThisYear / volLastYear * 100)) + "% Sells");
+  if (addSell > storeMaxSell)
+  {
+    storeMaxSell = addSell;
+    sellsMax->setText(QString::number(round(addSell)));
+    sellsMax->setStyleSheet("color: #ffd740; font-size:22px;");
+  }
 }
 
 QString Hub::updateCurrentMonth(int newGain, int sells, int addDays)
