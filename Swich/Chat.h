@@ -2,6 +2,7 @@
 #include <qwidget.h>
 #include "stdafx.h"
 #include "Contact.h"
+#include "SingleData.h"
 
 class Chat : public QWidget
 {

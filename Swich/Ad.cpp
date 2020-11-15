@@ -97,7 +97,8 @@ void Ad::setAd()
   trash->setIsTrash(true);
 
   SingleData* data = data->getInstance();
-  trashlabel->setPixmap(data->getPixmap("trash"));
+  data->addLabelToAdaptOnTheme("trash", trashlabel);
+
   QFont font(qApp->font());
   teamValueDisplay->setFont(QFont(font.toString(), 45));
 

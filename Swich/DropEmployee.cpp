@@ -16,11 +16,11 @@ void DropEmployee::dragEnterEvent(QDragEnterEvent* event)
     event->accept();
     return;
   }
-  if (lText.at(2) != type)
+  if (lText.at(2) == type && !trashable)
   {
+    event->accept();
     return;
   }
-  event->accept();
 }
 
 void DropEmployee::dragMoveEvent(QDragMoveEvent* event)
@@ -33,11 +33,11 @@ void DropEmployee::dragMoveEvent(QDragMoveEvent* event)
     return;
   }
 
-  if (lText.at(2) != type)
+  if (lText.at(2) == type)
   {
+    event->accept();
     return;
   }
-  event->accept();
 }
 
 void DropEmployee::dropEvent(QDropEvent* event)

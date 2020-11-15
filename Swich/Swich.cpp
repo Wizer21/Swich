@@ -74,9 +74,9 @@ void Swich::ini(QGridLayout* layout)
   QFont font(qApp->font());
   swich->setStyleSheet("font-size:40px;" + font.toString() + ";");
   sold->setStyleSheet("font-size:40px;" + font.toString() + ";");
-  QPixmap pixM(":/Swich/piece.png");
-  pixM = pixM.scaled(50, 50, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-  logoSol->setPixmap(pixM);
+
+  SingleData* getData = getData->getInstance();
+  getData->addLabelToAdaptOnTheme("piece", logoSol);
 
   hub->setObjectName("index0");
   analytics->setObjectName("index1");

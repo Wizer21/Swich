@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "StructSettings.h"
+#include "SingleData.h"
 
 class Utils : public QObject
 {

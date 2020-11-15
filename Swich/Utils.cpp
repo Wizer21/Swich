@@ -70,6 +70,8 @@ void Utils::applyNewTheme(int index)
     default:
       break;
   }
+
+  SingleData::getInstance()->setColoredIcon(index);
 }
 
 void Utils::applyNewLanguage(int index)

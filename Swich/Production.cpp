@@ -13,8 +13,6 @@ void Production::setProduction()
 {
   layoutProduction = new QGridLayout(this);
 
-  //QWidget* widgetText = new QWidget(this);
-  //QVBoxLayout* layoutText = new QVBoxLayout(this);
   displayProduction = new QLabel("0", this);
   QLabel* dailyProduction = new QLabel(tr("Last iteration production"), this);
   QLabel* investedProduction = new QLabel("1250", this);
@@ -54,10 +52,14 @@ void Production::setProduction()
 
   lockedFactory1->setObjectName("a0");
   lockedFactory2->setObjectName("a1");
-  QPixmap pix(":/Swich/lock-open-alert.png");
-  pix = pix.scaled(100, 100);
-  lockedFactory1->setIcon(QIcon(pix));
-  lockedFactory2->setIcon(QIcon(pix));
+
+  SingleData* getPix = getPix->getInstance();
+  getPix->addButtoonToAdaptOnTheme("lock", lockedFactory1);
+  getPix->addButtoonToAdaptOnTheme("lock", lockedFactory2);
+
+  lockedFactory1->setIconSize(QSize(50, 50));
+  lockedFactory2->setIconSize(QSize(50, 50));
+
   Factory fact1;
   listFactory.push_back(fact1);
   updateWidgets();
@@ -97,9 +99,9 @@ QWidget* Production::newFactoryWidget(QString getName, QString objName)
   layoutWidget->setContentsMargins(10, 5, 10, 5);
 
   SingleData* getPix = getPix->getInstance();
+  getPix->addButtoonToAdaptOnTheme("cash", upgrade);
 
   iconFactory->setPixmap(getPix->getPixmap("factory"));
-  upgrade->setIcon(QIcon(getPix->getPixmap("cash")));
 
   upgrade->setIconSize(QSize(50, 50));
 

@@ -1,16 +1,11 @@
 <RCC>
     <qresource prefix="/Swich">
         <file>simon_id.jpg</file>
-        <file>dino.png</file>
         <file>iss.png</file>
         <file>SwichLogo.png</file>
-        <file>trash-can-outline.png</file>
-        <file>cash-multiple.png</file>
-        <file>lock-open-alert.png</file>
         <file>dark.qss</file>
         <file>ariane.jpg</file>
         <file>hubble.jpeg</file>
-        <file>piece.png</file>
         <file>Bob.jpg</file>
         <file>Camille.jpg</file>
         <file>Christophe.jpg</file>
@@ -27,5 +22,15 @@
         <file>light.qss</file>
         <file>swich_en.qm</file>
         <file>swich_fr.qm</file>
+        <file>cashdark.png</file>
+        <file>cashlight.png</file>
+        <file>dinodark.png</file>
+        <file>dinolight.png</file>
+        <file>lockdark.png</file>
+        <file>locklight.png</file>
+        <file>piecedark.png</file>
+        <file>piecelight.png</file>
+        <file>trashdark.png</file>
+        <file>trashlight.png</file>
     </qresource>
 </RCC>

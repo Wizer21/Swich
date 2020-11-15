@@ -37,7 +37,10 @@ void Chat::setContactList(QGridLayout* layout)
   textZone->setLayout(layoutText);
   layoutText->addWidget(text);
   layoutText->addWidget(icon);
-  icon->setIcon(QIcon(":/Swich/dino.png"));
+
+  SingleData* getData = getData->getInstance();
+  getData->addButtoonToAdaptOnTheme("dino", icon);
+
   listLayout->setAlignment(Qt::AlignTop);
 
   for (int i = 0; i < getListContact->size(); i++)
