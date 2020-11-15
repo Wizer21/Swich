@@ -49,8 +49,8 @@ void Production::setProduction()
   connect(lockedFactory2, SIGNAL(clicked()), this, SLOT(askNewFactory()));
 
   // Theme
-  lockedFactory1->setFixedHeight(this->height() * 0.15);
-  lockedFactory2->setFixedHeight(this->height() * 0.15);
+  lockedFactory1->setFixedHeight(this->height() * 0.18);
+  lockedFactory2->setFixedHeight(this->height() * 0.18);
 
   lockedFactory1->setObjectName("a0");
   lockedFactory2->setObjectName("a1");
@@ -72,43 +72,38 @@ QWidget* Production::newFactoryWidget(QString getName, QString objName)
 
   QLabel* iconFactory = new QLabel(this);
   QLabel* name = new QLabel(getName, this);
-  QLabel* textLvl = new QLabel("Lvl", this);
   QLabel* displayLevel = new QLabel(this);
-  QLabel* textProduction = new QLabel(tr("Last production"), this);
+  QLabel* textLvl = new QLabel("Lvl", this);
   QLabel* displayProductionFactory = new QLabel(this);
+  QLabel* textProduction = new QLabel(tr("Last production"), this);
   QPushButton* upgrade = new QPushButton(this);
 
   widgetFactory->setLayout(layoutWidget);
 
   layoutWidget->addWidget(iconFactory, 0, 0);
   layoutWidget->addWidget(name, 0, 1);
-  layoutWidget->addWidget(textLvl, 0, 2);
-  layoutWidget->addWidget(displayLevel, 0, 3);
-  layoutWidget->addWidget(textProduction, 0, 4);
-  layoutWidget->addWidget(displayProductionFactory, 0, 5);
+  layoutWidget->addWidget(displayLevel, 0, 2, Qt::AlignRight);
+  layoutWidget->addWidget(textLvl, 0, 3, Qt::AlignLeft);
+  layoutWidget->addWidget(displayProductionFactory, 0, 4, Qt::AlignRight);
+  layoutWidget->addWidget(textProduction, 0, 5, Qt::AlignLeft);
   layoutWidget->addWidget(upgrade, 0, 6);
 
   layoutWidget->setAlignment(upgrade, Qt::AlignRight);
-
-  textLvl->setAlignment(Qt::AlignBottom);
-  textProduction->setAlignment(Qt::AlignBottom);
 
   levelList.push_back(displayLevel);
   productionlist.push_back(displayProductionFactory);
   upgradeList.push_back(upgrade);
 
   layoutWidget->setContentsMargins(10, 5, 10, 5);
-  QPixmap pix(":/Swich/factoryDark.png");
-  pix = pix.scaled(80, 80);
-  iconFactory->setPixmap(pix);
-  QPixmap pix1(":/Swich/cash-multiple.png");
-  upgrade->setIcon(QIcon(pix1));
-  upgrade->setIconSize(QSize(50, 50));
-  widgetFactory->setStyleSheet("background-color:#262626;");
 
-  upgrade->setObjectName(QString::number(idButton++));
-  widgetFactory->setObjectName("factory" + objName);
-  displayLevel->setObjectName("factoryLvl");
+  SingleData* getPix = getPix->getInstance();
+
+  iconFactory->setPixmap(getPix->getPixmap("factory"));
+  upgrade->setIcon(QIcon(getPix->getPixmap("cash")));
+
+  upgrade->setIconSize(QSize(50, 50));
+
+  widgetFactory->setObjectName("factoryWidget");
 
   connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
   return widgetFactory;

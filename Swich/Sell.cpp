@@ -122,6 +122,7 @@ void Sell::setCity(QTabWidget* tab)
     scrollArea->setWidgetResizable(true);
     scrollArea->setMinimumWidth(this->width() * 0.3);
 
+    tabCity->setMinimumWidth(150);
     tabCity->setObjectName(QString::number(i));
     layoutWidget->setObjectName(QString::number(i));
     connect(scrollArea, SIGNAL(transfertData(QString, QString, int)), this, SLOT(setNewItem(QString, QString, int)));

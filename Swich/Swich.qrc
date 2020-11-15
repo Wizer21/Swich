@@ -5,7 +5,6 @@
         <file>iss.png</file>
         <file>SwichLogo.png</file>
         <file>trash-can-outline.png</file>
-        <file>factoryDark.png</file>
         <file>cash-multiple.png</file>
         <file>lock-open-alert.png</file>
         <file>dark.qss</file>
@@ -24,5 +23,9 @@
         <file>Frederic.jpg</file>
         <file>briefcase.png</file>
         <file>splashReducted.png</file>
+        <file>factoryBlue.png</file>
+        <file>light.qss</file>
+        <file>swich_en.qm</file>
+        <file>swich_fr.qm</file>
     </qresource>
 </RCC>

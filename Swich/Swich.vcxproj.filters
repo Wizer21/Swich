@@ -22,6 +22,11 @@
       <Extensions>qrc;*</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Swich.qrc">
@@ -107,6 +112,9 @@
     <ClCompile Include="SingleData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -131,6 +139,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SingleData.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StructSettings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -171,5 +182,16 @@
     <QtMoc Include="Stock.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="Utils.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="swich_fr.ts">
+      <Filter>Translation Files</Filter>
+    </None>
+    <None Include="swich_en.ts">
+      <Filter>Translation Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

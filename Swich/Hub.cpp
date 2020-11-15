@@ -6,8 +6,8 @@ Hub::Hub()
   month = 0;
   year = 0;
   date_1 = "00/00/00";
-  gain_1 = "";
-  bank_1 = "";
+  gain_1 = "0";
+  bank_1 = "0";
   setHub();
 }
 
@@ -17,13 +17,13 @@ void Hub::setHub()
   //top
   QWidget* widgetHubTop = new QWidget(this);
   QGridLayout* gridTop = new QGridLayout(this);
-  QLabel* evo = new QLabel(tr("Evolution over the last Year"), this);
+  QLabel* evo = new QLabel(tr("High Scores"), this);
   bankMax = new QLabel("0", this);
-  QLabel* textBankMax = new QLabel("Top Bank", this);
+  QLabel* textBankMax = new QLabel(tr("Top Bank"), this);
   prodMax = new QLabel("0", this);
-  QLabel* textProdMax = new QLabel("Top Production", this);
+  QLabel* textProdMax = new QLabel(tr("Top Production"), this);
   sellsMax = new QLabel("0", this);
-  QLabel* textSellMax = new QLabel("Top Sales", this);
+  QLabel* textSellMax = new QLabel(tr("Top Sales"), this);
   QPushButton* newMonth = new QPushButton(tr("Reach new month !"), this);
 
   QWidget* uptdateWidget = new QWidget(this);
@@ -51,9 +51,9 @@ void Hub::setHub()
 
   layoutHub->addWidget(uptdateWidget, 0, 1);
   uptdateWidget->setLayout(gridRight);
-  gridRight->addWidget(displayGain, 0, 0, 2, 2);
-  gridRight->addWidget(displaySells, 1, 0, 1, 1);
-  gridRight->addWidget(displayDate, 2, 0, 1, 1);
+  gridRight->addWidget(displayGain, 0, 0, Qt::AlignRight);
+  gridRight->addWidget(displaySells, 1, 0, Qt::AlignRight);
+  gridRight->addWidget(displayDate, 2, 0, Qt::AlignRight);
 
   gridRight->setSpacing(50);
   QFont font(qApp->font());
@@ -65,16 +65,14 @@ void Hub::setHub()
   widgetHubBot->setLayout(layoutGridBot);
   setDefaultWidgets();
 
-  gridTop->setObjectName("grid");
-
   connect(newMonth, SIGNAL(clicked()), this, SLOT(newMonthClicked()));
 
-  //Theme name
+  //Theme
+  updateCurrentMonth(0, 0, 0);
+  setColorScroll();
   widgetHubBot->setObjectName("hubScroll");
   evo->setObjectName("hubEvolution");
   uptdateWidget->setObjectName("lastIteration");
-  displaySells->setStyleSheet("background-color:transparent");
-  displayDate->setStyleSheet("background-color:transparent");
 }
 
 void Hub::updateLabels(double addBank, double addProd, double addSell)
@@ -106,11 +104,11 @@ QString Hub::updateCurrentMonth(int newGain, int sells, int addDays)
   if (newGain >= 0)
   {
     cGain.insert(0, "+");
-    displayGain->setStyleSheet("color:#b2ff59; font-size:65px;background-color:transparent;");
+    displayGain->setStyleSheet("color:#b2ff59; font-size:100px;background-color:transparent;");
   }
   else
   {
-    displayGain->setStyleSheet("color:#ff5252; font-size:65px;background-color:transparent;");
+    displayGain->setStyleSheet("color:#ff5252; font-size:100px;background-color:transparent;");
   }
 
   displayGain->setText(cGain);
@@ -166,7 +164,7 @@ void Hub::setDefaultWidgets()
     widgetContainerT->setLayout(gridLayoutWT);
     gridLayoutWT->addWidget(dateCT, 0, 0, 1, 3);
     gridLayoutWT->addWidget(gainCT, 1, 0, 1, 3);
-    gridLayoutWT->addWidget(bankCT, 2, 1, 1, 2);
+    gridLayoutWT->addWidget(bankCT, 2, 0, 1, 3);
 
     date.insert(date.begin(), dateCT);
     gain.insert(gain.begin(), gainCT);
@@ -178,6 +176,8 @@ void Hub::setDefaultWidgets()
     bankCT->setAlignment(Qt::AlignRight);
     gridLayoutWT->setSpacing(0);
     gainCT->setFont(QFont("", 50));
+
+    widgetContainerT->setObjectName("widgetScroll");
   }
 }
 

@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include <QtWidgets/QApplication>
 #include "SingleData.h"
+#include "Utils.h"
+#include "StructSettings.h"
 
 int main(int argc, char* argv[])
 {
@@ -15,8 +17,12 @@ int main(int argc, char* argv[])
   QPixmap pix(":/Swich/SwichLogo.png");
   pix = pix.scaled(50, 50);
   a.setWindowIcon(QIcon(pix));
-  Swich w;
 
+  StructSettings::Settings getSettings = Utils::loadSettingsFromFile();
+  Utils::applyNewLanguage(getSettings.langue);
+  Utils::applyNewTheme(getSettings.theme);
+
+  Swich w;
   splash.finish(&w);
   w.show();
   return a.exec();

@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "Factory.h"
 #include "Static.h"
+#include "SingleData.h"
 
 class Production : public QWidget
 {

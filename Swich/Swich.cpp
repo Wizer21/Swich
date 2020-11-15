@@ -13,22 +13,13 @@ Swich::Swich(QWidget* parent)
   createDefaultWidget();
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
   ini(swichLayout);
-
-  // TO Delete
-  QFile lQSSFile(":/Swich/dark.qss");
-  if (lQSSFile.open(QIODevice::ReadOnly | QIODevice::Text))
-  {
-    QTextStream lStream(&lQSSFile);
-    qApp->setStyleSheet(lStream.readAll());
-    lQSSFile.close();
-  }
 }
 
 void Swich::ini(QGridLayout* layout)
 {
   //Menu Bar
   bar = new QMenuBar(this);
-  options = new QAction(tr("Options"));
+  options = new QAction(tr("Settings"));
   credits = new QAction(tr("Credits"));
 
   this->setMenuBar(bar);

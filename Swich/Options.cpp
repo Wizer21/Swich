@@ -6,6 +6,9 @@ Options::Options(QWidget* parent)
   this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
   this->setAttribute(Qt::WA_DeleteOnClose);
   this->setMinimumSize(300, 300);
+
+  storedSettings = Utils::loadSettingsFromFile();
+  oldSettingsToCompare = storedSettings;
   QVBoxLayout* layoutOption = new QVBoxLayout(this);
   ini(layoutOption);
 
@@ -36,8 +39,15 @@ void Options::ini(QVBoxLayout* layout)
   themeList->addItem(tr("Dark"));
 
   connect(fontChoser, SIGNAL(clicked()), this, SLOT(newFont()));
+  connect(langList, SIGNAL(activated(int)), this, SLOT(setTraduction(int)));
   connect(themeList, SIGNAL(activated(int)), this, SLOT(setTheme(int)));
   connect(closeButton, SIGNAL(clicked()), this, SLOT(close()));
+
+  themeList->setCurrentIndex(storedSettings.theme);
+  langList->setCurrentIndex(storedSettings.langue);
+
+  langList->setItemDelegate(new QStyledItemDelegate());
+  themeList->setItemDelegate(new QStyledItemDelegate());
 }
 
 void Options::newFont()
@@ -54,30 +64,24 @@ void Options::newFont()
 
 void Options::setTheme(int index)
 {
-  QFile lightQSSFile(":/Swich/dark.qss");
-  QFile darkQSSFile(":/Swich/dark.qss");
+  storedSettings.theme = index;
+  Utils::applyNewTheme(index);
+}
 
-  switch (index)
+void Options::setTraduction(int index)
+{
+  storedSettings.langue = index;
+  Utils::applyNewLanguage(index);
+}
+
+void Options::closeEvent(QCloseEvent* e)
+{
+  if (storedSettings.langue != oldSettingsToCompare.langue)
   {
-    case 0:
-      if (lightQSSFile.open(QIODevice::ReadOnly | QIODevice::Text))
-      {
-        QTextStream lStream(&lightQSSFile);
-        qApp->setStyleSheet(lStream.readAll());
-        lightQSSFile.close();
-      }
-      break;
-    case 1:
-      if (darkQSSFile.open(QIODevice::ReadOnly | QIODevice::Text))
-      {
-        QTextStream lStream(&darkQSSFile);
-        qApp->setStyleSheet(lStream.readAll());
-        darkQSSFile.close();
-      }
-      break;
-    default:
-      break;
+    QMessageBox lMessageBox(QMessageBox::Icon::Information, tr("Info"), tr("The application needs to be restarted."), QMessageBox::StandardButton::Ok);
+    lMessageBox.exec();
   }
+  Utils::saveSettingsToJsonFile(storedSettings);
 }
 
 Options::~Options()

@@ -59,12 +59,12 @@
     </ClCompile>
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>Qt 1.15.1 x64</QtInstall>
+    <QtInstall>Qt 5.14.2 x64</QtInstall>
     <QtModules>charts;core;datavisualization;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>Qt 1.15.1 x64</QtInstall>
+    <QtInstall>Qt 5.14.2 x64</QtInstall>
     <QtModules>charts;core;datavisualization;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
@@ -110,6 +110,9 @@
   <ItemGroup>
     <ClCompile Include="Chat.cpp" />
     <ClCompile Include="City.cpp" />
+    <ClCompile Include="Utils.cpp" />
+    <ClInclude Include="StructSettings.h" />
+    <QtMoc Include="Utils.h" />
     <QtMoc Include="Chat.h" />
     <ClInclude Include="City.h" />
     <QtMoc Include="Credits.h" />
@@ -158,6 +161,10 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="swich_en.ts" />
+    <None Include="swich_fr.ts" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
