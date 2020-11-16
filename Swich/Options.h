@@ -3,6 +3,7 @@
 #include "stdafx.h"
 #include "Utils.h"
 #include "StructSettings.h"
+#include "SingleData.h"
 
 class Options : public QDialog
 {
@@ -10,7 +11,6 @@ class Options : public QDialog
 
 public:
   Options(QWidget* parent);
-  void saveSettings();
   ~Options();
 
 private slots:

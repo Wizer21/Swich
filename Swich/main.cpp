@@ -25,6 +25,7 @@ int main(int argc, char* argv[])
   StructSettings::Settings getSettings = Utils::loadSettingsFromFile();
   Utils::applyNewLanguage(getSettings.langue);
   Utils::applyNewTheme(getSettings.theme);
+  Utils::applyNewFont(getSettings);
 
   return a.exec();
 }

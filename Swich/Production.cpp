@@ -37,11 +37,8 @@ void Production::setProduction()
   investedProduction->setAlignment(Qt::AlignRight | Qt::AlignBottom);
   testInvested->setAlignment(Qt::AlignLeft | Qt::AlignBottom);
 
-  QFont font(qApp->font());
-  font.setPixelSize(80);
-  displayProduction->setFont(font);
-  font.setPixelSize(50);
-  investedProduction->setFont(font);
+  SingleData::getInstance()->addLabelToAdaptOnFont(4, displayProduction);
+  SingleData::getInstance()->addLabelToAdaptOnFont(1.5, investedProduction);
 
   connect(lockedFactory1, SIGNAL(clicked()), this, SLOT(askNewFactory()));
   connect(lockedFactory2, SIGNAL(clicked()), this, SLOT(askNewFactory()));

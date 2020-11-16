@@ -58,8 +58,15 @@ void Options::newFont()
   {
     return;
   }
-  font.setStyleStrategy(QFont::PreferAntialias);
-  qApp->setFont(font);
+  storedSettings.font_family = font.family();
+  storedSettings.font_style = font.styleName();
+  storedSettings.font_size = font.pointSize();
+  storedSettings.font_weight = font.weight();
+  storedSettings.font_italic = font.italic();
+  storedSettings.font_underline = font.underline();
+  storedSettings.font_strike_out = font.strikeOut();
+
+  Utils::applyNewFont(storedSettings);
 }
 
 void Options::setTheme(int index)
@@ -76,7 +83,7 @@ void Options::setTraduction(int index)
 
 void Options::closeEvent(QCloseEvent* e)
 {
-  if (storedSettings.langue != oldSettingsToCompare.langue)
+  if (storedSettings != oldSettingsToCompare)
   {
     QMessageBox lMessageBox(QMessageBox::Icon::Information, tr("Info"), tr("The application needs to be restarted."), QMessageBox::StandardButton::Ok);
     lMessageBox.exec();

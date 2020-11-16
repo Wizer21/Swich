@@ -13,9 +13,11 @@ public:
   }
   void addLabelToAdaptOnTheme(const QString& key, QLabel* label);
   void addButtoonToAdaptOnTheme(const QString& key, QPushButton* label);
+  void addLabelToAdaptOnFont(const double& multiplier, QLabel* label);
+  void setColoredIcon(int themeIndex);
+  void setFontOnLabels(QFont newFont);
   std::pair<QString, QPixmap> getCharacter();
   QPixmap getPixmap(QString key);
-  void setColoredIcon(int themeIndex);
 
 private:
   SingleData();
@@ -28,4 +30,5 @@ private:
   std::map<QString, QPixmap> listSoftPixmap;
   std::vector<std::pair<QString, QLabel*>> listLabelToAdapt;
   std::vector<std::pair<QString, QPushButton*>> listButtonToAdapt;
+  std::vector<std::pair<double, QLabel*>> listLabelToAdaptToFont;
 };

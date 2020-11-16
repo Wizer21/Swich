@@ -50,7 +50,6 @@ void Stock::setStock()
   layoutCentral->setAlignment(Qt::AlignLeft);
   layoutLeft->setAlignment(Qt::AlignLeft);
   layoutRight->setAlignment(Qt::AlignRight);
-  //layoutRight->setAlignment(displayPushedItems, Qt::AlignLeft);
 
   this->setLayout(layoutStock);
   layoutStock->addWidget(tab);

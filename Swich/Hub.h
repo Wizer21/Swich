@@ -1,6 +1,7 @@
 #pragma once
 #include <qwidget.h>
 #include "stdafx.h"
+#include "SingleData.h"
 #include <cmath>
 
 class Hub : public QWidget

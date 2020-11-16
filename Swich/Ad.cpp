@@ -99,8 +99,7 @@ void Ad::setAd()
   SingleData* getData = getData->getInstance();
   getData->addLabelToAdaptOnTheme("trash", trashlabel);
 
-  QFont font(qApp->font());
-  teamValueDisplay->setFont(QFont(font.toString(), 45));
+  SingleData::getInstance()->addLabelToAdaptOnFont(4, teamValueDisplay);
 
   connect(manager, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
   connect(designer, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
@@ -265,7 +264,7 @@ void Ad::employeChanged(const int& id, const int& pos)
   }
 }
 
-void Ad::employeeToTrash(const int& id, const int&)
+void Ad::employeeToTrash(const int& id, const int& pos)
 {
   int sizeEmploye = (int)employeList.size();
 
@@ -292,7 +291,7 @@ void Ad::employeeToTrash(const int& id, const int&)
   }
 }
 
-void Ad::commercialChanged(const int& id, const int&)
+void Ad::commercialChanged(const int& id, const int& pos)
 {
   if (id == -1)
   {

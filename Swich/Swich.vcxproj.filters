@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -27,6 +23,16 @@
       <Extensions>ts</Extensions>
       <ParseFiles>false</ParseFiles>
     </Filter>
+    <Filter Include="Source Files\.cpp Widgets">
+      <UniqueIdentifier>{217534e6-7875-4271-860c-8fe93863a64f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Form Files\Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Form Files\Header Files\.h Widgets">
+      <UniqueIdentifier>{4863faca-0ce6-4112-9165-c5e1b42a9d06}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="Swich.qrc">
@@ -35,14 +41,8 @@
     <QtUic Include="Swich.ui">
       <Filter>Resource Files</Filter>
     </QtUic>
-    <QtMoc Include="Swich.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <ClCompile Include="Swich.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClInclude Include="stdafx.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
@@ -52,31 +52,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Analytics.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Hub.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Ad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Sell.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="City.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Stock.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Production.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Chat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Contact.cpp">
@@ -115,75 +91,105 @@
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Ad.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="City.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Chat.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Swich.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Stock.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Sell.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Production.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Hub.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="Analytics.cpp">
+      <Filter>Source Files\.cpp Widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="City.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Contact.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dragwidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Factory.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DragEmployee.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Jumpslider.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SingleData.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StructSettings.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="City.h">
+      <Filter>Form Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Analytics.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Sell.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Chat.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="DropWidget.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Hub.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Production.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Options.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Credits.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="DropEmployee.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Ad.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Static.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Stock.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Utils.h">
-      <Filter>Header Files</Filter>
+      <Filter>Form Files\Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="Ad.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Analytics.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Chat.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Hub.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Production.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Sell.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Stock.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="Swich.h">
+      <Filter>Form Files\Header Files\.h Widgets</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>

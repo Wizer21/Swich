@@ -56,9 +56,8 @@ void Hub::setHub()
   gridRight->addWidget(displayDate, 2, 0, Qt::AlignRight);
 
   gridRight->setSpacing(50);
-  QFont font(qApp->font());
-  font.setPixelSize(50);
-  displayGain->setFont(font);
+
+  SingleData::getInstance()->addLabelToAdaptOnFont(3, displayGain);
 
   //bot
   layoutHub->addWidget(widgetHubBot, 1, 0, 1, 2);
@@ -175,9 +174,10 @@ void Hub::setDefaultWidgets()
     gainCT->setAlignment(Qt::AlignRight);
     bankCT->setAlignment(Qt::AlignRight);
     gridLayoutWT->setSpacing(0);
-    gainCT->setFont(QFont("", 50));
 
     widgetContainerT->setObjectName("widgetScroll");
+
+    SingleData::getInstance()->addLabelToAdaptOnFont(2, gainCT);
   }
 }
 
@@ -203,17 +203,16 @@ void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBa
 
 void Hub::setColorScroll()
 {
-  QFont font(qApp->font());
 
   for (int i = 0; i < gain.size(); i++)
   {
     if (gain.at(i)->text().toInt() < 0)
     {
-      gain.at(i)->setStyleSheet("font-size:25px;color:#ff5252;font:" + font.toString() + ";");
+      gain.at(i)->setStyleSheet("color:#ff5252;font:");
     }
     else
     {
-      gain.at(i)->setStyleSheet("font-size:25px;color:#b2ff59;font:" + font.toString() + ";");
+      gain.at(i)->setStyleSheet("color:#b2ff59;font:");
     }
   }
 }

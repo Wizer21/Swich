@@ -22,7 +22,7 @@ void SingleData::loadPixmap()
   pushCharacter("Maxime", ":/character/Maxime");
 
   // push Soft Pixmap
-  pushPixmapToSoft("commercial", ":/Swich/images/briefcase.png", 20, 20);
+  pushPixmapToSoft("commercial", ":/Swich/images/briefcase.png", 30, 30);
   pushPixmapToSoft("creditLogo", ":/Swich/images/SwichLogo.png", 200, 200);
   pushPixmapToSoft("factory", ":/Swich/images/factoryBlue.png", 80, 80);
 
@@ -63,6 +63,11 @@ void SingleData::addButtoonToAdaptOnTheme(const QString& key, QPushButton* butto
   listButtonToAdapt.push_back(std::pair(key, button));
 }
 
+void SingleData::addLabelToAdaptOnFont(const double& multiplier, QLabel* label)
+{
+  listLabelToAdaptToFont.push_back(std::pair(multiplier, label));
+}
+
 void SingleData::setColoredIcon(int themeIndex)
 {
   int list = listLabelToAdapt.size();
@@ -87,6 +92,18 @@ void SingleData::setColoredIcon(int themeIndex)
   for (int i = 0; i < list; i++)
   {
     listButtonToAdapt.at(i).second->setIcon(getPixmap(listButtonToAdapt.at(i).first + subName));
+  }
+}
+
+void SingleData::setFontOnLabels(QFont newFont)
+{
+  int sizeListFont = (int)listLabelToAdaptToFont.size();
+  int currentPixelSize = newFont.pointSize();
+
+  for (int i = 0; i < sizeListFont; i++)
+  {
+    newFont.setPointSize(currentPixelSize * listLabelToAdaptToFont.at(i).first);
+    listLabelToAdaptToFont.at(i).second->setFont(newFont);
   }
 }
 

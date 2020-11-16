@@ -30,11 +30,11 @@ void DragEmployee::ini(const QPixmap pix)
   this->setLayout(layoutEmployee);
   layoutEmployee->addWidget(displayPix, 0, 0);
   layoutEmployee->addWidget(displayLvl, 0, 1);
-  layoutEmployee->addWidget(displayName, 1, 0);
+  layoutEmployee->addWidget(displayName, 1, 0, 1, 2);
   layoutEmployee->addWidget(displaySalary, 2, 0);
 
   layoutEmployee->setAlignment(displayLvl, Qt::AlignLeft | Qt::AlignBottom);
-  this->setFixedSize(120, 130);
+  this->setFixedSize(150, 180);
   this->setContentsMargins(0, 0, 0, 0);
 
   if (fonction == "commercial")

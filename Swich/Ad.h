@@ -1,9 +1,10 @@
 #pragma once
 #include <qwidget.h>
 #include "stdafx.h"
-#include "DragEmployee.h"
 #include "DropEmployee.h"
+#include "DragEmployee.h"
 #include "Static.h"
+#include "SingleData.h"
 
 class Ad : public QWidget
 {
@@ -15,8 +16,8 @@ public:
 
 private slots:
   void employeChanged(const int& id, const int& pos);
-  void commercialChanged(const int& id, const int&);
-  void employeeToTrash(const int& id, const int&);
+  void commercialChanged(const int& id, const int& pos);
+  void employeeToTrash(const int& id, const int& pos);
 
 signals:
   void newCommercial(DragEmployee* actualEmploye);
