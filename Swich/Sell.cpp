@@ -35,6 +35,8 @@ void Sell::setSell()
 
   layoutSell->addWidget(validSend, 1, 1);
 
+  validSend->setCursor(Qt::PointingHandCursor);
+  tabWidget->tabBar()->setCursor(Qt::PointingHandCursor);
   connect(validSend, SIGNAL(clicked()), this, SLOT(validate()));
 }
 
@@ -161,6 +163,7 @@ void Sell::setNewItem(QString nom, QString vol, int newId)
     kill->setObjectName(pos);
     widgetToDelete.push_back(draggedItem);
 
+    kill->setCursor(Qt::PointingHandCursor);
     connect(kill, SIGNAL(clicked()), this, SLOT(cancelSell()));
   }
   QSlider* getSlider = this->findChild<QSlider*>(QString::number(newId));

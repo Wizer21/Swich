@@ -174,6 +174,7 @@ QString Ad::getSalary_Production(int addDays)
   }
 
   teamValueDisplay->setText("+" + QString::number(efficiency * 100) + "%");
+  teamValueDisplay->setStyleSheet("color:#b2ff59; font-size:80px;background-color:transparent;");
   callNewEmploye();
   return QString("%1$%2").arg(salary).arg(efficiency);
 }

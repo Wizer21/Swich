@@ -171,16 +171,37 @@ QDialog QPushButton::pressed {
   padding: 5px;
   border: 0px solid transparent;
 }
-QComboBox {
+QComboBox#comboLangue  {
   padding: 1px 18px 1px 3px;
   min-width: 6em;
   border: 0px solid yellow;
+  border-right: 10px solid #64ffda;
   min-height: 25px;
   font-size: 15px;
   background-color: #262626;
+  color: #64ffda;
 }
-QComboBox:hover {
-  border-right: 3px solid #ff5252;
+QComboBox#comboTheme {
+  padding: 1px 18px 1px 3px;
+  min-width: 6em;
+  border: 0px solid yellow;
+  border-right: 10px solid #ffd740;
+  min-height: 25px;
+  font-size: 15px;
+  background-color: #262626;
+  color: #ffd740;
+}
+QComboBox:hover#comboLangue {
+    background-color: #64ffda;
+  color: #262626;
+  padding: 0px;
+  border: 0px solid transparent;
+}
+QComboBox:hover#comboTheme {
+    background-color: #ffd740;
+  color: #262626;
+  padding: 0px;
+  border: 0px solid transparent;
 }
 QComboBox:drop-down {
   border: 0px;
@@ -190,11 +211,36 @@ QComboBox QAbstractItemView {
   background-color: #1a191d;
   border: 0px solid white;
 }
-QComboBox QAbstractItemView::item {
+QComboBox#comboLangue QAbstractItemView::item {
   min-height: 25px;
+  color: green;
 }
-QListView::item::selected {
-  background-color: #ff5252;
+/* QComboBox#comboLangue QAbstractItemView::item::selected {
+  background-color: #64ffda;
+  color: green;
+}
+QComboBox#comboTheme QAbstractItemView::item::selected {
+  background-color: #ffd740;
+} */
+QDialog QPushButton#fontButton {
+  background-color: #262626;
+  color: #b2ff59;
+  padding: 0px;
+  border: 2px solid transparent;
+  border-right: 2px solid #b2ff59;
+  border-bottom: 2px solid #b2ff59;
+  font-size: 18px;
+}
+QDialog QPushButton::hover#fontButton {
+  border: 0px solid transparent;
+  border-right: 0px solid #b2ff59;
+  border-bottom: 0px solid #b2ff59;
+}
+QDialog QPushButton::pressed#fontButton {
+  background-color: #b2ff59;
+  color: #262626;
+  padding: 5px;
+  border: 0px solid transparent;
 }
 /* ------------ Menu List ------------ */
 /* ------------ ---------------------- */

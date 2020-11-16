@@ -61,10 +61,10 @@ void Stock::setStock()
   buttonRadio->setChecked(true);
   commercialWidget->setObjectName("widget");
   setList();
-  tab->resizeColumnsToContents();
   layoutStock->setAlignment(textDefault, Qt::AlignCenter);
   textDefault->setMinimumHeight(60);
 
+  buttonRadio->setCursor(Qt::PointingHandCursor);
   connect(buttonRadio, SIGNAL(stateChanged(int)), this, SLOT(updateRadioButton(int)));
 }
 
@@ -109,6 +109,7 @@ void Stock::setList()
 
     commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #ffd740;}");
   }
+  tab->resizeColumnsToContents();
   tab->setSortingEnabled(true);
 }
 
@@ -127,6 +128,9 @@ void Stock::updateStock()
     tab->setItem(i, 2, stockItem);
   }
   tab->setSortingEnabled(true);
+  tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+  tab->horizontalHeader()->setStretchLastSection(true);
+  tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 }
 
 void Stock::updateCommercialSlot(DragEmployee* getEmploye)
@@ -141,6 +145,7 @@ void Stock::updateCommercialSlot(DragEmployee* getEmploye)
   updateRadioButton(2);
 
   displayPushedItems->setAlignment(Qt::AlignLeft);
+  tab->resizeColumnsToContents();
   textDefault->setVisible(false);
 }
 

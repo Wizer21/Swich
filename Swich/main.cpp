@@ -18,14 +18,16 @@ int main(int argc, char* argv[])
   pix = pix.scaled(50, 50);
   a.setWindowIcon(QIcon(pix));
 
-  Swich w;
-  splash.finish(&w);
-  w.show();
-
   StructSettings::Settings getSettings = Utils::loadSettingsFromFile();
   Utils::applyNewLanguage(getSettings.langue);
+
+  Swich w;
+  splash.finish(&w);
+
   Utils::applyNewTheme(getSettings.theme);
+  s->setIndexActualTheme(getSettings.theme);
   Utils::applyNewFont(getSettings);
 
+  w.show();
   return a.exec();
 }

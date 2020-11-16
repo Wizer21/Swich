@@ -78,6 +78,14 @@ void Swich::ini(QGridLayout* layout)
   SingleData* getData = getData->getInstance();
   getData->addLabelToAdaptOnTheme("piece", logoSol);
 
+  hub->setCursor(Qt::PointingHandCursor);
+  analytics->setCursor(Qt::PointingHandCursor);
+  sell->setCursor(Qt::PointingHandCursor);
+  production->setCursor(Qt::PointingHandCursor);
+  pub->setCursor(Qt::PointingHandCursor);
+  stock->setCursor(Qt::PointingHandCursor);
+  chat->setCursor(Qt::PointingHandCursor);
+
   hub->setObjectName("index0");
   analytics->setObjectName("index1");
   sell->setObjectName("index2");

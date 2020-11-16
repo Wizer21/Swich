@@ -28,7 +28,7 @@ void Production::setProduction()
   layoutProduction->addWidget(investedProduction, 1, 0);
   layoutProduction->addWidget(testInvested, 1, 1);
 
-  layoutProduction->addWidget(newFactoryWidget("Paris", "0"), 2, 0, 1, 3);
+  layoutProduction->addWidget(newFactoryWidget("Paris"), 2, 0, 1, 3);
   layoutProduction->addWidget(lockedFactory1, 3, 0, 1, 3);
   layoutProduction->addWidget(lockedFactory2, 4, 0, 1, 3);
 
@@ -36,9 +36,6 @@ void Production::setProduction()
   dailyProduction->setAlignment(Qt::AlignLeft | Qt::AlignBottom);
   investedProduction->setAlignment(Qt::AlignRight | Qt::AlignBottom);
   testInvested->setAlignment(Qt::AlignLeft | Qt::AlignBottom);
-
-  SingleData::getInstance()->addLabelToAdaptOnFont(4, displayProduction);
-  SingleData::getInstance()->addLabelToAdaptOnFont(1.5, investedProduction);
 
   connect(lockedFactory1, SIGNAL(clicked()), this, SLOT(askNewFactory()));
   connect(lockedFactory2, SIGNAL(clicked()), this, SLOT(askNewFactory()));
@@ -53,6 +50,8 @@ void Production::setProduction()
   SingleData* getPix = getPix->getInstance();
   getPix->addButtoonToAdaptOnTheme("lock", lockedFactory1);
   getPix->addButtoonToAdaptOnTheme("lock", lockedFactory2);
+  getPix->addLabelToAdaptOnFont(4, displayProduction);
+  getPix->addLabelToAdaptOnFont(1.5, investedProduction);
 
   lockedFactory1->setIconSize(QSize(50, 50));
   lockedFactory2->setIconSize(QSize(50, 50));
@@ -61,10 +60,12 @@ void Production::setProduction()
   listFactory.push_back(fact1);
   updateWidgets();
 
+  lockedFactory1->setCursor(Qt::PointingHandCursor);
+  lockedFactory2->setCursor(Qt::PointingHandCursor);
   displayProduction->setObjectName("lastProduction");
 }
 
-QWidget* Production::newFactoryWidget(QString getName, QString objName)
+QWidget* Production::newFactoryWidget(QString getName)
 {
   QWidget* widgetFactory = new QWidget(this);
   QGridLayout* layoutWidget = new QGridLayout(this);
@@ -95,17 +96,19 @@ QWidget* Production::newFactoryWidget(QString getName, QString objName)
 
   layoutWidget->setContentsMargins(10, 5, 10, 5);
 
-  SingleData* getPix = getPix->getInstance();
+  SingleData* getPix = SingleData::getInstance();
   getPix->addButtoonToAdaptOnTheme("cash", upgrade);
+  upgrade->setIcon(QIcon(getPix->getPixMapOnActualTheme("cash")));
 
   iconFactory->setPixmap(getPix->getPixmap("factory"));
-
-  upgrade->setIconSize(QSize(50, 50));
 
   widgetFactory->setObjectName("factoryWidget");
 
   connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
   return widgetFactory;
+
+  upgrade->setIconSize(QSize(50, 50));
+  upgrade->setCursor(Qt::PointingHandCursor);
 }
 
 void Production::updateWidgets()
@@ -132,6 +135,7 @@ QString Production::newMonthProd(int days)
   }
   updateWidgets();
   displayProduction->setText(QString::number(round(totalProduction)));
+  displayProduction->setStyleSheet("color:#64ffda; font-size:80px;background-color:transparent;");
 
   return QString("%1$%2").arg(totalProduction).arg(totalCost);
 }
@@ -168,18 +172,20 @@ void Production::validateNewFactory(int id)
 {
   if (id == 0)
   {
+    SingleData::getInstance()->deleteButtonOnAdress(lockedFactory1);
     delete lockedFactory1;
     lockedFactory1 = nullptr;
-    layoutProduction->addWidget(newFactoryWidget("Tokyo", "1"), 3, 0, 1, 3);
+    layoutProduction->addWidget(newFactoryWidget("Tokyo"), 3, 0, 1, 3);
     Factory fact2;
     listFactory.push_back(fact2);
     updateWidgets();
   }
   if (id == 1)
   {
+    SingleData::getInstance()->deleteButtonOnAdress(lockedFactory2);
     delete lockedFactory2;
     lockedFactory2 = nullptr;
-    layoutProduction->addWidget(newFactoryWidget("London", "2"), 4, 0, 1, 3);
+    layoutProduction->addWidget(newFactoryWidget("London"), 4, 0, 1, 3);
     Factory fact3;
     listFactory.push_back(fact3);
     updateWidgets();

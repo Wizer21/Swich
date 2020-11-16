@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Static.h"
+#include "StructSettings.h"
 
 class SingleData
 {
@@ -18,8 +19,12 @@ public:
   void setFontOnLabels(QFont newFont);
   std::pair<QString, QPixmap> getCharacter();
   QPixmap getPixmap(QString key);
+  void deleteButtonOnAdress(QPushButton* button);
+  QPixmap getPixMapOnActualTheme(QString key);
+  void setIndexActualTheme(int indexTheme);
 
 private:
+  int themeActuel;
   SingleData();
   void loadPixmap();
   void pushCharacter(const QString& addNom, const QString& pixMap);

@@ -67,6 +67,7 @@ void Hub::setHub()
   connect(newMonth, SIGNAL(clicked()), this, SLOT(newMonthClicked()));
 
   //Theme
+  newMonth->setCursor(Qt::PointingHandCursor);
   updateCurrentMonth(0, 0, 0);
   setColorScroll();
   widgetHubBot->setObjectName("hubScroll");

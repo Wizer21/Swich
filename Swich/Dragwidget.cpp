@@ -6,6 +6,7 @@ Dragwidget::Dragwidget(QWidget* parent, QString addNom, int addVolume, int addId
   nom = addNom;
   volume = addVolume;
   id = addId;
+  this->setCursor(Qt::PointingHandCursor);
 }
 
 void Dragwidget::mouseMoveEvent(QMouseEvent* event)

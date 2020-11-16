@@ -46,6 +46,10 @@ void Analytics::setAnalytics()
   widgetList->setAlignment(Qt::AlignCenter);
   widgetRight->setCurrentIndex(1);
 
+  volVente->setCursor(Qt::PointingHandCursor);
+  evoBanque->setCursor(Qt::PointingHandCursor);
+  evoCharges->setCursor(Qt::PointingHandCursor);
+  evoProduction->setCursor(Qt::PointingHandCursor);
   connect(volVente, SIGNAL(clicked()), this, SLOT(setDisplayedGraph()));
   connect(evoBanque, SIGNAL(clicked()), this, SLOT(setDisplayedGraph()));
   connect(evoCharges, SIGNAL(clicked()), this, SLOT(setDisplayedGraph()));

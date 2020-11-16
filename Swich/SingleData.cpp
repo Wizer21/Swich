@@ -3,6 +3,7 @@
 SingleData::SingleData()
 {
   loadPixmap();
+  themeActuel = 0;
 }
 
 SingleData* SingleData::instance = 0;
@@ -70,7 +71,7 @@ void SingleData::addLabelToAdaptOnFont(const double& multiplier, QLabel* label)
 
 void SingleData::setColoredIcon(int themeIndex)
 {
-  int list = listLabelToAdapt.size();
+  int list = (int)listLabelToAdapt.size();
   QString subName = "";
 
   if (themeIndex == 0)
@@ -115,4 +116,39 @@ std::pair<QString, QPixmap> SingleData::getCharacter()
 QPixmap SingleData::getPixmap(QString key)
 {
   return listSoftPixmap.at(key);
+}
+
+QPixmap SingleData::getPixMapOnActualTheme(QString key)
+{
+  QString subKey = "";
+
+  switch (themeActuel)
+  {
+    case 0:
+      subKey = "light";
+      break;
+    case 1:
+      subKey = "dark";
+      break;
+  }
+
+  return getPixmap(key + subKey);
+}
+
+void SingleData::setIndexActualTheme(int indexTheme)
+{
+  themeActuel = indexTheme;
+}
+
+void SingleData::deleteButtonOnAdress(QPushButton* button)
+{
+  int sizeList = (int)listButtonToAdapt.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    if (listButtonToAdapt.at(i).second == button)
+    {
+      listButtonToAdapt.erase(listButtonToAdapt.begin() + i);
+      return;
+    }
+  }
 }

@@ -64,9 +64,11 @@ void Chat::setContactList(QGridLayout* layout)
     layoutArea->setObjectName(QString::number(i));
     layoutArea->setAlignment(Qt::AlignBottom);
 
+    pushContact->setCursor(Qt::PointingHandCursor);
     connect(pushContact, SIGNAL(clicked()), this, SLOT(setTextZone()));
   }
 
+  icon->setCursor(Qt::PointingHandCursor);
   connect(icon, SIGNAL(clicked()), this, SLOT(clickedDinausor()));
   connect(text, SIGNAL(returnPressed()), this, SLOT(enterText()));
 }
@@ -108,7 +110,7 @@ void Chat::setTextZone()
 void Chat::clickedDinausor()
 {
   QLabel* iconClick = new QLabel(this);
-  iconClick->setPixmap(QPixmap(":/Swich/images/dino.png"));
+  iconClick->setPixmap(QPixmap(SingleData::getInstance()->getPixMapOnActualTheme("dino")));
   QVBoxLayout* layoutBoxDino = this->findChild<QVBoxLayout*>(QString::number(chatZone->currentIndex()));
   layoutBoxDino->addWidget(iconClick);
   iconClick->setAlignment(Qt::AlignRight);

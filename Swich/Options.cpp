@@ -48,6 +48,15 @@ void Options::ini(QVBoxLayout* layout)
 
   langList->setItemDelegate(new QStyledItemDelegate());
   themeList->setItemDelegate(new QStyledItemDelegate());
+
+  langList->setObjectName("comboLangue");
+  themeList->setObjectName("comboTheme");
+  fontChoser->setObjectName("fontButton");
+
+  langList->setCursor(Qt::PointingHandCursor);
+  themeList->setCursor(Qt::PointingHandCursor);
+  fontChoser->setCursor(Qt::PointingHandCursor);
+  closeButton->setCursor(Qt::PointingHandCursor);
 }
 
 void Options::newFont()
@@ -88,6 +97,8 @@ void Options::closeEvent(QCloseEvent* e)
     QMessageBox lMessageBox(QMessageBox::Icon::Information, tr("Info"), tr("The application needs to be restarted."), QMessageBox::StandardButton::Ok);
     lMessageBox.exec();
   }
+
+  SingleData::getInstance()->setIndexActualTheme(storedSettings.theme);
   Utils::saveSettingsToJsonFile(storedSettings);
 }
 

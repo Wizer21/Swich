@@ -36,6 +36,7 @@ void DragEmployee::ini(const QPixmap pix)
   layoutEmployee->setAlignment(displayLvl, Qt::AlignLeft | Qt::AlignBottom);
   this->setFixedSize(150, 180);
   this->setContentsMargins(0, 0, 0, 0);
+  this->setCursor(Qt::PointingHandCursor);
 
   if (fonction == "commercial")
   {

@@ -152,6 +152,7 @@ void Utils::applyNewFont(StructSettings::Settings getStruct)
 
   newWonft.setStyleStrategy(QFont::PreferAntialias);
 
+  SingleData::getInstance()->setFontOnLabels(newWonft);
   qApp->setFont(newWonft);
 
   SingleData::getInstance()->setFontOnLabels(newWonft);

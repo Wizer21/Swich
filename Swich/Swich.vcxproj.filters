@@ -193,10 +193,10 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <None Include="swich_fr.ts">
+    <None Include="translations\swich_en.ts">
       <Filter>Translation Files</Filter>
     </None>
-    <None Include="swich_en.ts">
+    <None Include="translations\swich_fr.ts">
       <Filter>Translation Files</Filter>
     </None>
   </ItemGroup>
