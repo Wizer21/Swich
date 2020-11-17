@@ -102,6 +102,8 @@ void Swich::ini(QGridLayout* layout)
   widgetStock->setObjectName("stock");
   widgetChat->setObjectName("chat");
 
+  sold->setToolTip(tr("Display your actual amount of gold."));
+
   swichZoneWidget->setCurrentIndex(0);
   widgetHub->updateLabels(bankDisplayed, 0, 0);
   setTheme();

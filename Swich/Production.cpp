@@ -109,6 +109,7 @@ QWidget* Production::newFactoryWidget(QString getName)
 
   upgrade->setIconSize(QSize(50, 50));
   upgrade->setCursor(Qt::PointingHandCursor);
+  upgrade->setToolTip(tr("Upgrade this factory"));
 }
 
 void Production::updateWidgets()

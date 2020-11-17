@@ -2,6 +2,8 @@
 
 Chat::Chat(std::vector<Contact>& list)
 {
+  textId1 = 0;
+  textId2 = 0;
   getListContact = &list;
   setChat();
 }
@@ -68,6 +70,8 @@ void Chat::setContactList(QGridLayout* layout)
     connect(pushContact, SIGNAL(clicked()), this, SLOT(setTextZone()));
   }
 
+  loadAnswer();
+  displayText(0, tr("Hey, welcome !"));
   icon->setCursor(Qt::PointingHandCursor);
   connect(icon, SIGNAL(clicked()), this, SLOT(clickedDinausor()));
   connect(text, SIGNAL(returnPressed()), this, SLOT(enterText()));
@@ -79,6 +83,18 @@ void Chat::enterText()
   if (textEntered.trimmed().size() == 0)
   {
     return;
+  }
+
+  switch (chatZone->currentIndex())
+  {
+    case 0:
+      textId1++;
+      testChat(textId1);
+      break;
+    case 1:
+      textId2++;
+      testChat(textId2);
+      break;
   }
 
   displayText(1, textEntered);
@@ -114,4 +130,32 @@ void Chat::clickedDinausor()
   QVBoxLayout* layoutBoxDino = this->findChild<QVBoxLayout*>(QString::number(chatZone->currentIndex()));
   layoutBoxDino->addWidget(iconClick);
   iconClick->setAlignment(Qt::AlignRight);
+}
+
+void Chat::loadAnswer()
+{
+  answerStored.push_back(tr("Hey !"));
+  answerStored.push_back(tr("You are actually on a showcase app !"));
+  answerStored.push_back(tr("The sun bright !"));
+  answerStored.push_back(tr("This application was made with C++ and the Qt library."));
+  answerStored.push_back(tr("I made the logo with Photoshop."));
+  answerStored.push_back(tr("You can found on my GitHub a first version of this concept under \"SimulationRevendeur\"."));
+  answerStored.push_back(tr("Monstera are such beautiful plants !"));
+  answerStored.push_back(tr("Do you like cookies ?"));
+  answerStored.push_back(tr("Sorry, we are out of coffee."));
+  answerStored.push_back(tr("You can found on my GitHub the developpement history of this app."));
+}
+
+void Chat::testChat(int& idChat)
+{
+  int chanceToDiaslap = idChat;
+  while (chanceToDiaslap > 0)
+  {
+    if (Static::randZeroToVal(10) > 7)
+    {
+      displayText(0, answerStored.at(Static::randZeroToVal(answerStored.size())));
+      idChat = 0;
+    }
+    chanceToDiaslap--;
+  }
 }

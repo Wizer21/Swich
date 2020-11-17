@@ -23,6 +23,7 @@
         <file>images/piecelight.png</file>
         <file>images/trashdark.png</file>
         <file>images/trashlight.png</file>
+        <file>images/locklight.png</file>
     </qresource>
     <qresource prefix="/character">
         <file alias="Bob">images/Bob.jpg</file>

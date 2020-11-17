@@ -73,6 +73,10 @@ void Hub::setHub()
   widgetHubBot->setObjectName("hubScroll");
   evo->setObjectName("hubEvolution");
   uptdateWidget->setObjectName("lastIteration");
+
+  newMonth->setToolTip(tr("Begin a new iteration"));
+  uptdateWidget->setToolTip(tr("Result of the last month"));
+  widgetHubBot->setToolTip(tr("Result of the last 6 month"));
 }
 
 void Hub::updateLabels(double addBank, double addProd, double addSell)

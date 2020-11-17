@@ -135,7 +135,7 @@ void Stock::updateStock()
 
 void Stock::updateCommercialSlot(DragEmployee* getEmploye)
 {
-  commercialWidget->setVisible(true);
+  commercialWidget->setVisible(false);
 
   SingleData* single = single->getInstance();
   pictureId->setPixmap(single->getPixmap(getEmploye->getName()));
@@ -145,8 +145,8 @@ void Stock::updateCommercialSlot(DragEmployee* getEmploye)
   updateRadioButton(2);
 
   displayPushedItems->setAlignment(Qt::AlignLeft);
+  textDefault->setVisible(true);
   tab->resizeColumnsToContents();
-  textDefault->setVisible(false);
 }
 
 void Stock::firedCommercial()

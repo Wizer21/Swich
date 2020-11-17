@@ -45,6 +45,7 @@ void DragEmployee::ini(const QPixmap pix)
     labelCommercial->setPixmap(getSingle->getPixmap("commercial"));
 
     layoutEmployee->addWidget(labelCommercial, 2, 1);
+    labelCommercial->setToolTip(tr("This one will help you to fill cities."));
   }
 }
 
