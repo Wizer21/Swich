@@ -9,6 +9,7 @@ Swich::Swich(QWidget* parent)
   bankDisplayed = 11560;
   gotCommercial = false;
   commercialActivated = true;
+  positiveBank = true;
   setDefaultList();
   createDefaultWidget();
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
@@ -19,11 +20,16 @@ void Swich::ini(QGridLayout* layout)
 {
   //Menu Bar
   bar = new QMenuBar(this);
-  options = new QAction(tr("Settings"));
-  credits = new QAction(tr("Credits"));
+  more = new QMenu(tr("More"), this);
+
+  QAction* options = new QAction(tr("Settings"));
+  QAction* closeApp = new QAction(tr("Close"));
+  QAction* credits = new QAction(tr("Credits"));
 
   this->setMenuBar(bar);
-  bar->addAction(options);
+  bar->addMenu(more);
+  more->addAction(options);
+  more->addAction(closeApp);
   bar->addAction(credits);
 
   // Left Band
@@ -85,6 +91,7 @@ void Swich::ini(QGridLayout* layout)
   pub->setCursor(Qt::PointingHandCursor);
   stock->setCursor(Qt::PointingHandCursor);
   chat->setCursor(Qt::PointingHandCursor);
+  more->setCursor(Qt::PointingHandCursor);
 
   hub->setObjectName("index0");
   analytics->setObjectName("index1");
@@ -127,6 +134,7 @@ void Swich::ini(QGridLayout* layout)
   connect(widgetProduction, SIGNAL(transfertNewFactory(int, int)), this, SLOT(applyNewFactory(int, int)));
   connect(options, SIGNAL(triggered()), this, SLOT(openOptions()));
   connect(credits, SIGNAL(triggered()), this, SLOT(openCredits()));
+  connect(closeApp, SIGNAL(triggered()), this, SLOT(close()));
   connect(widgetAd, SIGNAL(fireCommercial()), this, SLOT(applyFireCommercial()));
   connect(widgetAd, SIGNAL(newCommercial(DragEmployee*)), this, SLOT(applyNewCommercial(DragEmployee*)));
   connect(widgetStock, SIGNAL(setIsActivated(bool)), this, SLOT(applyCommercialIsActivated(bool)));
@@ -189,6 +197,7 @@ void Swich::setDefaultList()
 
 void Swich::connectToMenu()
 {
+
   auto getSender = qobject_cast<QPushButton*>(sender());
   if (hub == getSender)
   {
@@ -217,6 +226,7 @@ void Swich::connectToMenu()
   else if (chat == getSender)
   {
     swichZoneWidget->setCurrentIndex(6);
+    updateNotificationChat(false);
   }
   setTheme();
 }
@@ -259,6 +269,20 @@ void Swich::startNewMonth()
   temporaryCharges += splitSalary_Efficiency.at(0).toDouble();
   double evoBanque = temporaryGain - temporaryCharges;
   bankDisplayed += temporaryGain - temporaryCharges;
+
+  if (bankDisplayed < 0)
+  {
+    if (positiveBank)
+    {
+      widgetChat->displayText(0, tr("Take care, you are going wrong !"), 0);
+      updateNotificationChat(true);
+      positiveBank = false;
+    }
+  }
+  else
+  {
+    positiveBank = true;
+  }
 
   sold->setText(QString::number(round(bankDisplayed)));
   QString date = widgetHub->updateCurrentMonth(evoBanque, temporarySoldVol, addedDays);
@@ -349,6 +373,7 @@ void Swich::setTheme()
   }
 
   bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
+  more->setStyleSheet(" QMenu::item::selected{color:" + backgroundColor + ";}");
 }
 
 void Swich::applyNewCommercial(DragEmployee* getActualEmployee)
@@ -394,4 +419,17 @@ void Swich::commercialTransfertStock()
     cityList.at(randoCity).pushStockToList(itemList.at(randoItem).getId(), prodToPush);
   }
   widgetStock->setItemPushed(round(nbrItemToTransfert));
+}
+
+void Swich::updateNotificationChat(bool isVisible)
+{
+
+  if (isVisible)
+  {
+    chat->setIcon(SingleData::getInstance()->getPixmap("notification"));
+  }
+  else
+  {
+    chat->setIcon(QPixmap(""));
+  }
 }

@@ -45,11 +45,13 @@ private:
   double addProductionToInventory(double production);
   void setTheme();
   void commercialTransfertStock();
+  void updateNotificationChat(bool isVisible);
 
   int turnId;
   double bankDisplayed;
   bool gotCommercial;
   bool commercialActivated;
+  bool positiveBank;
 
   QStackedWidget* swichZoneWidget;
   Hub* widgetHub;
@@ -61,8 +63,7 @@ private:
   Chat* widgetChat;
 
   QMenuBar* bar;
-  QAction* options;
-  QAction* credits;
+  QMenu* more;
   QLabel* sold;
 
   std::vector<Item> itemList;

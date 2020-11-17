@@ -131,7 +131,7 @@ void Ad::setAd()
   groupTeam->setObjectName("groupTeam");
   groupCommercial->setObjectName("groupCommercial");
   groupNew->setObjectName("groupNew");
-  teamValueDisplay->setToolTip(tr("increase in sales volume due to your team"));
+  teamValueDisplay->setToolTip(tr("Increase in sales volume due to your team"));
 }
 
 void Ad::callNewEmploye()

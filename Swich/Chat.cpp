@@ -68,10 +68,14 @@ void Chat::setContactList(QGridLayout* layout)
 
     pushContact->setCursor(Qt::PointingHandCursor);
     connect(pushContact, SIGNAL(clicked()), this, SLOT(setTextZone()));
+    areaChat->setObjectName("scroll" + QString::number(i));
+    areaChat->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+
+    connect(areaChat->verticalScrollBar(), SIGNAL(rangeChanged(int, int)), this, SLOT(setBarPosition(int, int)));
   }
 
   loadAnswer();
-  displayText(0, tr("Hey, welcome !"));
+  displayText(0, tr("Hey, welcome !"), chatZone->currentIndex());
   icon->setCursor(Qt::PointingHandCursor);
   connect(icon, SIGNAL(clicked()), this, SLOT(clickedDinausor()));
   connect(text, SIGNAL(returnPressed()), this, SLOT(enterText()));
@@ -85,6 +89,7 @@ void Chat::enterText()
     return;
   }
 
+  displayText(1, textEntered, chatZone->currentIndex());
   switch (chatZone->currentIndex())
   {
     case 0:
@@ -97,14 +102,13 @@ void Chat::enterText()
       break;
   }
 
-  displayText(1, textEntered);
   text->clear();
 }
 
-void Chat::displayText(int pos, QString newText)
+void Chat::displayText(int pos, QString newText, int indexChat)
 {
   QLabel* textDisplayed = new QLabel(newText, this);
-  QVBoxLayout* layoutBox = this->findChild<QVBoxLayout*>(QString::number(chatZone->currentIndex()));
+  QVBoxLayout* layoutBox = this->findChild<QVBoxLayout*>(QString::number(indexChat));
 
   layoutBox->addWidget(textDisplayed);
 
@@ -116,6 +120,14 @@ void Chat::displayText(int pos, QString newText)
   {
     textDisplayed->setAlignment(Qt::AlignRight);
   }
+  textDisplayed->setWordWrap(true);
+  textDisplayed->show();
+}
+
+void Chat::setBarPosition(int min, int max)
+{
+  auto barArea = qobject_cast<QScrollBar*>(sender());
+  barArea->setSliderPosition(max);
 }
 
 void Chat::setTextZone()
@@ -151,9 +163,9 @@ void Chat::testChat(int& idChat)
   int chanceToDiaslap = idChat;
   while (chanceToDiaslap > 0)
   {
-    if (Static::randZeroToVal(10) > 7)
+    if (Static::randZeroToVal(10) > 6)
     {
-      displayText(0, answerStored.at(Static::randZeroToVal(answerStored.size())));
+      displayText(0, answerStored.at(Static::randZeroToVal(answerStored.size())), chatZone->currentIndex());
       idChat = 0;
     }
     chanceToDiaslap--;

@@ -7,6 +7,14 @@ QWidget::focus {
 }
 
 /* -- Button List ---- Main Window -- */
+QToolTip {
+  font-size:15px;
+  border: 0px solid red;
+  background-color: white;
+  color: black;
+  padding: 5px;
+}
+
 QPushButton#index0 {
   background-color: #262626;
   color: #ff5252;

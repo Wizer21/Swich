@@ -23,7 +23,7 @@ void DragEmployee::ini(const QPixmap pix)
   QLabel* displayPix = new QLabel(this);
   QLabel* displayLvl = new QLabel(note, this);
   QLabel* displayName = new QLabel(name, this);
-  QLabel* displaySalary = new QLabel(QString::number(salary), this);
+  QLabel* displaySalary = new QLabel(QString::number(salary) + tr("$"), this);
 
   displayPix->setPixmap(pix);
 
@@ -43,6 +43,7 @@ void DragEmployee::ini(const QPixmap pix)
     SingleData* getSingle = getSingle->getInstance();
     QLabel* labelCommercial = new QLabel(this);
     labelCommercial->setPixmap(getSingle->getPixmap("commercial"));
+    labelCommercial->setAlignment(Qt::AlignRight);
 
     layoutEmployee->addWidget(labelCommercial, 2, 1);
     labelCommercial->setToolTip(tr("This one will help you to fill cities."));

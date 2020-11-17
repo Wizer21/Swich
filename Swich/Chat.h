@@ -11,11 +11,13 @@ class Chat : public QWidget
 
 public:
   Chat(std::vector<Contact>& list);
+  void displayText(int pos, QString text, int indexChat);
 
 private slots:
   void clickedDinausor();
   void enterText();
   void setTextZone();
+  void setBarPosition(int min, int max);
 
 private:
   int textId1;
@@ -25,7 +27,6 @@ private:
   QLineEdit* text;
   void setChat();
   void setContactList(QGridLayout* layout);
-  void displayText(int pos, QString text);
   void loadAnswer();
   void testChat(int& idChat);
   std::vector<QString> answerStored;

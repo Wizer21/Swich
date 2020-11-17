@@ -24,6 +24,7 @@
         <file>images/trashdark.png</file>
         <file>images/trashlight.png</file>
         <file>images/locklight.png</file>
+        <file>images/notification.png</file>
     </qresource>
     <qresource prefix="/character">
         <file alias="Bob">images/Bob.jpg</file>
