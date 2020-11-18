@@ -14,6 +14,7 @@ Swich::Swich(QWidget* parent)
   createDefaultWidget();
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
   ini(swichLayout);
+  ItemDAO::getInstance()->iniDB();
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -153,9 +154,9 @@ void Swich::createDefaultWidget()
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 0, 5, 45, 100, ":/Swich/images/ariane.jpg", 0, 0);
-  Item item2("Hubble", 0, 18, 78, 200, ":/Swich/images/hubble.jpeg", 0, 1);
-  Item item3("ISS", 0, 20, 85, 300, ":/Swich/images/iss.png", 0, 2);
+  Item item1("Ariane", 0, 5, 45, ":/Swich/images/ariane.jpg", 0);
+  Item item2("Hubble", 0, 18, 78, ":/Swich/images/hubble.jpeg", 1);
+  Item item3("ISS", 0, 20, 85, ":/Swich/images/iss.png", 2);
 
   itemList.push_back(item1);
   itemList.push_back(item2);

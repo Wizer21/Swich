@@ -18,6 +18,7 @@
 #include "Credits.h"
 #include <math.h>
 #include "DragEmployee.h"
+#include "ItemDAO.h"
 
 class Swich : public QMainWindow
 {

@@ -118,6 +118,9 @@
     <ClCompile Include="Analytics.cpp">
       <Filter>Source Files\.cpp Widgets</Filter>
     </ClCompile>
+    <ClCompile Include="ItemDAO.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Item.h">
@@ -145,6 +148,9 @@
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="City.h">
+      <Filter>Form Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemDAO.h">
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

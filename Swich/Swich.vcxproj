@@ -60,12 +60,12 @@
   </ItemDefinitionGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2 x64</QtInstall>
-    <QtModules>charts;core;datavisualization;gui;widgets</QtModules>
+    <QtModules>charts;core;datavisualization;gui;sql;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
     <QtInstall>Qt 5.14.2 x64</QtInstall>
-    <QtModules>charts;core;datavisualization;gui;widgets</QtModules>
+    <QtModules>charts;core;datavisualization;gui;sql;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.props')">
@@ -110,7 +110,9 @@
   <ItemGroup>
     <ClCompile Include="Chat.cpp" />
     <ClCompile Include="City.cpp" />
+    <ClCompile Include="ItemDAO.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClInclude Include="ItemDAO.h" />
     <ClInclude Include="StructSettings.h" />
     <QtMoc Include="Utils.h" />
     <QtMoc Include="Chat.h" />

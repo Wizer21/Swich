@@ -86,14 +86,14 @@ void Stock::setList()
     QTableWidgetItem* buyPItem = new QTableWidgetItem(QString::number(listItem->at(i).getBuyP()));
     QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(listItem->at(i).getSellP()));
     QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
-    QTableWidgetItem* mounthlySellItem = new QTableWidgetItem(QString::number(listItem->at(i).getAveSell()));
+    //QTableWidgetItem* mounthlySellItem = new QTableWidgetItem(QString::number(listItem->at(i).getAveSell()));
 
     nameItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     buyPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     sellPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     cityStockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    mounthlySellItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    //mounthlySellItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
     QPixmap pix(listItem->at(i).getPix());
     pix = pix.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
@@ -105,7 +105,7 @@ void Stock::setList()
     tab->setItem(i, y++, buyPItem);
     tab->setItem(i, y++, sellPItem);
     tab->setItem(i, y++, cityStockItem);
-    tab->setItem(i, y++, mounthlySellItem);
+    //tab->setItem(i, y++, mounthlySellItem);
 
     commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #ffd740;}");
   }
