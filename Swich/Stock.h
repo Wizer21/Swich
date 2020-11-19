@@ -4,13 +4,14 @@
 #include "Item.h"
 #include "DragEmployee.h"
 #include "SingleData.h"
+#include "ItemDAO.h"
 
 class Stock : public QWidget
 {
   Q_OBJECT
 
 public:
-  Stock(std::vector<Item>& getItemList);
+  Stock();
   void setList();
   void updateStock();
   void updateCommercialSlot(DragEmployee* getEmploye);
@@ -26,7 +27,6 @@ signals:
 private:
   void setStock();
   QTableWidget* tab;
-  std::vector<Item>* listItem;
   QHeaderView* head;
 
   QWidget* commercialWidget;

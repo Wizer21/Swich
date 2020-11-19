@@ -10,11 +10,12 @@ Swich::Swich(QWidget* parent)
   gotCommercial = false;
   commercialActivated = true;
   positiveBank = true;
+
   setDefaultList();
   createDefaultWidget();
+
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
   ini(swichLayout);
-  ItemDAO::getInstance()->iniDB();
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -145,23 +146,15 @@ void Swich::createDefaultWidget()
 {
   widgetHub = new Hub();
   widgetAnalytics = new Analytics();
-  widgetSell = new Sell(itemList, cityList);
+  widgetSell = new Sell(cityList);
   widgetProduction = new Production();
   widgetAd = new Ad();
-  widgetStock = new Stock(itemList);
+  widgetStock = new Stock();
   widgetChat = new Chat(contactList);
 }
 
 void Swich::setDefaultList()
 {
-  Item item1("Ariane", 0, 5, 45, ":/Swich/images/ariane.jpg", 0);
-  Item item2("Hubble", 0, 18, 78, ":/Swich/images/hubble.jpeg", 1);
-  Item item3("ISS", 0, 20, 85, ":/Swich/images/iss.png", 2);
-
-  itemList.push_back(item1);
-  itemList.push_back(item2);
-  itemList.push_back(item3);
-
   std::vector<Item> listCity1;
   std::vector<Item> listCity2;
   std::vector<Item> listCity3;
@@ -173,7 +166,6 @@ void Swich::setDefaultList()
   cityList.push_back(city1);
   cityList.push_back(city2);
   cityList.push_back(city3);
-  cityList.at(0).addToList(item1);
 
   Contact contact1("Simon", ":/Swich/images/simon_id.jpg");
   Contact contact2("Bob", "");
@@ -181,19 +173,17 @@ void Swich::setDefaultList()
   contactList.push_back(contact1);
   contactList.push_back(contact2);
 
+  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   int sizeA = (int)cityList.size();
-  int sizeB = (int)itemList.size();
+  int sizeB = (int)itemList->size();
+
   for (int a = 0; a < sizeA; a++)
   {
     for (int i = 0; i < sizeB; i++)
     {
-      cityList.at(a).addToList(itemList.at(i));
+      cityList.at(a).addToList(itemList->at(i));
     }
   }
-
-  itemList.at(0).setStock(10);
-  itemList.at(1).setStock(5);
-  itemList.at(2).setStock(0);
 }
 
 void Swich::connectToMenu()
@@ -297,7 +287,8 @@ void Swich::startNewMonth()
 
 double Swich::addProductionToInventory(double addedProduction)
 {
-  int items = (int)itemList.size();
+  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
+  int items = (int)itemList->size();
   int nrbIteration = 15 + Static::randZeroToVal(10);
   double prodToPush = addedProduction / nrbIteration;
   double price = 0;
@@ -305,9 +296,10 @@ double Swich::addProductionToInventory(double addedProduction)
   for (int i = 0; i < nrbIteration; i++)
   {
     int randoItem = Static::randZeroToVal(items);
-    itemList.at(randoItem).setStock(itemList.at(randoItem).getStock() + prodToPush);
-    price += itemList.at(randoItem).getBuyP() * prodToPush;
+    itemList->at(randoItem).setStock(itemList->at(randoItem).getStock() + prodToPush);
+    price += itemList->at(randoItem).getBuyP() * prodToPush;
   }
+  delete itemList;
   return price;
 }
 
@@ -406,7 +398,8 @@ void Swich::commercialTransfertStock()
     getLvl--;
   }
 
-  int itemsListSize = (int)itemList.size();
+  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
+  int itemsListSize = (int)itemList->size();
   int cityListSize = (int)cityList.size();
   int nrbIteration = 10 + Static::randZeroToVal(10);
   double prodToPush = nbrItemToTransfert / nrbIteration;
@@ -416,8 +409,8 @@ void Swich::commercialTransfertStock()
     int randoItem = Static::randZeroToVal(itemsListSize);
     int randoCity = Static::randZeroToVal(cityListSize);
 
-    itemList.at(randoItem).setStock(itemList.at(randoItem).getStock() - prodToPush);
-    cityList.at(randoCity).pushStockToList(itemList.at(randoItem).getId(), prodToPush);
+    itemList->at(randoItem).setStock(itemList->at(randoItem).getStock() - prodToPush);
+    cityList.at(randoCity).pushStockToList(itemList->at(randoItem).getId(), prodToPush);
   }
   widgetStock->setItemPushed(round(nbrItemToTransfert));
 }

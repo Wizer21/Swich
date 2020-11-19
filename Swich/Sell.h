@@ -7,13 +7,14 @@
 #include "DropWidget.h"
 #include "Stock.h"
 #include "Jumpslider.h"
+#include "ItemDAO.h"
 
 class Sell : public QWidget
 {
   Q_OBJECT
 
 public:
-  Sell(std::vector<Item>& item, std::vector<City>& city);
+  Sell(std::vector<City>& city);
   void refreshStock();
 
 signals:
@@ -35,7 +36,6 @@ private:
   void updateCityOnDrop(QString vol, int idItem);
   QTabWidget* tabWidget;
   Stock* getStock;
-  std::vector<Item>* getItemList;
   std::vector<City>* getCityList;
   std::vector<QWidget*> widgetToDelete;
 };

@@ -1,7 +1,12 @@
 #include "Static.h"
 
-double Static::randZeroToVal(const int& val)
+int Static::randZeroToVal(const int& val)
 {
+  //std::default_random_engine generator;
+  //std::uniform_int_distribution<int> randVal(0, val);
+  //int finalVal = randVal(generator);
+  //return finalVal;
+
   return rand() % val;
 }
 

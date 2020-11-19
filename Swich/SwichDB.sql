@@ -1,15 +1,20 @@
+-- cd 'Desktop/Prog/C++ Qt/Swich/Swich'
+-- mysql.exe -u Wizer -puseraccount swichdb
+-- source SwichDB.sql
+
 DROP TABLE IF EXISTS SWICHITEM;
 
 CREATE TABLE IF NOT EXISTS SWICHITEM(
     id_item INT UNSIGNED AUTO_INCREMENT,
-    nom_item TEXT,
-    pachat_item INT,
-    pvente_item INT,
+    name_item TEXT,
+    stock_item INT,
+    buyp_item INT,
+    sellp_item INT,
     
     PRIMARY KEY(id_item)
 );
 
-INSERT INTO SWICHITEM VALUES(NULL, 'mug', '8','16');
-INSERT INTO SWICHITEM VALUES(NULL, 'forch', '2','5');
+INSERT INTO SWICHITEM VALUES(NULL, 'mug','0' ,'8','16');
+INSERT INTO SWICHITEM VALUES(NULL, 'forch','0', '2','5');
 
 SELECT * FROM SWICHITEM;

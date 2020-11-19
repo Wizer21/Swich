@@ -67,7 +67,6 @@ private:
   QMenu* more;
   QLabel* sold;
 
-  std::vector<Item> itemList;
   std::vector<City> cityList;
   std::vector<Contact> contactList;
   DragEmployee* getCommercial;

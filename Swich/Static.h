@@ -7,7 +7,7 @@ class Static : public QObject
   Q_OBJECT
 
 public:
-  static double randZeroToVal(const int& val);
+  static int randZeroToVal(const int& val);
   static double randNegativeIntToPercentage(const int& val);
   static double randOnlyPositivePercentage(const int& val);
 

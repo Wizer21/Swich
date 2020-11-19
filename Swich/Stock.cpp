@@ -1,16 +1,18 @@
 #include "Stock.h"
 
-Stock::Stock(std::vector<Item>& getItemList)
+Stock::Stock()
 {
-  listItem = &getItemList;
   setStock();
 }
 
 void Stock::setStock()
 {
+
+  int sizeList = (int)ItemDAO::getInstance()->getItemList()->size();
+
   QVBoxLayout* layoutStock = new QVBoxLayout(this);
 
-  tab = new QTableWidget((int)listItem->size(), 7, this);
+  tab = new QTableWidget(sizeList, 7, this);
   QStringList columnName;
   columnName << tr("View") << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.") << tr("City's Stocks") << tr("Monthly Sells");
   tab->setHorizontalHeaderLabels(columnName);
@@ -70,7 +72,8 @@ void Stock::setStock()
 
 void Stock::setList()
 {
-  int sizeInventory = (int)listItem->size();
+  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
+  int sizeInventory = (int)itemList->size();
   tab->setSortingEnabled(false);
   tab->clearContents();
   tab->setRowCount(sizeInventory);
@@ -81,21 +84,19 @@ void Stock::setList()
   {
     y = 0;
     QLabel* pixItem = new QLabel(this);
-    QTableWidgetItem* nameItem = new QTableWidgetItem(listItem->at(i).getNom());
-    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
-    QTableWidgetItem* buyPItem = new QTableWidgetItem(QString::number(listItem->at(i).getBuyP()));
-    QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(listItem->at(i).getSellP()));
-    QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
-    //QTableWidgetItem* mounthlySellItem = new QTableWidgetItem(QString::number(listItem->at(i).getAveSell()));
+    QTableWidgetItem* nameItem = new QTableWidgetItem(itemList->at(i).getNom());
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(itemList->at(i).getRoundedStock()));
+    QTableWidgetItem* buyPItem = new QTableWidgetItem(QString::number(itemList->at(i).getBuyP()));
+    QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(itemList->at(i).getSellP()));
+    QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(itemList->at(i).getRoundedStock()));
 
     nameItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     buyPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     sellPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     cityStockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    //mounthlySellItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    QPixmap pix(listItem->at(i).getPix());
+    QPixmap pix(itemList->at(i).getPix());
     pix = pix.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     pixItem->setPixmap(pix);
 
@@ -105,23 +106,24 @@ void Stock::setList()
     tab->setItem(i, y++, buyPItem);
     tab->setItem(i, y++, sellPItem);
     tab->setItem(i, y++, cityStockItem);
-    //tab->setItem(i, y++, mounthlySellItem);
 
     commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #ffd740;}");
   }
   tab->resizeColumnsToContents();
   tab->setSortingEnabled(true);
+  delete itemList;
 }
 
 void Stock::updateStock()
 {
 
+  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   tab->setSortingEnabled(false);
   tab->sortItems(1, Qt::AscendingOrder);
 
-  for (int i = 0; i < listItem->size(); i++)
+  for (int i = 0; i < itemList->size(); i++)
   {
-    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(listItem->at(i).getRoundedStock()));
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(itemList->at(i).getRoundedStock()));
 
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
@@ -131,6 +133,7 @@ void Stock::updateStock()
   tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   tab->horizontalHeader()->setStretchLastSection(true);
   tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+  delete itemList;
 }
 
 void Stock::updateCommercialSlot(DragEmployee* getEmploye)
