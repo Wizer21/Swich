@@ -5,7 +5,6 @@ ItemDAO::ItemDAO()
   mainItem_List = new std::vector<Item>();
   currentTable = "";
   iniDB();
-  loadDBToItemList("SWICHITEM");
 }
 
 ItemDAO* ItemDAO::instance = 0;
@@ -17,6 +16,38 @@ void ItemDAO::iniDB()
   db.setDatabaseName("swichdb");
   db.setUserName("Wizer");
   db.setPassword("useraccount");
+
+  if (!isDatableOnline())
+  {
+    Item item1("Ariane", 0, 5, 45, ":/Swich/images/ariane.jpg", 0);
+    Item item2("Hubble", 0, 18, 78, ":/Swich/images/hubble.jpeg", 1);
+    Item item3("ISS", 0, 20, 85, ":/Swich/images/iss.png", 2);
+
+    mainItem_List->push_back(item1);
+    mainItem_List->push_back(item2);
+    mainItem_List->push_back(item3);
+
+    currentTable = "Default Table";
+  }
+  else
+  {
+    loadDBToItemList("SWICHITEM");
+    currentTable = "SWICHITEM";
+  }
+}
+
+bool ItemDAO::isDatableOnline()
+{
+  bool online = false;
+  if (db.open())
+  {
+    online = true;
+  }
+  else
+  {
+    online = false;
+  }
+  return online;
 }
 
 void ItemDAO::loadDBToItemList(QString tableName)
@@ -95,4 +126,9 @@ QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
 std::vector<Item>* ItemDAO::getItemList()
 {
   return mainItem_List;
+}
+
+QString ItemDAO::getCurrentTable()
+{
+  return currentTable;
 }

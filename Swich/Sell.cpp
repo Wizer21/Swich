@@ -262,7 +262,7 @@ void Sell::refreshStock()
   }
 
   std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
-  int itemSize = itemList->size();
+  int itemSize = (int)itemList->size();
   for (int i = 0; i < itemSize; i++)
   {
     QSlider* getSliderR = this->findChild<QSlider*>(QString::number(i));

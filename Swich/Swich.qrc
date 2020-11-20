@@ -13,6 +13,8 @@
         <file>translations/swich_en.qm</file>
         <file>translations/swich_fr.qm</file>
         <file>SwichDB.sql</file>
+        <file>images/offCircle.png</file>
+        <file>images/onCircle.png</file>
     </qresource>
     <qresource prefix="/icon">
         <file>images/cashdark.png</file>

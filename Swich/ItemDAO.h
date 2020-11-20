@@ -5,6 +5,7 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlRecord>
+
 #include <QMap>
 #include <QSqlQueryModel>
 
@@ -24,6 +25,8 @@ public:
   std::vector<Item>* getItemList();
   QSqlQueryModel* getQuerryModel(QString tableName);
   void loadDBToItemList(QString tableName);
+  bool isDatableOnline();
+  QString getCurrentTable();
 
 private:
   ItemDAO();

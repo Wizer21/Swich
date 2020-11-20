@@ -109,7 +109,6 @@ void Stock::setList()
 
     commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #ffd740;}");
   }
-  tab->resizeColumnsToContents();
   tab->setSortingEnabled(true);
 }
 

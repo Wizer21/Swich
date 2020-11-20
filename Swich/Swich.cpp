@@ -26,14 +26,14 @@ void Swich::ini(QGridLayout* layout)
 
   QAction* options = new QAction(tr("Settings"));
   QAction* closeApp = new QAction(tr("Close"));
-  QAction* data = new QAction(tr("Database"));
+  QAction* dataAction = new QAction(tr("Database"));
   QAction* credits = new QAction(tr("Credits"));
 
   this->setMenuBar(bar);
   bar->addMenu(more);
 
   more->addAction(options);
-  more->addAction(data);
+  more->addAction(dataAction);
   more->addAction(closeApp);
   bar->addAction(credits);
 
@@ -140,7 +140,7 @@ void Swich::ini(QGridLayout* layout)
   connect(options, SIGNAL(triggered()), this, SLOT(openOptions()));
   connect(credits, SIGNAL(triggered()), this, SLOT(openCredits()));
   connect(closeApp, SIGNAL(triggered()), this, SLOT(close()));
-  connect(data, SIGNAL(triggered()), this, SLOT(openDatabase()));
+  connect(dataAction, SIGNAL(triggered()), this, SLOT(openDatabase()));
   connect(widgetAd, SIGNAL(fireCommercial()), this, SLOT(applyFireCommercial()));
   connect(widgetAd, SIGNAL(newCommercial(DragEmployee*)), this, SLOT(applyNewCommercial(DragEmployee*)));
   connect(widgetStock, SIGNAL(setIsActivated(bool)), this, SLOT(applyCommercialIsActivated(bool)));

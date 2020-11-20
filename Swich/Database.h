@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include <QDialog>
 #include "ItemDAO.h"
+#include "SingleData.h"
 
 class Database : public QDialog
 {

@@ -7,15 +7,18 @@ Database::Database(QWidget* parent)
   iniDB(mainLayout);
   loadTableList();
 
-  this->resize(600, 400);
+  this->resize(700, 450);
   this->exec();
 }
 
 void Database::iniDB(QGridLayout* layout)
 {
   runningTable = new QLabel("nameTable", this);
-  QLabel* dataOn_Off = new QLabel("on", this);
-  QLabel* iconOn_Off = new QLabel("logo", this);
+
+  QWidget* containStatu = new QWidget(this);
+  QHBoxLayout* layoutStatu = new QHBoxLayout(this);
+  QLabel* dataOn_Off = new QLabel(this);
+  QLabel* iconOn_Off = new QLabel(this);
 
   QScrollArea* containTableList = new QScrollArea(this);
   QWidget* widgetScroll = new QWidget(this);
@@ -25,17 +28,32 @@ void Database::iniDB(QGridLayout* layout)
   QPushButton* addTable = new QPushButton(tr("NewTable"));
 
   layout->addWidget(runningTable, 0, 0, 1, 2);
-  layout->addWidget(dataOn_Off, 0, 2, Qt::AlignRight);
-  layout->addWidget(iconOn_Off, 0, 3, Qt::AlignRight);
+  layout->addWidget(containStatu, 0, 3, Qt::AlignRight);
+  containStatu->setLayout(layoutStatu);
+  layoutStatu->addWidget(dataOn_Off);
+  layoutStatu->addWidget(iconOn_Off);
   layout->addWidget(containTableList, 1, 0);
   containTableList->setWidget(widgetScroll);
   widgetScroll->setLayout(layoutInScrollArea);
   layout->addWidget(addTable, 2, 0);
   layout->addWidget(widgetStack, 1, 1, 2, 3);
 
+  layoutStatu->setAlignment(Qt::AlignRight);
   layoutInScrollArea->setAlignment(Qt::AlignTop);
   containTableList->setMaximumWidth(this->width() * 1.4);
   containTableList->setWidgetResizable(true);
+
+  if (ItemDAO::getInstance()->isDatableOnline())
+  {
+    iconOn_Off->setPixmap(SingleData::getInstance()->getPixmap("onCircle"));
+    dataOn_Off->setText("On");
+  }
+  else
+  {
+    iconOn_Off->setPixmap(SingleData::getInstance()->getPixmap("offCircle"));
+    dataOn_Off->setText("Off");
+  }
+  runningTable->setText(ItemDAO::getInstance()->getCurrentTable());
 };
 
 void Database::loadTableList()

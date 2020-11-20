@@ -27,6 +27,8 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("creditLogo", ":/Swich/images/SwichLogo.png", 400, 400);
   pushPixmapToSoft("factory", ":/Swich/images/factoryBlue.png", 80, 80);
   pushPixmapToSoft("notification", ":/icon/images/notification.png", 50, 50);
+  pushPixmapToSoft("onCircle", ":/Swich/images/onCircle.png", 30, 30);
+  pushPixmapToSoft("offCircle", ":/Swich/images/offCircle.png", 30, 30);
 
   pushPixmapToSoft("trashlight", ":/icon/images/trashdark.png", 80, 80);
   pushPixmapToSoft("trashdark", ":/icon/images/trashlight.png", 80, 80);
