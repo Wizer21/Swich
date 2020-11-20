@@ -42,7 +42,7 @@ void Sell::setSell()
 void Sell::setList(QVBoxLayout* layout)
 {
   std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
-  int sizeList = itemList->size();
+  int sizeList = (int)itemList->size();
   for (int i = 0; i < sizeList; i++)
   {
     Dragwidget* widgetContainer = new Dragwidget(this, itemList->at(i).getNom(), 0, itemList->at(i).getId());
@@ -88,7 +88,8 @@ void Sell::dynamicStockId(int idStock)
 
 void Sell::setCity(QTabWidget* tab)
 {
-  for (int i = 0; i < getCityList->size(); i++)
+  int citySize = getCityList->size();
+  for (int i = 0; i < citySize; i++)
   {
     QWidget* widgetCity = new QWidget(this);
     QGridLayout* layoutCity = new QGridLayout(this);
@@ -237,7 +238,8 @@ void Sell::setTabCity(QTableWidget* tab, std::vector<Item> list)
 
 void Sell::validate()
 {
-  for (int i = 0; i < widgetToDelete.size(); i++)
+  int toDeleteSize = (int)widgetToDelete.size();
+  for (int i = 0; i < toDeleteSize; i++)
   {
     if (widgetToDelete.at(i))
     {
@@ -252,7 +254,7 @@ void Sell::validate()
 
 void Sell::refreshStock()
 {
-  int citySize = getCityList->size();
+  int citySize = (int)getCityList->size();
   for (int i = 0; i < citySize; i++)
   {
     QTableWidget* getTable = this->findChild<QTableWidget*>(QString::number(i));

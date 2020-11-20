@@ -111,7 +111,6 @@ void Stock::setList()
   }
   tab->resizeColumnsToContents();
   tab->setSortingEnabled(true);
-  delete itemList;
 }
 
 void Stock::updateStock()
@@ -133,7 +132,6 @@ void Stock::updateStock()
   tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
   tab->horizontalHeader()->setStretchLastSection(true);
   tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-  delete itemList;
 }
 
 void Stock::updateCommercialSlot(DragEmployee* getEmploye)

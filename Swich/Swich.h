@@ -19,6 +19,7 @@
 #include <math.h>
 #include "DragEmployee.h"
 #include "ItemDAO.h"
+#include "Database.h"
 
 class Swich : public QMainWindow
 {
@@ -35,6 +36,7 @@ private slots:
   void applyNewFactory(int cost, int id);
   void openOptions();
   void openCredits();
+  void openDatabase();
   void applyNewCommercial(DragEmployee* getActualEmployee);
   void applyFireCommercial();
   void applyCommercialIsActivated(bool);

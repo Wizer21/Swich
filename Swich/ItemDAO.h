@@ -20,6 +20,7 @@ public:
   }
   void iniDB();
   void loadDBToItemList();
+  void saveToDatabase();
   std::vector<Item>* getItemList();
 
 private:

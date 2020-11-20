@@ -26,11 +26,14 @@ void Swich::ini(QGridLayout* layout)
 
   QAction* options = new QAction(tr("Settings"));
   QAction* closeApp = new QAction(tr("Close"));
+  QAction* data = new QAction(tr("Database"));
   QAction* credits = new QAction(tr("Credits"));
 
   this->setMenuBar(bar);
   bar->addMenu(more);
+
   more->addAction(options);
+  more->addAction(data);
   more->addAction(closeApp);
   bar->addAction(credits);
 
@@ -137,6 +140,7 @@ void Swich::ini(QGridLayout* layout)
   connect(options, SIGNAL(triggered()), this, SLOT(openOptions()));
   connect(credits, SIGNAL(triggered()), this, SLOT(openCredits()));
   connect(closeApp, SIGNAL(triggered()), this, SLOT(close()));
+  connect(data, SIGNAL(triggered()), this, SLOT(openDatabase()));
   connect(widgetAd, SIGNAL(fireCommercial()), this, SLOT(applyFireCommercial()));
   connect(widgetAd, SIGNAL(newCommercial(DragEmployee*)), this, SLOT(applyNewCommercial(DragEmployee*)));
   connect(widgetStock, SIGNAL(setIsActivated(bool)), this, SLOT(applyCommercialIsActivated(bool)));
@@ -299,7 +303,6 @@ double Swich::addProductionToInventory(double addedProduction)
     itemList->at(randoItem).setStock(itemList->at(randoItem).getStock() + prodToPush);
     price += itemList->at(randoItem).getBuyP() * prodToPush;
   }
-  delete itemList;
   return price;
 }
 
@@ -333,6 +336,11 @@ void Swich::openOptions()
 void Swich::openCredits()
 {
   new Credits(this);
+}
+
+void Swich::openDatabase()
+{
+  new Database(this);
 }
 
 void Swich::setTheme()

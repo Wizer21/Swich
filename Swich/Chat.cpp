@@ -165,7 +165,7 @@ void Chat::testChat(int& idChat)
   {
     if (Static::randZeroToVal(10) > 6)
     {
-      displayText(0, answerStored.at(Static::randZeroToVal(answerStored.size())), chatZone->currentIndex());
+      displayText(0, answerStored.at(Static::randZeroToVal((int)answerStored.size())), chatZone->currentIndex());
       idChat = 0;
     }
     chanceToDiaslap--;

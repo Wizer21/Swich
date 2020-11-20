@@ -20,8 +20,8 @@ void ItemDAO::iniDB()
   if (database.open())
   {
     QSqlQuery queryDB(database);
-
     queryDB.exec("SELECT * FROM SWICHITEM;");
+
     QSqlRecord rec = queryDB.record();
 
     // Get Column ID
@@ -46,11 +46,39 @@ void ItemDAO::iniDB()
 
 void ItemDAO::loadDBToItemList()
 {
-  int sizeList = getData_Id.size();
+  int sizeList = (int)getData_Id.size();
   for (int i = 0; i < sizeList; i++)
   {
     mainItem_List->push_back(Item(getData_Name.at(i), getData_Stock.at(i), getData_BuyP.at(i), getData_SellP.at(i), "", getData_Id.at(i)));
   }
+}
+
+void ItemDAO::saveToDatabase()
+{
+
+  QSqlDatabase database = QSqlDatabase::addDatabase("QMYSQL");
+  database.setHostName("localhost");
+  database.setDatabaseName("swichdb");
+  database.setUserName("Wizer");
+  database.setPassword("useraccount");
+
+  QSqlQuery queryDB(database);
+
+  if (database.open())
+  {
+    int sizeList = (int)mainItem_List->size();
+    for (int i = 0; i < sizeList; i++)
+    {
+      //queryDB.exec("SELECT * FROM SWICHITEM;");
+      queryDB.prepare("UPDATE SWICHITEM SET stock_item = :value WHERE id_item = :id;");
+
+      queryDB.bindValue(":value", mainItem_List->at(i).getStock());
+      queryDB.bindValue(":id", i + 1);
+      queryDB.exec();
+    }
+  }
+
+  database.close();
 }
 
 std::vector<Item>* ItemDAO::getItemList()
