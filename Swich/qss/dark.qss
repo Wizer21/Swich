@@ -250,6 +250,39 @@ QDialog QPushButton::pressed#fontButton {
   padding: 5px;
   border: 0px solid transparent;
 }
+/* ----------------------- */
+/* ------ DataBase ------- */
+/* ----------------------- */
+QDialog QTableView QTableCornerButton::section {
+  background: transparent;
+}
+QDialog QHeaderView::section:vertical {
+  background: transparent;
+  font-size: 15px;
+}
+QDialog QHeaderView::section:horizontal {
+  background: transparent;
+  font-size: 15px;
+  padding: 0px;
+  margin: 0px;
+  min-width: 100px;
+}
+QDialog QHeaderView::section:horizontal:hover {
+  border-bottom: 4px solid white;
+}
+QDialog QHeaderView::section:horizontal:pressed {
+  background: #536dfe;
+}
+QDialog QHeaderView::section:vertical:hover {
+  border-bottom: 4px solid white;
+}
+QDialog QHeaderView::section:vertical:pressed {
+  background: #536dfe;
+}
+QDialog QTableView::item:selected {
+  background: #536dfe;
+}
+
 /* ------------ Menu List ------------ */
 /* ------------ ---------------------- */
 /* ------------ Hub       ------------ */

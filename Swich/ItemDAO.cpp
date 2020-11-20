@@ -3,24 +3,33 @@
 ItemDAO::ItemDAO()
 {
   mainItem_List = new std::vector<Item>();
+  currentTable = "";
   iniDB();
-  loadDBToItemList();
+  loadDBToItemList("SWICHITEM");
 }
 
 ItemDAO* ItemDAO::instance = 0;
 
 void ItemDAO::iniDB()
 {
-  QSqlDatabase database = QSqlDatabase::addDatabase("QMYSQL");
-  database.setHostName("localhost");
-  database.setDatabaseName("swichdb");
-  database.setUserName("Wizer");
-  database.setPassword("useraccount");
+  db = QSqlDatabase::addDatabase("QMYSQL");
+  db.setHostName("localhost");
+  db.setDatabaseName("swichdb");
+  db.setUserName("Wizer");
+  db.setPassword("useraccount");
+}
 
-  if (database.open())
+void ItemDAO::loadDBToItemList(QString tableName)
+{
+  if (currentTable != "")
   {
-    QSqlQuery queryDB(database);
-    queryDB.exec("SELECT * FROM SWICHITEM;");
+    saveToDatabase();
+  }
+
+  if (db.open())
+  {
+    QSqlQuery queryDB(db);
+    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName));
 
     QSqlRecord rec = queryDB.record();
 
@@ -32,53 +41,55 @@ void ItemDAO::iniDB()
     int columnSellP = rec.indexOf("sellp_item");
 
     // Push to list
+    mainItem_List->clear();
     while (queryDB.next())
     {
-      getData_Id.push_back(queryDB.value(columnID).toInt());
-      getData_Name.push_back(queryDB.value(columnName).toString());
-      getData_Stock.push_back(queryDB.value(columnStock).toInt());
-      getData_BuyP.push_back(queryDB.value(columnBuyP).toInt());
-      getData_SellP.push_back(queryDB.value(columnSellP).toInt());
+      mainItem_List->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnStock).toInt(), queryDB.value(columnBuyP).toInt(), queryDB.value(columnSellP).toInt(), "", queryDB.value(columnID).toInt()));
     }
+    currentTable = tableName;
+    db.close();
   }
-  database.close();
 }
 
-void ItemDAO::loadDBToItemList()
+QStringList ItemDAO::getTablesList()
 {
-  int sizeList = (int)getData_Id.size();
-  for (int i = 0; i < sizeList; i++)
+  if (db.open())
   {
-    mainItem_List->push_back(Item(getData_Name.at(i), getData_Stock.at(i), getData_BuyP.at(i), getData_SellP.at(i), "", getData_Id.at(i)));
+    QStringList tableList = db.tables();
+    db.close();
+    return tableList;
   }
+  return QStringList();
 }
 
 void ItemDAO::saveToDatabase()
 {
-
-  QSqlDatabase database = QSqlDatabase::addDatabase("QMYSQL");
-  database.setHostName("localhost");
-  database.setDatabaseName("swichdb");
-  database.setUserName("Wizer");
-  database.setPassword("useraccount");
-
-  QSqlQuery queryDB(database);
-
-  if (database.open())
+  if (db.open())
   {
+    QSqlQuery queryDB(db);
+
     int sizeList = (int)mainItem_List->size();
     for (int i = 0; i < sizeList; i++)
     {
-      //queryDB.exec("SELECT * FROM SWICHITEM;");
-      queryDB.prepare("UPDATE SWICHITEM SET stock_item = :value WHERE id_item = :id;");
+      queryDB.prepare(QString("UPDATE %1 SET stock_item = :value WHERE id_item = :id;").arg(currentTable));
 
       queryDB.bindValue(":value", mainItem_List->at(i).getStock());
       queryDB.bindValue(":id", i + 1);
       queryDB.exec();
+      QString laste = queryDB.lastQuery();
     }
   }
+  db.close();
+}
 
-  database.close();
+QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
+{
+  db.open();
+  QSqlQueryModel* getTableData = new QSqlQueryModel();
+  getTableData->setQuery(QString("SELECT * FROM %1;").arg(tableName));
+
+  db.close();
+  return getTableData;
 }
 
 std::vector<Item>* ItemDAO::getItemList()

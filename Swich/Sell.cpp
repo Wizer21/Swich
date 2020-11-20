@@ -88,7 +88,7 @@ void Sell::dynamicStockId(int idStock)
 
 void Sell::setCity(QTabWidget* tab)
 {
-  int citySize = getCityList->size();
+  int citySize = (int)getCityList->size();
   for (int i = 0; i < citySize; i++)
   {
     QWidget* widgetCity = new QWidget(this);

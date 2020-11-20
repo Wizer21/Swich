@@ -11,6 +11,16 @@ public:
   Database(QWidget* parent);
   ~Database();
 
+public slots:
+  void setWidgetToDisplay();
+  void loadNewTable();
+
 private:
   void iniDB(QGridLayout* layout);
+  void loadTableList();
+  void createTableWidgets(QString tableName);
+
+  QVBoxLayout* layoutInScrollArea;
+  QStackedWidget* widgetStack;
+  QLabel* runningTable;
 };

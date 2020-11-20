@@ -6,6 +6,7 @@
 #include <QSqlQuery>
 #include <QSqlRecord>
 #include <QMap>
+#include <QSqlQueryModel>
 
 class ItemDAO
 {
@@ -18,20 +19,18 @@ public:
     }
     return instance;
   }
-  void iniDB();
-  void loadDBToItemList();
   void saveToDatabase();
+  QStringList getTablesList();
   std::vector<Item>* getItemList();
+  QSqlQueryModel* getQuerryModel(QString tableName);
+  void loadDBToItemList(QString tableName);
 
 private:
   ItemDAO();
+  void iniDB();
   static ItemDAO* instance;
-
-  std::vector<int> getData_Id;
-  std::vector<QString> getData_Name;
-  std::vector<int> getData_Stock;
-  std::vector<int> getData_BuyP;
-  std::vector<int> getData_SellP;
+  QSqlDatabase db;
+  QString currentTable;
 
   std::vector<Item>* mainItem_List;
 };

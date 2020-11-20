@@ -192,7 +192,6 @@ void Swich::setDefaultList()
 
 void Swich::connectToMenu()
 {
-
   auto getSender = qobject_cast<QPushButton*>(sender());
   if (hub == getSender)
   {
@@ -287,6 +286,7 @@ void Swich::startNewMonth()
   widgetHub->updateLabels(bankDisplayed, listProd_Cost.at(0).toDouble(), temporarySoldVol);
   widgetSell->refreshStock();
   widgetStock->updateStock();
+  ItemDAO::getInstance()->saveToDatabase();
 }
 
 double Swich::addProductionToInventory(double addedProduction)
