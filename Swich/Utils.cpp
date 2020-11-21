@@ -6,7 +6,6 @@ Utils::Utils()
 
 StructSettings::Settings Utils::loadSettingsFromFile()
 {
-
   QFile lSettingsFile(QCoreApplication::applicationDirPath() + QDir::separator() + "config.json");
   lSettingsFile.open(QIODevice::ReadOnly | QIODevice::Text);
   QString lSettingsData = lSettingsFile.readAll();

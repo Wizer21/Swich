@@ -3,7 +3,6 @@
 Analytics::Analytics()
   : QWidget()
 {
-
   maxVolume = 0;
   maxBank = 0;
   maxCharges = 0;

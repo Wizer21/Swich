@@ -188,7 +188,6 @@ void Hub::setDefaultWidgets()
 
 void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBank)
 {
-
   for (int i = 1; i < 6; i++)
   {
     int pos = i - 1;
@@ -208,7 +207,6 @@ void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBa
 
 void Hub::setColorScroll()
 {
-
   for (int i = 0; i < gain.size(); i++)
   {
     if (gain.at(i)->text().toInt() < 0)

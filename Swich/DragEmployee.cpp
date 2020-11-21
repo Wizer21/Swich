@@ -106,7 +106,7 @@ void DragEmployee::calculRandStats()
 QString DragEmployee::calculNote(int lvl)
 {
   int copylvl = lvl;
-  QString newNote;
+  QString newNote = "";
   switch (copylvl)
   {
     case 0:

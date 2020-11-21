@@ -7,7 +7,6 @@ Stock::Stock()
 
 void Stock::setStock()
 {
-
   int sizeList = (int)ItemDAO::getInstance()->getItemList()->size();
 
   QVBoxLayout* layoutStock = new QVBoxLayout(this);
@@ -114,7 +113,6 @@ void Stock::setList()
 
 void Stock::updateStock()
 {
-
   std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   tab->setSortingEnabled(false);
   tab->sortItems(1, Qt::AscendingOrder);

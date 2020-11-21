@@ -425,7 +425,6 @@ void Swich::commercialTransfertStock()
 
 void Swich::updateNotificationChat(bool isVisible)
 {
-
   if (isVisible)
   {
     chat->setIcon(SingleData::getInstance()->getPixmap("notification"));

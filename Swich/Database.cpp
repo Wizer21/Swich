@@ -40,7 +40,7 @@ void Database::iniDB(QGridLayout* layout)
 
   layoutStatu->setAlignment(Qt::AlignRight);
   layoutInScrollArea->setAlignment(Qt::AlignTop);
-  containTableList->setMaximumWidth(this->width() * 1.4);
+  containTableList->setFixedWidth(this->width() * 2);
   containTableList->setWidgetResizable(true);
 
   if (ItemDAO::getInstance()->isDatableOnline())
