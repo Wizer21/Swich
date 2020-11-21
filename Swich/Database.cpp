@@ -3,9 +3,11 @@
 Database::Database(QWidget* parent)
   : QDialog(parent)
 {
+  this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+  this->setAttribute(Qt::WA_DeleteOnClose);
+
   QGridLayout* mainLayout = new QGridLayout(this);
   iniDB(mainLayout);
-  loadTableList();
 
   this->resize(700, 450);
   this->exec();
@@ -55,21 +57,24 @@ void Database::iniDB(QGridLayout* layout)
   }
   runningTable->setText(ItemDAO::getInstance()->getCurrentTable());
   connect(addTable, SIGNAL(clicked()), this, SLOT(createNewTable()));
-};
 
-void Database::loadTableList()
-{
   QStringList tableList = ItemDAO::getInstance()->getTablesList();
   int sizeList = (int)tableList.size();
   for (int i = 0; i < sizeList; i++)
   {
-    QPushButton* buttonTable = new QPushButton(tableList.at(i), this);
-    layoutInScrollArea->addWidget(buttonTable);
-    createTableWidgets(tableList.at(i));
-
-    buttonTable->setObjectName(QString::number(i));
-    connect(buttonTable, SIGNAL(clicked()), this, SLOT(setWidgetToDisplay()));
+    addTableToList(tableList.at(i));
   }
+};
+
+void Database::addTableToList(QString tableName)
+{
+  QPushButton* buttonTable = new QPushButton(tableName, this);
+  layoutInScrollArea->addWidget(buttonTable);
+  createTableWidgets(tableName);
+
+  buttonTable->setObjectName(tableName);
+  buttonList.push_back(buttonTable);
+  connect(buttonTable, SIGNAL(clicked()), this, SLOT(setWidgetToDisplay()));
 }
 
 void Database::createTableWidgets(QString tableName)
@@ -93,16 +98,21 @@ void Database::createTableWidgets(QString tableName)
   mainLayoutTable->addWidget(displayTable, 3, 0, 1, 4);
 
   loadDB->setObjectName(tableName);
+  deleteDB->setObjectName(tableName);
   displayTable->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
   displayTable->show();
 
+  widgetList.insert({tableName, mainTableWidget});
   displayTable->resizeColumnsToContents();
+
   connect(loadDB, SIGNAL(clicked()), this, SLOT(loadNewTable()));
+  connect(deleteDB, SIGNAL(clicked()), this, SLOT(deleteTableConfirm()));
 }
 
 void Database::setWidgetToDisplay()
 {
-  widgetStack->setCurrentIndex(sender()->objectName().toInt());
+
+  widgetStack->setCurrentIndex(widgetStack->indexOf(widgetList.at(qobject_cast<QPushButton*>(sender())->text())));
 }
 
 void Database::loadNewTable()
@@ -122,6 +132,48 @@ void Database::createNewTable()
 void Database::connectNewTable(QString name, QString password)
 {
   ItemDAO::getInstance()->setNewTable(name, password);
+  addTableToList(name);
+  sortItemList();
+}
+
+void Database::deleteTableConfirm()
+{
+  QString tableName = sender()->objectName();
+  auto result{QMessageBox::question(this, tr("Valid deletion"), tr("Are you sure to want to delete ") + tableName + ".", QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::No)};
+
+  if (result == QMessageBox::Yes)
+  {
+    widgetStack->setCurrentIndex(0);
+
+    if (tableName == ItemDAO::getInstance()->getCurrentTable())
+    {
+      ItemDAO::getInstance()->loadDBToItemList("");
+    }
+
+    ItemDAO::getInstance()->deleteTable(tableName);
+
+    widgetStack->removeWidget(widgetList.at(tableName));
+
+    delete widgetList.at(tableName);
+    widgetList.at(tableName) = nullptr;
+    widgetList.erase(tableName);
+
+    delete buttonList.at(0);
+    buttonList.at(0) = nullptr;
+    buttonList.erase(buttonList.begin());
+
+    sortItemList();
+  }
+}
+
+void Database::sortItemList()
+{
+  QStringList listTable = ItemDAO::getInstance()->getTablesList();
+  int listSize = (int)listTable.size();
+  for (int i = 0; i < listSize; i++)
+  {
+    buttonList.at(i)->setText(listTable.at(i));
+  }
 }
 
 Database::~Database()

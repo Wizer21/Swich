@@ -149,6 +149,14 @@ void ItemDAO::setNewTable(QString name, QString password)
   db.close();
 }
 
+void ItemDAO::deleteTable(QString tableName)
+{
+  db.open();
+  QSqlQuery queryDB(db);
+  queryDB.exec(QString("DROP TABLE %1").arg(tableName));
+  db.close();
+}
+
 std::vector<Item>* ItemDAO::getItemList()
 {
   return mainItem_List;

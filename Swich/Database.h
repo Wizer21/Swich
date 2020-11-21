@@ -18,13 +18,17 @@ public slots:
   void loadNewTable();
   void createNewTable();
   void connectNewTable(QString name, QString password);
+  void deleteTableConfirm();
 
 private:
   void iniDB(QGridLayout* layout);
-  void loadTableList();
+  void addTableToList(QString tableName);
   void createTableWidgets(QString tableName);
+  void sortItemList();
 
   QVBoxLayout* layoutInScrollArea;
   QStackedWidget* widgetStack;
   QLabel* runningTable;
+  std::map<QString, QWidget*> widgetList;
+  std::vector<QPushButton*> buttonList;
 };

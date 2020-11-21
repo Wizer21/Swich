@@ -28,6 +28,7 @@ public:
   bool isDatableOnline();
   QString getCurrentTable();
   void setNewTable(QString name, QString password);
+  void deleteTable(QString tableName);
 
 private:
   ItemDAO();
