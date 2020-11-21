@@ -340,7 +340,15 @@ void Swich::openCredits()
 
 void Swich::openDatabase()
 {
-  new Database(this);
+  Database* db = new Database(this);
+  connect(db, SIGNAL(tableChanged()), this, SLOT(applyTableChanged()));
+  db->exec();
+}
+
+void Swich::applyTableChanged()
+{
+  widgetStock->setList();
+  widgetSell->setList();
 }
 
 void Swich::setTheme()

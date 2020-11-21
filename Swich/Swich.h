@@ -40,6 +40,7 @@ private slots:
   void applyNewCommercial(DragEmployee* getActualEmployee);
   void applyFireCommercial();
   void applyCommercialIsActivated(bool);
+  void applyTableChanged();
 
 private:
   void ini(QGridLayout* widget);

@@ -13,7 +13,7 @@ void Sell::setSell()
 
   QScrollArea* scrollArea = new QScrollArea(this);
   QWidget* widArea = new QWidget(this);
-  QVBoxLayout* layoutArea = new QVBoxLayout(this);
+  layoutArea = new QVBoxLayout(this);
 
   tabWidget = new QTabWidget(this);
 
@@ -27,7 +27,7 @@ void Sell::setSell()
 
   layoutArea->setAlignment(Qt::AlignTop);
   scrollArea->setWidgetResizable(true);
-  setList(layoutArea);
+  setList();
 
   layoutSell->addWidget(tabWidget, 0, 1);
   setCity(tabWidget);
@@ -39,8 +39,11 @@ void Sell::setSell()
   connect(validSend, SIGNAL(clicked()), this, SLOT(validate()));
 }
 
-void Sell::setList(QVBoxLayout* layout)
+void Sell::setList()
 {
+  qDeleteAll(widgetFromItemList.begin(), widgetFromItemList.end());
+  widgetFromItemList.clear();
+
   std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   int sizeList = (int)itemList->size();
   for (int i = 0; i < sizeList; i++)
@@ -56,7 +59,7 @@ void Sell::setList(QVBoxLayout* layout)
     slider->setObjectName(QString::number(id++));
     slider->setMaximum(itemList->at(i).getRoundedStock());
 
-    layout->addWidget(widgetContainer);
+    layoutArea->addWidget(widgetContainer);
     widgetContainer->setLayout(layoutGrid);
     layoutGrid->addWidget(titre, 0, 0);
     layoutGrid->addWidget(stock, 0, 1);
@@ -66,6 +69,7 @@ void Sell::setList(QVBoxLayout* layout)
     stock->setAcceptDrops(false);
     stock->setDisabled(true);
 
+    widgetFromItemList.push_back(widgetContainer);
     connect(slider, SIGNAL(valueChanged(int)), this, SLOT(dynamicStockSender(int)));
   }
 }

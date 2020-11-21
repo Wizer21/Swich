@@ -10,7 +10,6 @@ Database::Database(QWidget* parent)
   iniDB(mainLayout);
 
   this->resize(700, 450);
-  this->exec();
 }
 
 void Database::iniDB(QGridLayout* layout)
@@ -236,6 +235,11 @@ void Database::deleteNewItem()
     view->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
     view->setSelectionBehavior(QAbstractItemView::SelectRows);
   }
+}
+
+void Database::closeEvent(QCloseEvent* e)
+{
+  emit tableChanged();
 }
 
 Database::~Database()

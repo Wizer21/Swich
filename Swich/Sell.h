@@ -16,6 +16,7 @@ class Sell : public QWidget
 public:
   Sell(std::vector<City>& city);
   void refreshStock();
+  void setList();
 
 signals:
   void callUpdateStock();
@@ -30,12 +31,14 @@ private slots:
 private:
   int id;
   void setSell();
-  void setList(QVBoxLayout*);
   void setCity(QTabWidget*);
   void setTabCity(QTableWidget*, std::vector<Item>);
   void updateCityOnDrop(QString vol, int idItem);
   QTabWidget* tabWidget;
   Stock* getStock;
+  QWidget* widArea;
+  QVBoxLayout* layoutArea;
+  std::list<Dragwidget*> widgetFromItemList;
   std::vector<City>* getCityList;
   std::vector<QWidget*> widgetToDelete;
 };

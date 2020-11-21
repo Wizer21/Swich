@@ -24,11 +24,15 @@ public slots:
   void applyNewItem(QString table, QString name, int buyP, int sellP);
   void deleteNewItem();
 
+signals:
+  void tableChanged();
+
 private:
   void iniDB(QGridLayout* layout);
   void addTableToList(QString tableName);
   void createTableWidgets(QString tableName);
   void sortItemList();
+  void closeEvent(QCloseEvent* e) override;
 
   QVBoxLayout* layoutInScrollArea;
   QStackedWidget* widgetStack;

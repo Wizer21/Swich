@@ -158,6 +158,7 @@ void ItemDAO::deleteTable(QString tableName)
 
 std::vector<Item>* ItemDAO::getItemList()
 {
+  loadDBToItemList(currentTable);
   return mainItem_List;
 }
 

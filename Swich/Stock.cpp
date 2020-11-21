@@ -71,10 +71,11 @@ void Stock::setStock()
 
 void Stock::setList()
 {
+  tab->clearContents();
+
   std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   int sizeInventory = (int)itemList->size();
   tab->setSortingEnabled(false);
-  tab->clearContents();
   tab->setRowCount(sizeInventory);
 
   int y = 0;
