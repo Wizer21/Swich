@@ -117,8 +117,7 @@ QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
 {
   db.open();
   QSqlQueryModel* getTableData = new QSqlQueryModel();
-  getTableData->setQuery(QString("SELECT * FROM %1;").arg(tableName));
-
+  getTableData->setQuery(QString("SELECT name_item AS 'Item', stock_item AS 'Stock', buyp_item AS 'Buy.P', sellp_item AS 'Sell.P' FROM %1").arg(tableName));
   db.close();
   return getTableData;
 }
@@ -165,4 +164,28 @@ std::vector<Item>* ItemDAO::getItemList()
 QString ItemDAO::getCurrentTable()
 {
   return currentTable;
+}
+
+void ItemDAO::addItemToTable(QString table, QString name, int buyP, int sellP)
+{
+  db.open();
+  QSqlQuery queryDB(db);
+  queryDB.prepare(QString("INSERT INTO %1 (id_item, name_item, stock_item, buyp_item, sellp_item ) "
+                          "VALUES(NULL, :newName , 0 , :newBuyP , :newSellP );")
+                    .arg(table));
+
+  queryDB.bindValue(":newName", name);
+  queryDB.bindValue(":newBuyP", buyP);
+  queryDB.bindValue(":newSellP", sellP);
+  queryDB.exec();
+
+  db.close();
+}
+
+void ItemDAO::deleteItemToTable(QString tableName, QString itemName)
+{
+  db.open();
+  QSqlQuery queryDB(db);
+  queryDB.exec(QString("DELETE FROM %1 WHERE name_item = '%2';").arg(tableName).arg(itemName));
+  db.close();
 }

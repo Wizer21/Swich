@@ -110,11 +110,13 @@
   <ItemGroup>
     <ClCompile Include="Chat.cpp" />
     <ClCompile Include="City.cpp" />
+    <ClCompile Include="CreateNewItem.cpp" />
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="ItemDAO.cpp" />
     <ClCompile Include="NewTable.cpp" />
     <ClCompile Include="Utils.cpp" />
     <QtMoc Include="Database.h" />
+    <QtMoc Include="CreateNewItem.h" />
     <ClInclude Include="ItemDAO.h" />
     <QtMoc Include="NewTable.h" />
     <ClInclude Include="StructSettings.h" />

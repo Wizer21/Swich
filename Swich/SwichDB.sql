@@ -34,5 +34,3 @@ INSERT INTO SIMONTABLE (id_item, name_item, stock_item, buyp_item, sellp_item ) 
 INSERT INTO SIMONTABLE (id_item, name_item, stock_item, buyp_item, sellp_item ) VALUES(NULL, 'forch','0', '2','5');
 
 --SELECT * FROM SWICHITEM;
-
-SELECT * FROM SIMONTABLE;

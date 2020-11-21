@@ -29,6 +29,8 @@ public:
   QString getCurrentTable();
   void setNewTable(QString name, QString password);
   void deleteTable(QString tableName);
+  void addItemToTable(QString table, QString name, int buyP, int sellP);
+  void deleteItemToTable(QString tableName, QString itemName);
 
 private:
   ItemDAO();

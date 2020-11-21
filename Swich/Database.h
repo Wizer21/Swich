@@ -4,6 +4,7 @@
 #include "ItemDAO.h"
 #include "SingleData.h"
 #include "NewTable.h"
+#include "CreateNewItem.h"
 
 class Database : public QDialog
 {
@@ -19,6 +20,9 @@ public slots:
   void createNewTable();
   void connectNewTable(QString name, QString password);
   void deleteTableConfirm();
+  void createItem();
+  void applyNewItem(QString table, QString name, int buyP, int sellP);
+  void deleteNewItem();
 
 private:
   void iniDB(QGridLayout* layout);

@@ -99,6 +99,11 @@ void Database::createTableWidgets(QString tableName)
 
   loadDB->setObjectName(tableName);
   deleteDB->setObjectName(tableName);
+  addItem->setObjectName(tableName);
+  deleteItem->setObjectName(tableName);
+  displayTable->setObjectName(tableName);
+
+  displayTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   displayTable->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
   displayTable->show();
 
@@ -107,11 +112,12 @@ void Database::createTableWidgets(QString tableName)
 
   connect(loadDB, SIGNAL(clicked()), this, SLOT(loadNewTable()));
   connect(deleteDB, SIGNAL(clicked()), this, SLOT(deleteTableConfirm()));
+  connect(addItem, SIGNAL(clicked()), this, SLOT(createItem()));
+  connect(deleteItem, SIGNAL(clicked()), this, SLOT(deleteNewItem()));
 }
 
 void Database::setWidgetToDisplay()
 {
-
   widgetStack->setCurrentIndex(widgetStack->indexOf(widgetList.at(qobject_cast<QPushButton*>(sender())->text())));
 }
 
@@ -173,6 +179,62 @@ void Database::sortItemList()
   for (int i = 0; i < listSize; i++)
   {
     buttonList.at(i)->setText(listTable.at(i));
+  }
+}
+
+void Database::createItem()
+{
+  CreateNewItem* newItem = new CreateNewItem(this, sender()->objectName());
+  connect(newItem, SIGNAL(transfertNewItem(QString, QString, int, int)), this, SLOT(applyNewItem(QString, QString, int, int)));
+  newItem->exec();
+}
+
+void Database::applyNewItem(QString table, QString name, int buyP, int sellP)
+{
+  ItemDAO::getInstance()->addItemToTable(table, name, buyP, sellP);
+  QTableView* view = this->findChild<QTableView*>(table);
+  view->setModel(ItemDAO::getInstance()->getQuerryModel(table));
+  view->setSelectionBehavior(QAbstractItemView::SelectRows);
+}
+
+void Database::deleteNewItem()
+{
+  QString tableName = sender()->objectName();
+
+  QTableView* view = this->findChild<QTableView*>(tableName);
+  QModelIndexList indexesSelected = view->selectionModel()->selectedRows();
+
+  if (indexesSelected.size() == 0)
+  {
+    return;
+  }
+
+  QStringList selectedItemList;
+  for (int i = 0; i < indexesSelected.count(); i++)
+  {
+    QModelIndex index = indexesSelected.at(i);
+    auto nameItem = view->model()->data(view->model()->index(index.row(), 0));
+    selectedItemList.push_back(nameItem.toString());
+  }
+
+  QString allInOne = "\n";
+  int sizeList = (int)selectedItemList.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    allInOne += ("\n- " + selectedItemList.at(i));
+  }
+
+  auto result{QMessageBox::question(this, tr("Valid deletion"), tr("Are you sure to want to delete :") + allInOne, QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::No)};
+
+  if (result == QMessageBox::Yes)
+  {
+    for (int i = 0; i < sizeList; i++)
+    {
+      ItemDAO::getInstance()->deleteItemToTable(tableName, selectedItemList.at(i));
+    }
+    QTableView* view = this->findChild<QTableView*>(tableName);
+    view->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
+    view->setSelectionBehavior(QAbstractItemView::SelectRows);
   }
 }
 
