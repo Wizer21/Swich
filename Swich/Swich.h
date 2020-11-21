@@ -13,7 +13,7 @@
 #include "Stock.h"
 #include "Chat.h"
 #include "Contact.h"
-#include "Static.h"
+#include "Utils.h"
 #include "Options.h"
 #include "Credits.h"
 #include <math.h>

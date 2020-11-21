@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Item.h"
-#include "Static.h"
+#include "Utils.h"
 
 class City
 {

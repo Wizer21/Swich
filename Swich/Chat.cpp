@@ -163,9 +163,9 @@ void Chat::testChat(int& idChat)
   int chanceToDiaslap = idChat;
   while (chanceToDiaslap > 0)
   {
-    if (Static::randZeroToVal(10) > 6)
+    if (Utils::randZeroToVal(10) > 6)
     {
-      displayText(0, answerStored.at(Static::randZeroToVal((int)answerStored.size())), chatZone->currentIndex());
+      displayText(0, answerStored.at(Utils::randZeroToVal((int)answerStored.size())), chatZone->currentIndex());
       idChat = 0;
     }
     chanceToDiaslap--;

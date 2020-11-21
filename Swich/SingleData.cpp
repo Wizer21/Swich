@@ -113,7 +113,7 @@ void SingleData::setFontOnLabels(QFont newFont)
 
 std::pair<QString, QPixmap> SingleData::getCharacter()
 {
-  return listCharacter.at(Static::randZeroToVal((int)listCharacter.size()));
+  return listCharacter.at(Utils::randZeroToVal((int)listCharacter.size()));
 }
 
 QPixmap SingleData::getPixmap(QString key)

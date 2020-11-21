@@ -1,4 +1,5 @@
 #include "Ad.h"
+#include "Utils.h"
 
 Ad::Ad()
   : QWidget()
@@ -158,7 +159,7 @@ QString Ad::getSalary_Production(int addDays)
   }
   for (int i = 0; i < lvls; i++)
   {
-    efficiency += 0.1 + Static::randOnlyPositivePercentage(15);
+    efficiency += 0.1 + Utils::randOnlyPositivePercentage(15);
   }
   for (int i = 0; i < employeList.size(); i++)
   {

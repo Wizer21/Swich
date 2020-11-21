@@ -8,7 +8,6 @@ Jumpslider::Jumpslider(Qt::Orientation addOrientation, QWidget* parent)
 
 void Jumpslider::mousePressEvent(QMouseEvent* event)
 {
-
   if (event->button() == Qt::LeftButton)
   {
     setValue(minimum() + ((maximum() - minimum()) * event->x()) / width());

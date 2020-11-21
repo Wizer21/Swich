@@ -59,17 +59,17 @@ void DragEmployee::calculRandStats()
   while (diceValidated)
   {
     level += 1;
-    dice = Static::randZeroToVal(100);
+    dice = Utils::randZeroToVal(100);
     if (dice < 25)
     {
       diceValidated = false;
     }
   }
   //Salary
-  double calculSalary = 350 + Static::randZeroToVal(300);
+  double calculSalary = 350 + Utils::randZeroToVal(300);
   for (int i = 0; i < level; i++)
   {
-    calculSalary *= (1.10 + Static::randOnlyPositivePercentage(10));
+    calculSalary *= (1.10 + Utils::randOnlyPositivePercentage(10));
   }
   salary = calculSalary;
   note = calculNote(level);
@@ -96,7 +96,7 @@ void DragEmployee::calculRandStats()
   }
 
   // Role
-  dice = Static::randZeroToVal(100);
+  dice = Utils::randZeroToVal(100);
   if (dice > 60)
   {
     fonction = "commercial";

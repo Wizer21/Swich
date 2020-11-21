@@ -1,12 +1,11 @@
 #pragma once
 #include <qwidget.h>
 #include "stdafx.h"
-#include "Static.h"
+#include "Utils.h"
 #include "SingleData.h"
 
 class DragEmployee : public QWidget
 {
-
 public:
   DragEmployee();
   int getId();

@@ -3,7 +3,6 @@
 #include "stdafx.h"
 #include "DropEmployee.h"
 #include "DragEmployee.h"
-#include "Static.h"
 #include "SingleData.h"
 
 class Ad : public QWidget

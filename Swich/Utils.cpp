@@ -156,3 +156,24 @@ void Utils::applyNewFont(StructSettings::Settings getStruct)
 
   SingleData::getInstance()->setFontOnLabels(newWonft);
 }
+
+int Utils::randZeroToVal(const int& val)
+{
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  std::default_random_engine generator(seed);
+  std::uniform_int_distribution<int> randval(0, val - 1);
+  return randval(generator);
+}
+
+double Utils::randNegativeIntToPercentage(const int& val)
+{
+  return (randZeroToVal(val) - randZeroToVal(val) * 2) * 0.01;
+}
+
+double Utils::randOnlyPositivePercentage(const int& val)
+{
+  unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+  std::default_random_engine generator(seed);
+  std::uniform_int_distribution<int> randval(0, val - 1);
+  return randval(generator) * 0.01;
+}

@@ -133,7 +133,6 @@
     <QtMoc Include="Production.h" />
     <QtMoc Include="Options.h" />
     <ClInclude Include="Jumpslider.h" />
-    <QtMoc Include="Static.h" />
     <ClInclude Include="SingleData.h" />
     <QtMoc Include="Stock.h" />
     <QtRcc Include="Swich.qrc" />
@@ -155,7 +154,6 @@
     <ClCompile Include="Production.cpp" />
     <ClCompile Include="Sell.cpp" />
     <ClCompile Include="SingleData.cpp" />
-    <ClCompile Include="Static.cpp" />
     <ClCompile Include="Stock.cpp" />
     <ClCompile Include="Swich.cpp" />
     <ClCompile Include="main.cpp" />

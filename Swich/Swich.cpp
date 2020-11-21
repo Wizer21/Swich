@@ -235,7 +235,7 @@ void Swich::startNewMonth()
   double temporaryGain = 0;
   double temporarySoldVol = 0;
   double temporaryCharges = 0;
-  int addedDays = 25 + Static::randZeroToVal(10);
+  int addedDays = 25 + Utils::randZeroToVal(10);
 
   //Update Widgets
   QString prod_Cost = widgetProduction->newMonthProd(addedDays);
@@ -279,7 +279,7 @@ void Swich::startNewMonth()
   }
 
   sold->setText(QString::number(round(bankDisplayed)));
-  QString date = widgetHub->updateCurrentMonth(evoBanque, temporarySoldVol, addedDays);
+  QString date = widgetHub->updateCurrentMonth(round(evoBanque), temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
   widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
@@ -293,13 +293,13 @@ double Swich::addProductionToInventory(double addedProduction)
 {
   std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   int items = (int)itemList->size();
-  int nrbIteration = 15 + Static::randZeroToVal(10);
+  int nrbIteration = 15 + Utils::randZeroToVal(10);
   double prodToPush = addedProduction / nrbIteration;
   double price = 0;
 
   for (int i = 0; i < nrbIteration; i++)
   {
-    int randoItem = Static::randZeroToVal(items);
+    int randoItem = Utils::randZeroToVal(items);
     itemList->at(randoItem).setStock(itemList->at(randoItem).getStock() + prodToPush);
     price += itemList->at(randoItem).getBuyP() * prodToPush;
   }
@@ -402,20 +402,20 @@ void Swich::commercialTransfertStock()
   int getLvl = getCommercial->getLvl();
   while (getLvl > 0)
   {
-    nbrItemToTransfert *= (1.2 + Static::randOnlyPositivePercentage(50));
+    nbrItemToTransfert *= (1.2 + Utils::randOnlyPositivePercentage(50));
     getLvl--;
   }
 
   std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   int itemsListSize = (int)itemList->size();
   int cityListSize = (int)cityList.size();
-  int nrbIteration = 10 + Static::randZeroToVal(10);
+  int nrbIteration = 10 + Utils::randZeroToVal(10);
   double prodToPush = nbrItemToTransfert / nrbIteration;
 
   for (int i = 0; i < nrbIteration; i++)
   {
-    int randoItem = Static::randZeroToVal(itemsListSize);
-    int randoCity = Static::randZeroToVal(cityListSize);
+    int randoItem = Utils::randZeroToVal(itemsListSize);
+    int randoCity = Utils::randZeroToVal(cityListSize);
 
     itemList->at(randoItem).setStock(itemList->at(randoItem).getStock() - prodToPush);
     cityList.at(randoCity).pushStockToList(itemList->at(randoItem).getId(), prodToPush);

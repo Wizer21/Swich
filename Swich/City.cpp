@@ -58,7 +58,7 @@ void City::eraseIfEmpty()
 
 QString City::randSells(double valAd)
 {
-  int sold = 1 + Static::randZeroToVal(5);
+  int sold = 1 + Utils::randZeroToVal(5);
   double newBank = 0;
   double newVolSold = 0;
   double SoldQuantity;

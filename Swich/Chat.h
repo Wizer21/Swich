@@ -3,7 +3,7 @@
 #include "stdafx.h"
 #include "Contact.h"
 #include "SingleData.h"
-#include "Static.h"
+#include "Utils.h"
 
 class Chat : public QWidget
 {

@@ -64,9 +64,6 @@
     <ClCompile Include="DropWidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Static.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Factory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -174,9 +171,6 @@
       <Filter>Form Files\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="DropEmployee.h">
-      <Filter>Form Files\Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="Static.h">
       <Filter>Form Files\Header Files</Filter>
     </QtMoc>
     <QtMoc Include="Utils.h">

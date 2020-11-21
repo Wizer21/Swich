@@ -6,7 +6,7 @@ Factory::Factory()
   dailyProduction = 1;
   productionCost = 0;
   randProd = 1;
-  nextUpgrade = 500 + Static::randZeroToVal(500);
+  nextUpgrade = 500 + Utils::randZeroToVal(500);
   evolution = true;
 }
 
@@ -31,7 +31,7 @@ void Factory::expodentialProduction(int days)
 
 void Factory::calculEvolution()
 {
-  int dice = Static::randZeroToVal(100);
+  int dice = Utils::randZeroToVal(100);
   if (dice > 80)
   {
     if (evolution)
@@ -45,18 +45,18 @@ void Factory::calculEvolution()
   }
   if (evolution)
   {
-    randProd += Static::randOnlyPositivePercentage(5);
+    randProd += Utils::randOnlyPositivePercentage(5);
   }
   else
   {
-    randProd -= Static::randOnlyPositivePercentage(5);
+    randProd -= Utils::randOnlyPositivePercentage(5);
   }
 }
 
 void Factory::upgradeAccepted()
 {
   level++;
-  nextUpgrade *= (2 + Static::randOnlyPositivePercentage(50));
+  nextUpgrade *= (2 + Utils::randOnlyPositivePercentage(50));
 }
 
 int Factory::getLevel()

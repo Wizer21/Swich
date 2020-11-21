@@ -3,8 +3,8 @@
 Production::Production()
 {
   idButton = 0;
-  lockedPrice1 = 2000 + Static::randZeroToVal(2000);
-  lockedPrice2 = 5000 + Static::randZeroToVal(5000);
+  lockedPrice1 = 2000 + Utils::randZeroToVal(2000);
+  lockedPrice2 = 5000 + Utils::randZeroToVal(5000);
 
   setProduction();
 }

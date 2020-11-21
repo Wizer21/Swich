@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include "Static.h"
+#include "Utils.h"
 #include "StructSettings.h"
 
 class SingleData
