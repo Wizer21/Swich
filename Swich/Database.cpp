@@ -54,6 +54,7 @@ void Database::iniDB(QGridLayout* layout)
     dataOn_Off->setText("Off");
   }
   runningTable->setText(ItemDAO::getInstance()->getCurrentTable());
+  connect(addTable, SIGNAL(clicked()), this, SLOT(createNewTable()));
 };
 
 void Database::loadTableList()
@@ -109,6 +110,18 @@ void Database::loadNewTable()
   QString newTableName = sender()->objectName();
   ItemDAO::getInstance()->loadDBToItemList(newTableName);
   runningTable->setText(newTableName);
+}
+
+void Database::createNewTable()
+{
+  NewTable* table = new NewTable(this);
+  connect(table, SIGNAL(transfertNewTable(QString, QString)), this, SLOT(connectNewTable(QString, QString)));
+  table->exec();
+}
+
+void Database::connectNewTable(QString name, QString password)
+{
+  ItemDAO::getInstance()->setNewTable(name, password);
 }
 
 Database::~Database()

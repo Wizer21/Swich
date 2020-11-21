@@ -3,6 +3,7 @@
 #include <QDialog>
 #include "ItemDAO.h"
 #include "SingleData.h"
+#include "NewTable.h"
 
 class Database : public QDialog
 {
@@ -15,6 +16,8 @@ public:
 public slots:
   void setWidgetToDisplay();
   void loadNewTable();
+  void createNewTable();
+  void connectNewTable(QString name, QString password);
 
 private:
   void iniDB(QGridLayout* layout);

@@ -123,6 +123,32 @@ QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
   return getTableData;
 }
 
+void ItemDAO::setNewTable(QString name, QString password)
+{
+  db.open();
+  QSqlQuery queryDB(db);
+  queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+                       "password_table INT, "
+                       "id_item INT UNSIGNED AUTO_INCREMENT, "
+                       "name_item TEXT, "
+                       "stock_item DOUBLE(10, 3), "
+                       "buyp_item DOUBLE(10, 3), "
+                       "sellp_item DOUBLE(10, 3), "
+
+                       "PRIMARY KEY(id_item) "
+                       ");")
+                 .arg(name));
+
+  if (password != "")
+  {
+    queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES(%2);").arg(name).arg(password));
+  }
+
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, stock_item, buyp_item, sellp_item ) VALUES(NULL, 'chaussette','2.2' ,'8','16');").arg(name));
+
+  db.close();
+}
+
 std::vector<Item>* ItemDAO::getItemList()
 {
   return mainItem_List;

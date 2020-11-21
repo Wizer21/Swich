@@ -27,6 +27,7 @@ public:
   void loadDBToItemList(QString tableName);
   bool isDatableOnline();
   QString getCurrentTable();
+  void setNewTable(QString name, QString password);
 
 private:
   ItemDAO();
