@@ -85,7 +85,7 @@ void Analytics::createGraph()
   zeroSeries = new QLineSeries();
   bankSeries = new QLineSeries();
   bankSeries->setName(tr("Bank"));
-  zeroSeries->setPen(QPen(QColor(0, 0, 0, 255)));
+  zeroSeries->setPen(QPen(QColor(255, 215, 64, 255)));
 
   bank->addSeries(bankSeries);
   bank->addSeries(zeroSeries);
@@ -154,6 +154,17 @@ void Analytics::createGraph()
 
 void Analytics::updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction)
 {
+  sellEvo.push_back(addVolumes);
+  bankEvo.push_back(addBank);
+  taxEvo.push_back(addCharges);
+  productionEvo.push_back(addProduction);
+
+  pushDataToGraph(addDay, addVolumes, addBank, addCharges, addProduction);
+}
+
+void Analytics::pushDataToGraph(int addDay, double addVolumes, double addBank, double addCharges, double addProduction)
+{
+
   sellSeries->append(addDay, addVolumes);
   bankSeries->append(addDay, addBank);
   zeroSeries->append(addDay * 1.5, 0);
@@ -241,4 +252,35 @@ void Analytics::setColors(int id)
   axeHProduction->setLabelsColor(QColor(color));
   QLegend* legendProduction = production->legend();
   legendProduction->setLabelColor(QColor(color));
+}
+
+void Analytics::callSave()
+{
+  ItemDAO::getInstance()->pushGrapgData(sellEvo, bankEvo, taxEvo, productionEvo);
+}
+
+void Analytics::newTableUsed()
+{
+  sellEvo = ItemDAO::getInstance()->getGraphData(0);
+  bankEvo = ItemDAO::getInstance()->getGraphData(1);
+  taxEvo = ItemDAO::getInstance()->getGraphData(2);
+  productionEvo = ItemDAO::getInstance()->getGraphData(3);
+
+  sellSeries->clear();
+  bankSeries->clear();
+  chargeSeries->clear();
+  productionSeries->clear();
+
+  minBank = 0;
+  maxVolume = 0;
+  maxBank = 0;
+  maxCharges = 0;
+  maxProduction = 0;
+
+  int iteration = 0;
+  int dataSize = (int)sellEvo.size();
+  for (int i = 0; i < dataSize; i++)
+  {
+    pushDataToGraph(iteration++, sellEvo.at(i), bankEvo.at(i), taxEvo.at(i), productionEvo.at(i));
+  }
 }

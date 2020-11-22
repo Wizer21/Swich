@@ -365,12 +365,16 @@ void Swich::applyTableChanged()
 
   actualDb->setText(ItemDAO::getInstance()->getCurrentTable());
   widgetStock->setList();
+
   widgetSell->setList();
   widgetSell->applyNewDBOnTable(cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
+
+  widgetAnalytics->newTableUsed();
 }
 
 void Swich::buttonSaveToDatabase()
 {
+  widgetAnalytics->callSave();
   ItemDAO::getInstance()->pushListsToDAO(mainItemList, cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
   ItemDAO::getInstance()->saveToDatabase();
 }

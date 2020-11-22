@@ -43,6 +43,7 @@ void Sell::setList()
 {
   qDeleteAll(widgetFromItemList.begin(), widgetFromItemList.end());
   widgetFromItemList.clear();
+  sliderList.clear();
 
   int sizeList = (int)getList->size();
   for (int i = 0; i < sizeList; i++)

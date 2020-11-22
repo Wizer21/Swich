@@ -8,6 +8,7 @@
 #include <QValueAxis>
 #include <QCategoryAxis>
 #include <QSplineSeries>
+#include "ItemDAO.h"
 
 using namespace QtCharts;
 using namespace QtDataVisualization;
@@ -20,6 +21,8 @@ public:
   Analytics();
   void updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction);
   void setColors(int colorId);
+  void callSave();
+  void newTableUsed();
 
 private slots:
   void setDisplayedGraph();
@@ -29,12 +32,18 @@ private:
 
   void setAnalytics();
   void createGraph();
+  void pushDataToGraph(int addDay, double addVolumes, double addBank, double addCharges, double addProduction);
 
   QLineSeries* zeroSeries;
   QLineSeries* sellSeries;
   QLineSeries* bankSeries;
   QLineSeries* chargeSeries;
   QLineSeries* productionSeries;
+
+  std::vector<double> sellEvo;
+  std::vector<double> bankEvo;
+  std::vector<double> taxEvo;
+  std::vector<double> productionEvo;
 
   int idGraph;
   double minBank;

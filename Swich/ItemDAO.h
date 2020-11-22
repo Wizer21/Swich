@@ -24,6 +24,7 @@ public:
   bool isDatableOnline();
   void loadDBToLists(QString tableName);
   void pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3);
+  void pushGrapgData(std::vector<double>, std::vector<double>, std::vector<double>, std::vector<double>);
   void saveToDatabase();
 
   QStringList getTablesList();
@@ -31,6 +32,7 @@ public:
 
   std::vector<Item>* getItemList();
   std::vector<Item>* getCityList(int numberCity);
+  std::vector<double> getGraphData(int idGraph);
 
   QSqlQueryModel* getQuerryModel(QString tableName);
 
@@ -47,6 +49,11 @@ private:
   static ItemDAO* instance;
   QSqlDatabase db;
   QString currentTable;
+
+  std::vector<double> sellEvo;
+  std::vector<double> bankEvo;
+  std::vector<double> taxEvo;
+  std::vector<double> productionEvo;
 
   std::vector<Item>* mainItem_List;
   std::vector<Item>* mainCity_1;

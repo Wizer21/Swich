@@ -35,8 +35,8 @@ void ItemDAO::iniDB()
   }
   else
   {
-    loadDBToLists("SWICHITEM");
-    currentTable = "SWICHITEM";
+    loadDBToLists(getTablesList().at(0));
+    currentTable = getTablesList().at(0);
   }
 }
 
@@ -63,12 +63,12 @@ void ItemDAO::loadDBToLists(QString tableName)
 
   if (db.open())
   {
+    // LOAD ITEM LIST
     QSqlQuery queryDB(db);
     queryDB.exec(QString("SELECT * FROM %1;").arg(tableName));
 
     QSqlRecord rec = queryDB.record();
 
-    // Get Column ID
     int columnID = rec.indexOf("id_item");
     int columnName = rec.indexOf("name_item");
     int columnStock = rec.indexOf("stock_item");
@@ -78,7 +78,6 @@ void ItemDAO::loadDBToLists(QString tableName)
     int columnCity2 = rec.indexOf("stock_city2");
     int columnCity3 = rec.indexOf("stock_city3");
 
-    // Push to list
     mainItem_List->clear();
     mainCity_1->clear();
     mainCity_2->clear();
@@ -91,6 +90,28 @@ void ItemDAO::loadDBToLists(QString tableName)
       mainCity_3->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity3).toInt(), queryDB.value(columnSellP).toInt(), queryDB.value(columnID).toInt()));
     }
     currentTable = tableName;
+
+    // LOAD GRAPH VALUE
+    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "_graph_"));
+    rec = queryDB.record();
+
+    int columnSell = rec.indexOf("sellvolume_graph");
+    int columnBank = rec.indexOf("bank_graph");
+    int columnTax = rec.indexOf("tax_graph");
+    int columnProd = rec.indexOf("prd_graph");
+
+    sellEvo.clear();
+    bankEvo.clear();
+    taxEvo.clear();
+    productionEvo.clear();
+
+    while (queryDB.next())
+    {
+      sellEvo.push_back(queryDB.value(columnSell).toDouble());
+      bankEvo.push_back(queryDB.value(columnBank).toDouble());
+      taxEvo.push_back(queryDB.value(columnTax).toDouble());
+      productionEvo.push_back(queryDB.value(columnProd).toDouble());
+    }
     db.close();
   }
 }
@@ -100,6 +121,18 @@ QStringList ItemDAO::getTablesList()
   if (db.open())
   {
     QStringList tableList = db.tables();
+
+    int sizeList = (int)tableList.size();
+    for (int i = 0; i < sizeList; i++)
+    {
+      if (tableList.at(i).right(7) == "_graph_")
+      {
+        tableList.erase(tableList.begin() + i);
+        i--;
+        sizeList--;
+      }
+    }
+
     db.close();
     return tableList;
   }
@@ -123,7 +156,19 @@ void ItemDAO::saveToDatabase()
       queryDB.bindValue(":city3", mainCity_3->at(i).getStock());
       queryDB.bindValue(":id", mainItem_List->at(i).getId());
       queryDB.exec();
-      QString laste = queryDB.lastQuery();
+    }
+
+    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "_graph_"));
+
+    int sizeData = (int)sellEvo.size();
+    for (int i = 0; i < sizeData; i++)
+    {
+      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?,?,?);").arg(currentTable + "_graph_"));
+      queryDB.bindValue(0, sellEvo.at(i));
+      queryDB.bindValue(1, bankEvo.at(i));
+      queryDB.bindValue(2, taxEvo.at(i));
+      queryDB.bindValue(3, productionEvo.at(i));
+      queryDB.exec();
     }
   }
   db.close();
@@ -135,6 +180,14 @@ void ItemDAO::pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* ite
   mainCity_1 = itemCity1;
   mainCity_2 = itemCity2;
   mainCity_3 = itemCity3;
+}
+
+void ItemDAO::pushGrapgData(std::vector<double> newSellEvo, std::vector<double> newBankEvo, std::vector<double> newTaxEvo, std::vector<double> newProdEvo)
+{
+  sellEvo = newSellEvo;
+  bankEvo = newBankEvo;
+  taxEvo = newTaxEvo;
+  productionEvo = newProdEvo;
 }
 
 QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
@@ -165,6 +218,14 @@ void ItemDAO::setNewTable(QString name, QString password)
                        ");")
                  .arg(name));
 
+  queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+                       "sellvolume_graph DOUBLE(10, 3) NOT NULL, "
+                       "bank_graph DOUBLE(10, 3) NOT NULL, "
+                       "tax_graph DOUBLE(10, 3) NOT NULL, "
+                       "prd_graph DOUBLE(10, 3) NOT NULL "
+                       ");")
+                 .arg(name + "_graph_"));
+
   if (password != "")
   {
     queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES(%2);").arg(name).arg(password));
@@ -180,6 +241,7 @@ void ItemDAO::deleteTable(QString tableName)
   db.open();
   QSqlQuery queryDB(db);
   queryDB.exec(QString("DROP TABLE %1").arg(tableName));
+  queryDB.exec(QString("DROP TABLE %1").arg(tableName + "_graph_"));
   db.close();
 }
 
@@ -199,6 +261,21 @@ std::vector<Item>* ItemDAO::getCityList(int numberCity)
       return mainCity_2;
     case 2:
       return mainCity_3;
+  }
+}
+
+std::vector<double> ItemDAO::getGraphData(int idGraph)
+{
+  switch (idGraph)
+  {
+    case 0:
+      return sellEvo;
+    case 1:
+      return bankEvo;
+    case 2:
+      return taxEvo;
+    case 3:
+      return productionEvo;
   }
 }
 

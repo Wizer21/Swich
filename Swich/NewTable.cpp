@@ -26,7 +26,7 @@ void NewTable::ini(QGridLayout* layout)
   layout->addWidget(errorMessage, 5, 0, 1, 2);
   layout->addWidget(valider, 6, 0, 1, 2);
 
-  QRegExp rgx("^[A-Za-z0-9]+");
+  QRegExp rgx("^[a-z0-9]+");
   QValidator* noSpacesAllowed = new QRegExpValidator(rgx, this);
 
   containName->setValidator(noSpacesAllowed);

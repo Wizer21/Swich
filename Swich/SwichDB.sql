@@ -39,4 +39,11 @@ CREATE TABLE IF NOT EXISTS SIMONTABLE(
 INSERT INTO SIMONTABLE (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'chaussette','8','16');
 INSERT INTO SIMONTABLE (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'forch','2','5');
 
+CREATE TABLE IF NOT EXISTS SIMONTABLE$GRAPH$(
+    sellvolume_graph DOUBLE(10,3) NOT NULL,
+    bank_graph DOUBLE(10,3) NOT NULL,
+    tax_graph DOUBLE(10,3) NOT NULL,
+    prd_graph DOUBLE(10,3) NOT NULL
+);
+
 SELECT * FROM SIMONTABLE;
