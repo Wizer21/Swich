@@ -71,6 +71,11 @@ void Database::addTableToList(QString tableName)
   layoutInScrollArea->addWidget(buttonTable);
   createTableWidgets(tableName);
 
+  if (ItemDAO::getInstance()->isLocked(tableName))
+  {
+    buttonTable->setIcon(SingleData::getInstance()->getPixmap("lockdark"));
+  }
+
   buttonTable->setObjectName(tableName);
   buttonList.push_back(buttonTable);
   connect(buttonTable, SIGNAL(clicked()), this, SLOT(setWidgetToDisplay()));
@@ -117,7 +122,23 @@ void Database::createTableWidgets(QString tableName)
 
 void Database::setWidgetToDisplay()
 {
-  widgetStack->setCurrentIndex(widgetStack->indexOf(widgetList.at(qobject_cast<QPushButton*>(sender())->text())));
+  QString table = qobject_cast<QPushButton*>(sender())->text();
+
+  if (ItemDAO::getInstance()->isLocked(table))
+  {
+    PassWord* passMessage = new PassWord(this, table);
+    connect(passMessage, SIGNAL(transfertValidPassWord(QString)), this, SLOT(passwordValidated(QString)));
+    passMessage->exec();
+    return;
+  }
+  widgetStack->setCurrentIndex(widgetStack->indexOf(widgetList.at(table)));
+}
+
+void Database::passwordValidated(QString tableName)
+{
+  widgetStack->setCurrentIndex(widgetStack->indexOf(widgetList.at(tableName)));
+  ItemDAO::getInstance()->isUnlocked(tableName);
+  updateLockIcon();
 }
 
 void Database::loadNewTable()
@@ -171,6 +192,23 @@ void Database::deleteTableConfirm()
   }
 }
 
+void Database::updateLockIcon()
+{
+
+  int listSize = (int)buttonList.size();
+  for (int i = 0; i < listSize; i++)
+  {
+    if (ItemDAO::getInstance()->isLocked(buttonList.at(i)->text()))
+    {
+      buttonList.at(i)->setIcon(SingleData::getInstance()->getPixmap("lockdark"));
+    }
+    else
+    {
+      buttonList.at(i)->setIcon(QIcon(""));
+    }
+  }
+}
+
 void Database::sortItemList()
 {
   QStringList listTable = ItemDAO::getInstance()->getTablesList();
@@ -179,6 +217,7 @@ void Database::sortItemList()
   {
     buttonList.at(i)->setText(listTable.at(i));
   }
+  updateLockIcon();
 }
 
 void Database::createItem()

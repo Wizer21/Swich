@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS SWICHITEM;
 DROP TABLE IF EXISTS SimonTable;
 
 CREATE TABLE IF NOT EXISTS SWICHITEM(
-    password_table INT,
+    password_table TEXT,
     id_item INT UNSIGNED AUTO_INCREMENT,
     name_item TEXT,
     stock_item DOUBLE(10,3),
@@ -23,7 +23,7 @@ INSERT INTO SWICHITEM (id_item, name_item, stock_item, buyp_item, sellp_item, st
 INSERT INTO SWICHITEM (id_item, name_item, stock_item, buyp_item, sellp_item, stock_city1, stock_city2, stock_city3 ) VALUES(NULL, 'forch','0', '2','5', '0', '0','0');
 
 CREATE TABLE IF NOT EXISTS SIMONTABLE(
-    password_table INT,
+    password_table TEXT,
     id_item INT UNSIGNED AUTO_INCREMENT,
     name_item TEXT,
     stock_item DOUBLE(10,3) NOT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE IF NOT EXISTS SIMONTABLE(
     PRIMARY KEY(id_item)
 );
 
-INSERT INTO SIMONTABLE (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'chaussette','8','16');
+INSERT INTO SIMONTABLE (password_table, id_item, name_item, buyp_item, sellp_item ) VALUES('motdepass' ,NULL, 'chaussette','8','16');
 INSERT INTO SIMONTABLE (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'forch','2','5');
 
-CREATE TABLE IF NOT EXISTS SIMONTABLE$GRAPH$(
+CREATE TABLE IF NOT EXISTS SIMONTABLE_graph_(
     sellvolume_graph DOUBLE(10,3) NOT NULL,
     bank_graph DOUBLE(10,3) NOT NULL,
     tax_graph DOUBLE(10,3) NOT NULL,
     prd_graph DOUBLE(10,3) NOT NULL
 );
 
-SELECT * FROM SIMONTABLE;
+SELECT password_table FROM SIMONTABLE;

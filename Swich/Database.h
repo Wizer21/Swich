@@ -5,6 +5,7 @@
 #include "SingleData.h"
 #include "NewTable.h"
 #include "CreateNewItem.h"
+#include "PassWord.h"
 
 class Database : public QDialog
 {
@@ -23,6 +24,7 @@ public slots:
   void createItem();
   void applyNewItem(QString table, QString name, int buyP, int sellP);
   void deleteNewItem();
+  void passwordValidated(QString tableName);
 
 signals:
   void tableChanged();
@@ -33,6 +35,7 @@ private:
   void createTableWidgets(QString tableName);
   void sortItemList();
   void closeEvent(QCloseEvent* e) override;
+  void updateLockIcon();
 
   QVBoxLayout* layoutInScrollArea;
   QStackedWidget* widgetStack;

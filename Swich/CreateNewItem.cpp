@@ -3,6 +3,8 @@
 CreateNewItem::CreateNewItem(QWidget* parent, QString tableUsed)
   : QDialog(parent)
 {
+  this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+  this->setAttribute(Qt::WA_DeleteOnClose);
   tableToAdd = tableUsed;
   QGridLayout* layout = new QGridLayout(this);
   ini(layout);

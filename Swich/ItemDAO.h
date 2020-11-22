@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Item.h"
+#include "PassWord.h"
 #include <QSql>
 #include <QSqlDatabase>
 #include <QSqlQuery>
@@ -29,6 +30,9 @@ public:
 
   QStringList getTablesList();
   QString getCurrentTable();
+  bool isLocked(QString tableName);
+  void isUnlocked(QString tableName);
+  QString getPassword(QString tableName);
 
   std::vector<Item>* getItemList();
   std::vector<Item>* getCityList(int numberCity);
@@ -46,6 +50,7 @@ private:
   ItemDAO();
   void iniDB();
   void setItemId(QString tableName);
+  void loadPassword();
   static ItemDAO* instance;
   QSqlDatabase db;
   QString currentTable;
@@ -54,6 +59,9 @@ private:
   std::vector<double> bankEvo;
   std::vector<double> taxEvo;
   std::vector<double> productionEvo;
+
+  std::map<QString, bool> lockedList;
+  std::map<QString, QString> passwordList;
 
   std::vector<Item>* mainItem_List;
   std::vector<Item>* mainCity_1;

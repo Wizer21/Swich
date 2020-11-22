@@ -37,6 +37,7 @@ void ItemDAO::iniDB()
   {
     loadDBToLists(getTablesList().at(0));
     currentTable = getTablesList().at(0);
+    loadPassword();
   }
 }
 
@@ -77,6 +78,7 @@ void ItemDAO::loadDBToLists(QString tableName)
     int columnCity1 = rec.indexOf("stock_city1");
     int columnCity2 = rec.indexOf("stock_city2");
     int columnCity3 = rec.indexOf("stock_city3");
+    //int columnPassword = rec.indexOf("password_table");
 
     mainItem_List->clear();
     mainCity_1->clear();
@@ -204,7 +206,7 @@ void ItemDAO::setNewTable(QString name, QString password)
   db.open();
   QSqlQuery queryDB(db);
   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
-                       "password_table INT, "
+                       "password_table TEXT, "
                        "id_item INT UNSIGNED AUTO_INCREMENT, "
                        "name_item TEXT, "
                        "stock_item DOUBLE(10, 3) NOT NULL, "
@@ -228,11 +230,12 @@ void ItemDAO::setNewTable(QString name, QString password)
 
   if (password != "")
   {
-    queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES(%2);").arg(name).arg(password));
+    queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES('%2');").arg(name).arg(password));
   }
 
   queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL,'chaussette','8','16');").arg(name));
 
+  lockedList.insert({name, false});
   db.close();
 }
 
@@ -261,6 +264,8 @@ std::vector<Item>* ItemDAO::getCityList(int numberCity)
       return mainCity_2;
     case 2:
       return mainCity_3;
+    default:
+      return mainCity_1;
   }
 }
 
@@ -276,12 +281,63 @@ std::vector<double> ItemDAO::getGraphData(int idGraph)
       return taxEvo;
     case 3:
       return productionEvo;
+    default:
+      return sellEvo;
   }
 }
 
 QString ItemDAO::getCurrentTable()
 {
   return currentTable;
+}
+
+void ItemDAO::loadPassword()
+{
+  QStringList listTable = getTablesList();
+  int tableSize = (int)listTable.size();
+
+  db.open();
+  QSqlQuery queryDB(db);
+  QSqlRecord rec;
+
+  for (int i = 0; i < tableSize; i++)
+  {
+    queryDB.exec(QString("SELECT * FROM %1;").arg(listTable.at(i)));
+
+    rec = queryDB.record();
+    int columnID = rec.indexOf("password_table");
+
+    queryDB.next();
+    passwordList.insert({listTable.at(i), queryDB.value(columnID).toString()});
+  }
+  db.close();
+
+  for (int i = 0; i < tableSize; i++)
+  {
+    if (passwordList.at(listTable.at(i)) != "")
+    {
+      lockedList.insert({listTable.at(i), true});
+    }
+    else
+    {
+      lockedList.insert({listTable.at(i), false});
+    }
+  }
+}
+
+bool ItemDAO::isLocked(QString tableName)
+{
+  return lockedList.at(tableName);
+}
+
+QString ItemDAO::getPassword(QString tableName)
+{
+  return passwordList.at(tableName);
+}
+
+void ItemDAO::isUnlocked(QString tableName)
+{
+  lockedList.at(tableName) = false;
 }
 
 void ItemDAO::addItemToTable(QString table, QString name, int buyP, int sellP)
@@ -296,7 +352,6 @@ void ItemDAO::addItemToTable(QString table, QString name, int buyP, int sellP)
   queryDB.bindValue(":newBuyP", buyP);
   queryDB.bindValue(":newSellP", sellP);
   queryDB.exec();
-
   db.close();
 }
 

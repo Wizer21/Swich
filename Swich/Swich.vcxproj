@@ -114,11 +114,13 @@
     <ClCompile Include="Database.cpp" />
     <ClCompile Include="ItemDAO.cpp" />
     <ClCompile Include="NewTable.cpp" />
+    <ClCompile Include="PassWord.cpp" />
     <ClCompile Include="Utils.cpp" />
     <QtMoc Include="Database.h" />
     <QtMoc Include="CreateNewItem.h" />
     <ClInclude Include="ItemDAO.h" />
     <QtMoc Include="NewTable.h" />
+    <QtMoc Include="PassWord.h" />
     <ClInclude Include="StructSettings.h" />
     <QtMoc Include="Utils.h" />
     <QtMoc Include="Chat.h" />

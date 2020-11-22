@@ -3,6 +3,8 @@
 NewTable::NewTable(QWidget* parent)
   : QDialog(parent)
 {
+  this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
+  this->setAttribute(Qt::WA_DeleteOnClose);
   QGridLayout* layout = new QGridLayout(this);
   ini(layout);
 }
