@@ -132,7 +132,6 @@
     <QtMoc Include="DropWidget.h" />
     <QtMoc Include="Production.h" />
     <QtMoc Include="Options.h" />
-    <ClInclude Include="Jumpslider.h" />
     <ClInclude Include="SingleData.h" />
     <QtMoc Include="Stock.h" />
     <QtRcc Include="Swich.qrc" />
@@ -149,7 +148,6 @@
     <ClCompile Include="DropWidget.cpp" />
     <ClCompile Include="Hub.cpp" />
     <ClCompile Include="Item.cpp" />
-    <ClCompile Include="Jumpslider.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="Production.cpp" />
     <ClCompile Include="Sell.cpp" />

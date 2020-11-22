@@ -79,9 +79,6 @@
     <ClCompile Include="DropEmployee.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Jumpslider.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SingleData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -142,9 +139,6 @@
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DragEmployee.h">
-      <Filter>Form Files\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Jumpslider.h">
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SingleData.h">

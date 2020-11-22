@@ -164,15 +164,17 @@ void Swich::createDefaultWidget()
 {
   widgetHub = new Hub();
   widgetAnalytics = new Analytics();
-  widgetSell = new Sell(cityList);
+  widgetSell = new Sell(cityList, mainItemList);
   widgetProduction = new Production();
   widgetAd = new Ad();
-  widgetStock = new Stock();
+  widgetStock = new Stock(mainItemList);
   widgetChat = new Chat(contactList);
 }
 
 void Swich::setDefaultList()
 {
+  mainItemList = ItemDAO::getInstance()->getItemList();
+
   std::vector<Item> listCity1;
   std::vector<Item> listCity2;
   std::vector<Item> listCity3;
@@ -304,8 +306,7 @@ void Swich::startNewMonth()
 
 double Swich::addProductionToInventory(double addedProduction)
 {
-  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
-  int items = (int)itemList->size();
+  int items = (int)mainItemList->size();
   int nrbIteration = 15 + Utils::randZeroToVal(10);
   double prodToPush = addedProduction / nrbIteration;
   double price = 0;
@@ -313,8 +314,8 @@ double Swich::addProductionToInventory(double addedProduction)
   for (int i = 0; i < nrbIteration; i++)
   {
     int randoItem = Utils::randZeroToVal(items);
-    itemList->at(randoItem).setStock(itemList->at(randoItem).getStock() + prodToPush);
-    price += itemList->at(randoItem).getBuyP() * prodToPush;
+    mainItemList->at(randoItem).setStock(mainItemList->at(randoItem).getStock() + prodToPush);
+    price += mainItemList->at(randoItem).getBuyP() * prodToPush;
   }
   return price;
 }
@@ -459,5 +460,7 @@ void Swich::updateNotificationChat(bool isVisible)
 
 void Swich::buttonSaveToDatabase()
 {
+  std::vector<Item>* save = ItemDAO::getInstance()->getItemList();
+  save = mainItemList;
   ItemDAO::getInstance()->saveToDatabase();
 }

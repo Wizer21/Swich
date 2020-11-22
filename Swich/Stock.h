@@ -11,7 +11,7 @@ class Stock : public QWidget
   Q_OBJECT
 
 public:
-  Stock();
+  Stock(std::vector<Item>* itemList);
   void setList();
   void updateStock();
   void updateCommercialSlot(DragEmployee* getEmploye);
@@ -28,6 +28,7 @@ private:
   void setStock();
   QTableWidget* tab;
   QHeaderView* head;
+  std::vector<Item>* getItemList;
 
   QWidget* commercialWidget;
   QLabel* pictureId;

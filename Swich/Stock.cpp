@@ -1,13 +1,14 @@
 #include "Stock.h"
 
-Stock::Stock()
+Stock::Stock(std::vector<Item>* itemList)
 {
+  getItemList = itemList;
   setStock();
 }
 
 void Stock::setStock()
 {
-  int sizeList = (int)ItemDAO::getInstance()->getItemList()->size();
+  int sizeList = (int)getItemList->size();
 
   QVBoxLayout* layoutStock = new QVBoxLayout(this);
 
@@ -73,8 +74,7 @@ void Stock::setList()
 {
   tab->clearContents();
 
-  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
-  int sizeInventory = (int)itemList->size();
+  int sizeInventory = (int)getItemList->size();
   tab->setSortingEnabled(false);
   tab->setRowCount(sizeInventory);
 
@@ -84,11 +84,11 @@ void Stock::setList()
   {
     y = 0;
     QLabel* pixItem = new QLabel(this);
-    QTableWidgetItem* nameItem = new QTableWidgetItem(itemList->at(i).getNom());
-    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(itemList->at(i).getRoundedStock()));
-    QTableWidgetItem* buyPItem = new QTableWidgetItem(QString::number(itemList->at(i).getBuyP()));
-    QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(itemList->at(i).getSellP()));
-    QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(itemList->at(i).getRoundedStock()));
+    QTableWidgetItem* nameItem = new QTableWidgetItem(getItemList->at(i).getNom());
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(getItemList->at(i).getRoundedStock()));
+    QTableWidgetItem* buyPItem = new QTableWidgetItem(QString::number(getItemList->at(i).getBuyP()));
+    QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(getItemList->at(i).getSellP()));
+    QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(getItemList->at(i).getRoundedStock()));
 
     nameItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -96,7 +96,7 @@ void Stock::setList()
     sellPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     cityStockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    QPixmap pix(itemList->at(i).getPix());
+    QPixmap pix(getItemList->at(i).getPix());
     pix = pix.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     pixItem->setPixmap(pix);
 
@@ -114,13 +114,13 @@ void Stock::setList()
 
 void Stock::updateStock()
 {
-  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   tab->setSortingEnabled(false);
   tab->sortItems(1, Qt::AscendingOrder);
 
-  for (int i = 0; i < itemList->size(); i++)
+  int sizeList = getItemList->size();
+  for (int i = 0; i < sizeList; i++)
   {
-    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(itemList->at(i).getRoundedStock()));
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(getItemList->at(i).getRoundedStock()));
 
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 

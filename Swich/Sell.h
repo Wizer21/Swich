@@ -6,7 +6,6 @@
 #include "Dragwidget.h"
 #include "DropWidget.h"
 #include "Stock.h"
-#include "Jumpslider.h"
 #include "ItemDAO.h"
 
 class Sell : public QWidget
@@ -14,7 +13,7 @@ class Sell : public QWidget
   Q_OBJECT
 
 public:
-  Sell(std::vector<City>& city);
+  Sell(std::vector<City>& city, std::vector<Item>* getListItem);
   void refreshStock();
   void setList();
 
@@ -29,7 +28,6 @@ private slots:
   void validate();
 
 private:
-  int id;
   void setSell();
   void setCity(QTabWidget*);
   void setTabCity(QTableWidget*, std::vector<Item>);
@@ -38,6 +36,9 @@ private:
   Stock* getStock;
   QWidget* widArea;
   QVBoxLayout* layoutArea;
+
+  std::map<int, QSlider*> sliderList;
+  std::vector<Item>* getList;
   std::list<Dragwidget*> widgetFromItemList;
   std::vector<City>* getCityList;
   std::vector<QWidget*> widgetToDelete;

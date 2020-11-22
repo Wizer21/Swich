@@ -72,6 +72,7 @@ private:
   QLabel* sold;
   QLabel* actualDb;
 
+  std::vector<Item>* mainItemList;
   std::vector<City> cityList;
   std::vector<Contact> contactList;
   DragEmployee* getCommercial;
