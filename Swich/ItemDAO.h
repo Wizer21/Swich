@@ -35,6 +35,7 @@ public:
 private:
   ItemDAO();
   void iniDB();
+  void setItemId(QString tableName);
   static ItemDAO* instance;
   QSqlDatabase db;
   QString currentTable;

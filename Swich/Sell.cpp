@@ -55,8 +55,8 @@ void Sell::setList()
     Jumpslider* slider = new Jumpslider(Qt::Horizontal, this);
 
     widgetContainer->setObjectName(QString::number(id));
-    stock->setObjectName(QString::number(id));
-    slider->setObjectName(QString::number(id++));
+    stock->setObjectName(QString::number(itemList->at(i).getId()));
+    slider->setObjectName(QString::number(itemList->at(i).getId()));
     slider->setMaximum(itemList->at(i).getRoundedStock());
 
     layoutArea->addWidget(widgetContainer);

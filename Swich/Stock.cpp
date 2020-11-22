@@ -16,7 +16,7 @@ void Stock::setStock()
   columnName << tr("View") << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.") << tr("City's Stocks") << tr("Monthly Sells");
   tab->setHorizontalHeaderLabels(columnName);
 
-  textDefault = new QLabel(tr("Commercial might be helpfull."), this);
+  textDefault = new QLabel(tr("Commercial might be helpful."), this);
 
   //Inactivate Commercial
   commercialWidget = new QWidget(this);

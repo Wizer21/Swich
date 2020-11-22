@@ -156,6 +156,39 @@ QPushButton#index6::pressed {
   border: 0px solid transparent;
 }
 /* ------------------------------ */
+/* ------------ Corner widget --- */
+/* ------------------------------ */
+QWidget#corner{  
+  background-color: transparent;
+}
+QWidget#corner QLabel{  
+  background-color: transparent;
+  font-size: 14px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 3px;
+  padding-bottom: 2px;
+}
+
+QWidget#corner QPushButton {
+  background-color: transparent;
+  color: #262626;
+  padding-left: 7px;
+  padding-right: 7px;
+  padding-top: 3px;
+  padding-bottom: 2px;
+  border: 0px solid transparent;
+}
+QWidget#corner QPushButton::hover {
+  border: 0px solid transparent;
+  border-top: 2px solid #262626;
+}
+QWidget#corner QPushButton::pressed {
+  background-color: #262626;
+  color: #ff5252;
+  border: 0px solid transparent;
+}
+/* ------------------------------ */
 /* ------------ Dialog----------- */
 /* ------------------------------ */
 

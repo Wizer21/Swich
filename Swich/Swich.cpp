@@ -29,6 +29,11 @@ void Swich::ini(QGridLayout* layout)
   QAction* dataAction = new QAction(tr("Database"));
   QAction* credits = new QAction(tr("Credits"));
 
+  QWidget* cornerWidget = new QWidget(this);
+  QHBoxLayout* containCorner = new QHBoxLayout(this);
+  actualDb = new QLabel(ItemDAO::getInstance()->getCurrentTable(), this);
+  QPushButton* saveButton = new QPushButton(tr("Save"), this);
+
   this->setMenuBar(bar);
   bar->addMenu(more);
 
@@ -36,6 +41,14 @@ void Swich::ini(QGridLayout* layout)
   more->addAction(dataAction);
   more->addAction(closeApp);
   bar->addAction(credits);
+  bar->setCornerWidget(cornerWidget);
+
+  cornerWidget->setLayout(containCorner);
+  containCorner->addWidget(actualDb);
+  containCorner->addWidget(saveButton);
+
+  containCorner->setContentsMargins(0, 0, 0, 0);
+  cornerWidget->setObjectName("corner");
 
   // Left Band
   QWidget* widgetMenu = new QWidget(this);
@@ -133,6 +146,7 @@ void Swich::ini(QGridLayout* layout)
   connect(stock, SIGNAL(clicked()), this, SLOT(connectToMenu()));
   connect(chat, SIGNAL(clicked()), this, SLOT(connectToMenu()));
 
+  connect(saveButton, SIGNAL(clicked()), this, SLOT(buttonSaveToDatabase()));
   connect(widgetHub, SIGNAL(transfertNewMounth()), this, SLOT(startNewMonth()));
   connect(widgetSell, SIGNAL(callUpdateStock()), this, SLOT(applyUpdateStock()));
   connect(widgetProduction, SIGNAL(transfertUpgrade(int, int)), this, SLOT(applyUpgradeFactory(int, int)));
@@ -286,7 +300,6 @@ void Swich::startNewMonth()
   widgetHub->updateLabels(bankDisplayed, listProd_Cost.at(0).toDouble(), temporarySoldVol);
   widgetSell->refreshStock();
   widgetStock->updateStock();
-  ItemDAO::getInstance()->saveToDatabase();
 }
 
 double Swich::addProductionToInventory(double addedProduction)
@@ -347,6 +360,7 @@ void Swich::openDatabase()
 
 void Swich::applyTableChanged()
 {
+  actualDb->setText(ItemDAO::getInstance()->getCurrentTable());
   widgetStock->setList();
   widgetSell->setList();
 }
@@ -441,4 +455,9 @@ void Swich::updateNotificationChat(bool isVisible)
   {
     chat->setIcon(QPixmap(""));
   }
+}
+
+void Swich::buttonSaveToDatabase()
+{
+  ItemDAO::getInstance()->saveToDatabase();
 }

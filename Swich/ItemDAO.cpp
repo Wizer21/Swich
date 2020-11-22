@@ -3,7 +3,7 @@
 ItemDAO::ItemDAO()
 {
   mainItem_List = new std::vector<Item>();
-  currentTable = "";
+  currentTable = "Default Table";
   iniDB();
 }
 
@@ -188,5 +188,17 @@ void ItemDAO::deleteItemToTable(QString tableName, QString itemName)
   db.open();
   QSqlQuery queryDB(db);
   queryDB.exec(QString("DELETE FROM %1 WHERE name_item = '%2';").arg(tableName).arg(itemName));
+  db.close();
+}
+
+void ItemDAO::setItemId(QString tableName)
+{
+  db.open();
+  QSqlQuery queryDB(db);
+  while (queryDB.next())
+  {
+    queryDB.exec(QString());
+  }
+
   db.close();
 }

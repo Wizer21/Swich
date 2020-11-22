@@ -41,6 +41,7 @@ private slots:
   void applyFireCommercial();
   void applyCommercialIsActivated(bool);
   void applyTableChanged();
+  void buttonSaveToDatabase();
 
 private:
   void ini(QGridLayout* widget);
@@ -69,6 +70,7 @@ private:
   QMenuBar* bar;
   QMenu* more;
   QLabel* sold;
+  QLabel* actualDb;
 
   std::vector<City> cityList;
   std::vector<Contact> contactList;
