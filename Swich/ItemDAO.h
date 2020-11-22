@@ -20,15 +20,23 @@ public:
     }
     return instance;
   }
-  void saveToDatabase();
-  QStringList getTablesList();
-  std::vector<Item>* getItemList();
-  QSqlQueryModel* getQuerryModel(QString tableName);
-  void loadDBToItemList(QString tableName);
+
   bool isDatableOnline();
+  void loadDBToLists(QString tableName);
+  void pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3);
+  void saveToDatabase();
+
+  QStringList getTablesList();
   QString getCurrentTable();
+
+  std::vector<Item>* getItemList();
+  std::vector<Item>* getCityList(int numberCity);
+
+  QSqlQueryModel* getQuerryModel(QString tableName);
+
   void setNewTable(QString name, QString password);
   void deleteTable(QString tableName);
+
   void addItemToTable(QString table, QString name, int buyP, int sellP);
   void deleteItemToTable(QString tableName, QString itemName);
 
@@ -41,4 +49,7 @@ private:
   QString currentTable;
 
   std::vector<Item>* mainItem_List;
+  std::vector<Item>* mainCity_1;
+  std::vector<Item>* mainCity_2;
+  std::vector<Item>* mainCity_3;
 };

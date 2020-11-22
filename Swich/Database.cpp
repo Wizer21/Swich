@@ -123,7 +123,7 @@ void Database::setWidgetToDisplay()
 void Database::loadNewTable()
 {
   QString newTableName = sender()->objectName();
-  ItemDAO::getInstance()->loadDBToItemList(newTableName);
+  ItemDAO::getInstance()->loadDBToLists(newTableName);
   runningTable->setText(newTableName);
 }
 
@@ -152,7 +152,7 @@ void Database::deleteTableConfirm()
 
     if (tableName == ItemDAO::getInstance()->getCurrentTable())
     {
-      ItemDAO::getInstance()->loadDBToItemList("");
+      ItemDAO::getInstance()->loadDBToLists("");
     }
 
     ItemDAO::getInstance()->deleteTable(tableName);

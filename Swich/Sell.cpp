@@ -237,16 +237,16 @@ void Sell::cancelSell()
   dynamicStockId(posFromItemList);
 }
 
-void Sell::setTabCity(QTableWidget* tab, std::vector<Item> list)
+void Sell::setTabCity(QTableWidget* tab, std::vector<Item>* list)
 {
-  int sizeCityList = (int)list.size();
+  int sizeCityList = (int)list->size();
   tab->setSortingEnabled(false);
   tab->setRowCount(sizeCityList);
 
   for (int i = 0; i < sizeCityList; i++)
   {
-    QTableWidgetItem* nameItem = new QTableWidgetItem(list.at(i).getNom());
-    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(list.at(i).getRoundedStock()));
+    QTableWidgetItem* nameItem = new QTableWidgetItem(list->at(i).getNom());
+    QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(list->at(i).getRoundedStock()));
 
     nameItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
@@ -268,7 +268,7 @@ void Sell::validate()
       widgetToDelete.at(i) = nullptr;
     }
     widgetToDelete.erase(widgetToDelete.begin() + i);
-    i--;
+    //i--;
   }
   emit callUpdateStock();
 }

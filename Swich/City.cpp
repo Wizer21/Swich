@@ -1,6 +1,6 @@
 #include "City.h"
 
-City::City(QString addNom, double addPopularity, std::vector<Item> addCityItemList)
+City::City(QString addNom, double addPopularity, std::vector<Item>* addCityItemList)
 {
   nom = addNom;
   popularity = addPopularity;
@@ -12,32 +12,37 @@ QString City::getNom()
   return nom;
 }
 
-std::vector<Item> City::getList()
+std::vector<Item>* City::getList()
 {
   return cityItemList;
 }
 
+void City::setList(std::vector<Item>* list)
+{
+  cityItemList = list;
+}
+
 void City::addToList(Item item)
 {
-  for (int i = 0; i < cityItemList.size(); i++)
+  for (int i = 0; i < cityItemList->size(); i++)
   {
-    if (cityItemList.at(i).getId() == item.getId())
+    if (cityItemList->at(i).getId() == item.getId())
     {
-      cityItemList.at(i).setStock(cityItemList.at(i).getStock() + item.getStock());
+      cityItemList->at(i).setStock(cityItemList->at(i).getStock() + item.getStock());
       return;
     }
   }
   Item newItem(item.getNom(), item.getStock(), item.getSellP(), item.getId());
-  cityItemList.push_back(newItem);
+  cityItemList->push_back(newItem);
 }
 
 void City::removeStock(int id, int vol)
 {
-  for (int i = 0; i < cityItemList.size(); i++)
+  for (int i = 0; i < cityItemList->size(); i++)
   {
-    if (cityItemList.at(i).getId() == id)
+    if (cityItemList->at(i).getId() == id)
     {
-      cityItemList.at(i).setStock(cityItemList.at(i).getStock() - vol);
+      cityItemList->at(i).setStock(cityItemList->at(i).getStock() - vol);
       eraseIfEmpty();
       return;
     }
@@ -46,11 +51,11 @@ void City::removeStock(int id, int vol)
 
 void City::eraseIfEmpty()
 {
-  for (int i = 0; i < cityItemList.size(); i++)
+  for (int i = 0; i < cityItemList->size(); i++)
   {
-    if (cityItemList.at(i).getStock() == 0)
+    if (cityItemList->at(i).getStock() == 0)
     {
-      cityItemList.erase(cityItemList.begin() + i);
+      cityItemList->erase(cityItemList->begin() + i);
       i--;
     }
   }
@@ -63,9 +68,9 @@ QString City::randSells(double valAd)
   double newVolSold = 0;
   double SoldQuantity;
   double stockCurrentItem;
-  for (int i = 0; i < cityItemList.size(); i++)
+  for (int i = 0; i < cityItemList->size(); i++)
   {
-    stockCurrentItem = cityItemList.at(i).getStock();
+    stockCurrentItem = cityItemList->at(i).getStock();
     if (stockCurrentItem != 0)
     {
       SoldQuantity = sold * valAd;
@@ -74,10 +79,10 @@ QString City::randSells(double valAd)
       {
         SoldQuantity += (stockCurrentItem - SoldQuantity);
       }
-      newBank += cityItemList.at(i).getSellP() * SoldQuantity;
+      newBank += cityItemList->at(i).getSellP() * SoldQuantity;
       newVolSold += SoldQuantity;
 
-      cityItemList.at(i).setStock(stockCurrentItem - SoldQuantity);
+      cityItemList->at(i).setStock(stockCurrentItem - SoldQuantity);
     }
   }
   return QString("%1$%2").arg(newBank).arg(newVolSold);
@@ -85,12 +90,12 @@ QString City::randSells(double valAd)
 
 void City::pushStockToList(int idCurrentItem, double addedStock)
 {
-  int sizeList = (int)cityItemList.size();
+  int sizeList = (int)cityItemList->size();
   for (int i = 0; i < sizeList; i++)
   {
-    if (cityItemList.at(i).getId() == idCurrentItem)
+    if (cityItemList->at(i).getId() == idCurrentItem)
     {
-      cityItemList.at(i).setStock(cityItemList.at(i).getStock() + addedStock);
+      cityItemList->at(i).setStock(cityItemList->at(i).getStock() + addedStock);
       return;
     }
   }

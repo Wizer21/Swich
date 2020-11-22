@@ -6,9 +6,10 @@
 class City
 {
 public:
-  City::City(QString addNom, double addPopularity, std::vector<Item> addCityItemList);
+  City::City(QString addNom, double addPopularity, std::vector<Item>* addCityItemList);
   QString getNom();
-  std::vector<Item> getList();
+  std::vector<Item>* getList();
+  void setList(std::vector<Item>* list);
   void addToList(Item);
   void removeStock(int id, int vol);
   void eraseIfEmpty();
@@ -18,5 +19,5 @@ public:
 private:
   QString nom;
   double popularity;
-  std::vector<Item> cityItemList;
+  std::vector<Item>* cityItemList;
 };

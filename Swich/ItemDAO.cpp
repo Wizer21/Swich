@@ -3,6 +3,10 @@
 ItemDAO::ItemDAO()
 {
   mainItem_List = new std::vector<Item>();
+  mainCity_1 = new std::vector<Item>();
+  mainCity_2 = new std::vector<Item>();
+  mainCity_3 = new std::vector<Item>();
+
   currentTable = "Default Table";
   iniDB();
 }
@@ -31,7 +35,7 @@ void ItemDAO::iniDB()
   }
   else
   {
-    loadDBToItemList("SWICHITEM");
+    loadDBToLists("SWICHITEM");
     currentTable = "SWICHITEM";
   }
 }
@@ -50,7 +54,7 @@ bool ItemDAO::isDatableOnline()
   return online;
 }
 
-void ItemDAO::loadDBToItemList(QString tableName)
+void ItemDAO::loadDBToLists(QString tableName)
 {
   if (currentTable != "")
   {
@@ -70,12 +74,21 @@ void ItemDAO::loadDBToItemList(QString tableName)
     int columnStock = rec.indexOf("stock_item");
     int columnBuyP = rec.indexOf("buyp_item");
     int columnSellP = rec.indexOf("sellp_item");
+    int columnCity1 = rec.indexOf("stock_city1");
+    int columnCity2 = rec.indexOf("stock_city2");
+    int columnCity3 = rec.indexOf("stock_city3");
 
     // Push to list
     mainItem_List->clear();
+    mainCity_1->clear();
+    mainCity_2->clear();
+    mainCity_3->clear();
     while (queryDB.next())
     {
       mainItem_List->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnStock).toInt(), queryDB.value(columnBuyP).toInt(), queryDB.value(columnSellP).toInt(), "", queryDB.value(columnID).toInt()));
+      mainCity_1->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity1).toInt(), queryDB.value(columnSellP).toInt(), queryDB.value(columnID).toInt()));
+      mainCity_2->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity2).toInt(), queryDB.value(columnSellP).toInt(), queryDB.value(columnID).toInt()));
+      mainCity_3->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity3).toInt(), queryDB.value(columnSellP).toInt(), queryDB.value(columnID).toInt()));
     }
     currentTable = tableName;
     db.close();
@@ -102,10 +115,13 @@ void ItemDAO::saveToDatabase()
     int sizeList = (int)mainItem_List->size();
     for (int i = 0; i < sizeList; i++)
     {
-      queryDB.prepare(QString("UPDATE %1 SET stock_item = :value WHERE id_item = :id;").arg(currentTable));
+      queryDB.prepare(QString("UPDATE %1 SET stock_item = :value, stock_city1 = :city1, stock_city2 = :city2, stock_city3 = :city3 WHERE id_item = :id;").arg(currentTable));
 
       queryDB.bindValue(":value", mainItem_List->at(i).getStock());
-      queryDB.bindValue(":id", i + 1);
+      queryDB.bindValue(":city1", mainCity_1->at(i).getStock());
+      queryDB.bindValue(":city2", mainCity_1->at(i).getStock());
+      queryDB.bindValue(":city3", mainCity_1->at(i).getStock());
+      queryDB.bindValue(":id", mainItem_List->at(i).getId());
       queryDB.exec();
       QString laste = queryDB.lastQuery();
     }
@@ -113,11 +129,19 @@ void ItemDAO::saveToDatabase()
   db.close();
 }
 
+void ItemDAO::pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3)
+{
+  mainItem_List = itemList;
+  mainCity_1 = itemCity1;
+  mainCity_2 = itemCity2;
+  mainCity_3 = itemCity3;
+}
+
 QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
 {
   db.open();
   QSqlQueryModel* getTableData = new QSqlQueryModel();
-  getTableData->setQuery(QString("SELECT name_item AS 'Item', stock_item AS 'Stock', buyp_item AS 'Buy.P', sellp_item AS 'Sell.P' FROM %1").arg(tableName));
+  getTableData->setQuery(QString("SELECT name_item AS 'Item', stock_item AS 'Stock', buyp_item AS 'Buy.P', sellp_item AS 'Sell.P', stock_city1 AS 'City One', stock_city2 AS 'City Two', stock_city3 AS 'City Three' FROM %1").arg(tableName));
   db.close();
   return getTableData;
 }
@@ -130,10 +154,13 @@ void ItemDAO::setNewTable(QString name, QString password)
                        "password_table INT, "
                        "id_item INT UNSIGNED AUTO_INCREMENT, "
                        "name_item TEXT, "
-                       "stock_item DOUBLE(10, 3), "
+                       "stock_item DOUBLE(10, 3) NOT NULL, "
                        "buyp_item DOUBLE(10, 3), "
                        "sellp_item DOUBLE(10, 3), "
 
+                       "stock_city1 DOUBLE(10, 3) NOT NULL, "
+                       "stock_city2 DOUBLE(10, 3) NOT NULL, "
+                       "stock_city3 DOUBLE(10, 3) NOT NULL, "
                        "PRIMARY KEY(id_item) "
                        ");")
                  .arg(name));
@@ -143,7 +170,7 @@ void ItemDAO::setNewTable(QString name, QString password)
     queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES(%2);").arg(name).arg(password));
   }
 
-  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, stock_item, buyp_item, sellp_item ) VALUES(NULL, 'chaussette','2.2' ,'8','16');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL,'chaussette','8','16');").arg(name));
 
   db.close();
 }
@@ -158,8 +185,23 @@ void ItemDAO::deleteTable(QString tableName)
 
 std::vector<Item>* ItemDAO::getItemList()
 {
-  loadDBToItemList(currentTable);
+  loadDBToLists(currentTable);
   return mainItem_List;
+}
+
+std::vector<Item>* ItemDAO::getCityList(int numberCity)
+{
+  switch (numberCity)
+  {
+    case 0:
+      return mainCity_1;
+    case 1:
+      return mainCity_2;
+    case 2:
+      return mainCity_3;
+    default:
+      return mainCity_1;
+  }
 }
 
 QString ItemDAO::getCurrentTable()
@@ -171,8 +213,8 @@ void ItemDAO::addItemToTable(QString table, QString name, int buyP, int sellP)
 {
   db.open();
   QSqlQuery queryDB(db);
-  queryDB.prepare(QString("INSERT INTO %1 (id_item, name_item, stock_item, buyp_item, sellp_item ) "
-                          "VALUES(NULL, :newName , 0 , :newBuyP , :newSellP );")
+  queryDB.prepare(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item ) "
+                          "VALUES(NULL, :newName, :newBuyP , :newSellP );")
                     .arg(table));
 
   queryDB.bindValue(":newName", name);

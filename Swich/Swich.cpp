@@ -175,13 +175,9 @@ void Swich::setDefaultList()
 {
   mainItemList = ItemDAO::getInstance()->getItemList();
 
-  std::vector<Item> listCity1;
-  std::vector<Item> listCity2;
-  std::vector<Item> listCity3;
-
-  City city1(tr("Paris"), 1, listCity1);
-  City city2(tr("Tokyo"), 1, listCity2);
-  City city3(tr("London"), 1, listCity3);
+  City city1(tr("Paris"), 1, ItemDAO::getInstance()->getCityList(0));
+  City city2(tr("Tokyo"), 1, ItemDAO::getInstance()->getCityList(0));
+  City city3(tr("London"), 1, ItemDAO::getInstance()->getCityList(0));
 
   cityList.push_back(city1);
   cityList.push_back(city2);
@@ -361,9 +357,20 @@ void Swich::openDatabase()
 
 void Swich::applyTableChanged()
 {
+  mainItemList = ItemDAO::getInstance()->getItemList();
+  cityList.at(0).setList(ItemDAO::getInstance()->getCityList(0));
+  cityList.at(1).setList(ItemDAO::getInstance()->getCityList(1));
+  cityList.at(2).setList(ItemDAO::getInstance()->getCityList(2));
+
   actualDb->setText(ItemDAO::getInstance()->getCurrentTable());
   widgetStock->setList();
   widgetSell->setList();
+}
+
+void Swich::buttonSaveToDatabase()
+{
+  ItemDAO::getInstance()->pushListsToDAO(mainItemList, cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
+  ItemDAO::getInstance()->saveToDatabase();
 }
 
 void Swich::setTheme()
@@ -429,8 +436,7 @@ void Swich::commercialTransfertStock()
     getLvl--;
   }
 
-  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
-  int itemsListSize = (int)itemList->size();
+  int itemsListSize = (int)mainItemList->size();
   int cityListSize = (int)cityList.size();
   int nrbIteration = 10 + Utils::randZeroToVal(10);
   double prodToPush = nbrItemToTransfert / nrbIteration;
@@ -440,8 +446,8 @@ void Swich::commercialTransfertStock()
     int randoItem = Utils::randZeroToVal(itemsListSize);
     int randoCity = Utils::randZeroToVal(cityListSize);
 
-    itemList->at(randoItem).setStock(itemList->at(randoItem).getStock() - prodToPush);
-    cityList.at(randoCity).pushStockToList(itemList->at(randoItem).getId(), prodToPush);
+    mainItemList->at(randoItem).setStock(mainItemList->at(randoItem).getStock() - prodToPush);
+    cityList.at(randoCity).pushStockToList(mainItemList->at(randoItem).getId(), prodToPush);
   }
   widgetStock->setItemPushed(round(nbrItemToTransfert));
 }
@@ -456,11 +462,4 @@ void Swich::updateNotificationChat(bool isVisible)
   {
     chat->setIcon(QPixmap(""));
   }
-}
-
-void Swich::buttonSaveToDatabase()
-{
-  std::vector<Item>* save = ItemDAO::getInstance()->getItemList();
-  save = mainItemList;
-  ItemDAO::getInstance()->saveToDatabase();
 }

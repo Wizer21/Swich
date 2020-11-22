@@ -30,7 +30,7 @@ private slots:
 private:
   void setSell();
   void setCity(QTabWidget*);
-  void setTabCity(QTableWidget*, std::vector<Item>);
+  void setTabCity(QTableWidget*, std::vector<Item>*);
   void updateCityOnDrop(QString vol, int idItem);
   QTabWidget* tabWidget;
   Stock* getStock;
