@@ -176,8 +176,8 @@ void Swich::setDefaultList()
   mainItemList = ItemDAO::getInstance()->getItemList();
 
   City city1(tr("Paris"), 1, ItemDAO::getInstance()->getCityList(0));
-  City city2(tr("Tokyo"), 1, ItemDAO::getInstance()->getCityList(0));
-  City city3(tr("London"), 1, ItemDAO::getInstance()->getCityList(0));
+  City city2(tr("Tokyo"), 1, ItemDAO::getInstance()->getCityList(1));
+  City city3(tr("London"), 1, ItemDAO::getInstance()->getCityList(2));
 
   cityList.push_back(city1);
   cityList.push_back(city2);
@@ -189,17 +189,17 @@ void Swich::setDefaultList()
   contactList.push_back(contact1);
   contactList.push_back(contact2);
 
-  std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
-  int sizeA = (int)cityList.size();
-  int sizeB = (int)itemList->size();
+  //std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
+  //int sizeA = (int)cityList.size();
+  //int sizeB = (int)itemList->size();
 
-  for (int a = 0; a < sizeA; a++)
-  {
-    for (int i = 0; i < sizeB; i++)
-    {
-      cityList.at(a).addToList(itemList->at(i));
-    }
-  }
+  //for (int a = 0; a < sizeA; a++)
+  //{
+  //  for (int i = 0; i < sizeB; i++)
+  //  {
+  //    cityList.at(a).addToList(itemList->at(i));
+  //  }
+  //}
 }
 
 void Swich::connectToMenu()
@@ -259,7 +259,8 @@ void Swich::startNewMonth()
   QStringList splitSalary_Efficiency = salary_Efficiency.split("$");
 
   //city Sell
-  for (int i = 0; i < cityList.size(); i++)
+  int sizeCityList = (int)cityList.size();
+  for (int i = 0; i < sizeCityList; i++)
   {
     QStringList getValue = (cityList.at(i).randSells(splitSalary_Efficiency.at(1).toDouble())).split("$");
     temporaryGain += getValue.at(0).toDouble();
@@ -365,6 +366,7 @@ void Swich::applyTableChanged()
   actualDb->setText(ItemDAO::getInstance()->getCurrentTable());
   widgetStock->setList();
   widgetSell->setList();
+  widgetSell->applyNewDBOnTable(cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
 }
 
 void Swich::buttonSaveToDatabase()

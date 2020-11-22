@@ -119,8 +119,8 @@ void ItemDAO::saveToDatabase()
 
       queryDB.bindValue(":value", mainItem_List->at(i).getStock());
       queryDB.bindValue(":city1", mainCity_1->at(i).getStock());
-      queryDB.bindValue(":city2", mainCity_1->at(i).getStock());
-      queryDB.bindValue(":city3", mainCity_1->at(i).getStock());
+      queryDB.bindValue(":city2", mainCity_2->at(i).getStock());
+      queryDB.bindValue(":city3", mainCity_3->at(i).getStock());
       queryDB.bindValue(":id", mainItem_List->at(i).getId());
       queryDB.exec();
       QString laste = queryDB.lastQuery();
@@ -199,8 +199,6 @@ std::vector<Item>* ItemDAO::getCityList(int numberCity)
       return mainCity_2;
     case 2:
       return mainCity_3;
-    default:
-      return mainCity_1;
   }
 }
 

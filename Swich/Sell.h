@@ -16,6 +16,7 @@ public:
   Sell(std::vector<City>& city, std::vector<Item>* getListItem);
   void refreshStock();
   void setList();
+  void applyNewDBOnTable(std::vector<Item>* city1, std::vector<Item>* city2, std::vector<Item>* city3);
 
 signals:
   void callUpdateStock();
@@ -29,7 +30,7 @@ private slots:
 
 private:
   void setSell();
-  void setCity(QTabWidget*);
+  void setCity();
   void setTabCity(QTableWidget*, std::vector<Item>*);
   void updateCityOnDrop(QString vol, int idItem);
   QTabWidget* tabWidget;
@@ -38,6 +39,7 @@ private:
   QVBoxLayout* layoutArea;
 
   std::map<int, QSlider*> sliderList;
+  std::vector<QTableWidget*> tableList;
   std::vector<Item>* getList;
   std::list<Dragwidget*> widgetFromItemList;
   std::vector<City>* getCityList;

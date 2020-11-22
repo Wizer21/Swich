@@ -30,7 +30,7 @@ void Sell::setSell()
   setList();
 
   layoutSell->addWidget(tabWidget, 0, 1);
-  setCity(tabWidget);
+  setCity();
 
   layoutSell->addWidget(validSend, 1, 1);
 
@@ -90,7 +90,7 @@ void Sell::dynamicStockId(int idStock)
   getWidget->setVolume(0);
 }
 
-void Sell::setCity(QTabWidget* tab)
+void Sell::setCity()
 {
   int citySize = (int)getCityList->size();
   for (int i = 0; i < citySize; i++)
@@ -114,7 +114,7 @@ void Sell::setCity(QTabWidget* tab)
     tabCity->resizeColumnsToContents();
     setTabCity(tabCity, getCityList->at(i).getList());
 
-    tab->addTab(widgetCity, getCityList->at(i).getNom());
+    tabWidget->addTab(widgetCity, getCityList->at(i).getNom());
     widgetCity->setLayout(layoutCity);
     layoutCity->addWidget(split, 0, 0);
     split->addWidget(scrollArea);
@@ -130,6 +130,7 @@ void Sell::setCity(QTabWidget* tab)
     scrollArea->setWidgetResizable(true);
     scrollArea->setMinimumWidth(this->width() * 0.3);
 
+    tableList.push_back(tabCity);
     tabCity->setMinimumWidth(150);
     tabCity->setObjectName(QString::number(i));
     layoutWidget->setObjectName(QString::number(i));
@@ -188,6 +189,13 @@ void Sell::setNewItem(QString nom, QString vol, int newId)
   }
 }
 
+void Sell::applyNewDBOnTable(std::vector<Item>* city1, std::vector<Item>* city2, std::vector<Item>* city3)
+{
+  setTabCity(tableList.at(0), city1);
+  setTabCity(tableList.at(1), city2);
+  setTabCity(tableList.at(2), city3);
+}
+
 void Sell::updateCityOnDrop(QString vol, int idPos)
 {
   QTableWidget* getTable = this->findChild<QTableWidget*>(QString::number(tabWidget->currentIndex()));
@@ -227,13 +235,13 @@ void Sell::cancelSell()
   {
     if (widgetToDelete.at(i) == getWidget)
     {
+      delete widgetToDelete.at(i);
+      widgetToDelete.at(i) = nullptr;
       widgetToDelete.erase(widgetToDelete.begin() + i);
       break;
     }
   }
 
-  delete getWidget;
-  getWidget = nullptr;
   dynamicStockId(posFromItemList);
 }
 
@@ -259,17 +267,9 @@ void Sell::setTabCity(QTableWidget* tab, std::vector<Item>* list)
 
 void Sell::validate()
 {
-  int toDeleteSize = (int)widgetToDelete.size();
-  for (int i = 0; i < toDeleteSize; i++)
-  {
-    if (widgetToDelete.at(i))
-    {
-      delete widgetToDelete.at(i);
-      widgetToDelete.at(i) = nullptr;
-    }
-    widgetToDelete.erase(widgetToDelete.begin() + i);
-    //i--;
-  }
+  qDeleteAll(widgetToDelete.begin(), widgetToDelete.end());
+  widgetToDelete.clear();
+
   emit callUpdateStock();
 }
 
