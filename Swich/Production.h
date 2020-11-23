@@ -29,6 +29,8 @@ private:
   int lockedPrice1;
   int lockedPrice2;
 
+  std::vector<std::pair<int, int>> factoryLevel_upgrade;
+
   void setProduction();
   QWidget* newFactoryWidget(QString getName);
   void updateWidgets();
@@ -39,6 +41,9 @@ private:
   QPushButton* lockedFactory2;
   QVBoxLayout* layout1;
   QVBoxLayout* layout2;
+
+  std::vector<QWidget*> hidedWidget;
+  std::vector<std::pair<QLabel*, QPushButton*>> listLvl_Upgrade;
 
   std::vector<Factory> listFactory;
   std::vector<QLabel*> levelList;

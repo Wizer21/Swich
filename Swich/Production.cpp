@@ -63,6 +63,9 @@ void Production::setProduction()
   lockedFactory1->setCursor(Qt::PointingHandCursor);
   lockedFactory2->setCursor(Qt::PointingHandCursor);
   displayProduction->setObjectName("lastProduction");
+
+  layoutProduction->addWidget(newFactoryWidget("Tokyo"), 3, 0, 1, 3);
+  layoutProduction->addWidget(newFactoryWidget("London"), 4, 0, 1, 3);
 }
 
 QWidget* Production::newFactoryWidget(QString getName)
@@ -103,6 +106,10 @@ QWidget* Production::newFactoryWidget(QString getName)
   iconFactory->setPixmap(getPix->getPixmap("factory"));
 
   widgetFactory->setObjectName("factoryWidget");
+
+  widgetFactory->setVisible(false);
+  hidedWidget.push_back(widgetFactory);
+  listLvl_Upgrade.push_back({textLvl, upgrade});
 
   connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
   return widgetFactory;
@@ -174,9 +181,7 @@ void Production::validateNewFactory(int id)
   if (id == 0)
   {
     SingleData::getInstance()->deleteButtonOnAdress(lockedFactory1);
-    delete lockedFactory1;
-    lockedFactory1 = nullptr;
-    layoutProduction->addWidget(newFactoryWidget("Tokyo"), 3, 0, 1, 3);
+    lockedFactory1->setVisible(false);
     Factory fact2;
     listFactory.push_back(fact2);
     updateWidgets();
@@ -184,9 +189,7 @@ void Production::validateNewFactory(int id)
   if (id == 1)
   {
     SingleData::getInstance()->deleteButtonOnAdress(lockedFactory2);
-    delete lockedFactory2;
-    lockedFactory2 = nullptr;
-    layoutProduction->addWidget(newFactoryWidget("London"), 4, 0, 1, 3);
+    lockedFactory1->setVisible(false);
     Factory fact3;
     listFactory.push_back(fact3);
     updateWidgets();

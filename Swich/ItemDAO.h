@@ -9,6 +9,7 @@
 
 #include <QMap>
 #include <QSqlQueryModel>
+#include "City.h"
 
 class ItemDAO
 {
@@ -26,6 +27,7 @@ public:
   void loadDBToLists(QString tableName);
   void pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3);
   void pushGrapgData(std::vector<double>, std::vector<double>, std::vector<double>, std::vector<double>);
+  void pushBank(double newBank);
   void saveToDatabase();
 
   QStringList getTablesList();
@@ -37,6 +39,7 @@ public:
   std::vector<Item>* getItemList();
   std::vector<Item>* getCityList(int numberCity);
   std::vector<double> getGraphData(int idGraph);
+  double getBank();
 
   QSqlQueryModel* getQuerryModel(QString tableName);
 
@@ -67,4 +70,12 @@ private:
   std::vector<Item>* mainCity_1;
   std::vector<Item>* mainCity_2;
   std::vector<Item>* mainCity_3;
+
+  double bank;
+
+  std::vector<std::pair<int, int>> factoryLevel_upgrade;
+
+  std::vector<QString> nameEmploye;
+  std::vector<int> salaryEmploye;
+  std::vector<int> levelEmploye;
 };

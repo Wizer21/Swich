@@ -21,7 +21,7 @@ void ItemDAO::iniDB()
   db.setUserName("Wizer");
   db.setPassword("useraccount");
 
-  if (!isDatableOnline())
+  if (!isDatableOnline() || getTablesList().size() == 0)
   {
     Item item1("Ariane", 0, 5, 45, ":/Swich/images/ariane.jpg", 0);
     Item item2("Hubble", 0, 18, 78, ":/Swich/images/hubble.jpeg", 1);
@@ -32,6 +32,8 @@ void ItemDAO::iniDB()
     mainItem_List->push_back(item3);
 
     currentTable = "Default Table";
+
+    bank = 11327;
   }
   else
   {
@@ -57,7 +59,7 @@ bool ItemDAO::isDatableOnline()
 
 void ItemDAO::loadDBToLists(QString tableName)
 {
-  if (currentTable != "")
+  if (currentTable != "Default Table")
   {
     saveToDatabase();
   }
@@ -78,7 +80,6 @@ void ItemDAO::loadDBToLists(QString tableName)
     int columnCity1 = rec.indexOf("stock_city1");
     int columnCity2 = rec.indexOf("stock_city2");
     int columnCity3 = rec.indexOf("stock_city3");
-    //int columnPassword = rec.indexOf("password_table");
 
     mainItem_List->clear();
     mainCity_1->clear();
@@ -94,7 +95,7 @@ void ItemDAO::loadDBToLists(QString tableName)
     currentTable = tableName;
 
     // LOAD GRAPH VALUE
-    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "_graph_"));
+    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "$graph$"));
     rec = queryDB.record();
 
     int columnSell = rec.indexOf("sellvolume_graph");
@@ -114,6 +115,42 @@ void ItemDAO::loadDBToLists(QString tableName)
       taxEvo.push_back(queryDB.value(columnTax).toDouble());
       productionEvo.push_back(queryDB.value(columnProd).toDouble());
     }
+
+    // LOAD BANK
+    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "$bank$"));
+    rec = queryDB.record();
+    queryDB.next();
+    bank = queryDB.value(rec.indexOf("banque_data")).toDouble();
+
+    // LOAD FACTORY
+    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "$factory$"));
+    rec = queryDB.record();
+    int columnFactoryLevel = rec.indexOf("level_factory");
+    int columnUpgrade = rec.indexOf("upgrade_factory");
+
+    factoryLevel_upgrade.clear();
+    while (queryDB.next())
+    {
+      factoryLevel_upgrade.push_back({queryDB.value(columnFactoryLevel).toInt(), queryDB.value(columnFactoryLevel).toInt()});
+    }
+
+    // LOAD EMPLOYE
+    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "$emplyoye$"));
+    rec = queryDB.record();
+
+    int columnNameE = rec.indexOf("name_employe");
+    int columnSalaryE = rec.indexOf("salary_employe");
+    int columnLevelE = rec.indexOf("level_employe");
+
+    nameEmploye.clear();
+    salaryEmploye.clear();
+    levelEmploye.clear();
+    while (queryDB.next())
+    {
+      nameEmploye.push_back(queryDB.value(columnNameE).toString());
+      salaryEmploye.push_back(queryDB.value(columnSalaryE).toInt());
+      levelEmploye.push_back(queryDB.value(columnLevelE).toInt());
+    }
     db.close();
   }
 }
@@ -127,7 +164,25 @@ QStringList ItemDAO::getTablesList()
     int sizeList = (int)tableList.size();
     for (int i = 0; i < sizeList; i++)
     {
-      if (tableList.at(i).right(7) == "_graph_")
+      if (tableList.at(i).right(7) == "$graph$")
+      {
+        tableList.erase(tableList.begin() + i);
+        i--;
+        sizeList--;
+      }
+      if (tableList.at(i).right(6) == "$bank$")
+      {
+        tableList.erase(tableList.begin() + i);
+        i--;
+        sizeList--;
+      }
+      if (tableList.at(i).right(9) == "$factory$")
+      {
+        tableList.erase(tableList.begin() + i);
+        i--;
+        sizeList--;
+      }
+      if (tableList.at(i).right(10) == "$emplyoye$")
       {
         tableList.erase(tableList.begin() + i);
         i--;
@@ -147,6 +202,7 @@ void ItemDAO::saveToDatabase()
   {
     QSqlQuery queryDB(db);
 
+    //Items
     int sizeList = (int)mainItem_List->size();
     for (int i = 0; i < sizeList; i++)
     {
@@ -160,16 +216,42 @@ void ItemDAO::saveToDatabase()
       queryDB.exec();
     }
 
-    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "_graph_"));
+    //Graph
+    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$graph$"));
 
-    int sizeData = (int)sellEvo.size();
-    for (int i = 0; i < sizeData; i++)
+    sizeList = (int)sellEvo.size();
+    for (int i = 0; i < sizeList; i++)
     {
-      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?,?,?);").arg(currentTable + "_graph_"));
+      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?,?,?);").arg(currentTable + "$graph$"));
       queryDB.bindValue(0, sellEvo.at(i));
       queryDB.bindValue(1, bankEvo.at(i));
       queryDB.bindValue(2, taxEvo.at(i));
       queryDB.bindValue(3, productionEvo.at(i));
+      queryDB.exec();
+    }
+
+    //Bank
+    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$bank$"));
+    queryDB.exec(QString("INSERT INTO %1 VALUE ('%2');").arg(currentTable + "$bank$").arg(bank));
+
+    //Factory
+    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$factory$"));
+    sizeList = (int)factoryLevel_upgrade.size();
+    for (int i = 0; i < sizeList; i++)
+    {
+      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?);").arg(currentTable + "$factory$"));
+      queryDB.bindValue(0, factoryLevel_upgrade.at(i).first);
+      queryDB.bindValue(1, factoryLevel_upgrade.at(i).second);
+      queryDB.exec();
+    }
+    //Employe
+    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$emplyoye$"));
+    sizeList = (int)salaryEmploye.size();
+    for (int i = 0; i < sizeList; i++)
+    {
+      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?);").arg(currentTable + "$emplyoye$"));
+      queryDB.bindValue(0, salaryEmploye.at(i));
+      queryDB.bindValue(1, levelEmploye.at(i));
       queryDB.exec();
     }
   }
@@ -190,6 +272,11 @@ void ItemDAO::pushGrapgData(std::vector<double> newSellEvo, std::vector<double> 
   bankEvo = newBankEvo;
   taxEvo = newTaxEvo;
   productionEvo = newProdEvo;
+}
+
+void ItemDAO::pushBank(double newBank)
+{
+  bank = newBank;
 }
 
 QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
@@ -226,12 +313,27 @@ void ItemDAO::setNewTable(QString name, QString password)
                        "tax_graph DOUBLE(10, 3) NOT NULL, "
                        "prd_graph DOUBLE(10, 3) NOT NULL "
                        ");")
-                 .arg(name + "_graph_"));
+                 .arg(name + "$graph$"));
 
-  if (password != "")
-  {
-    queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES('%2');").arg(name).arg(password));
-  }
+  queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+                       "banque_data DOUBLE(10, 3) NOT NULL "
+                       ");")
+                 .arg(name + "$bank$"));
+
+  queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+                       "level_factory INT NOT NULL, "
+                       "upgrade_factory INT NOT NULL "
+                       ");")
+                 .arg(name + "$factory$"));
+
+  queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+                       "name_employe INT NOT NULL, "
+                       "salary_employe INT NOT NULL, "
+                       "level_employe INT NOT NULL "
+                       ");")
+                 .arg(name + "$emplyoye$"));
+
+  queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES('%2');").arg(name).arg(password));
 
   queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL,'chaussette','8','16');").arg(name));
 
@@ -244,7 +346,7 @@ void ItemDAO::deleteTable(QString tableName)
   db.open();
   QSqlQuery queryDB(db);
   queryDB.exec(QString("DROP TABLE %1").arg(tableName));
-  queryDB.exec(QString("DROP TABLE %1").arg(tableName + "_graph_"));
+  queryDB.exec(QString("DROP TABLE %1").arg(tableName + "$graph$"));
   db.close();
 }
 
@@ -284,6 +386,11 @@ std::vector<double> ItemDAO::getGraphData(int idGraph)
     default:
       return sellEvo;
   }
+}
+
+double ItemDAO::getBank()
+{
+  return bank;
 }
 
 QString ItemDAO::getCurrentTable()

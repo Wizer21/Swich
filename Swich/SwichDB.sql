@@ -39,11 +39,30 @@ CREATE TABLE IF NOT EXISTS SIMONTABLE(
 INSERT INTO SIMONTABLE (password_table, id_item, name_item, buyp_item, sellp_item ) VALUES('motdepass' ,NULL, 'chaussette','8','16');
 INSERT INTO SIMONTABLE (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'forch','2','5');
 
-CREATE TABLE IF NOT EXISTS SIMONTABLE_graph_(
+CREATE TABLE IF NOT EXISTS SIMONTABLE$graph$(
     sellvolume_graph DOUBLE(10,3) NOT NULL,
     bank_graph DOUBLE(10,3) NOT NULL,
     tax_graph DOUBLE(10,3) NOT NULL,
     prd_graph DOUBLE(10,3) NOT NULL
 );
+
+
+--   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+--                        "banque_data DOUBLE(10, 3) NOT NULL "
+--                        ");")
+--                  .arg(name + "$bank$"));
+
+--   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+--                        "level_factory INT(10, 3) NOT NULL, "
+--                        "upgrade_factory INT(10, 3) NOT NULL "
+--                        ");")
+--                  .arg(name + "$factory$"));
+
+--   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
+--                        "name_employe INT(10, 3) NOT NULL, "
+--                        "salary_employe INT(10, 3) NOT NULL, "
+--                        "level_employe INT(10, 3) NOT NULL "
+--                        ");")
+--                  .arg(name + "$emplyoye$"));
 
 SELECT password_table FROM SIMONTABLE;

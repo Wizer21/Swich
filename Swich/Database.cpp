@@ -109,6 +109,7 @@ void Database::createTableWidgets(QString tableName)
 
   displayTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   displayTable->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
+  displayTable->hideRow(0);
   displayTable->show();
 
   widgetList.insert({tableName, mainTableWidget});

@@ -6,7 +6,7 @@ Swich::Swich(QWidget* parent)
 {
   ui.setupUi(this);
   turnId = 0;
-  bankDisplayed = 11560;
+  bankDisplayed = 0;
   gotCommercial = false;
   commercialActivated = true;
   positiveBank = true;
@@ -64,7 +64,7 @@ void Swich::ini(QGridLayout* layout)
   QWidget* containSold = new QWidget(this);
   QHBoxLayout* layoutSold = new QHBoxLayout(this);
   QLabel* logoSol = new QLabel(this);
-  sold = new QLabel(QString::number(bankDisplayed), this);
+  sold = new QLabel(QString::number(round(bankDisplayed)), this);
 
   layout->addWidget(widgetMenu, 0, 0);
   widgetMenu->setLayout(layoutMenu);
@@ -188,6 +188,8 @@ void Swich::setDefaultList()
 
   contactList.push_back(contact1);
   contactList.push_back(contact2);
+
+  bankDisplayed = ItemDAO::getInstance()->getBank();
 
   //std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
   //int sizeA = (int)cityList.size();
@@ -370,10 +372,14 @@ void Swich::applyTableChanged()
   widgetSell->applyNewDBOnTable(cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
 
   widgetAnalytics->newTableUsed();
+
+  bankDisplayed = ItemDAO::getInstance()->getBank();
+  sold->setText(QString::number(round(bankDisplayed)));
 }
 
 void Swich::buttonSaveToDatabase()
 {
+  ItemDAO::getInstance()->pushBank(bankDisplayed);
   widgetAnalytics->callSave();
   ItemDAO::getInstance()->pushListsToDAO(mainItemList, cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
   ItemDAO::getInstance()->saveToDatabase();
