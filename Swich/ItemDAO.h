@@ -28,17 +28,19 @@ public:
   void pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3);
   void pushGrapgData(std::vector<double>, std::vector<double>, std::vector<double>, std::vector<double>);
   void pushBank(double newBank);
+  void pushFactory(std::vector<std::pair<int, int>>);
   void saveToDatabase();
 
   QStringList getTablesList();
   QString getCurrentTable();
   bool isLocked(QString tableName);
   void isUnlocked(QString tableName);
-  QString getPassword(QString tableName);
 
+  QString getPassword(QString tableName);
   std::vector<Item>* getItemList();
   std::vector<Item>* getCityList(int numberCity);
   std::vector<double> getGraphData(int idGraph);
+  std::vector<std::pair<int, int>> getFactory();
   double getBank();
 
   QSqlQueryModel* getQuerryModel(QString tableName);

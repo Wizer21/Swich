@@ -78,3 +78,13 @@ int Factory::getNextUpgrade()
 {
   return nextUpgrade;
 }
+
+void Factory::setLevel(int newLevel)
+{
+  level = newLevel;
+}
+
+void Factory::setUpgrade(int newUpgrade)
+{
+  nextUpgrade = newUpgrade;
+}

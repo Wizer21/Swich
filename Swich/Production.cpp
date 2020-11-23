@@ -7,6 +7,7 @@ Production::Production()
   lockedPrice2 = 5000 + Utils::randZeroToVal(5000);
 
   setProduction();
+  loadDB();
 }
 
 void Production::setProduction()
@@ -29,6 +30,7 @@ void Production::setProduction()
   layoutProduction->addWidget(testInvested, 1, 1);
 
   layoutProduction->addWidget(newFactoryWidget("Paris"), 2, 0, 1, 3);
+  hidedWidget.at(0)->setVisible(true);
   layoutProduction->addWidget(lockedFactory1, 3, 0, 1, 3);
   layoutProduction->addWidget(lockedFactory2, 4, 0, 1, 3);
 
@@ -57,15 +59,18 @@ void Production::setProduction()
   lockedFactory2->setIconSize(QSize(50, 50));
 
   Factory fact1;
+  Factory fact2;
+  Factory fact3;
   listFactory.push_back(fact1);
+  listFactory.push_back(fact2);
+  listFactory.push_back(fact3);
+  layoutProduction->addWidget(newFactoryWidget("Tokyo"), 3, 0, 1, 3);
+  layoutProduction->addWidget(newFactoryWidget("London"), 4, 0, 1, 3);
   updateWidgets();
 
   lockedFactory1->setCursor(Qt::PointingHandCursor);
   lockedFactory2->setCursor(Qt::PointingHandCursor);
   displayProduction->setObjectName("lastProduction");
-
-  layoutProduction->addWidget(newFactoryWidget("Tokyo"), 3, 0, 1, 3);
-  layoutProduction->addWidget(newFactoryWidget("London"), 4, 0, 1, 3);
 }
 
 QWidget* Production::newFactoryWidget(QString getName)
@@ -182,16 +187,47 @@ void Production::validateNewFactory(int id)
   {
     SingleData::getInstance()->deleteButtonOnAdress(lockedFactory1);
     lockedFactory1->setVisible(false);
-    Factory fact2;
-    listFactory.push_back(fact2);
+    hidedWidget.at(1)->setVisible(true);
     updateWidgets();
   }
   if (id == 1)
   {
     SingleData::getInstance()->deleteButtonOnAdress(lockedFactory2);
-    lockedFactory1->setVisible(false);
-    Factory fact3;
-    listFactory.push_back(fact3);
+    lockedFactory2->setVisible(false);
+    hidedWidget.at(2)->setVisible(true);
     updateWidgets();
   }
+}
+
+void Production::loadDB()
+{
+  std::vector<std::pair<int, int>> factoryLevel_upgrade = ItemDAO::getInstance()->getFactory();
+
+  int sizeList = (int)factoryLevel_upgrade.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    listFactory.at(i).setLevel(factoryLevel_upgrade.at(i).first);
+    listFactory.at(i).setUpgrade(factoryLevel_upgrade.at(i).second);
+    levelList.at(i)->setText(QString::number(factoryLevel_upgrade.at(i).first));
+    upgradeList.at(i)->setText(QString::number(factoryLevel_upgrade.at(i).second));
+  }
+  if (factoryLevel_upgrade.at(1).first != 1)
+  {
+    lockedFactory1->setVisible(false);
+  }
+  if (factoryLevel_upgrade.at(2).first != 1)
+  {
+    lockedFactory2->setVisible(false);
+  }
+}
+
+void Production::saveToDB()
+{
+  factoryLevel_upgrade.clear();
+  int sizeList = (int)listFactory.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    factoryLevel_upgrade.push_back({listFactory.at(i).getLevel(), listFactory.at(i).getNextUpgrade()});
+  }
+  ItemDAO::getInstance()->pushFactory(factoryLevel_upgrade);
 }

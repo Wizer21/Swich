@@ -13,6 +13,8 @@ public:
   double getProduction();
   double getCost();
   int getNextUpgrade();
+  void setLevel(int newLevel);
+  void setUpgrade(int newUpgrade);
 
 private:
   int level;

@@ -147,6 +147,7 @@ void Database::loadNewTable()
   QString newTableName = sender()->objectName();
   ItemDAO::getInstance()->loadDBToLists(newTableName);
   runningTable->setText(newTableName);
+  emit tableChanged();
 }
 
 void Database::createNewTable()
@@ -279,7 +280,6 @@ void Database::deleteNewItem()
 
 void Database::closeEvent(QCloseEvent* e)
 {
-  emit tableChanged();
 }
 
 Database::~Database()

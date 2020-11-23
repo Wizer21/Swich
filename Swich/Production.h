@@ -5,6 +5,7 @@
 #include "Factory.h"
 #include "Utils.h"
 #include "SingleData.h"
+#include "ItemDAO.h"
 
 class Production : public QWidget
 {
@@ -15,6 +16,8 @@ public:
   QString newMonthProd(int days);
   void validatedUpgrade(int id);
   void validateNewFactory(int id);
+  void loadDB();
+  void saveToDB();
 
 signals:
   void transfertUpgrade(int, int);
@@ -46,7 +49,8 @@ private:
   std::vector<std::pair<QLabel*, QPushButton*>> listLvl_Upgrade;
 
   std::vector<Factory> listFactory;
-  std::vector<QLabel*> levelList;
   std::vector<QLabel*> productionlist;
+
+  std::vector<QLabel*> levelList;
   std::vector<QPushButton*> upgradeList;
 };

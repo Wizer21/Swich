@@ -279,6 +279,11 @@ void ItemDAO::pushBank(double newBank)
   bank = newBank;
 }
 
+void ItemDAO::pushFactory(std::vector<std::pair<int, int>> newList)
+{
+  factoryLevel_upgrade = newList;
+}
+
 QSqlQueryModel* ItemDAO::getQuerryModel(QString tableName)
 {
   db.open();
@@ -386,6 +391,11 @@ std::vector<double> ItemDAO::getGraphData(int idGraph)
     default:
       return sellEvo;
   }
+}
+
+std::vector<std::pair<int, int>> ItemDAO::getFactory()
+{
+  return factoryLevel_upgrade;
 }
 
 double ItemDAO::getBank()

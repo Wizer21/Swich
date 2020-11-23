@@ -372,6 +372,7 @@ void Swich::applyTableChanged()
   widgetSell->applyNewDBOnTable(cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
 
   widgetAnalytics->newTableUsed();
+  widgetProduction->loadDB();
 
   bankDisplayed = ItemDAO::getInstance()->getBank();
   sold->setText(QString::number(round(bankDisplayed)));
@@ -381,6 +382,7 @@ void Swich::buttonSaveToDatabase()
 {
   ItemDAO::getInstance()->pushBank(bankDisplayed);
   widgetAnalytics->callSave();
+  widgetProduction->saveToDB();
   ItemDAO::getInstance()->pushListsToDAO(mainItemList, cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
   ItemDAO::getInstance()->saveToDatabase();
 }
@@ -416,7 +418,7 @@ void Swich::setTheme()
   }
 
   bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
-  more->setStyleSheet(" QMenu::item::selected{color:" + backgroundColor + ";}");
+  more->setStyleSheet("QMenu::item::selected{color:" + backgroundColor + ";}");
 }
 
 void Swich::applyNewCommercial(DragEmployee* getActualEmployee)
