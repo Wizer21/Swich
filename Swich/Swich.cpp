@@ -47,6 +47,7 @@ void Swich::ini(QGridLayout* layout)
   containCorner->addWidget(actualDb);
   containCorner->addWidget(saveButton);
 
+  containCorner->setAlignment(Qt::AlignRight);
   containCorner->setContentsMargins(0, 0, 0, 0);
   cornerWidget->setObjectName("corner");
 

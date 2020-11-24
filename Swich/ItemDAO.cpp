@@ -230,8 +230,7 @@ void ItemDAO::saveToDatabase()
     }
 
     //Bank
-    queryDB.exec(QString("UPDATE %1 SET banque_data = NULL;").arg(currentTable + "$bank$"));
-    queryDB.exec(QString("INSERT INTO %1 (banque_data) VALUE ('%2');").arg(currentTable + "$bank$").arg(bank));
+    queryDB.exec(QString("UPDATE %1 SET banque_data = %2;").arg(currentTable + "$bank$").arg(bank));
 
     //Factory
     queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$factory$"));

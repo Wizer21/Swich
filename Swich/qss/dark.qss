@@ -163,7 +163,6 @@ QWidget#corner{
 }
 QWidget#corner QLabel{  
   background-color: transparent;
-  font-size: 14px;
   padding-left: 0px;
   padding-right: 0px;
   padding-top: 3px;
