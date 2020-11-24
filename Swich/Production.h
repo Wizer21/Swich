@@ -35,7 +35,7 @@ private:
   std::vector<std::pair<int, int>> factoryLevel_upgrade;
 
   void setProduction();
-  QWidget* newFactoryWidget(QString getName);
+  QWidget* newFactoryWidget(QString getName, int idList);
   void updateWidgets();
 
   QLabel* displayProduction;

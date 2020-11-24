@@ -2,7 +2,7 @@
 
 Factory::Factory()
 {
-  level = 1;
+  level = 0;
   dailyProduction = 1;
   productionCost = 0;
   randProd = 1;

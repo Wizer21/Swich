@@ -42,9 +42,15 @@ void NewTable::ini(QGridLayout* layout)
 void NewTable::validatePressed()
 {
   QString containNewName = containName->text();
+  QRegExp checkIfFullDigit("\\d*");
   if (containNewName == "")
   {
     errorMessage->setText(tr("Table name is empty."));
+    return;
+  }
+  if (checkIfFullDigit.exactMatch(containNewName))
+  {
+    errorMessage->setText(tr("Need at least one character."));
     return;
   }
   else

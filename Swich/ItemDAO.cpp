@@ -16,10 +16,10 @@ ItemDAO* ItemDAO::instance = 0;
 void ItemDAO::iniDB()
 {
   db = QSqlDatabase::addDatabase("QMYSQL");
-  db.setHostName("localhost");
-  db.setDatabaseName("swichdb");
-  db.setUserName("Wizer");
-  db.setPassword("useraccount");
+  db.setHostName("82.165.206.74");
+  db.setDatabaseName("swich_database");
+  db.setUserName("swich_user");
+  db.setPassword("dev-pwd");
 
   if (!isDatableOnline() || getTablesList().size() == 0)
   {
@@ -131,7 +131,7 @@ void ItemDAO::loadDBToLists(QString tableName)
     factoryLevel_upgrade.clear();
     while (queryDB.next())
     {
-      factoryLevel_upgrade.push_back({queryDB.value(columnFactoryLevel).toInt(), queryDB.value(columnFactoryLevel).toInt()});
+      factoryLevel_upgrade.push_back({queryDB.value(columnFactoryLevel).toInt(), queryDB.value(columnUpgrade).toInt()});
     }
 
     // LOAD EMPLOYE
@@ -164,32 +164,31 @@ QStringList ItemDAO::getTablesList()
     int sizeList = (int)tableList.size();
     for (int i = 0; i < sizeList; i++)
     {
-      if (tableList.at(i).right(7) == "$graph$")
+      if (tableList.at(i).endsWith("$graph$"))
       {
         tableList.erase(tableList.begin() + i);
         i--;
         sizeList--;
       }
-      if (tableList.at(i).right(6) == "$bank$")
+      else if (tableList.at(i).endsWith("$bank$"))
       {
         tableList.erase(tableList.begin() + i);
         i--;
         sizeList--;
       }
-      if (tableList.at(i).right(9) == "$factory$")
+      else if (tableList.at(i).endsWith("$factory$"))
       {
         tableList.erase(tableList.begin() + i);
         i--;
         sizeList--;
       }
-      if (tableList.at(i).right(10) == "$emplyoye$")
+      else if (tableList.at(i).endsWith("$employe$"))
       {
         tableList.erase(tableList.begin() + i);
         i--;
         sizeList--;
       }
     }
-
     db.close();
     return tableList;
   }
@@ -301,13 +300,13 @@ void ItemDAO::setNewTable(QString name, QString password)
                        "password_table TEXT, "
                        "id_item INT UNSIGNED AUTO_INCREMENT, "
                        "name_item TEXT, "
-                       "stock_item DOUBLE(10, 3) NOT NULL, "
+                       "stock_item DOUBLE(10, 3) DEFAULT '0', "
                        "buyp_item DOUBLE(10, 3), "
                        "sellp_item DOUBLE(10, 3), "
 
-                       "stock_city1 DOUBLE(10, 3) NOT NULL, "
-                       "stock_city2 DOUBLE(10, 3) NOT NULL, "
-                       "stock_city3 DOUBLE(10, 3) NOT NULL, "
+                       "stock_city1 DOUBLE(10, 3) DEFAULT '0', "
+                       "stock_city2 DOUBLE(10, 3) DEFAULT '0', "
+                       "stock_city3 DOUBLE(10, 3) DEFAULT '0', "
                        "PRIMARY KEY(id_item) "
                        ");")
                  .arg(name));
@@ -321,7 +320,7 @@ void ItemDAO::setNewTable(QString name, QString password)
                  .arg(name + "$graph$"));
 
   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
-                       "banque_data DOUBLE(10, 3) NOT NULL "
+                       "banque_data DOUBLE(10, 3) DEFAULT '5432' "
                        ");")
                  .arg(name + "$bank$"));
 
@@ -332,15 +331,21 @@ void ItemDAO::setNewTable(QString name, QString password)
                  .arg(name + "$factory$"));
 
   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
-                       "name_employe INT NOT NULL, "
+                       "name_employe TEXT NOT NULL, "
                        "salary_employe INT NOT NULL, "
                        "level_employe INT NOT NULL "
                        ");")
-                 .arg(name + "$emplyoye$"));
+                 .arg(name + "$employe$"));
 
   queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES('%2');").arg(name).arg(password));
 
-  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL,'chaussette','8','16');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','8','16');").arg(name));
+
+  queryDB.exec(QString("INSERT INTO %1 VALUES('5432');").arg(name + "$bank$"));
+
+  queryDB.exec(QString("INSERT INTO %1 VALUES('1', '750');").arg(name + "$factory$"));
+  queryDB.exec(QString("INSERT INTO %1 VALUES('0', '670');").arg(name + "$factory$"));
+  queryDB.exec(QString("INSERT INTO %1 VALUES('0', '780');").arg(name + "$factory$"));
 
   lockedList.insert({name, false});
   db.close();
@@ -352,12 +357,14 @@ void ItemDAO::deleteTable(QString tableName)
   QSqlQuery queryDB(db);
   queryDB.exec(QString("DROP TABLE %1").arg(tableName));
   queryDB.exec(QString("DROP TABLE %1").arg(tableName + "$graph$"));
+  queryDB.exec(QString("DROP TABLE %1").arg(tableName + "$bank$"));
+  queryDB.exec(QString("DROP TABLE %1").arg(tableName + "$factory$"));
+  queryDB.exec(QString("DROP TABLE %1").arg(tableName + "$employe$"));
   db.close();
 }
 
 std::vector<Item>* ItemDAO::getItemList()
 {
-  loadDBToLists(currentTable);
   return mainItem_List;
 }
 

@@ -29,7 +29,7 @@ void Production::setProduction()
   layoutProduction->addWidget(investedProduction, 1, 0);
   layoutProduction->addWidget(testInvested, 1, 1);
 
-  layoutProduction->addWidget(newFactoryWidget("Paris"), 2, 0, 1, 3);
+  layoutProduction->addWidget(newFactoryWidget("Paris", 0), 2, 0, 1, 3);
   hidedWidget.at(0)->setVisible(true);
   layoutProduction->addWidget(lockedFactory1, 3, 0, 1, 3);
   layoutProduction->addWidget(lockedFactory2, 4, 0, 1, 3);
@@ -64,8 +64,11 @@ void Production::setProduction()
   listFactory.push_back(fact1);
   listFactory.push_back(fact2);
   listFactory.push_back(fact3);
-  layoutProduction->addWidget(newFactoryWidget("Tokyo"), 3, 0, 1, 3);
-  layoutProduction->addWidget(newFactoryWidget("London"), 4, 0, 1, 3);
+
+  fact1.setLevel(1);
+
+  layoutProduction->addWidget(newFactoryWidget("Tokyo", 1), 3, 0, 1, 3);
+  layoutProduction->addWidget(newFactoryWidget("London", 2), 4, 0, 1, 3);
   updateWidgets();
 
   lockedFactory1->setCursor(Qt::PointingHandCursor);
@@ -73,7 +76,7 @@ void Production::setProduction()
   displayProduction->setObjectName("lastProduction");
 }
 
-QWidget* Production::newFactoryWidget(QString getName)
+QWidget* Production::newFactoryWidget(QString getName, int idList)
 {
   QWidget* widgetFactory = new QWidget(this);
   QGridLayout* layoutWidget = new QGridLayout(this);
@@ -116,12 +119,14 @@ QWidget* Production::newFactoryWidget(QString getName)
   hidedWidget.push_back(widgetFactory);
   listLvl_Upgrade.push_back({textLvl, upgrade});
 
-  connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
-  return widgetFactory;
-
   upgrade->setIconSize(QSize(50, 50));
   upgrade->setCursor(Qt::PointingHandCursor);
   upgrade->setToolTip(tr("Upgrade this factory"));
+
+  upgrade->setObjectName(QString::number(idList));
+
+  connect(upgrade, SIGNAL(clicked()), this, SLOT(upgradeFactory()));
+  return widgetFactory;
 }
 
 void Production::updateWidgets()
@@ -188,6 +193,7 @@ void Production::validateNewFactory(int id)
     SingleData::getInstance()->deleteButtonOnAdress(lockedFactory1);
     lockedFactory1->setVisible(false);
     hidedWidget.at(1)->setVisible(true);
+    listFactory.at(1).setLevel(1);
     updateWidgets();
   }
   if (id == 1)
@@ -195,13 +201,14 @@ void Production::validateNewFactory(int id)
     SingleData::getInstance()->deleteButtonOnAdress(lockedFactory2);
     lockedFactory2->setVisible(false);
     hidedWidget.at(2)->setVisible(true);
+    listFactory.at(2).setLevel(1);
     updateWidgets();
   }
 }
 
 void Production::loadDB()
 {
-  std::vector<std::pair<int, int>> factoryLevel_upgrade = ItemDAO::getInstance()->getFactory();
+  factoryLevel_upgrade = ItemDAO::getInstance()->getFactory();
 
   int sizeList = (int)factoryLevel_upgrade.size();
   for (int i = 0; i < sizeList; i++)
@@ -210,14 +217,25 @@ void Production::loadDB()
     listFactory.at(i).setUpgrade(factoryLevel_upgrade.at(i).second);
     levelList.at(i)->setText(QString::number(factoryLevel_upgrade.at(i).first));
     upgradeList.at(i)->setText(QString::number(factoryLevel_upgrade.at(i).second));
-  }
-  if (factoryLevel_upgrade.at(1).first != 1)
-  {
-    lockedFactory1->setVisible(false);
-  }
-  if (factoryLevel_upgrade.at(2).first != 1)
-  {
-    lockedFactory2->setVisible(false);
+
+    if (factoryLevel_upgrade.at(1).first != 0)
+    {
+      lockedFactory1->setVisible(false);
+      hidedWidget.at(1)->setVisible(true);
+    }
+    else
+    {
+      lockedFactory1->setVisible(true);
+    }
+    if (factoryLevel_upgrade.at(2).first != 0)
+    {
+      lockedFactory2->setVisible(false);
+      hidedWidget.at(2)->setVisible(true);
+    }
+    else
+    {
+      lockedFactory2->setVisible(true);
+    }
   }
 }
 
