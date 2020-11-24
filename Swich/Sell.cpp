@@ -231,7 +231,7 @@ void Sell::cancelSell()
 
   setTabCity(tableWidget, getCityList->at(tabWidget->currentIndex()).getList());
 
-  int toDeleteSize = widgetToDelete.size();
+  int toDeleteSize = (int)widgetToDelete.size();
   for (int i = 0; i < toDeleteSize; i++)
   {
     if (widgetToDelete.at(i) == getWidget)

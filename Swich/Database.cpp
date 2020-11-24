@@ -109,7 +109,6 @@ void Database::createTableWidgets(QString tableName)
 
   displayTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   displayTable->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
-  displayTable->hideRow(0);
   displayTable->show();
 
   widgetList.insert({tableName, mainTableWidget});
@@ -272,7 +271,6 @@ void Database::deleteNewItem()
     {
       ItemDAO::getInstance()->deleteItemToTable(tableName, selectedItemList.at(i));
     }
-    QTableView* view = this->findChild<QTableView*>(tableName);
     view->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
     view->setSelectionBehavior(QAbstractItemView::SelectRows);
   }

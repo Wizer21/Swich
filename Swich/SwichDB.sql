@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS SWICHITEM$factory$;
 DROP TABLE IF EXISTS SWICHITEM$employe$;
 
 CREATE TABLE IF NOT EXISTS SWICHITEM(
-    password_table TEXT,
     id_item INT UNSIGNED AUTO_INCREMENT,
     name_item TEXT,
     stock_item DOUBLE(10,3) DEFAULT '0',
@@ -30,6 +29,7 @@ CREATE TABLE IF NOT EXISTS SWICHITEM$graph$(
 );
 
 CREATE TABLE IF NOT EXISTS SWICHITEM$bank$(
+    password_table TEXT,
     banque_data DOUBLE(10,3) NOT NULL
 );
 
@@ -44,10 +44,10 @@ CREATE TABLE IF NOT EXISTS SWICHITEM$employe$(
     level_employe INT NOT NULL
 );
 
-INSERT INTO SWICHITEM (password_table) VALUES('');
 INSERT INTO SWICHITEM (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'mug','8','16');
 INSERT INTO SWICHITEM (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'forch','2','5');
 INSERT INTO SWICHITEM$graph$ VALUES('0','1203','153','135');
+INSERT INTO SWICHITEM$bank$ (banque_data) VALUE ('5430');
 INSERT INTO SWICHITEM$factory$ VALUES('1','750');
 INSERT INTO SWICHITEM$factory$ VALUES('0','670');
 INSERT INTO SWICHITEM$factory$ VALUES('0','780');

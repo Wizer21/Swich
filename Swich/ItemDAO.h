@@ -31,18 +31,17 @@ public:
   void pushFactory(std::vector<std::pair<int, int>>);
   void saveToDatabase();
 
-  QStringList getTablesList();
-  QString getCurrentTable();
   bool isLocked(QString tableName);
   void isUnlocked(QString tableName);
 
+  QStringList getTablesList();
+  QString getCurrentTable();
   QString getPassword(QString tableName);
   std::vector<Item>* getItemList();
   std::vector<Item>* getCityList(int numberCity);
   std::vector<double> getGraphData(int idGraph);
   std::vector<std::pair<int, int>> getFactory();
   double getBank();
-
   QSqlQueryModel* getQuerryModel(QString tableName);
 
   void setNewTable(QString name, QString password);

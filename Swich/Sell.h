@@ -35,7 +35,6 @@ private:
   void updateCityOnDrop(QString vol, int idItem);
   QTabWidget* tabWidget;
   Stock* getStock;
-  QWidget* widArea;
   QVBoxLayout* layoutArea;
 
   std::map<int, QSlider*> sliderList;

@@ -6,13 +6,13 @@ namespace StructSettings
   struct Settings
   {
   public:
-    int langue = 0;
-    int theme = 0;
+    int langue = 1;
+    int theme = 1;
 
-    QString font_family = "";
-    QString font_style = "";
-    int font_size = 0;
-    int font_weight = 0;
+    QString font_family = "Arial Black";
+    QString font_style = "Normal";
+    int font_size = 12;
+    int font_weight = 87;
     bool font_italic = false;
     bool font_underline = false;
     bool font_strike_out = false;
@@ -45,5 +45,4 @@ namespace StructSettings
         || this->font_strike_out != settingsToCompare.font_strike_out);
     }
   };
-
 };

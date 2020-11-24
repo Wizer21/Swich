@@ -230,8 +230,8 @@ void ItemDAO::saveToDatabase()
     }
 
     //Bank
-    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$bank$"));
-    queryDB.exec(QString("INSERT INTO %1 VALUE ('%2');").arg(currentTable + "$bank$").arg(bank));
+    queryDB.exec(QString("UPDATE %1 SET banque_data = NULL;").arg(currentTable + "$bank$"));
+    queryDB.exec(QString("INSERT INTO %1 (banque_data) VALUE ('%2');").arg(currentTable + "$bank$").arg(bank));
 
     //Factory
     queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$factory$"));
@@ -297,7 +297,6 @@ void ItemDAO::setNewTable(QString name, QString password)
   db.open();
   QSqlQuery queryDB(db);
   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
-                       "password_table TEXT, "
                        "id_item INT UNSIGNED AUTO_INCREMENT, "
                        "name_item TEXT, "
                        "stock_item DOUBLE(10, 3) DEFAULT '0', "
@@ -320,7 +319,8 @@ void ItemDAO::setNewTable(QString name, QString password)
                  .arg(name + "$graph$"));
 
   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
-                       "banque_data DOUBLE(10, 3) DEFAULT '5432' "
+                       "password_table TEXT, "
+                       "banque_data DOUBLE(10, 3) "
                        ");")
                  .arg(name + "$bank$"));
 
@@ -337,11 +337,9 @@ void ItemDAO::setNewTable(QString name, QString password)
                        ");")
                  .arg(name + "$employe$"));
 
-  queryDB.exec(QString("INSERT INTO %1 (password_table) VALUES('%2');").arg(name).arg(password));
-
   queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','8','16');").arg(name));
 
-  queryDB.exec(QString("INSERT INTO %1 VALUES('5432');").arg(name + "$bank$"));
+  queryDB.exec(QString("INSERT INTO %1 VALUES('%2','5432');").arg(name + "$bank$").arg(password));
 
   queryDB.exec(QString("INSERT INTO %1 VALUES('1', '750');").arg(name + "$factory$"));
   queryDB.exec(QString("INSERT INTO %1 VALUES('0', '670');").arg(name + "$factory$"));
@@ -426,7 +424,7 @@ void ItemDAO::loadPassword()
 
   for (int i = 0; i < tableSize; i++)
   {
-    queryDB.exec(QString("SELECT * FROM %1;").arg(listTable.at(i)));
+    queryDB.exec(QString("SELECT * FROM %1;").arg(listTable.at(i) + "$bank$"));
 
     rec = queryDB.record();
     int columnID = rec.indexOf("password_table");

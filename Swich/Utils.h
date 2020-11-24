@@ -18,6 +18,7 @@ public:
   static void applyNewTheme(int index);
   static void applyNewLanguage(int index);
   static void applyNewFont(StructSettings::Settings getStruct);
+  static void checkSettingsFileExistence();
 
 private:
   Utils();

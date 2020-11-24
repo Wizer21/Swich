@@ -6,6 +6,7 @@ Utils::Utils()
 
 StructSettings::Settings Utils::loadSettingsFromFile()
 {
+  checkSettingsFileExistence();
   QFile lSettingsFile(QCoreApplication::applicationDirPath() + QDir::separator() + "config.json");
   lSettingsFile.open(QIODevice::ReadOnly | QIODevice::Text);
   QString lSettingsData = lSettingsFile.readAll();
@@ -157,6 +158,17 @@ void Utils::applyNewFont(StructSettings::Settings getStruct)
   SingleData::getInstance()->setFontOnLabels(newWonft);
 }
 
+void Utils::checkSettingsFileExistence()
+{
+  auto lSettingsFilePath{QCoreApplication::applicationDirPath() + QDir::separator() + "config.json"};
+  if (!QFile(lSettingsFilePath).exists())
+  {
+    StructSettings::Settings lSettings;
+    Utils::saveSettingsToJsonFile(lSettings);
+  }
+}
+
+// RAND --
 int Utils::randZeroToVal(const int& val)
 {
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();

@@ -117,7 +117,7 @@ void Stock::updateStock()
   tab->setSortingEnabled(false);
   tab->sortItems(1, Qt::AscendingOrder);
 
-  int sizeList = getItemList->size();
+  int sizeList = (int)getItemList->size();
   for (int i = 0; i < sizeList; i++)
   {
     QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(getItemList->at(i).getRoundedStock()));
