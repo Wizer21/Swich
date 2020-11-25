@@ -160,7 +160,7 @@ QString Ad::getSalary_Production(int addDays)
   }
   for (int i = 0; i < lvls; i++)
   {
-    efficiency += 0.1 + Utils::randOnlyPositivePercentage(15);
+    efficiency += 0.2 + Utils::randOnlyPositivePercentage(25);
   }
   for (int i = 0; i < employeList.size(); i++)
   {
@@ -328,7 +328,7 @@ void Ad::setNewTableLoaded()
   qDeleteAll(commercialCurrent.begin(), commercialCurrent.end());
   employeList.clear();
   commercialCurrent.clear();
-  
+
   std::vector<DragEmployee*> temporaryList = ItemDAO::getInstance()->getEmployeList();
   int pos = 0;
   int sizeList = (int)temporaryList.size();

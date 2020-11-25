@@ -40,7 +40,7 @@ private:
   std::map<int, QSlider*> sliderList;
   std::vector<QTableWidget*> tableList;
   std::vector<Item>* getList;
-  std::list<Dragwidget*> widgetFromItemList;
+  std::list<QWidget*> widgetFromItemList;
   std::vector<City>* getCityList;
   std::vector<QWidget*> widgetToDelete;
 };

@@ -48,6 +48,8 @@ void Sell::setList()
   int sizeList = (int)getList->size();
   for (int i = 0; i < sizeList; i++)
   {
+    QWidget* containslider = new QWidget(this);
+    QVBoxLayout* layoutslider = new QVBoxLayout(this);
     Dragwidget* widgetContainer = new Dragwidget(this, getList->at(i).getNom(), 0, getList->at(i).getId());
     QGridLayout* layoutGrid = new QGridLayout(this);
     QLabel* titre = new QLabel(getList->at(i).getNom(), this);
@@ -60,17 +62,20 @@ void Sell::setList()
     slider->setMaximum(getList->at(i).getRoundedStock());
     sliderList.insert({getList->at(i).getId(), slider});
 
-    layoutArea->addWidget(widgetContainer);
+    layoutArea->addWidget(containslider);
+    containslider->setLayout(layoutslider);
+    layoutslider->addWidget(widgetContainer);
+    layoutslider->addWidget(slider);
+
     widgetContainer->setLayout(layoutGrid);
     layoutGrid->addWidget(titre, 0, 0);
     layoutGrid->addWidget(stock, 0, 1);
-    layoutGrid->addWidget(slider, 1, 0, 1, 2);
 
     slider->setPageStep(1);
     stock->setAcceptDrops(false);
     stock->setDisabled(true);
 
-    widgetFromItemList.push_back(widgetContainer);
+    widgetFromItemList.push_back(containslider);
     connect(slider, SIGNAL(valueChanged(int)), this, SLOT(dynamicStockSender(int)));
   }
 }

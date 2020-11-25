@@ -1,6 +1,7 @@
 #pragma once
 #include <QDialog>
 #include "stdafx.h"
+#include "Utils.h"
 
 class CreateNewItem : public QDialog
 {

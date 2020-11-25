@@ -3,7 +3,7 @@
 Factory::Factory()
 {
   level = 0;
-  dailyProduction = 1;
+  dailyProduction = 0;
   productionCost = 0;
   randProd = 1;
   nextUpgrade = 500 + Utils::randZeroToVal(500);
@@ -22,11 +22,11 @@ void Factory::expodentialProduction(int days)
   productionCost = 100;
   for (int i = 0; i < level; i++)
   {
-    dailyProduction *= 1.3;
-    productionCost *= 1.2;
+    dailyProduction *= 1.2;
+    productionCost *= 1.1;
   }
   dailyProduction *= randProd;
-  dailyProduction *= days;
+  dailyProduction *= (days / 2);
 }
 
 void Factory::calculEvolution()

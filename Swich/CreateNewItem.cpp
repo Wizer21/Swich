@@ -46,12 +46,12 @@ void CreateNewItem::ini(QGridLayout* layout)
 
 void CreateNewItem::updateFromBuyP(QString value)
 {
-  containSellP->setText(QString::number(round(value.toInt() * 1.67)));
+  containSellP->setText(QString::number(round(value.toInt() * 1.97)));
 }
 
 void CreateNewItem::updateFromSellP(QString value)
 {
-  containBuyp->setText(QString::number(round(value.toInt() / 1.67)));
+  containBuyp->setText(QString::number(round(value.toInt() / 1.97)));
 }
 
 void CreateNewItem::validateButton()
@@ -60,7 +60,8 @@ void CreateNewItem::validateButton()
   {
     return;
   }
-  emit transfertNewItem(tableToAdd, containName->text(), containBuyp->text().toInt(), containSellP->text().toInt());
+
+  emit transfertNewItem(tableToAdd, containName->text(), containBuyp->text().toInt(), containSellP->text().toInt() * Utils::randOnlyPositivePercentage(50));
   this->close();
 }
 

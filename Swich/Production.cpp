@@ -147,6 +147,10 @@ QString Production::newMonthProd(int days)
   double totalCost = 0;
   for (int i = 0; i < listFactory.size(); i++)
   {
+    if (listFactory.at(i).getLevel() == 0)
+    {
+      break;
+    }
     listFactory.at(i).newMonthFactory(days);
     totalProduction += listFactory.at(i).getProduction();
     totalCost += listFactory.at(i).getCost();

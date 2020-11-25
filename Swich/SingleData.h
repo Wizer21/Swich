@@ -22,6 +22,7 @@ public:
   void deleteButtonOnAdress(QPushButton* button);
   QPixmap getPixMapOnActualTheme(QString key);
   void setIndexActualTheme(int indexTheme);
+  int getThemeActuel();
 
 private:
   int themeActuel;

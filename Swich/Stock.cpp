@@ -12,9 +12,9 @@ void Stock::setStock()
 
   QVBoxLayout* layoutStock = new QVBoxLayout(this);
 
-  tab = new QTableWidget(sizeList, 7, this);
+  tab = new QTableWidget(sizeList, 4, this);
   QStringList columnName;
-  columnName << tr("View") << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.") << tr("City's Stocks") << tr("Monthly Sells");
+  columnName << tr("Name") << tr("Stock") << tr("SellP.") << tr("BuyP.");
   tab->setHorizontalHeaderLabels(columnName);
 
   textDefault = new QLabel(tr("Commercial might be helpful."), this);
@@ -83,29 +83,29 @@ void Stock::setList()
   for (int i = 0; i < sizeInventory; i++)
   {
     y = 0;
-    QLabel* pixItem = new QLabel(this);
+    //QLabel* pixItem = new QLabel(this);
     QTableWidgetItem* nameItem = new QTableWidgetItem(getItemList->at(i).getNom());
     QTableWidgetItem* stockItem = new QTableWidgetItem(QString::number(getItemList->at(i).getRoundedStock()));
     QTableWidgetItem* buyPItem = new QTableWidgetItem(QString::number(getItemList->at(i).getBuyP()));
     QTableWidgetItem* sellPItem = new QTableWidgetItem(QString::number(getItemList->at(i).getSellP()));
-    QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(getItemList->at(i).getRoundedStock()));
+    //QTableWidgetItem* cityStockItem = new QTableWidgetItem(QString::number(getItemList->at(i).getRoundedStock()));
 
     nameItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     buyPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
     sellPItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
-    cityStockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
+    //cityStockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    QPixmap pix(getItemList->at(i).getPix());
-    pix = pix.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pixItem->setPixmap(pix);
+    //QPixmap pix(getItemList->at(i).getPix());
+    //pix = pix.scaled(25, 25, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    //pixItem->setPixmap(pix);
 
-    tab->setCellWidget(i, y++, pixItem);
+    //tab->setCellWidget(i, y++, pixItem);
     tab->setItem(i, y++, nameItem);
     tab->setItem(i, y++, stockItem);
     tab->setItem(i, y++, buyPItem);
     tab->setItem(i, y++, sellPItem);
-    tab->setItem(i, y++, cityStockItem);
+    //tab->setItem(i, y++, cityStockItem);
 
     commercialWidget->setStyleSheet("QWidget#widget {border: 3px solid #ffd740;}");
   }
@@ -127,9 +127,9 @@ void Stock::updateStock()
     tab->setItem(i, 2, stockItem);
   }
   tab->setSortingEnabled(true);
-  tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-  tab->horizontalHeader()->setStretchLastSection(true);
-  tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+  //tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+  //tab->horizontalHeader()->setStretchLastSection(true);
+  //tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 }
 
 void Stock::updateCommercialSlot(DragEmployee* getEmploye)

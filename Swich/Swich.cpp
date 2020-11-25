@@ -32,7 +32,7 @@ void Swich::ini(QGridLayout* layout)
   QWidget* cornerWidget = new QWidget(this);
   QHBoxLayout* containCorner = new QHBoxLayout(this);
   actualDb = new QLabel(ItemDAO::getInstance()->getCurrentTable(), this);
-  QPushButton* saveButton = new QPushButton(tr("Save"), this);
+  saveButton = new QPushButton(tr("Save"), this);
 
   this->setMenuBar(bar);
   bar->addMenu(more);
@@ -191,18 +191,6 @@ void Swich::setDefaultList()
   contactList.push_back(contact2);
 
   bankDisplayed = ItemDAO::getInstance()->getBank();
-
-  //std::vector<Item>* itemList = ItemDAO::getInstance()->getItemList();
-  //int sizeA = (int)cityList.size();
-  //int sizeB = (int)itemList->size();
-
-  //for (int a = 0; a < sizeA; a++)
-  //{
-  //  for (int i = 0; i < sizeB; i++)
-  //  {
-  //    cityList.at(a).addToList(itemList->at(i));
-  //  }
-  //}
 }
 
 void Swich::connectToMenu()
@@ -422,6 +410,7 @@ void Swich::setTheme()
 
   bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
   more->setStyleSheet("QMenu::item::selected{color:" + backgroundColor + ";}");
+  saveButton->setStyleSheet("QPushButton::pressed {color:" + backgroundColor + ";}");
 }
 
 void Swich::applyNewCommercial(DragEmployee* getActualEmployee)
@@ -445,11 +434,11 @@ void Swich::applyCommercialIsActivated(bool val)
 
 void Swich::commercialTransfertStock()
 {
-  double nbrItemToTransfert = 3;
+  double nbrItemToTransfert = 2 + Utils::randZeroToVal(2);
   int getLvl = getCommercial->getLvl();
   while (getLvl > 0)
   {
-    nbrItemToTransfert *= (1.2 + Utils::randOnlyPositivePercentage(50));
+    nbrItemToTransfert *= (1.2 + Utils::randOnlyPositivePercentage(100));
     getLvl--;
   }
 

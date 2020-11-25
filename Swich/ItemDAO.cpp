@@ -343,7 +343,7 @@ void ItemDAO::setNewTable(QString name, QString password)
                        ");")
                  .arg(name + "$employe$"));
 
-  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','8','16');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','80','160');").arg(name));
 
   queryDB.exec(QString("INSERT INTO %1 VALUES('%2','5432');").arg(name + "$bank$").arg(password));
 

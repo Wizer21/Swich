@@ -45,8 +45,8 @@ CREATE TABLE IF NOT EXISTS SWICH$employe$(
     commercial_employe INT NOT NULL
 );
 
-INSERT INTO SWICH (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'mug','8','16');
-INSERT INTO SWICH (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'forch','2','5');
+INSERT INTO SWICH (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'mug','80','160');
+INSERT INTO SWICH (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'forch','200','500');
 INSERT INTO SWICH$graph$ VALUES('0','1203','153','135');
 INSERT INTO SWICH$bank$ (banque_data) VALUE ('5430');
 INSERT INTO SWICH$factory$ VALUES('1','750');

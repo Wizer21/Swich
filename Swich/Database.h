@@ -6,6 +6,7 @@
 #include "NewTable.h"
 #include "CreateNewItem.h"
 #include "PassWord.h"
+#include "StructSettings.h"
 
 class Database : public QDialog
 {
@@ -37,6 +38,7 @@ private:
   void closeEvent(QCloseEvent* e) override;
   void updateLockIcon();
 
+  QLabel* errorMessage;
   QVBoxLayout* layoutInScrollArea;
   QStackedWidget* widgetStack;
   QLabel* runningTable;

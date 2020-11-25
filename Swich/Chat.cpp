@@ -50,6 +50,7 @@ void Chat::setContactList(QGridLayout* layout)
     //List
     QPushButton* pushContact = new QPushButton(getListContact->at(i).getName(), this);
     pushContact->setIcon(QIcon(getListContact->at(i).getPix()));
+    pushContact->setIconSize(QSize(25, 25));
 
     listLayout->addWidget(pushContact);
     pushContact->setObjectName(QString::number(i));

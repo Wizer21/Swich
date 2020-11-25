@@ -65,6 +65,7 @@ private:
   Ad* widgetAd;
   Stock* widgetStock;
   Chat* widgetChat;
+  QPushButton* saveButton;
 
   QMenuBar* bar;
   QMenu* more;

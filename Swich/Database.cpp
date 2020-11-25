@@ -9,17 +9,22 @@ Database::Database(QWidget* parent)
   QGridLayout* mainLayout = new QGridLayout(this);
   iniDB(mainLayout);
 
-  this->resize(700, 450);
+  this->resize(900, 450);
+  this->setObjectName("dialogData");
 }
 
 void Database::iniDB(QGridLayout* layout)
 {
+  QWidget* containTitle = new QWidget(this);
+  QHBoxLayout* layoutTitle = new QHBoxLayout(this);
+  QLabel* running = new QLabel(tr("Running on"), this);
   runningTable = new QLabel("nameTable", this);
 
   QWidget* containStatu = new QWidget(this);
   QHBoxLayout* layoutStatu = new QHBoxLayout(this);
   QLabel* dataOn_Off = new QLabel(this);
   QLabel* iconOn_Off = new QLabel(this);
+  errorMessage = new QLabel(this);
 
   QScrollArea* containTableList = new QScrollArea(this);
   QWidget* widgetScroll = new QWidget(this);
@@ -28,17 +33,22 @@ void Database::iniDB(QGridLayout* layout)
   widgetStack = new QStackedWidget(this);
   QPushButton* addTable = new QPushButton(tr("NewTable"));
 
-  layout->addWidget(runningTable, 0, 0, 1, 2);
-  layout->addWidget(containStatu, 0, 3, Qt::AlignRight);
+  layout->addWidget(containTitle, 0, 0, 1, 2);
+  containTitle->setLayout(layoutTitle);
+  layoutTitle->addWidget(running);
+  layoutTitle->addWidget(runningTable);
+  layout->addWidget(containStatu, 0, 3);
   containStatu->setLayout(layoutStatu);
+  layout->addWidget(errorMessage, 0, 2);
   layoutStatu->addWidget(dataOn_Off);
   layoutStatu->addWidget(iconOn_Off);
-  layout->addWidget(containTableList, 1, 0);
+  layout->addWidget(containTableList, 1, 0, 1, 1);
   containTableList->setWidget(widgetScroll);
   widgetScroll->setLayout(layoutInScrollArea);
-  layout->addWidget(addTable, 2, 0);
+  layout->addWidget(addTable, 2, 0, 1, 1);
   layout->addWidget(widgetStack, 1, 1, 2, 3);
 
+  layoutTitle->setAlignment(Qt::AlignLeft);
   layoutStatu->setAlignment(Qt::AlignRight);
   layoutInScrollArea->setAlignment(Qt::AlignTop);
   containTableList->setFixedWidth(this->width() * 2);
@@ -63,6 +73,14 @@ void Database::iniDB(QGridLayout* layout)
   {
     addTableToList(tableList.at(i));
   }
+
+  QFont font = qApp->font();
+  font.setPixelSize(25);
+  runningTable->setFont(font);
+  dataOn_Off->setFont(font);
+  widgetStack->setObjectName("stackTable");
+  addTable->setObjectName("addtable");
+  errorMessage->setContentsMargins(0, 0, 500, 0);
 };
 
 void Database::addTableToList(QString tableName)
@@ -86,10 +104,10 @@ void Database::createTableWidgets(QString tableName)
   QWidget* mainTableWidget = new QWidget(this);
   QGridLayout* mainLayoutTable = new QGridLayout(this);
   QLabel* displayTableName = new QLabel(tableName, this);
-  QPushButton* loadDB = new QPushButton("load", this);
-  QPushButton* deleteDB = new QPushButton("deleteDB", this);
-  QPushButton* addItem = new QPushButton("addItem", this);
-  QPushButton* deleteItem = new QPushButton("deleteItem", this);
+  QPushButton* loadDB = new QPushButton(tr("Load"), this);
+  QPushButton* deleteDB = new QPushButton(tr("Delete"), this);
+  QPushButton* addItem = new QPushButton(tr("Add Item"), this);
+  QPushButton* deleteItem = new QPushButton(tr("Delete Item"), this);
   QTableView* displayTable = new QTableView(this);
 
   widgetStack->addWidget(mainTableWidget);
@@ -144,6 +162,13 @@ void Database::passwordValidated(QString tableName)
 void Database::loadNewTable()
 {
   QString newTableName = sender()->objectName();
+  if (newTableName == ItemDAO::getInstance()->getCurrentTable())
+  {
+    errorMessage->setText(tr("Table already loaded"));
+    return;
+  }
+  errorMessage->setText("");
+
   ItemDAO::getInstance()->loadDBToLists(newTableName);
   runningTable->setText(newTableName);
   emit tableChanged();
@@ -154,6 +179,7 @@ void Database::createNewTable()
   NewTable* table = new NewTable(this);
   connect(table, SIGNAL(transfertNewTable(QString, QString)), this, SLOT(connectNewTable(QString, QString)));
   table->exec();
+  errorMessage->setText("");
 }
 
 void Database::connectNewTable(QString name, QString password)
@@ -226,6 +252,8 @@ void Database::createItem()
   CreateNewItem* newItem = new CreateNewItem(this, sender()->objectName());
   connect(newItem, SIGNAL(transfertNewItem(QString, QString, int, int)), this, SLOT(applyNewItem(QString, QString, int, int)));
   newItem->exec();
+
+  errorMessage->setText("");
 }
 
 void Database::applyNewItem(QString table, QString name, int buyP, int sellP)
@@ -245,9 +273,10 @@ void Database::deleteNewItem()
 
   if (indexesSelected.size() == 0)
   {
+    errorMessage->setText(tr("No item selected"));
     return;
   }
-
+  errorMessage->setText("");
   QStringList selectedItemList;
   for (int i = 0; i < indexesSelected.count(); i++)
   {

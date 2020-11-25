@@ -155,6 +155,73 @@ QPushButton#index6::pressed {
   padding: 5px;
   border: 0px solid transparent;
 }
+/* ----------------------- */
+/* ------ DataBase ------- */
+/* ----------------------- */
+
+QDialog#dialogData QPushButton {
+  background-color: #262626;
+  color: #64ffda;
+  padding: 5px;
+  border: 2px solid transparent;
+  border-right: 2px solid #64ffda;
+  border-bottom: 2px solid #64ffda;
+  font-size: 18px;
+}
+QDialog#dialogData QPushButton::hover {
+  border: 0px solid transparent;
+  border-right: 0px solid #64ffda;
+  border-bottom: 0px solid #64ffda; 
+}
+QDialog#dialogData QPushButton::pressed {
+  background-color: #64ffda;
+  color: #64ffda;
+  padding: 5px;
+  border: 0px solid transparent;
+}
+QDialog QPushButton#addtable {
+  background-color: #262626;
+  color: #64ffda;
+  padding: 5px;
+  border: 2px solid transparent;
+  border-right: 2px solid #64ffda;
+  border-bottom: 2px solid #64ffda;
+  font-size: 18px;
+}
+QDialog QPushButton::hover#addtable {
+  border: 0px solid transparent;
+  border-right: 0px solid #64ffda;
+  border-bottom: 0px solid #64ffda; 
+}
+QDialog QPushButton::pressed#addtable {
+  background-color: #64ffda;
+  color: #262626;
+  padding: 5px;
+  border: 0px solid transparent;
+}
+
+QStackedWidget#stackTable QPushButton {
+  background-color: #262626;
+  color: #64ffda;
+  padding: 5px;
+  border: 2px solid transparent;
+  border-right: 2px solid #64ffda;
+  border-bottom: 2px solid #64ffda;
+  font-size: 18px;
+}
+QStackedWidget#stackTable QPushButton::hover {
+  border: 0px solid transparent;
+  border-right: 0px solid #64ffda;
+  border-bottom: 0px solid #64ffda; 
+}
+QStackedWidget#stackTable QPushButton::pressed {
+  background-color: #64ffda;
+  color: #262626;
+  padding: 5px;
+  border: 0px solid transparent;
+}
+
+
 /* ------------------------------ */
 /* ------------ Corner widget --- */
 /* ------------------------------ */
@@ -248,20 +315,12 @@ QComboBox:drop-down {
 }
 QComboBox QAbstractItemView {
   color: white;
-  background-color: #1a191d;
+  background-color: #262626;
   border: 0px solid white;
+  border-left: 5px solid #262626;
+  border-bottom: 5px solid #262626;
 }
-QComboBox#comboLangue QAbstractItemView::item {
-  min-height: 25px;
-  color: green;
-}
-/* QComboBox#comboLangue QAbstractItemView::item::selected {
-  background-color: #64ffda;
-  color: green;
-}
-QComboBox#comboTheme QAbstractItemView::item::selected {
-  background-color: #ffd740;
-} */
+
 QDialog QPushButton#fontButton {
   background-color: #262626;
   color: #b2ff59;
@@ -319,8 +378,8 @@ QDialog QTableView::item:selected {
 /***********************/
 QScrollBar {
   margin: 0px;
-  margin-top: 1px;
-  margin-bottom: 1px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   padding: 0px;
   border: 0px solid transparent;
   background-color: #1c1c1c;
@@ -482,18 +541,24 @@ QWidget#sell QTableWidget::item:selected {
   background: #536dfe;
 }
 QWidget#sell QSlider::handle {
-  top: 9px;
-  bottom: 9px;
-  width: 5px;
+    width: 10px;
   background: #ffd740;
 }
 QWidget#sell QSlider::groove {
-  background: white;
-  top: 12px;
-  bottom: 12px;
+  background: transparent;
+  height: 22px;
 }
 QWidget#sell QSlider::sub-page {
   background: #ffd740;
+  margin: 8px;
+    margin-left: -10px;
+    margin-right: -3px;
+}
+QWidget#sell QSlider::add-page {
+  background: #262626;
+  margin: 8px;
+    margin-left: -5px;
+    margin-right: -3px;
 }
 QWidget#sell QScrollArea {
   border: 0px solid white;

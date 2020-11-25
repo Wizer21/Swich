@@ -138,6 +138,11 @@ QPixmap SingleData::getPixMapOnActualTheme(QString key)
   return getPixmap(key + subKey);
 }
 
+int SingleData::getThemeActuel()
+{
+  return themeActuel;
+}
+
 void SingleData::setIndexActualTheme(int indexTheme)
 {
   themeActuel = indexTheme;
