@@ -7,6 +7,7 @@ Ad::Ad()
   idEmploye = 0;
   day = 0;
   setAd();
+  setNewTableLoaded();
 }
 
 void Ad::setAd()
@@ -323,13 +324,11 @@ void Ad::teamPushToDB()
 
 void Ad::setNewTableLoaded()
 {
-  DragEmployee* getNew = this->findChild<DragEmployee*>("new");
-  delete getNew;
-  getNew = nullptr;
-
   qDeleteAll(employeList.begin(), employeList.end());
   qDeleteAll(commercialCurrent.begin(), commercialCurrent.end());
-
+  employeList.clear();
+  commercialCurrent.clear();
+  
   std::vector<DragEmployee*> temporaryList = ItemDAO::getInstance()->getEmployeList();
   int pos = 0;
   int sizeList = (int)temporaryList.size();
@@ -338,8 +337,10 @@ void Ad::setNewTableLoaded()
   {
     if (temporaryList.at(i)->getIsCommercial())
     {
-      temporaryList.at(i)->setObjectName("new");
-      commercialChanged(temporaryList.at(i)->getId(), -1);
+      layoutcommercial->addWidget(temporaryList.at(i));
+      temporaryList.at(i)->setId(idEmploye++);
+      temporaryList.at(i)->setTrashable(true);
+      temporaryList.at(i)->setObjectName("z");
 
       commercialCurrent.push_back(temporaryList.at(i));
     }
@@ -355,5 +356,4 @@ void Ad::setNewTableLoaded()
       employeList.push_back(temporaryList.at(i));
     }
   }
-  callNewEmploye();
 }

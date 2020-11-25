@@ -20,7 +20,7 @@ DragEmployee::DragEmployee(QString newName, int newSalary, int newLevel, bool ne
 {
   level = newLevel;
   name = newName;
-  note = -1;
+  note = calculNote(level);
   salary = newSalary;
   isCommercial = newIsCommercial;
   id = -1;
@@ -29,7 +29,6 @@ DragEmployee::DragEmployee(QString newName, int newSalary, int newLevel, bool ne
 
   ini(SingleData::getInstance()->getPixmap(newName));
   setBackgroundColor();
-  calculNote(level);
 }
 
 void DragEmployee::ini(const QPixmap pix)

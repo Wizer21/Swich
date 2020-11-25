@@ -135,7 +135,7 @@ void ItemDAO::loadDBToLists(QString tableName)
     }
 
     // LOAD EMPLOYE
-    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "$emplyoye$"));
+    queryDB.exec(QString("SELECT * FROM %1;").arg(tableName + "$employe$"));
     rec = queryDB.record();
 
     int columnNameE = rec.indexOf("name_employe");
@@ -143,7 +143,7 @@ void ItemDAO::loadDBToLists(QString tableName)
     int columnLevelE = rec.indexOf("level_employe");
     int columnCommercial = rec.indexOf("commercial_employe");
 
-    qDeleteAll(employeList.begin(), employeList.end());
+    //qDeleteAll(employeList.begin(), employeList.end());
     employeList.clear();
     bool isCommercial = false;
     while (queryDB.next())
