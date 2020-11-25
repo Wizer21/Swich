@@ -91,16 +91,16 @@ void Ad::setAd()
   layoutDesigner->setObjectName("l1");
   layoutArtisan->setObjectName("l2");
 
-  commercial->setAcceptableType("commercial");
+  commercial->setAcceptCommercial(true);
   displayNewEmploye->setObjectName("new");
   trash->setObjectName("trash");
   callNewEmploye();
   trash->setIsTrash(true);
 
   SingleData* getData = getData->getInstance();
-  getData->addLabelToAdaptOnTheme("trash", trashlabel);
 
-  SingleData::getInstance()->addLabelToAdaptOnFont(4, teamValueDisplay);
+  getData->addLabelToAdaptOnTheme("trash", trashlabel);
+  getData->addLabelToAdaptOnFont(4, teamValueDisplay);
 
   connect(manager, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
   connect(designer, SIGNAL(transfertDataEmployee(const int&, const int&)), this, SLOT(employeChanged(const int&, const int&)));
@@ -314,4 +314,46 @@ void Ad::commercialChanged(const int& id, const int& pos)
     getNewC->setObjectName("z");
     emit newCommercial(getNewC);
   }
+}
+
+void Ad::teamPushToDB()
+{
+  ItemDAO::getInstance()->pushEmployee(employeList, commercialCurrent);
+}
+
+void Ad::setNewTableLoaded()
+{
+  DragEmployee* getNew = this->findChild<DragEmployee*>("new");
+  delete getNew;
+  getNew = nullptr;
+
+  qDeleteAll(employeList.begin(), employeList.end());
+  qDeleteAll(commercialCurrent.begin(), commercialCurrent.end());
+
+  std::vector<DragEmployee*> temporaryList = ItemDAO::getInstance()->getEmployeList();
+  int pos = 0;
+  int sizeList = (int)temporaryList.size();
+
+  for (int i = 0; i < sizeList; i++)
+  {
+    if (temporaryList.at(i)->getIsCommercial())
+    {
+      temporaryList.at(i)->setObjectName("new");
+      commercialChanged(temporaryList.at(i)->getId(), -1);
+
+      commercialCurrent.push_back(temporaryList.at(i));
+    }
+    else
+    {
+      QVBoxLayout* layoutToAdd = this->findChild<QVBoxLayout*>("l" + QString::number(pos++));
+      layoutToAdd->addWidget(temporaryList.at(i));
+      temporaryList.at(i)->setObjectName("z");
+      temporaryList.at(i)->setId(idEmploye++);
+      temporaryList.at(i)->setTrashable(true);
+      temporaryList.at(i)->setPos(pos);
+
+      employeList.push_back(temporaryList.at(i));
+    }
+  }
+  callNewEmploye();
 }

@@ -254,7 +254,7 @@ void Analytics::setColors(int id)
   legendProduction->setLabelColor(QColor(color));
 }
 
-void Analytics::callSave()
+void Analytics::graphPushToDB()
 {
   ItemDAO::getInstance()->pushGrapgData(sellEvo, bankEvo, taxEvo, productionEvo);
 }

@@ -4,6 +4,7 @@
 #include "DropEmployee.h"
 #include "DragEmployee.h"
 #include "SingleData.h"
+#include "ItemDAO.h"
 
 class Ad : public QWidget
 {
@@ -12,6 +13,8 @@ class Ad : public QWidget
 public:
   Ad();
   QString getSalary_Production(int addDays);
+  void setNewTableLoaded();
+  void teamPushToDB();
 
 private slots:
   void employeChanged(const int& id, const int& pos);

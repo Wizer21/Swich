@@ -17,7 +17,7 @@ public:
   void validatedUpgrade(int id);
   void validateNewFactory(int id);
   void loadDB();
-  void saveToDB();
+  void productionPushToDB();
 
 signals:
   void transfertUpgrade(int, int);

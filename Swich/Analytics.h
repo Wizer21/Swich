@@ -21,7 +21,7 @@ public:
   Analytics();
   void updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction);
   void setColors(int colorId);
-  void callSave();
+  void graphPushToDB();
   void newTableUsed();
 
 private slots:

@@ -141,15 +141,19 @@ void ItemDAO::loadDBToLists(QString tableName)
     int columnNameE = rec.indexOf("name_employe");
     int columnSalaryE = rec.indexOf("salary_employe");
     int columnLevelE = rec.indexOf("level_employe");
+    int columnCommercial = rec.indexOf("commercial_employe");
 
-    nameEmploye.clear();
-    salaryEmploye.clear();
-    levelEmploye.clear();
+    qDeleteAll(employeList.begin(), employeList.end());
+    employeList.clear();
+    bool isCommercial = false;
     while (queryDB.next())
     {
-      nameEmploye.push_back(queryDB.value(columnNameE).toString());
-      salaryEmploye.push_back(queryDB.value(columnSalaryE).toInt());
-      levelEmploye.push_back(queryDB.value(columnLevelE).toInt());
+      if (queryDB.value(columnCommercial).toInt() == 1)
+      {
+        isCommercial = true;
+      }
+      employeList.push_back(new DragEmployee(queryDB.value(columnNameE).toString(), queryDB.value(columnSalaryE).toInt(), queryDB.value(columnLevelE).toInt(), isCommercial));
+      isCommercial = false;
     }
     db.close();
   }
@@ -243,20 +247,22 @@ void ItemDAO::saveToDatabase()
       queryDB.exec();
     }
     //Employe
-    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$emplyoye$"));
-    sizeList = (int)salaryEmploye.size();
+    queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$employe$"));
+    sizeList = (int)employeList.size();
     for (int i = 0; i < sizeList; i++)
     {
-      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?);").arg(currentTable + "$emplyoye$"));
-      queryDB.bindValue(0, salaryEmploye.at(i));
-      queryDB.bindValue(1, levelEmploye.at(i));
+      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?,?,?);").arg(currentTable + "$employe$"));
+      queryDB.bindValue(0, employeList.at(i)->getName());
+      queryDB.bindValue(1, employeList.at(i)->getSalary());
+      queryDB.bindValue(2, employeList.at(i)->getLvl());
+      queryDB.bindValue(3, QString::number(employeList.at(i)->getIsCommercial()));
       queryDB.exec();
     }
   }
   db.close();
 }
 
-void ItemDAO::pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3)
+void ItemDAO::itemListPushToDB(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3)
 {
   mainItem_List = itemList;
   mainCity_1 = itemCity1;
@@ -272,7 +278,7 @@ void ItemDAO::pushGrapgData(std::vector<double> newSellEvo, std::vector<double> 
   productionEvo = newProdEvo;
 }
 
-void ItemDAO::pushBank(double newBank)
+void ItemDAO::bankPushToDB(double newBank)
 {
   bank = newBank;
 }
@@ -332,7 +338,8 @@ void ItemDAO::setNewTable(QString name, QString password)
   queryDB.exec(QString("CREATE TABLE IF NOT EXISTS %1( "
                        "name_employe TEXT NOT NULL, "
                        "salary_employe INT NOT NULL, "
-                       "level_employe INT NOT NULL "
+                       "level_employe INT NOT NULL, "
+                       "commercial_employe INT NOT NULL "
                        ");")
                  .arg(name + "$employe$"));
 
@@ -405,6 +412,11 @@ std::vector<std::pair<int, int>> ItemDAO::getFactory()
 double ItemDAO::getBank()
 {
   return bank;
+}
+
+std::vector<DragEmployee*> ItemDAO::getEmployeList()
+{
+  return employeList;
 }
 
 QString ItemDAO::getCurrentTable()
@@ -494,4 +506,22 @@ void ItemDAO::setItemId(QString tableName)
   }
 
   db.close();
+}
+
+void ItemDAO::pushEmployee(std::vector<DragEmployee*> employe, std::vector<DragEmployee*> commercial)
+{
+  //(employeList.begin(), employeList.end());
+  employeList.clear();
+
+  int sizeList = (int)employe.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    employeList.push_back(employe.at(i));
+  }
+
+  sizeList = (int)commercial.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    employeList.push_back(commercial.at(i));
+  }
 }

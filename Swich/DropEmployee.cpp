@@ -4,7 +4,7 @@ DropEmployee::DropEmployee(QWidget* parent)
   : QWidget(parent)
 {
   this->setAcceptDrops(true);
-  type = "none";
+  acceptCommercial = false;
   trashable = false;
 }
 
@@ -17,7 +17,8 @@ void DropEmployee::dragEnterEvent(QDragEnterEvent* event)
     event->accept();
     return;
   }
-  if (lText.at(2) == type && !trashable)
+  auto test = QString::number(acceptCommercial);
+  if (lText.at(2) == QString::number(acceptCommercial) && !trashable)
   {
     event->accept();
     return;
@@ -34,7 +35,7 @@ void DropEmployee::dragMoveEvent(QDragMoveEvent* event)
     return;
   }
 
-  if (lText.at(2) == type)
+  if (lText.at(2) == QString::number(acceptCommercial))
   {
     event->accept();
     return;
@@ -48,9 +49,9 @@ void DropEmployee::dropEvent(QDropEvent* event)
   emit transfertDataEmployee(lText.at(0).toInt(), lText.at(1).toInt());
 }
 
-void DropEmployee::setAcceptableType(QString newType)
+void DropEmployee::setAcceptCommercial(bool newAcceptCommercial)
 {
-  type = newType;
+  acceptCommercial = newAcceptCommercial;
 }
 
 void DropEmployee::setIsTrash(bool isTrash)

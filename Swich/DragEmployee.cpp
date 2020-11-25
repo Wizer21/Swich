@@ -2,19 +2,34 @@
 
 DragEmployee::DragEmployee()
 {
-  SingleData* getSingle = getSingle->getInstance();
-  std::pair pairStore = getSingle->getCharacter();
+  std::pair pairStore = SingleData::getInstance()->getCharacter();
   level = -1;
   name = pairStore.first;
   note = -1;
   salary = -1;
-  fonction = "none";
+  isCommercial = false;
   id = -1;
   pos = -1;
   canBeTrash = false;
 
   calculRandStats();
   ini(pairStore.second);
+}
+
+DragEmployee::DragEmployee(QString newName, int newSalary, int newLevel, bool newIsCommercial)
+{
+  level = newLevel;
+  name = newName;
+  note = -1;
+  salary = newSalary;
+  isCommercial = newIsCommercial;
+  id = -1;
+  pos = -1;
+  canBeTrash = false;
+
+  ini(SingleData::getInstance()->getPixmap(newName));
+  setBackgroundColor();
+  calculNote(level);
 }
 
 void DragEmployee::ini(const QPixmap pix)
@@ -38,7 +53,7 @@ void DragEmployee::ini(const QPixmap pix)
   this->setContentsMargins(0, 0, 0, 0);
   this->setCursor(Qt::PointingHandCursor);
 
-  if (fonction == "commercial")
+  if (isCommercial)
   {
     SingleData* getSingle = getSingle->getInstance();
     QLabel* labelCommercial = new QLabel(this);
@@ -74,6 +89,18 @@ void DragEmployee::calculRandStats()
   salary = calculSalary;
   note = calculNote(level);
 
+  setBackgroundColor();
+
+  // Role
+  dice = Utils::randZeroToVal(100);
+  if (dice > 60)
+  {
+    isCommercial = true;
+  }
+}
+
+void DragEmployee::setBackgroundColor()
+{
   if (level < 3)
   {
     this->setStyleSheet("background-color:#ff5252");
@@ -93,13 +120,6 @@ void DragEmployee::calculRandStats()
   else
   {
     this->setStyleSheet("QWidget{background-color:#ffd740;} QLabel{color:#262626;}");
-  }
-
-  // Role
-  dice = Utils::randZeroToVal(100);
-  if (dice > 60)
-  {
-    fonction = "commercial";
   }
 }
 
@@ -173,7 +193,7 @@ void DragEmployee::mouseMoveEvent(QMouseEvent* event)
   QDrag* drag = new QDrag(this);
   QMimeData* mimeData = new QMimeData();
 
-  mimeData->setText(QString("%1$%2$%3$%4").arg(id).arg(pos).arg(fonction).arg(QString::number(canBeTrash)));
+  mimeData->setText(QString("%1$%2$%3$%4").arg(id).arg(pos).arg(isCommercial).arg(QString::number(canBeTrash)));
 
   drag->setMimeData(mimeData);
   drag->exec(Qt::MoveAction);
@@ -217,4 +237,9 @@ void DragEmployee::setId(int newId)
 void DragEmployee::setTrashable(bool canBeFire)
 {
   canBeTrash = canBeFire;
+}
+
+bool DragEmployee::getIsCommercial()
+{
+  return isCommercial;
 }

@@ -374,6 +374,7 @@ void Swich::applyTableChanged()
 
   widgetAnalytics->newTableUsed();
   widgetProduction->loadDB();
+  widgetAd->setNewTableLoaded();
 
   bankDisplayed = ItemDAO::getInstance()->getBank();
   sold->setText(QString::number(round(bankDisplayed)));
@@ -381,10 +382,11 @@ void Swich::applyTableChanged()
 
 void Swich::buttonSaveToDatabase()
 {
-  ItemDAO::getInstance()->pushBank(bankDisplayed);
-  widgetAnalytics->callSave();
-  widgetProduction->saveToDB();
-  ItemDAO::getInstance()->pushListsToDAO(mainItemList, cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
+  ItemDAO::getInstance()->bankPushToDB(bankDisplayed);
+  widgetAnalytics->graphPushToDB();
+  widgetProduction->productionPushToDB();
+  widgetAd->teamPushToDB();
+  ItemDAO::getInstance()->itemListPushToDB(mainItemList, cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
   ItemDAO::getInstance()->saveToDatabase();
 }
 

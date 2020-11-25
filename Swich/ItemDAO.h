@@ -6,10 +6,10 @@
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QSqlRecord>
-
 #include <QMap>
 #include <QSqlQueryModel>
 #include "City.h"
+#include "DragEmployee.h"
 
 class ItemDAO
 {
@@ -25,10 +25,13 @@ public:
 
   bool isDatableOnline();
   void loadDBToLists(QString tableName);
-  void pushListsToDAO(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3);
+
+  void itemListPushToDB(std::vector<Item>* itemList, std::vector<Item>* itemCity1, std::vector<Item>* itemCity2, std::vector<Item>* itemCity3);
   void pushGrapgData(std::vector<double>, std::vector<double>, std::vector<double>, std::vector<double>);
-  void pushBank(double newBank);
+  void bankPushToDB(double newBank);
   void pushFactory(std::vector<std::pair<int, int>>);
+  void pushEmployee(std::vector<DragEmployee*> employe, std::vector<DragEmployee*> commercial);
+
   void saveToDatabase();
 
   bool isLocked(QString tableName);
@@ -37,12 +40,14 @@ public:
   QStringList getTablesList();
   QString getCurrentTable();
   QString getPassword(QString tableName);
+  QSqlQueryModel* getQuerryModel(QString tableName);
+
   std::vector<Item>* getItemList();
   std::vector<Item>* getCityList(int numberCity);
   std::vector<double> getGraphData(int idGraph);
   std::vector<std::pair<int, int>> getFactory();
   double getBank();
-  QSqlQueryModel* getQuerryModel(QString tableName);
+  std::vector<DragEmployee*> getEmployeList();
 
   void setNewTable(QString name, QString password);
   void deleteTable(QString tableName);
@@ -76,7 +81,5 @@ private:
 
   std::vector<std::pair<int, int>> factoryLevel_upgrade;
 
-  std::vector<QString> nameEmploye;
-  std::vector<int> salaryEmploye;
-  std::vector<int> levelEmploye;
+  std::vector<DragEmployee*> employeList;
 };

@@ -239,7 +239,7 @@ void Production::loadDB()
   }
 }
 
-void Production::saveToDB()
+void Production::productionPushToDB()
 {
   factoryLevel_upgrade.clear();
   int sizeList = (int)listFactory.size();

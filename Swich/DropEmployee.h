@@ -8,7 +8,7 @@ class DropEmployee : public QWidget
 
 public:
   DropEmployee(QWidget* parent);
-  void setAcceptableType(QString newType);
+  void setAcceptCommercial(bool acceptCommercial);
   void setIsTrash(bool isTrash);
 
 signals:
@@ -20,6 +20,6 @@ protected:
   void dropEvent(QDropEvent* event) override;
 
 private:
-  QString type;
+  bool acceptCommercial;
   bool trashable;
 };

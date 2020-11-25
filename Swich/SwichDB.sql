@@ -41,7 +41,8 @@ CREATE TABLE IF NOT EXISTS SWICH$factory$(
 CREATE TABLE IF NOT EXISTS SWICH$employe$(
     name_employe TEXT NOT NULL,
     salary_employe INT NOT NULL,
-    level_employe INT NOT NULL
+    level_employe INT NOT NULL,
+    commercial_employe INT NOT NULL
 );
 
 INSERT INTO SWICH (id_item, name_item, buyp_item, sellp_item ) VALUES(NULL, 'mug','8','16');
@@ -51,7 +52,6 @@ INSERT INTO SWICH$bank$ (banque_data) VALUE ('5430');
 INSERT INTO SWICH$factory$ VALUES('1','750');
 INSERT INTO SWICH$factory$ VALUES('0','670');
 INSERT INTO SWICH$factory$ VALUES('0','780');
-INSERT INTO SWICH$employe$ VALUES('Bob','1350','10');
 
 
 SELECT * FROM SWICH;

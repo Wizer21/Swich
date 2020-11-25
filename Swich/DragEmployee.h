@@ -8,11 +8,14 @@ class DragEmployee : public QWidget
 {
 public:
   DragEmployee();
+  DragEmployee(QString newName, int newSalary, int newLevel, bool newIsCommercial);
+  ;
   int getId();
   int getPos();
   int getSalary();
   int getLvl();
   QString getName();
+  bool getIsCommercial();
   void setPos(int pos);
   void setId(int newId);
   void setTrashable(bool canBeFire);
@@ -26,11 +29,12 @@ private:
   QString name;
   QString note;
   int salary;
-  QString fonction;
+  bool isCommercial;
   int id;
   int pos;
   bool canBeTrash;
 
   void calculRandStats();
   void ini(const QPixmap pix);
+  void setBackgroundColor();
 };
