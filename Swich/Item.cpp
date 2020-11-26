@@ -8,6 +8,7 @@ Item::Item(QString addNom, double addStock, double addPrixAchat, double addPrixV
   prixVente = addPrixVente;
   pix = addPix;
   id = addId;
+  investedStrenght = 0;
 }
 
 Item::Item(QString addNom, double addStock, double addPrixVente, int addId)
@@ -18,6 +19,7 @@ Item::Item(QString addNom, double addStock, double addPrixVente, int addId)
   prixVente = addPrixVente;
   pix = "";
   id = addId;
+  investedStrenght = 0;
 }
 
 QString Item::getNom()
@@ -58,4 +60,17 @@ int Item::getId()
 void Item::setStock(double newStock)
 {
   stock = newStock;
+}
+
+int Item::pushProduction(double newStrenght)
+{
+  investedStrenght += newStrenght;
+  int itemProducted = 0;
+  while (investedStrenght > prixVente / 15)
+  {
+    investedStrenght -= prixVente / 15;
+    stock++;
+    itemProducted++;
+  }
+  return itemProducted;
 }

@@ -60,8 +60,8 @@ void CreateNewItem::validateButton()
   {
     return;
   }
-
-  emit transfertNewItem(tableToAdd, containName->text(), containBuyp->text().toInt(), containSellP->text().toInt() * Utils::randOnlyPositivePercentage(50));
+  int test = containSellP->text().toInt();
+  emit transfertNewItem(tableToAdd, containName->text(), containBuyp->text().toInt(), containSellP->text().toInt() * (1 + Utils::randNegativeIntToPercentage(20)));
   this->close();
 }
 

@@ -10,7 +10,7 @@ public:
   void upgradeAccepted();
 
   int getLevel();
-  double getProduction();
+  double getStrenght();
   double getCost();
   int getNextUpgrade();
   void setLevel(int newLevel);
@@ -18,7 +18,7 @@ public:
 
 private:
   int level;
-  double dailyProduction;
+  double strenghtProducted;
   double productionCost;
   double randProd;
   int nextUpgrade;

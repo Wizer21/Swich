@@ -295,16 +295,18 @@ void Swich::startNewMonth()
 double Swich::addProductionToInventory(double addedProduction)
 {
   int items = (int)mainItemList->size();
-  int nrbIteration = 15 + Utils::randZeroToVal(10);
+  int nrbIteration = 10 + Utils::randZeroToVal(10);
   double prodToPush = addedProduction / nrbIteration;
   double price = 0;
+  double createdItems = 0;
 
   for (int i = 0; i < nrbIteration; i++)
   {
     int randoItem = Utils::randZeroToVal(items);
-    mainItemList->at(randoItem).setStock(mainItemList->at(randoItem).getStock() + prodToPush);
-    price += mainItemList->at(randoItem).getBuyP() * prodToPush;
+    createdItems += mainItemList->at(randoItem).pushProduction(prodToPush);
+    price += mainItemList->at(randoItem).getBuyP() * createdItems;
   }
+  widgetProduction->pushCreatedItems(createdItems);
   return price;
 }
 

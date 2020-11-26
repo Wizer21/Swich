@@ -18,6 +18,7 @@ public:
   void validateNewFactory(int id);
   void loadDB();
   void productionPushToDB();
+  void pushCreatedItems(int itemsProducted);
 
 signals:
   void transfertUpgrade(int, int);
@@ -31,6 +32,7 @@ private:
   int idButton;
   int lockedPrice1;
   int lockedPrice2;
+  double totalStrenght;
 
   std::vector<std::pair<int, int>> factoryLevel_upgrade;
 

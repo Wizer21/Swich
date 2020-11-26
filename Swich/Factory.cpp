@@ -3,7 +3,7 @@
 Factory::Factory()
 {
   level = 0;
-  dailyProduction = 0;
+  strenghtProducted = 0;
   productionCost = 0;
   randProd = 1;
   nextUpgrade = 500 + Utils::randZeroToVal(500);
@@ -18,15 +18,15 @@ void Factory::newMonthFactory(int days)
 
 void Factory::expodentialProduction(int days)
 {
-  dailyProduction = 1;
+  strenghtProducted = 1;
   productionCost = 100;
   for (int i = 0; i < level; i++)
   {
-    dailyProduction *= 1.2;
+    strenghtProducted *= 1.2;
     productionCost *= 1.1;
   }
-  dailyProduction *= randProd;
-  dailyProduction *= (days / 2);
+  strenghtProducted *= randProd;
+  strenghtProducted *= days;
 }
 
 void Factory::calculEvolution()
@@ -64,9 +64,9 @@ int Factory::getLevel()
   return level;
 }
 
-double Factory::getProduction()
+double Factory::getStrenght()
 {
-  return dailyProduction;
+  return strenghtProducted;
 }
 
 double Factory::getCost()

@@ -5,6 +5,7 @@ Production::Production()
   idButton = 0;
   lockedPrice1 = 2000 + Utils::randZeroToVal(2000);
   lockedPrice2 = 5000 + Utils::randZeroToVal(5000);
+  totalStrenght = 0;
 
   setProduction();
   loadDB();
@@ -134,7 +135,7 @@ void Production::updateWidgets()
   for (int i = 0; i < listFactory.size(); i++)
   {
     levelList.at(i)->setText(QString::number(listFactory.at(i).getLevel()));
-    productionlist.at(i)->setText(QString::number(round(listFactory.at(i).getProduction())));
+    productionlist.at(i)->setText(QString::number(round(listFactory.at(i).getStrenght())));
     upgradeList.at(i)->setText(QString::number(listFactory.at(i).getNextUpgrade()));
     levelList.at(i)->setStyleSheet("font-size: 40px; color:#64ffda;");
     productionlist.at(i)->setStyleSheet("font-size: 40px; color:#64ffda;");
@@ -143,7 +144,7 @@ void Production::updateWidgets()
 
 QString Production::newMonthProd(int days)
 {
-  double totalProduction = 0;
+  totalStrenght = 0;
   double totalCost = 0;
   for (int i = 0; i < listFactory.size(); i++)
   {
@@ -152,14 +153,29 @@ QString Production::newMonthProd(int days)
       break;
     }
     listFactory.at(i).newMonthFactory(days);
-    totalProduction += listFactory.at(i).getProduction();
+    totalStrenght += listFactory.at(i).getStrenght();
     totalCost += listFactory.at(i).getCost();
   }
-  updateWidgets();
-  displayProduction->setText(QString::number(round(totalProduction)));
-  displayProduction->setStyleSheet("color:#64ffda; font-size:80px;background-color:transparent;");
+  return QString("%1$%2").arg(totalStrenght).arg(totalCost);
+}
 
-  return QString("%1$%2").arg(totalProduction).arg(totalCost);
+void Production::pushCreatedItems(int itemsProducted)
+{
+  int production = itemsProducted;
+  double productionRatio = 0;
+  double thisProductedItems = 0;
+  for (int i = 0; i < listFactory.size(); i++)
+  {
+    if (listFactory.at(i).getLevel() == 0)
+    {
+      break;
+    }
+    productionRatio = listFactory.at(i).getStrenght() / totalStrenght;
+    thisProductedItems = itemsProducted * productionRatio;
+    productionlist.at(i)->setText(QString::number(round(thisProductedItems)));
+    productionlist.at(i)->setStyleSheet("font-size: 40px; color:#64ffda;");
+  }
+  displayProduction->setText(QString::number(round(itemsProducted)));
 }
 
 void Production::upgradeFactory()

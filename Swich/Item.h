@@ -14,6 +14,7 @@ public:
   double getBuyP();
   double getSellP();
   QString getPix();
+  int pushProduction(double newStrenght);
 
   int getId();
   void setStock(double newStock);
@@ -25,4 +26,5 @@ private:
   double prixVente;
   QString pix;
   int id;
+  double investedStrenght;
 };
