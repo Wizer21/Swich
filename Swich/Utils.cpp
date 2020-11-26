@@ -169,12 +169,16 @@ void Utils::checkSettingsFileExistence()
 }
 
 // RAND --
-int Utils::randZeroToVal(const int& val)
+int Utils::randZeroToVal(int val)
 {
+  if (val != 0)
+  {
+    val -= 1;
+  }
   unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
   std::default_random_engine generator(seed);
 
-  std::uniform_int_distribution<int> randval(0, val - 1);
+  std::uniform_int_distribution<int> randval(0, val);
   return randval(generator);
 }
 

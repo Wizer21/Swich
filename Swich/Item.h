@@ -5,6 +5,7 @@
 class Item
 {
 public:
+  Item();
   Item(QString addNom, double addStock, double addPrixAchat, double addPrixVente, QString addPix, int addId);
   Item(QString addNom, double addStock, double addPrixVente, int addId);
 
@@ -15,6 +16,7 @@ public:
   double getSellP();
   QString getPix();
   int pushProduction(double newStrenght);
+  int pushSales(double newStrenght);
 
   int getId();
   void setStock(double newStock);
@@ -26,5 +28,6 @@ private:
   double prixVente;
   QString pix;
   int id;
-  double investedStrenght;
+  double factoryStrength;
+  double employeeStrength;
 };

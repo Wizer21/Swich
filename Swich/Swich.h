@@ -50,6 +50,7 @@ private:
   void setTheme();
   void commercialTransfertStock();
   void updateNotificationChat(bool isVisible);
+  QString randSells(double valAd);
 
   int turnId;
   double bankDisplayed;

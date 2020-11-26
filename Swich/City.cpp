@@ -61,33 +61,6 @@ void City::eraseIfEmpty()
   }
 }
 
-QString City::randSells(double valAd)
-{
-  int sold = 1 + Utils::randZeroToVal(5);
-  double newBank = 0;
-  double newVolSold = 0;
-  double SoldQuantity;
-  double stockCurrentItem;
-  for (int i = 0; i < cityItemList->size(); i++)
-  {
-    stockCurrentItem = cityItemList->at(i).getStock();
-    if (stockCurrentItem != 0)
-    {
-      SoldQuantity = sold * valAd;
-
-      if (stockCurrentItem - SoldQuantity < 0)
-      {
-        SoldQuantity += (stockCurrentItem - SoldQuantity);
-      }
-      newBank += cityItemList->at(i).getSellP() * SoldQuantity;
-      newVolSold += SoldQuantity;
-
-      cityItemList->at(i).setStock(stockCurrentItem - SoldQuantity);
-    }
-  }
-  return QString("%1$%2").arg(newBank).arg(newVolSold);
-}
-
 void City::pushStockToList(int idCurrentItem, double addedStock)
 {
   int sizeList = (int)cityItemList->size();

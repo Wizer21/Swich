@@ -143,7 +143,6 @@ void ItemDAO::loadDBToLists(QString tableName)
     int columnLevelE = rec.indexOf("level_employe");
     int columnCommercial = rec.indexOf("commercial_employe");
 
-    //qDeleteAll(employeList.begin(), employeList.end());
     employeList.clear();
     bool isCommercial = false;
     while (queryDB.next())
@@ -343,7 +342,9 @@ void ItemDAO::setNewTable(QString name, QString password)
                        ");")
                  .arg(name + "$employe$"));
 
-  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','80','160');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','8','16');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Pot','15','32');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Flower','2','4');").arg(name));
 
   queryDB.exec(QString("INSERT INTO %1 VALUES('%2','5432');").arg(name + "$bank$").arg(password));
 

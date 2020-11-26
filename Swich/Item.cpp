@@ -1,5 +1,17 @@
 #include "Item.h"
 
+Item::Item()
+{
+  nom = "";
+  stock = 0;
+  prixAchat = 0;
+  prixVente = 0;
+  pix = "";
+  id = 0;
+  factoryStrength = 0;
+  employeeStrength = 0;
+}
+
 Item::Item(QString addNom, double addStock, double addPrixAchat, double addPrixVente, QString addPix, int addId)
 {
   nom = addNom;
@@ -8,7 +20,8 @@ Item::Item(QString addNom, double addStock, double addPrixAchat, double addPrixV
   prixVente = addPrixVente;
   pix = addPix;
   id = addId;
-  investedStrenght = 0;
+  factoryStrength = 0;
+  employeeStrength = 0;
 }
 
 Item::Item(QString addNom, double addStock, double addPrixVente, int addId)
@@ -19,7 +32,8 @@ Item::Item(QString addNom, double addStock, double addPrixVente, int addId)
   prixVente = addPrixVente;
   pix = "";
   id = addId;
-  investedStrenght = 0;
+  factoryStrength = 0;
+  employeeStrength = 0;
 }
 
 QString Item::getNom()
@@ -64,13 +78,30 @@ void Item::setStock(double newStock)
 
 int Item::pushProduction(double newStrenght)
 {
-  investedStrenght += newStrenght;
+  factoryStrength += newStrenght;
   int itemProducted = 0;
-  while (investedStrenght > prixVente / 15)
+  while (factoryStrength > prixVente / 10)
   {
-    investedStrenght -= prixVente / 15;
-    stock++;
+    factoryStrength -= prixVente / 10;
     itemProducted++;
   }
+  stock += itemProducted;
   return itemProducted;
+}
+
+int Item::pushSales(double newStrenght)
+{
+  employeeStrength += newStrenght;
+  int itemSold = 0;
+  while (employeeStrength > prixVente / 15)
+  {
+    if (stock <= 0)
+    {
+      break;
+    }
+    employeeStrength -= prixVente / 15;
+    itemSold++;
+    stock--;
+  }
+  return itemSold;
 }

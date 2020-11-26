@@ -199,6 +199,11 @@ void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBa
   gain.at(5)->setText(gain_1);
   bank.at(5)->setText(bank_1);
 
+  if (newGain.toDouble() > 0)
+  {
+    newGain = "+" + newGain;
+  }
+
   date_1 = newDate;
   gain_1 = newGain;
   bank_1 = QString::number(round(newBank.toDouble()));
@@ -207,7 +212,8 @@ void Hub::updateAndScrollWidgets(QString newDate, QString newGain, QString newBa
 
 void Hub::setColorScroll()
 {
-  for (int i = 0; i < gain.size(); i++)
+  int sizeList = (int)gain.size();
+  for (int i = 0; i < sizeList; i++)
   {
     if (gain.at(i)->text().toInt() < 0)
     {

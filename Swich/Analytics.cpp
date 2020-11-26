@@ -167,41 +167,41 @@ void Analytics::pushDataToGraph(int addDay, double addVolumes, double addBank, d
 
   sellSeries->append(addDay, addVolumes);
   bankSeries->append(addDay, addBank);
-  zeroSeries->append(addDay * 1.5, 0);
+  zeroSeries->append(addDay * 1.2, 0);
   chargeSeries->append(addDay, addCharges);
   productionSeries->append(addDay, addProduction);
 
-  axeHVolumes->setMax(addDay * 1.5);
-  axeHBank->setMax(addDay * 1.5);
-  axeHCharges->setMax(addDay * 1.5);
-  axeHProduction->setMax(addDay * 1.5);
+  axeHVolumes->setMax(addDay * 1.2);
+  axeHBank->setMax(addDay * 1.2);
+  axeHCharges->setMax(addDay * 1.2);
+  axeHProduction->setMax(addDay * 1.2);
 
   if (minBank > addBank)
   {
-    axeVBank->setMin(addBank * 1.5);
+    axeVBank->setMin(addBank * 1.2);
     minBank = addBank;
   }
   if (addVolumes > maxVolume)
   {
     maxVolume = addVolumes;
-    axeVVolumes->setMax(addVolumes * 1.5);
+    axeVVolumes->setMax(addVolumes * 1.2);
   }
 
   if (addBank > maxBank)
   {
     maxBank = addBank;
-    axeVBank->setMax(addBank * 1.5);
+    axeVBank->setMax(addBank * 1.2);
   }
 
   if (addCharges > maxCharges)
   {
     maxCharges = addCharges;
-    axeVCharges->setMax(addCharges * 1.5);
+    axeVCharges->setMax(addCharges * 1.2);
   }
   if (addProduction > maxProduction)
   {
     maxProduction = addProduction;
-    axeVProduction->setMax(addProduction * 1.5);
+    axeVProduction->setMax(addProduction * 1.2);
   }
 }
 

@@ -241,26 +241,21 @@ void Swich::startNewMonth()
   int addedDays = 25 + Utils::randZeroToVal(10);
 
   //Update Widgets
-  QString prod_Cost = widgetProduction->newMonthProd(addedDays);
-  QStringList listProd_Cost = prod_Cost.split("$");
+  QStringList listProd_Cost = widgetProduction->newMonthProd(addedDays).split("$");
   temporaryCharges += listProd_Cost.at(1).toDouble();
 
   //AD
-  QString salary_Efficiency = widgetAd->getSalary_Production(addedDays);
-  QStringList splitSalary_Efficiency = salary_Efficiency.split("$");
+  QStringList splitSalary_Efficiency = widgetAd->getSalary_Production(addedDays).split("$");
 
   //city Sell
-  int sizeCityList = (int)cityList.size();
-  for (int i = 0; i < sizeCityList; i++)
-  {
-    QStringList getValue = (cityList.at(i).randSells(splitSalary_Efficiency.at(1).toDouble())).split("$");
-    temporaryGain += getValue.at(0).toDouble();
-    temporarySoldVol += getValue.at(1).toDouble();
-  }
+  QStringList getValue = (randSells(splitSalary_Efficiency.at(1).toDouble())).split("$");
+  temporaryGain += getValue.at(0).toDouble();
+  temporarySoldVol += getValue.at(1).toDouble();
+
   if (gotCommercial && commercialActivated)
   {
     commercialTransfertStock();
-    temporaryCharges += (getCommercial->getSalary() / 30) * addedDays;
+    temporaryCharges += (getCommercial->getSalary() / 30.0) * addedDays;
   }
   temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
 
@@ -308,6 +303,50 @@ double Swich::addProductionToInventory(double addedProduction)
   }
   widgetProduction->pushCreatedItems(createdItems);
   return price;
+}
+
+QString Swich::randSells(double valAd)
+{
+  double volToSold = (1.0 + Utils::randZeroToVal(5)) * valAd * 20;
+  double newBank = 0;
+  double soldQuantity = 0;
+  int sizeCityList = (int)cityList.size();
+
+  double parts = 0.0;
+  int idCity = 0;
+  int idItem = 0;
+  int thisSold = 0;
+  Item* temporaireItem = new Item();
+
+  int getError = 0;
+
+  while (volToSold > 0)
+  {
+    thisSold = 0;
+    parts = 1.0 + (Utils::randZeroToVal(volToSold) / 4.0);
+    idCity = Utils::randZeroToVal(sizeCityList);
+    idItem = Utils::randZeroToVal(cityList.at(idCity).getList()->size());
+
+    temporaireItem = &cityList.at(idCity).getList()->at(idItem);
+
+    if (temporaireItem->getStock() <= 0)
+    {
+      getError++;
+      if (getError > 100)
+      {
+        break;
+      }
+      continue;
+    }
+    getError = 0;
+
+    thisSold += temporaireItem->pushSales(parts);
+    newBank += temporaireItem->getSellP() * thisSold;
+
+    soldQuantity += thisSold;
+    volToSold -= parts;
+  }
+  return QString("%1$%2").arg(newBank).arg(soldQuantity);
 }
 
 void Swich::applyUpgradeFactory(int cost, int id)

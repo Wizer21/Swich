@@ -11,7 +11,7 @@ class Utils : public QObject
 public:
   static StructSettings::Settings loadSettingsFromFile();
   static void saveSettingsToJsonFile(StructSettings::Settings getSettings);
-  static int randZeroToVal(const int& val);
+  static int randZeroToVal(int val);
   static double randNegativeIntToPercentage(const int& val);
   static double randOnlyPositivePercentage(const int& val);
 

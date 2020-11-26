@@ -124,7 +124,7 @@ void Stock::updateStock()
 
     stockItem->setFlags(Qt::ItemIsSelectable | Qt::ItemIsEnabled);
 
-    tab->setItem(i, 2, stockItem);
+    tab->setItem(i, 1, stockItem);
   }
   tab->setSortingEnabled(true);
   //tab->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);

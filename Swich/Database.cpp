@@ -262,6 +262,9 @@ void Database::applyNewItem(QString table, QString name, int buyP, int sellP)
   QTableView* view = this->findChild<QTableView*>(table);
   view->setModel(ItemDAO::getInstance()->getQuerryModel(table));
   view->setSelectionBehavior(QAbstractItemView::SelectRows);
+
+  //ItemDAO::getInstance()->loadDBToLists(ItemDAO::getInstance()->getCurrentTable());
+  //emit tableChanged();
 }
 
 void Database::deleteNewItem()
@@ -303,6 +306,8 @@ void Database::deleteNewItem()
     view->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
     view->setSelectionBehavior(QAbstractItemView::SelectRows);
   }
+  //ItemDAO::getInstance()->loadDBToLists(ItemDAO::getInstance()->getCurrentTable());
+  //emit tableChanged();
 }
 
 void Database::closeEvent(QCloseEvent* e)

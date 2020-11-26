@@ -37,7 +37,7 @@ void DragEmployee::ini(const QPixmap pix)
   QLabel* displayPix = new QLabel(this);
   QLabel* displayLvl = new QLabel(note, this);
   QLabel* displayName = new QLabel(name, this);
-  QLabel* displaySalary = new QLabel(QString::number(salary) + tr("$"), this);
+  QLabel* displaySalary = new QLabel(QString::number(salary) + tr(" $"), this);
 
   displayPix->setPixmap(pix);
 
