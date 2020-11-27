@@ -47,7 +47,7 @@ private:
   void ini(QGridLayout* widget);
   void createDefaultWidget();
   void setDefaultList();
-  double addProductionToInventory(double production);
+  std::pair<double, int> addProductionToInventory(double production);
   void setTheme();
   void commercialTransfertStock();
   void updateNotificationChat(bool isVisible);

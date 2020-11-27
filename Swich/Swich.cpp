@@ -252,7 +252,8 @@ void Swich::startNewMonth()
   temporaryGain += getValue.at(0).toDouble();
   temporarySoldVol += getValue.at(1).toDouble();
 
-  temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
+  std::pair<double, int> price_Production = addProductionToInventory(listProd_Cost.at(0).toDouble());
+  temporaryCharges += price_Production.first;
 
   if (gotCommercial && commercialActivated)
   {
@@ -283,12 +284,12 @@ void Swich::startNewMonth()
   widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
   widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
-  widgetHub->updateLabels(bankDisplayed, listProd_Cost.at(0).toDouble(), temporarySoldVol);
+  widgetHub->updateLabels(bankDisplayed, price_Production.second, temporarySoldVol);
   widgetSell->refreshStock();
   widgetStock->updateStock();
 }
 
-double Swich::addProductionToInventory(double addedProduction)
+std::pair<double, int> Swich::addProductionToInventory(double addedProduction)
 {
   int items = (int)mainItemList->size();
   int nrbIteration = 10 + Utils::randZeroToVal(10);
@@ -308,7 +309,7 @@ double Swich::addProductionToInventory(double addedProduction)
     totalCreatedItems += currentCreatedItems;
   }
   widgetProduction->pushCreatedItems(totalCreatedItems);
-  return price;
+  return std::pair<double, int>(price, totalCreatedItems);
 }
 
 QString Swich::randSells(double valAd)
