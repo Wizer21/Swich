@@ -252,12 +252,13 @@ void Swich::startNewMonth()
   temporaryGain += getValue.at(0).toDouble();
   temporarySoldVol += getValue.at(1).toDouble();
 
+  temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
+
   if (gotCommercial && commercialActivated)
   {
     commercialTransfertStock();
     temporaryCharges += (getCommercial->getSalary() / 30.0) * addedDays;
   }
-  temporaryCharges += addProductionToInventory(listProd_Cost.at(0).toDouble());
 
   temporaryCharges += splitSalary_Efficiency.at(0).toDouble();
   double evoBanque = temporaryGain - temporaryCharges;
@@ -293,15 +294,20 @@ double Swich::addProductionToInventory(double addedProduction)
   int nrbIteration = 10 + Utils::randZeroToVal(10);
   double prodToPush = addedProduction / nrbIteration;
   double price = 0;
-  double createdItems = 0;
+  int totalCreatedItems = 0;
+  int currentCreatedItems = 0;
+  int randoItem = 0;
 
   for (int i = 0; i < nrbIteration; i++)
   {
-    int randoItem = Utils::randZeroToVal(items);
-    createdItems += mainItemList->at(randoItem).pushProduction(prodToPush);
-    price += mainItemList->at(randoItem).getBuyP() * createdItems;
+    randoItem = Utils::randZeroToVal(items);
+    currentCreatedItems = 0;
+
+    currentCreatedItems += mainItemList->at(randoItem).pushProduction(prodToPush);
+    price += mainItemList->at(randoItem).getBuyP() * currentCreatedItems;
+    totalCreatedItems += currentCreatedItems;
   }
-  widgetProduction->pushCreatedItems(createdItems);
+  widgetProduction->pushCreatedItems(totalCreatedItems);
   return price;
 }
 
@@ -475,28 +481,43 @@ void Swich::applyCommercialIsActivated(bool val)
 
 void Swich::commercialTransfertStock()
 {
-  double nbrItemToTransfert = 2 + Utils::randZeroToVal(2);
-  int getLvl = getCommercial->getLvl();
-  while (getLvl > 0)
-  {
-    nbrItemToTransfert *= (1.2 + Utils::randOnlyPositivePercentage(100));
-    getLvl--;
-  }
+
+  double commercialStrenght = 20.0 * pow(1.6 + Utils::randOnlyPositivePercentage(25), getCommercial->getLvl());
 
   int itemsListSize = (int)mainItemList->size();
   int cityListSize = (int)cityList.size();
-  int nrbIteration = 10 + Utils::randZeroToVal(10);
-  double prodToPush = nbrItemToTransfert / nrbIteration;
 
-  for (int i = 0; i < nrbIteration; i++)
+  int tryQuantityPushItem = 0;
+  int currentPushedItems = 0;
+  int totalPushItems = 0;
+
+  int randoItem = 0;
+  int randoCity = 0;
+
+  int getError = 0;
+  while (commercialStrenght > 0)
   {
-    int randoItem = Utils::randZeroToVal(itemsListSize);
-    int randoCity = Utils::randZeroToVal(cityListSize);
+    currentPushedItems = 0;
+    tryQuantityPushItem = Utils::randZeroToVal(commercialStrenght);
+    randoItem = Utils::randZeroToVal(itemsListSize);
+    randoCity = Utils::randZeroToVal(cityListSize);
 
-    mainItemList->at(randoItem).setStock(mainItemList->at(randoItem).getStock() - prodToPush);
-    cityList.at(randoCity).pushStockToList(mainItemList->at(randoItem).getId(), prodToPush);
+    currentPushedItems = mainItemList->at(randoItem).pushCommercial(tryQuantityPushItem);
+    cityList.at(randoCity).pushStockToList(mainItemList->at(randoItem).getId(), currentPushedItems);
+
+    commercialStrenght -= currentPushedItems * tryQuantityPushItem;
+    totalPushItems += currentPushedItems;
+
+    if (currentPushedItems == 0)
+    {
+      getError++;
+      if (getError > 100)
+      {
+        break;
+      }
+    }
   }
-  widgetStock->setItemPushed(round(nbrItemToTransfert));
+  widgetStock->setItemPushed(round(totalPushItems));
 }
 
 void Swich::updateNotificationChat(bool isVisible)

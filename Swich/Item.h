@@ -17,6 +17,7 @@ public:
   QString getPix();
   int pushProduction(double newStrenght);
   int pushSales(double newStrenght);
+  int pushCommercial(int wantedItems);
 
   int getId();
   void setStock(double newStock);
@@ -30,4 +31,5 @@ private:
   int id;
   double factoryStrength;
   double employeeStrength;
+  double commercialStrenght;
 };

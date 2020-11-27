@@ -19,6 +19,7 @@
 #include "DragEmployee.h"
 #include "ItemDAO.h"
 #include "Database.h"
+#include <cmath>
 
 class Swich : public QMainWindow
 {

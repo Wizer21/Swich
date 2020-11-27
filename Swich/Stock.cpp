@@ -142,6 +142,7 @@ void Stock::updateCommercialSlot(DragEmployee* getEmploye)
   salary->setText(QString::number(getEmploye->getSalary()) + tr("$"));
 
   updateRadioButton(2);
+  setItemPushed(0);
 
   displayPushedItems->setAlignment(Qt::AlignLeft);
   textDefault->setVisible(false);

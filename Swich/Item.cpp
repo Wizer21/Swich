@@ -10,6 +10,7 @@ Item::Item()
   id = 0;
   factoryStrength = 0;
   employeeStrength = 0;
+  commercialStrenght = 0;
 }
 
 Item::Item(QString addNom, double addStock, double addPrixAchat, double addPrixVente, QString addPix, int addId)
@@ -22,6 +23,7 @@ Item::Item(QString addNom, double addStock, double addPrixAchat, double addPrixV
   id = addId;
   factoryStrength = 0;
   employeeStrength = 0;
+  commercialStrenght = 0;
 }
 
 Item::Item(QString addNom, double addStock, double addPrixVente, int addId)
@@ -34,6 +36,7 @@ Item::Item(QString addNom, double addStock, double addPrixVente, int addId)
   id = addId;
   factoryStrength = 0;
   employeeStrength = 0;
+  commercialStrenght = 0;
 }
 
 QString Item::getNom()
@@ -100,6 +103,23 @@ int Item::pushSales(double newStrenght)
       break;
     }
     employeeStrength -= prixVente / 15;
+    itemSold++;
+    stock--;
+  }
+  return itemSold;
+}
+
+int Item::pushCommercial(int wantedItems)
+{
+  employeeStrength += wantedItems;
+  int itemSold = 0;
+  while (employeeStrength > prixVente)
+  {
+    if (stock <= 0)
+    {
+      break;
+    }
+    employeeStrength -= prixVente;
     itemSold++;
     stock--;
   }
