@@ -34,6 +34,7 @@ void NewTable::ini(QGridLayout* layout)
   containName->setValidator(noSpacesAllowed);
   containPassword->setValidator(noSpacesAllowed);
 
+  valider->setCursor(Qt::PointingHandCursor);
   containName->setMaxLength(12);
 
   connect(valider, SIGNAL(clicked()), this, SLOT(validatePressed()));

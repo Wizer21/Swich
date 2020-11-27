@@ -35,6 +35,8 @@ void PassWord::askForPassword(QGridLayout* layout)
 
   button->setChecked(true);
 
+  button->setCursor(Qt::PointingHandCursor);
+  buttonValidate->setCursor(Qt::PointingHandCursor);
   qlineEdit->setEchoMode(QLineEdit::Password);
 
   connect(button, SIGNAL(clicked(bool)), this, SLOT(setHideLineEdit(bool)));

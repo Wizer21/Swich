@@ -39,6 +39,8 @@ void CreateNewItem::ini(QGridLayout* layout)
   containBuyp->setValidator(inOnly);
   containSellP->setValidator(inOnly);
 
+  validation->setCursor(Qt::PointingHandCursor);
+
   connect(containBuyp, SIGNAL(textEdited(QString)), this, SLOT(updateFromBuyP(QString)));
   connect(containSellP, SIGNAL(textEdited(QString)), this, SLOT(updateFromSellP(QString)));
   connect(validation, SIGNAL(clicked()), this, SLOT(validateButton()));
@@ -60,7 +62,6 @@ void CreateNewItem::validateButton()
   {
     return;
   }
-  int test = containSellP->text().toInt();
   emit transfertNewItem(tableToAdd, containName->text(), containBuyp->text().toInt(), containSellP->text().toInt() * (1 + Utils::randNegativeIntToPercentage(20)));
   this->close();
 }

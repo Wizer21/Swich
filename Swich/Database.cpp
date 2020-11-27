@@ -54,6 +54,8 @@ void Database::iniDB(QGridLayout* layout)
   containTableList->setFixedWidth(this->width() * 2);
   containTableList->setWidgetResizable(true);
 
+  addTable->setCursor(Qt::PointingHandCursor);
+
   if (ItemDAO::getInstance()->isDatableOnline())
   {
     iconOn_Off->setPixmap(SingleData::getInstance()->getPixmap("onCircle"));
@@ -88,6 +90,7 @@ void Database::addTableToList(QString tableName)
   QPushButton* buttonTable = new QPushButton(tableName, this);
   layoutInScrollArea->addWidget(buttonTable);
   createTableWidgets(tableName);
+  buttonTable->setCursor(Qt::PointingHandCursor);
 
   if (ItemDAO::getInstance()->isLocked(tableName))
   {
@@ -131,6 +134,11 @@ void Database::createTableWidgets(QString tableName)
 
   widgetList.insert({tableName, mainTableWidget});
   displayTable->resizeColumnsToContents();
+    
+  loadDB->setCursor(Qt::PointingHandCursor);
+  deleteDB->setCursor(Qt::PointingHandCursor);
+  addItem->setCursor(Qt::PointingHandCursor);
+  deleteItem->setCursor(Qt::PointingHandCursor);
 
   connect(loadDB, SIGNAL(clicked()), this, SLOT(loadNewTable()));
   connect(deleteDB, SIGNAL(clicked()), this, SLOT(deleteTableConfirm()));
@@ -263,8 +271,8 @@ void Database::applyNewItem(QString table, QString name, int buyP, int sellP)
   view->setModel(ItemDAO::getInstance()->getQuerryModel(table));
   view->setSelectionBehavior(QAbstractItemView::SelectRows);
 
-  //ItemDAO::getInstance()->loadDBToLists(ItemDAO::getInstance()->getCurrentTable());
-  //emit tableChanged();
+  ItemDAO::getInstance()->loadDBToLists(ItemDAO::getInstance()->getCurrentTable());
+  emit tableChanged();
 }
 
 void Database::deleteNewItem()
@@ -306,8 +314,8 @@ void Database::deleteNewItem()
     view->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
     view->setSelectionBehavior(QAbstractItemView::SelectRows);
   }
-  //ItemDAO::getInstance()->loadDBToLists(ItemDAO::getInstance()->getCurrentTable());
-  //emit tableChanged();
+  ItemDAO::getInstance()->loadDBToLists(ItemDAO::getInstance()->getCurrentTable());
+  emit tableChanged();
 }
 
 void Database::closeEvent(QCloseEvent* e)

@@ -21,6 +21,7 @@ and icons from MaterialDesignIcons
 ### Upgrades
 - [X] Sell// Display sliders' value
 - [ ] Sell// Add a max button to the sliders
+- [ ] Sell// Add delete icon on dragged items
 - [ ] Production// Display button's icon, based on buy possibility
 - [ ] Analytics// Display graph value at cursor position
 - [ ] Employee// Prevent to get multiple times the same character

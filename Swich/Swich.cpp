@@ -111,7 +111,8 @@ void Swich::ini(QGridLayout* layout)
   stock->setCursor(Qt::PointingHandCursor);
   chat->setCursor(Qt::PointingHandCursor);
   more->setCursor(Qt::PointingHandCursor);
-
+  saveButton->setCursor(Qt::PointingHandCursor);
+  
   hub->setObjectName("index0");
   analytics->setObjectName("index1");
   sell->setObjectName("index2");

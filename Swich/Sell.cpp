@@ -25,6 +25,7 @@ void Sell::setSell()
   scrollArea->setWidget(widArea);
   widArea->setLayout(layoutArea);
 
+  scrollArea->setMaximumWidth(this->width() * 0.5);
   layoutArea->setAlignment(Qt::AlignTop);
   scrollArea->setWidgetResizable(true);
   setList();
@@ -74,8 +75,7 @@ void Sell::setList()
     slider->setPageStep(1);
     stock->setAcceptDrops(false);
     stock->setDisabled(true);
-
-    QCursor handle = slider->cursor();
+    stock->setAlignment(Qt::AlignRight);
 
     slider->setCursor(Qt::PointingHandCursor);
     widgetFromItemList.push_back(containslider);
@@ -160,7 +160,7 @@ void Sell::setNewItem(QString nom, QString vol, int newId)
   {
     QVBoxLayout* getZone = this->findChild<QVBoxLayout*>(QString::number(tabWidget->currentIndex()));
     QWidget* draggedItem = new QWidget(this);
-    QHBoxLayout* layoutItem = new QHBoxLayout(this);
+    QGridLayout* layoutItem = new QGridLayout(this);
     QLabel* nomDragged = new QLabel(nom, this);
     QLineEdit* volDragged = new QLineEdit(vol, this);
     QPushButton* kill = new QPushButton("X", this);
@@ -168,9 +168,10 @@ void Sell::setNewItem(QString nom, QString vol, int newId)
     getZone->addWidget(draggedItem);
     draggedItem->setLayout(layoutItem);
     layoutItem->addWidget(nomDragged);
-    layoutItem->addWidget(volDragged);
-    layoutItem->addWidget(kill);
+    layoutItem->addWidget(volDragged, 0, 1, Qt::AlignRight);
+    layoutItem->addWidget(kill, 0, 2);
 
+    volDragged->setAlignment(Qt::AlignRight);
     volDragged->setDisabled(true);
     volDragged->setAcceptDrops(false);
     volDragged->isReadOnly();
