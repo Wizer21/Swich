@@ -19,10 +19,12 @@ and icons from MaterialDesignIcons
 - [ ] Vibrant Dark theme
 
 ### Upgrades
-- [ ] Sell// Display sliders' value
+- [X] Sell// Display sliders' value
 - [ ] Sell// Add a max button to the sliders
 - [ ] Production// Display button's icon, based on buy possibility
 - [ ] Analytics// Display graph value at cursor position
 - [ ] Employee// Prevent to get multiple times the same character
 - [ ] DragEvent// Set an icon at cursor's position, while the DragEvent
 - [ ] Table// Adapt columns' width to content
+- [ ] Add a program presentation at the first launching of the program
+- [ ] Complete traductions

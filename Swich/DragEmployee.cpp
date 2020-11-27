@@ -37,7 +37,7 @@ void DragEmployee::ini(const QPixmap pix)
   QLabel* displayPix = new QLabel(this);
   QLabel* displayLvl = new QLabel(note, this);
   QLabel* displayName = new QLabel(name, this);
-  QLabel* displaySalary = new QLabel(QString::number(salary) + tr(" $"), this);
+  QLabel* displaySalary = new QLabel(QString::number(salary) + tr("$"), this);
 
   displayPix->setPixmap(pix);
 
@@ -193,6 +193,10 @@ void DragEmployee::mouseMoveEvent(QMouseEvent* event)
   QMimeData* mimeData = new QMimeData();
 
   mimeData->setText(QString("%1$%2$%3$%4").arg(id).arg(pos).arg(isCommercial).arg(QString::number(canBeTrash)));
+
+  QPixmap pix(SingleData::getInstance()->getPixmap(name));
+  drag->setPixmap(pix);
+  drag->setHotSpot(pix.rect().bottomRight());
 
   drag->setMimeData(mimeData);
   drag->exec(Qt::MoveAction);

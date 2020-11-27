@@ -54,7 +54,7 @@ void Sell::setList()
     QGridLayout* layoutGrid = new QGridLayout(this);
     QLabel* titre = new QLabel(getList->at(i).getNom(), this);
     QLineEdit* stock = new QLineEdit(QString::number(getList->at(i).getRoundedStock()), this);
-    QSlider* slider = new QSlider(Qt::Horizontal, this);
+    SuperSlider* slider = new SuperSlider(Qt::Horizontal, this);
 
     widgetContainer->setObjectName(QString::number(i));
     stock->setObjectName(QString::number(i));
@@ -69,12 +69,15 @@ void Sell::setList()
 
     widgetContainer->setLayout(layoutGrid);
     layoutGrid->addWidget(titre, 0, 0);
-    layoutGrid->addWidget(stock, 0, 1);
+    layoutGrid->addWidget(stock, 0, 1, Qt::AlignRight);
 
     slider->setPageStep(1);
     stock->setAcceptDrops(false);
     stock->setDisabled(true);
 
+    QCursor handle = slider->cursor();
+
+    slider->setCursor(Qt::PointingHandCursor);
     widgetFromItemList.push_back(containslider);
     connect(slider, SIGNAL(valueChanged(int)), this, SLOT(dynamicStockSender(int)));
   }

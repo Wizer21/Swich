@@ -332,7 +332,7 @@ QString Swich::randSells(double valAd)
     thisSold = 0;
     parts = 1.0 + (Utils::randZeroToVal(volToSold) / 4.0);
     idCity = Utils::randZeroToVal(sizeCityList);
-    idItem = Utils::randZeroToVal(cityList.at(idCity).getList()->size());
+    idItem = Utils::randZeroToVal((int)cityList.at(idCity).getList()->size());
 
     temporaireItem = &cityList.at(idCity).getList()->at(idItem);
 

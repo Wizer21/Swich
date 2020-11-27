@@ -106,8 +106,6 @@ QWidget* Production::newFactoryWidget(QString getName, int idList)
   productionlist.push_back(displayProductionFactory);
   upgradeList.push_back(upgrade);
 
-  layoutWidget->setContentsMargins(10, 5, 10, 5);
-
   SingleData* getPix = SingleData::getInstance();
   getPix->addButtoonToAdaptOnTheme("cash", upgrade);
   upgrade->setIcon(QIcon(getPix->getPixMapOnActualTheme("cash")));

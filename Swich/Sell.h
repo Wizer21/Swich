@@ -7,6 +7,7 @@
 #include "DropWidget.h"
 #include "Stock.h"
 #include "ItemDAO.h"
+#include "SuperSlider.h"
 
 class Sell : public QWidget
 {

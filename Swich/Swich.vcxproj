@@ -115,7 +115,9 @@
     <ClCompile Include="ItemDAO.cpp" />
     <ClCompile Include="NewTable.cpp" />
     <ClCompile Include="PassWord.cpp" />
+    <ClCompile Include="SuperSlider.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClInclude Include="SuperSlider.h" />
     <QtMoc Include="Database.h" />
     <QtMoc Include="CreateNewItem.h" />
     <ClInclude Include="ItemDAO.h" />
