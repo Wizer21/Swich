@@ -121,6 +121,7 @@
     <ClInclude Include="ItemDAO.h" />
     <QtMoc Include="NewTable.h" />
     <QtMoc Include="PassWord.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="StructSettings.h" />
     <QtMoc Include="Utils.h" />
     <QtMoc Include="Chat.h" />
@@ -171,6 +172,12 @@
   <ItemGroup>
     <None Include="translations\swich_en.ts" />
     <None Include="translations\swich_fr.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Swich.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\SwichLogo.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
