@@ -143,6 +143,12 @@ void Chat::clickedDinausor()
   QVBoxLayout* layoutBoxDino = this->findChild<QVBoxLayout*>(QString::number(chatZone->currentIndex()));
   layoutBoxDino->addWidget(iconClick);
   iconClick->setAlignment(Qt::AlignRight);
+
+  int dice = Utils::randZeroToVal(10);
+  if (dice > 7)
+  {
+    displayText(0, "Roar !", chatZone->currentIndex());
+  }
 }
 
 void Chat::loadAnswer()
@@ -152,7 +158,7 @@ void Chat::loadAnswer()
   answerStored.push_back(tr("The sun bright !"));
   answerStored.push_back(tr("This application was made with C++ and the Qt library."));
   answerStored.push_back(tr("I made the logo with Photoshop."));
-  answerStored.push_back(tr("You can found on my GitHub a first version of this concept under \"SimulationRevendeur\"."));
+  answerStored.push_back(tr("You can find on my GitHub a first version of this concept under \"SimulationRevendeur\"."));
   answerStored.push_back(tr("Monstera are such beautiful plants !"));
   answerStored.push_back(tr("Do you like cookies ?"));
   answerStored.push_back(tr("Sorry, we are out of coffee."));

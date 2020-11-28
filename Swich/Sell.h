@@ -18,6 +18,7 @@ public:
   void refreshStock();
   void setList();
   void applyNewDBOnTable(std::vector<Item>* city1, std::vector<Item>* city2, std::vector<Item>* city3);
+  void cancelWhatNotValidated();
 
 signals:
   void callUpdateStock();

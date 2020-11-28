@@ -38,12 +38,13 @@ void City::addToList(Item item)
 
 void City::removeStock(int id, int vol)
 {
-  for (int i = 0; i < cityItemList->size(); i++)
+  int sizeList = (int)cityItemList->size();
+  for (int i = 0; i < sizeList; i++)
   {
     if (cityItemList->at(i).getId() == id)
     {
       cityItemList->at(i).setStock(cityItemList->at(i).getStock() - vol);
-      eraseIfEmpty();
+      //eraseIfEmpty();
       return;
     }
   }

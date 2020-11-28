@@ -228,6 +228,7 @@ void Swich::connectToMenu()
     updateNotificationChat(false);
   }
   setTheme();
+  widgetSell->cancelWhatNotValidated();
 }
 
 void Swich::applyUpdateStock()

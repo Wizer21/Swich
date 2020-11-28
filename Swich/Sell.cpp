@@ -251,13 +251,13 @@ void Sell::cancelSell()
       break;
     }
   }
-
   dynamicStockId(posFromItemList);
 }
 
 void Sell::setTabCity(QTableWidget* tab, std::vector<Item>* list)
 {
   int sizeCityList = (int)list->size();
+  tab->clear();
   tab->setSortingEnabled(false);
   tab->setRowCount(sizeCityList);
 
@@ -281,6 +281,50 @@ void Sell::validate()
   widgetToDelete.clear();
 
   emit callUpdateStock();
+}
+
+void Sell::cancelWhatNotValidated()
+{
+  int toDeleteList = (int)widgetToDelete.size();
+  if (toDeleteList == 0)
+  {
+    return;
+  }
+
+  QStringList idItem_HisPage;
+
+  int myItemList = (int)getList->size();
+
+  for (int i = 0; i < toDeleteList; i++)
+  {
+    QString toDeleteObjectName = widgetToDelete.at(i)->objectName();
+    idItem_HisPage = toDeleteObjectName.split("$");
+
+    QLineEdit* getVol = this->findChild<QLineEdit*>(toDeleteObjectName);
+
+    for (int y = 0; y < myItemList; y++)
+    {
+      if (getList->at(y).getId() == idItem_HisPage.at(0).toInt())
+      {
+        getList->at(y).setStock(getList->at(y).getStock() + getVol->text().toInt());
+        sliderList.at(idItem_HisPage.at(0).toInt())->setMaximum(getList->at(y).getRoundedStock());
+
+        //QTableWidget* tableWidget = this->findChild<QTableWidget*>(idItem_HisPage.at(0));
+        getCityList->at(idItem_HisPage.at(1).toInt()).removeStock(idItem_HisPage.at(0).toInt(), getVol->text().toInt());
+
+        std::vector<Item>* cityItemList = getCityList->at(idItem_HisPage.at(1).toInt()).getList();
+        setTabCity(tableList.at(idItem_HisPage.at(1).toInt()), cityItemList);
+        break;
+      }
+    }
+  }
+  for (int i = 0; i < myItemList; i++)
+  {
+    dynamicStockId(i);
+  }
+
+  qDeleteAll(widgetToDelete.begin(), widgetToDelete.end());
+  widgetToDelete.clear();
 }
 
 void Sell::refreshStock()

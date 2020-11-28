@@ -345,12 +345,12 @@ void Ad::setNewTableLoaded()
     }
     else
     {
-      QVBoxLayout* layoutToAdd = this->findChild<QVBoxLayout*>("l" + QString::number(pos++));
+      QVBoxLayout* layoutToAdd = this->findChild<QVBoxLayout*>("l" + QString::number(pos));
       layoutToAdd->addWidget(temporaryList.at(i));
       temporaryList.at(i)->setObjectName("z");
       temporaryList.at(i)->setId(idEmploye++);
       temporaryList.at(i)->setTrashable(true);
-      temporaryList.at(i)->setPos(pos);
+      temporaryList.at(i)->setPos(pos++);
 
       employeList.push_back(temporaryList.at(i));
     }
