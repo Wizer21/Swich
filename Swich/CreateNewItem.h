@@ -17,7 +17,7 @@ public slots:
   void validateButton();
 
 signals:
-  void transfertNewItem(QString table, QString name, int buyp, int sellp);
+  void transfertNewItem(QString table, QString name, double buyp, double sellp);
 
 private:
   QString tableToAdd;

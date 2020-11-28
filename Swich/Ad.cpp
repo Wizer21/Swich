@@ -7,7 +7,6 @@ Ad::Ad()
   idEmploye = 0;
   day = 0;
   setAd();
-  setNewTableLoaded();
 }
 
 void Ad::setAd()
@@ -160,7 +159,7 @@ QString Ad::getSalary_Production(int addDays)
   }
   for (int i = 0; i < lvls; i++)
   {
-    efficiency += 0.2 + Utils::randOnlyPositivePercentage(25);
+    efficiency += 0.55 + Utils::randOnlyPositivePercentage(5);
   }
   for (int i = 0; i < employeList.size(); i++)
   {
@@ -355,5 +354,9 @@ void Ad::setNewTableLoaded()
 
       employeList.push_back(temporaryList.at(i));
     }
+  }
+  if (commercialCurrent.size() > 0)
+  {
+    emit newCommercial(commercialCurrent.at(0));
   }
 }

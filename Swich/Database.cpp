@@ -134,7 +134,7 @@ void Database::createTableWidgets(QString tableName)
 
   widgetList.insert({tableName, mainTableWidget});
   displayTable->resizeColumnsToContents();
-    
+
   loadDB->setCursor(Qt::PointingHandCursor);
   deleteDB->setCursor(Qt::PointingHandCursor);
   addItem->setCursor(Qt::PointingHandCursor);
@@ -258,13 +258,13 @@ void Database::sortItemList()
 void Database::createItem()
 {
   CreateNewItem* newItem = new CreateNewItem(this, sender()->objectName());
-  connect(newItem, SIGNAL(transfertNewItem(QString, QString, int, int)), this, SLOT(applyNewItem(QString, QString, int, int)));
+  connect(newItem, SIGNAL(transfertNewItem(QString, QString, double, double)), this, SLOT(applyNewItem(QString, QString, double, double)));
   newItem->exec();
 
   errorMessage->setText("");
 }
 
-void Database::applyNewItem(QString table, QString name, int buyP, int sellP)
+void Database::applyNewItem(QString table, QString name, double buyP, double sellP)
 {
   ItemDAO::getInstance()->addItemToTable(table, name, buyP, sellP);
   QTableView* view = this->findChild<QTableView*>(table);

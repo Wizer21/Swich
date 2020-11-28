@@ -23,7 +23,7 @@ public slots:
   void connectNewTable(QString name, QString password);
   void deleteTableConfirm();
   void createItem();
-  void applyNewItem(QString table, QString name, int buyP, int sellP);
+  void applyNewItem(QString table, QString name, double buyP, double sellP);
   void deleteNewItem();
   void passwordValidated(QString tableName);
 

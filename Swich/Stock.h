@@ -30,6 +30,7 @@ private:
   QHeaderView* head;
   std::vector<Item>* getItemList;
 
+  QCheckBox* buttonRadio;
   QWidget* commercialWidget;
   QLabel* pictureId;
   QLabel* name;

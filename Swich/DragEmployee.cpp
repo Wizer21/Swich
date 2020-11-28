@@ -80,10 +80,10 @@ void DragEmployee::calculRandStats()
     }
   }
   //Salary
-  double calculSalary = 350 + Utils::randZeroToVal(300);
+  double calculSalary = 250 + Utils::randZeroToVal(250);
   for (int i = 0; i < level; i++)
   {
-    calculSalary *= (1.10 + Utils::randOnlyPositivePercentage(10));
+    calculSalary *= (1.1 + Utils::randOnlyPositivePercentage(25));
   }
   salary = calculSalary;
   note = calculNote(level);

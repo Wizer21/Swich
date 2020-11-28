@@ -53,7 +53,6 @@ private:
   void updateNotificationChat(bool isVisible);
   QString randSells(double valAd);
 
-  int turnId;
   double bankDisplayed;
   bool gotCommercial;
   bool commercialActivated;

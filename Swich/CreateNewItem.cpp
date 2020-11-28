@@ -48,12 +48,14 @@ void CreateNewItem::ini(QGridLayout* layout)
 
 void CreateNewItem::updateFromBuyP(QString value)
 {
-  containSellP->setText(QString::number(round(value.toInt() * 1.97)));
+  auto aprox = round((value.toDouble() * (3.89 + Utils::randOnlyPositivePercentage(20)) * 100) + .50) / 100;
+  containSellP->setText(QString::number(aprox));
 }
 
 void CreateNewItem::updateFromSellP(QString value)
 {
-  containBuyp->setText(QString::number(round(value.toInt() / 1.97)));
+  auto aprox = round((value.toDouble() * (3.89 + Utils::randOnlyPositivePercentage(20)) * 100) + .50) / 100;
+  containBuyp->setText(QString::number(aprox));
 }
 
 void CreateNewItem::validateButton()
@@ -62,7 +64,7 @@ void CreateNewItem::validateButton()
   {
     return;
   }
-  emit transfertNewItem(tableToAdd, containName->text(), containBuyp->text().toInt(), containSellP->text().toInt() * (1 + Utils::randNegativeIntToPercentage(20)));
+  emit transfertNewItem(tableToAdd, containName->text(), containBuyp->text().toDouble(), containSellP->text().toDouble());
   this->close();
 }
 

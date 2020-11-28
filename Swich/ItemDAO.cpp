@@ -59,11 +59,6 @@ bool ItemDAO::isDatableOnline()
 
 void ItemDAO::loadDBToLists(QString tableName)
 {
-  if (currentTable != "Default Table")
-  {
-    saveToDatabase();
-  }
-
   if (db.open())
   {
     // LOAD ITEM LIST
@@ -87,10 +82,10 @@ void ItemDAO::loadDBToLists(QString tableName)
     mainCity_3->clear();
     while (queryDB.next())
     {
-      mainItem_List->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnStock).toInt(), queryDB.value(columnBuyP).toInt(), queryDB.value(columnSellP).toInt(), "", queryDB.value(columnID).toInt()));
-      mainCity_1->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity1).toInt(), queryDB.value(columnSellP).toInt(), queryDB.value(columnID).toInt()));
-      mainCity_2->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity2).toInt(), queryDB.value(columnSellP).toInt(), queryDB.value(columnID).toInt()));
-      mainCity_3->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity3).toInt(), queryDB.value(columnSellP).toInt(), queryDB.value(columnID).toInt()));
+      mainItem_List->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnStock).toInt(), queryDB.value(columnBuyP).toDouble(), queryDB.value(columnSellP).toDouble(), "", queryDB.value(columnID).toInt()));
+      mainCity_1->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity1).toInt(), queryDB.value(columnSellP).toDouble(), queryDB.value(columnID).toInt()));
+      mainCity_2->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity2).toInt(), queryDB.value(columnSellP).toDouble(), queryDB.value(columnID).toInt()));
+      mainCity_3->push_back(Item(queryDB.value(columnName).toString(), queryDB.value(columnCity3).toInt(), queryDB.value(columnSellP).toDouble(), queryDB.value(columnID).toInt()));
     }
     currentTable = tableName;
 
@@ -342,9 +337,9 @@ void ItemDAO::setNewTable(QString name, QString password)
                        ");")
                  .arg(name + "$employe$"));
 
-  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','8','16');").arg(name));
-  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Pot','15','32');").arg(name));
-  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Flower','2','4');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Mug','8','31.12');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Pot','15','58.35');").arg(name));
+  queryDB.exec(QString("INSERT INTO %1 (id_item, name_item, buyp_item, sellp_item) VALUES(NULL, 'Flower','2.12','8.24');").arg(name));
 
   queryDB.exec(QString("INSERT INTO %1 VALUES('%2','5432');").arg(name + "$bank$").arg(password));
 
@@ -474,7 +469,7 @@ void ItemDAO::isUnlocked(QString tableName)
   lockedList.at(tableName) = false;
 }
 
-void ItemDAO::addItemToTable(QString table, QString name, int buyP, int sellP)
+void ItemDAO::addItemToTable(QString table, QString name, double buyP, double sellP)
 {
   db.open();
   QSqlQuery queryDB(db);

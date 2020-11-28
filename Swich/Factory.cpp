@@ -19,11 +19,11 @@ void Factory::newMonthFactory(int days)
 void Factory::expodentialProduction(int days)
 {
   strenghtProducted = 1;
-  productionCost = 100;
+  productionCost = 30;
   for (int i = 0; i < level; i++)
   {
-    strenghtProducted *= 1.2;
-    productionCost *= 1.1;
+    strenghtProducted *= 1.4;
+    productionCost *= 1.2;
   }
   strenghtProducted *= randProd;
   strenghtProducted *= days;
@@ -32,6 +32,16 @@ void Factory::expodentialProduction(int days)
 void Factory::calculEvolution()
 {
   int dice = Utils::randZeroToVal(100);
+
+  if (randProd > 1 && evolution)
+  {
+    dice += 5;
+  }
+  if (randProd < 1 && !evolution)
+  {
+    dice += 5;
+  }
+
   if (dice > 80)
   {
     if (evolution)

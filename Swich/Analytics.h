@@ -19,7 +19,7 @@ class Analytics : public QWidget
 
 public:
   Analytics();
-  void updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction);
+  void updateAnalytics(double addVolumes, double addBank, double addCharges, double addProduction);
   void setColors(int colorId);
   void graphPushToDB();
   void newTableUsed();
@@ -32,7 +32,7 @@ private:
 
   void setAnalytics();
   void createGraph();
-  void pushDataToGraph(int addDay, double addVolumes, double addBank, double addCharges, double addProduction);
+  void pushDataToGraph(double addVolumes, double addBank, double addCharges, double addProduction);
 
   QLineSeries* zeroSeries;
   QLineSeries* sellSeries;
@@ -46,6 +46,7 @@ private:
   std::vector<double> productionEvo;
 
   int idGraph;
+  int currentDay;
   double minBank;
   double maxVolume;
   double maxBank;

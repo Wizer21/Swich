@@ -5,7 +5,6 @@ Swich::Swich(QWidget* parent)
   : QMainWindow(parent)
 {
   ui.setupUi(this);
-  turnId = 0;
   bankDisplayed = 0;
   gotCommercial = false;
   commercialActivated = true;
@@ -16,6 +15,8 @@ Swich::Swich(QWidget* parent)
 
   QGridLayout* swichLayout = new QGridLayout(this->ui.centralWidget);
   ini(swichLayout);
+
+  applyTableChanged();
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -112,7 +113,7 @@ void Swich::ini(QGridLayout* layout)
   chat->setCursor(Qt::PointingHandCursor);
   more->setCursor(Qt::PointingHandCursor);
   saveButton->setCursor(Qt::PointingHandCursor);
-  
+
   hub->setObjectName("index0");
   analytics->setObjectName("index1");
   sell->setObjectName("index2");
@@ -239,7 +240,7 @@ void Swich::startNewMonth()
   double temporaryGain = 0;
   double temporarySoldVol = 0;
   double temporaryCharges = 0;
-  int addedDays = 25 + Utils::randZeroToVal(10);
+  int addedDays = 25 + Utils::randZeroToVal(5);
 
   //Update Widgets
   QStringList listProd_Cost = widgetProduction->newMonthProd(addedDays).split("$");
@@ -284,7 +285,7 @@ void Swich::startNewMonth()
   QString date = widgetHub->updateCurrentMonth(round(evoBanque), temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
-  widgetAnalytics->updateAnalytics(turnId++, temporarySoldVol, bankDisplayed, temporaryCharges, listProd_Cost.at(0).toDouble());
+  widgetAnalytics->updateAnalytics(temporarySoldVol, bankDisplayed, temporaryCharges, price_Production.second);
   widgetHub->updateLabels(bankDisplayed, price_Production.second, temporarySoldVol);
   widgetSell->refreshStock();
   widgetStock->updateStock();
@@ -315,7 +316,7 @@ std::pair<double, int> Swich::addProductionToInventory(double addedProduction)
 
 QString Swich::randSells(double valAd)
 {
-  double volToSold = (1.0 + Utils::randZeroToVal(5)) * valAd * 20;
+  double volToSold = (3.0 + Utils::randZeroToVal(2)) * valAd * 10;
   double newBank = 0;
   double soldQuantity = 0;
   int sizeCityList = (int)cityList.size();
@@ -404,7 +405,9 @@ void Swich::applyTableChanged()
   cityList.at(2).setList(ItemDAO::getInstance()->getCityList(2));
 
   actualDb->setText(ItemDAO::getInstance()->getCurrentTable());
+  actualDb->setAlignment(Qt::AlignRight);
   widgetStock->setList();
+  applyFireCommercial();
 
   widgetSell->setList();
   widgetSell->applyNewDBOnTable(cityList.at(0).getList(), cityList.at(1).getList(), cityList.at(2).getList());
@@ -483,8 +486,8 @@ void Swich::applyCommercialIsActivated(bool val)
 
 void Swich::commercialTransfertStock()
 {
-
-  double commercialStrenght = 20.0 * pow(1.6 + Utils::randOnlyPositivePercentage(25), getCommercial->getLvl());
+  double exo = 5 + Utils::randOnlyPositivePercentage(25);
+  double commercialStrenght = 10 * pow(exo, getCommercial->getLvl());
 
   int itemsListSize = (int)mainItemList->size();
   int cityListSize = (int)cityList.size();

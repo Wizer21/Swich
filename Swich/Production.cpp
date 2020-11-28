@@ -8,7 +8,6 @@ Production::Production()
   totalStrenght = 0;
 
   setProduction();
-  loadDB();
 }
 
 void Production::setProduction()

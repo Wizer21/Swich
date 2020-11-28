@@ -8,6 +8,7 @@ Analytics::Analytics()
   maxCharges = 0;
   idGraph = 0;
   minBank = 0;
+  currentDay = 0;
 
   setAnalytics();
   createGraph();
@@ -152,29 +153,29 @@ void Analytics::createGraph()
   setColors(1);
 }
 
-void Analytics::updateAnalytics(int addDay, double addVolumes, double addBank, double addCharges, double addProduction)
+void Analytics::updateAnalytics(double addVolumes, double addBank, double addCharges, double addProduction)
 {
   sellEvo.push_back(addVolumes);
   bankEvo.push_back(addBank);
   taxEvo.push_back(addCharges);
   productionEvo.push_back(addProduction);
 
-  pushDataToGraph(addDay, addVolumes, addBank, addCharges, addProduction);
+  pushDataToGraph(addVolumes, addBank, addCharges, addProduction);
 }
 
-void Analytics::pushDataToGraph(int addDay, double addVolumes, double addBank, double addCharges, double addProduction)
+void Analytics::pushDataToGraph(double addVolumes, double addBank, double addCharges, double addProduction)
 {
 
-  sellSeries->append(addDay, addVolumes);
-  bankSeries->append(addDay, addBank);
-  zeroSeries->append(addDay * 1.2, 0);
-  chargeSeries->append(addDay, addCharges);
-  productionSeries->append(addDay, addProduction);
+  sellSeries->append(currentDay, addVolumes);
+  bankSeries->append(currentDay, addBank);
+  zeroSeries->append(currentDay * 1.2, 0);
+  chargeSeries->append(currentDay, addCharges);
+  productionSeries->append(currentDay, addProduction);
 
-  axeHVolumes->setMax(addDay * 1.2);
-  axeHBank->setMax(addDay * 1.2);
-  axeHCharges->setMax(addDay * 1.2);
-  axeHProduction->setMax(addDay * 1.2);
+  axeHVolumes->setMax(currentDay * 1.2);
+  axeHBank->setMax(currentDay * 1.2);
+  axeHCharges->setMax(currentDay * 1.2);
+  axeHProduction->setMax(currentDay * 1.2);
 
   if (minBank > addBank)
   {
@@ -203,6 +204,7 @@ void Analytics::pushDataToGraph(int addDay, double addVolumes, double addBank, d
     maxProduction = addProduction;
     axeVProduction->setMax(addProduction * 1.2);
   }
+  currentDay++;
 }
 
 void Analytics::setDisplayedGraph()
@@ -276,11 +278,11 @@ void Analytics::newTableUsed()
   maxBank = 0;
   maxCharges = 0;
   maxProduction = 0;
+  currentDay = 0;
 
-  int iteration = 0;
   int dataSize = (int)sellEvo.size();
   for (int i = 0; i < dataSize; i++)
   {
-    pushDataToGraph(iteration++, sellEvo.at(i), bankEvo.at(i), taxEvo.at(i), productionEvo.at(i));
+    pushDataToGraph(sellEvo.at(i), bankEvo.at(i), taxEvo.at(i), productionEvo.at(i));
   }
 }

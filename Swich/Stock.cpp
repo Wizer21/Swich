@@ -33,7 +33,7 @@ void Stock::setStock()
   salary = new QLabel("0", this);
   displayPushedItems = new QLabel("0", this);
   QLabel* textPushedItems = new QLabel(tr("Items pushed"), this);
-  QCheckBox* buttonRadio = new QCheckBox(this);
+  buttonRadio = new QCheckBox(this);
 
   commercialWidget->setLayout(layoutCommercial);
   layoutCommercial->addWidget(widgetLeft, 0, 0);
@@ -136,6 +136,7 @@ void Stock::updateCommercialSlot(DragEmployee* getEmploye)
 {
   commercialWidget->setVisible(true);
 
+  buttonRadio->setChecked(true);
   SingleData* single = single->getInstance();
   pictureId->setPixmap(single->getPixmap(getEmploye->getName()));
   name->setText(getEmploye->getName());
