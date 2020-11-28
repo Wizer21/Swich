@@ -77,7 +77,8 @@ void Database::iniDB(QGridLayout* layout)
   }
 
   QFont font = qApp->font();
-  font.setPixelSize(25);
+  font.setPixelSize(font.pixelSize() * 1.5);
+
   runningTable->setFont(font);
   dataOn_Off->setFont(font);
   widgetStack->setObjectName("stackTable");
@@ -131,6 +132,10 @@ void Database::createTableWidgets(QString tableName)
   displayTable->setSelectionBehavior(QAbstractItemView::SelectRows);
   displayTable->setModel(ItemDAO::getInstance()->getQuerryModel(tableName));
   displayTable->show();
+
+  QHeaderView* header = displayTable->horizontalHeader();
+  header->setSectionResizeMode(QHeaderView::Stretch);
+  header->setSectionResizeMode(QHeaderView::Interactive);
 
   widgetList.insert({tableName, mainTableWidget});
   displayTable->resizeColumnsToContents();

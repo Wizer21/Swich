@@ -115,12 +115,8 @@ void Sell::setCity()
 
     //Tab
     QTableWidget* tabCity = new QTableWidget(0, 2, this);
-    QStringList columnName;
-    columnName << tr("Name") << tr("Stock");
 
-    tabCity->setHorizontalHeaderLabels(columnName);
     tabCity->setSortingEnabled(true);
-    tabCity->resizeColumnsToContents();
     setTabCity(tabCity, getCityList->at(i).getList());
 
     tabWidget->addTab(widgetCity, getCityList->at(i).getNom());
@@ -138,6 +134,13 @@ void Sell::setCity()
     layoutWidget->setAlignment(Qt::AlignTop);
     scrollArea->setWidgetResizable(true);
     scrollArea->setMinimumWidth(this->width() * 0.3);
+
+    QStringList columnName;
+    columnName << tr("Name") << tr("Stock");
+    tabCity->setHorizontalHeaderLabels(columnName);
+    QHeaderView* header = tabCity->horizontalHeader();
+    header->setSectionResizeMode(QHeaderView::Stretch);
+    header->setSectionResizeMode(QHeaderView::Interactive);
 
     tableList.push_back(tabCity);
     tabCity->setMinimumWidth(150);
@@ -257,7 +260,7 @@ void Sell::cancelSell()
 void Sell::setTabCity(QTableWidget* tab, std::vector<Item>* list)
 {
   int sizeCityList = (int)list->size();
-  tab->clear();
+  tab->clearContents();
   tab->setSortingEnabled(false);
   tab->setRowCount(sizeCityList);
 
@@ -309,7 +312,6 @@ void Sell::cancelWhatNotValidated()
         getList->at(y).setStock(getList->at(y).getStock() + getVol->text().toInt());
         sliderList.at(idItem_HisPage.at(0).toInt())->setMaximum(getList->at(y).getRoundedStock());
 
-        //QTableWidget* tableWidget = this->findChild<QTableWidget*>(idItem_HisPage.at(0));
         getCityList->at(idItem_HisPage.at(1).toInt()).removeStock(idItem_HisPage.at(0).toInt(), getVol->text().toInt());
 
         std::vector<Item>* cityItemList = getCityList->at(idItem_HisPage.at(1).toInt()).getList();

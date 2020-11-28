@@ -12,7 +12,6 @@ public:
   void setList(std::vector<Item>* list);
   void addToList(Item);
   void removeStock(int id, int vol);
-  void eraseIfEmpty();
   void pushStockToList(int idCurrentItem, double addedStock);
 
 private:

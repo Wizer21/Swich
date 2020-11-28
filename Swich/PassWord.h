@@ -2,6 +2,7 @@
 #include <QDialog>
 #include "stdafx.h"
 #include "ItemDAO.h"
+#include "SingleData.h"
 
 class PassWord : public QDialog
 {
@@ -12,7 +13,8 @@ public:
   ~PassWord();
 
 public slots:
-  void setHideLineEdit(bool);
+  void eyeClicked();
+  void eyeReleased();
   void validButton();
 
 signals:
@@ -23,5 +25,6 @@ private:
   QString password;
   QString table;
   QLabel* invalid;
+  QPushButton* buttonEye;
   QLineEdit* qlineEdit;
 };

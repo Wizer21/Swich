@@ -40,6 +40,10 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("lockdark", ":/icon/images/locklight.png", 50, 50);
   pushPixmapToSoft("piecelight", ":/icon/images/piecedark.png", 50, 50);
   pushPixmapToSoft("piecedark", ":/icon/images/piecelight.png", 50, 50);
+  pushPixmapToSoft("eyelight", ":/icon/images/eyedark.png", 50, 50);
+  pushPixmapToSoft("eyedark", ":/icon/images/eyelight.png", 50, 50);
+  pushPixmapToSoft("closeeyelight", ":/icon/images/closeeyedark.png", 50, 50);
+  pushPixmapToSoft("closeeyedark", ":/icon/images/closeeyelight.png", 50, 50);
 }
 
 void SingleData::pushCharacter(const QString& addNom, const QString& pixMap)

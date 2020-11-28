@@ -28,6 +28,10 @@
         <file>images/trashlight.png</file>
         <file>images/locklight.png</file>
         <file>images/notification.png</file>
+        <file>images/closeeyedark.png</file>
+        <file>images/closeeyelight.png</file>
+        <file>images/eyedark.png</file>
+        <file>images/eyelight.png</file>
     </qresource>
     <qresource prefix="/character">
         <file alias="Bob">images/Bob.jpg</file>

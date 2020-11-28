@@ -44,20 +44,7 @@ void City::removeStock(int id, int vol)
     if (cityItemList->at(i).getId() == id)
     {
       cityItemList->at(i).setStock(cityItemList->at(i).getStock() - vol);
-      //eraseIfEmpty();
       return;
-    }
-  }
-}
-
-void City::eraseIfEmpty()
-{
-  for (int i = 0; i < cityItemList->size(); i++)
-  {
-    if (cityItemList->at(i).getStock() == 0)
-    {
-      cityItemList->erase(cityItemList->begin() + i);
-      i--;
     }
   }
 }

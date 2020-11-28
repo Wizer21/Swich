@@ -15,17 +15,15 @@ void PassWord::askForPassword(QGridLayout* layout)
 {
   QLabel* title = new QLabel(tr("PassWord"), this);
   QLabel* tableDisplay = new QLabel(table, this);
-  QLabel* eye = new QLabel("eye", this);
-  QRadioButton* button = new QRadioButton(this);
+  buttonEye = new QPushButton(this);
   qlineEdit = new QLineEdit(this);
   invalid = new QLabel(this);
   QPushButton* buttonValidate = new QPushButton(tr("Validate"), this);
 
   layout->addWidget(title, 0, 0, 1, 3);
-  layout->addWidget(tableDisplay, 1, 0);
-  layout->addWidget(eye, 1, 1, Qt::AlignRight);
-  layout->addWidget(button, 1, 2);
-  layout->addWidget(qlineEdit, 2, 0, 1, 3);
+  layout->addWidget(tableDisplay, 1, 0, 1, 3);
+  layout->addWidget(qlineEdit, 2, 0, 1, 2);
+  layout->addWidget(buttonEye, 2, 2, 1, 1);
   layout->addWidget(invalid, 3, 0, 1, 3);
   layout->addWidget(buttonValidate, 4, 0, 1, 3);
 
@@ -33,26 +31,32 @@ void PassWord::askForPassword(QGridLayout* layout)
   QValidator* noSpacesAllowed = new QRegExpValidator(rgx, this);
   qlineEdit->setValidator(noSpacesAllowed);
 
-  button->setChecked(true);
+  buttonEye->setIcon(SingleData::getInstance()->getPixMapOnActualTheme("closeeye"));
+  buttonEye->setStyleSheet("QPushButton{border: 0px solid white;background-color: transparent;}");
 
-  button->setCursor(Qt::PointingHandCursor);
+  buttonEye->setCursor(Qt::PointingHandCursor);
   buttonValidate->setCursor(Qt::PointingHandCursor);
   qlineEdit->setEchoMode(QLineEdit::Password);
 
-  connect(button, SIGNAL(clicked(bool)), this, SLOT(setHideLineEdit(bool)));
+  QFont font = qApp->font();
+  font.setPointSize(font.pointSize() * 1.5);
+  title->setFont(font);
+
+  connect(buttonEye, SIGNAL(pressed()), this, SLOT(eyeClicked()));
+  connect(buttonEye, SIGNAL(released()), this, SLOT(eyeReleased()));
   connect(buttonValidate, SIGNAL(clicked()), this, SLOT(validButton()));
 }
 
-void PassWord::setHideLineEdit(bool val)
+void PassWord::eyeClicked()
 {
-  if (val)
-  {
-    qlineEdit->setEchoMode(QLineEdit::Password);
-  }
-  else
-  {
-    qlineEdit->setEchoMode(QLineEdit::Normal);
-  }
+  buttonEye->setIcon(SingleData::getInstance()->getPixMapOnActualTheme("eye"));
+  qlineEdit->setEchoMode(QLineEdit::Normal);
+}
+
+void PassWord::eyeReleased()
+{
+  buttonEye->setIcon(SingleData::getInstance()->getPixMapOnActualTheme("closeeye"));
+  qlineEdit->setEchoMode(QLineEdit::Password);
 }
 
 void PassWord::validButton()

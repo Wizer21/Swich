@@ -158,7 +158,6 @@ QString Production::newMonthProd(int days)
 
 void Production::pushCreatedItems(int itemsProducted)
 {
-  int production = itemsProducted;
   double productionRatio = 0;
   double thisProductedItems = 0;
   for (int i = 0; i < listFactory.size(); i++)
@@ -243,6 +242,7 @@ void Production::loadDB()
     else
     {
       lockedFactory1->setVisible(true);
+      hidedWidget.at(1)->setVisible(false);
     }
     if (factoryLevel_upgrade.at(2).first != 0)
     {
@@ -252,6 +252,7 @@ void Production::loadDB()
     else
     {
       lockedFactory2->setVisible(true);
+      hidedWidget.at(2)->setVisible(false);
     }
   }
 }
