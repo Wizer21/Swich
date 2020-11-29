@@ -563,3 +563,8 @@ void Swich::resizeEvent(QResizeEvent* event)
   QPoint point(this->geometry().x() + this->width() + 10, this->geometry().y());
   Tutorial::getInstance()->mooved(point);
 }
+
+void Swich::closeEvent(QCloseEvent* event)
+{
+  qApp->exit(0);
+}

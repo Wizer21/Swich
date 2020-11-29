@@ -47,8 +47,9 @@ private slots:
   void applyTutorialMooved(QPoint);
 
 protected:
-  void Swich::moveEvent(QMoveEvent* event);
-  void Swich::resizeEvent(QResizeEvent* event);
+  void moveEvent(QMoveEvent* event);
+  void resizeEvent(QResizeEvent* event);
+  void closeEvent(QCloseEvent* event);
 
 private:
   void ini(QGridLayout* widget);

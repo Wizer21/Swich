@@ -13,20 +13,32 @@ Database::Database(QWidget* parent, int addCurrentWidget)
   this->resize(900, 450);
   this->setObjectName("dialogData");
   applyStyleSheet();
+
+  std::pair<bool, QString> avaibleTable = ItemDAO::getInstance()->getNoPasswordTable();
+  if (avaibleTable.first)
+  {
+    createTableWidgets("SWICH");
+    addTableToList("SWICH");
+    sortItemList();
+    updateLockIcon();
+  }
+  widgetStack->setCurrentIndex(widgetStack->indexOf(widgetList.at(avaibleTable.second)));
 }
 
 void Database::iniDB(QGridLayout* layout)
 {
   QWidget* containTitle = new QWidget(this);
-  QHBoxLayout* layoutTitle = new QHBoxLayout(this);
-  QLabel* running = new QLabel(tr("Running on"), this);
+  QGridLayout* layoutTitle = new QGridLayout(this);
+  QLabel* running = new QLabel(tr(" Running on "), this);
   runningTable = new QLabel("nameTable", this);
-
-  QWidget* containStatu = new QWidget(this);
-  QHBoxLayout* layoutStatu = new QHBoxLayout(this);
   QLabel* dataOn_Off = new QLabel(this);
   QLabel* iconOn_Off = new QLabel(this);
   errorMessage = new QLabel(this);
+
+  layoutTitle->setAlignment(Qt::AlignTop);
+
+  QWidget* containStatu = new QWidget(this);
+  QHBoxLayout* layoutStatu = new QHBoxLayout(this);
 
   QScrollArea* containTableList = new QScrollArea(this);
   QWidget* widgetScroll = new QWidget(this);
@@ -35,23 +47,50 @@ void Database::iniDB(QGridLayout* layout)
   widgetStack = new QStackedWidget(this);
   QPushButton* addTable = new QPushButton(tr("NewTable"));
 
-  layout->addWidget(containTitle, 0, 0, 1, 2);
+  layout->addWidget(containTitle, 0, 0, 1, 4);
   containTitle->setLayout(layoutTitle);
-  layoutTitle->addWidget(running);
-  layoutTitle->addWidget(runningTable);
-  layout->addWidget(containStatu, 0, 3);
+  layoutTitle->addWidget(running, 0, 0);
+  layoutTitle->addWidget(runningTable, 0, 1);
+  layoutTitle->addWidget(errorMessage, 0, 2);
+  layoutTitle->addWidget(containStatu, 0, 3);
   containStatu->setLayout(layoutStatu);
-  layout->addWidget(errorMessage, 0, 2);
+
+  layoutStatu->setAlignment(Qt::AlignRight);
   layoutStatu->addWidget(dataOn_Off);
   layoutStatu->addWidget(iconOn_Off);
+  layoutTitle->setColumnStretch(3, 1);
+
   layout->addWidget(containTableList, 1, 0, 1, 1);
   containTableList->setWidget(widgetScroll);
   widgetScroll->setLayout(layoutInScrollArea);
   layout->addWidget(addTable, 2, 0, 1, 1);
   layout->addWidget(widgetStack, 1, 1, 2, 3);
 
-  layoutTitle->setAlignment(Qt::AlignLeft);
-  layoutStatu->setAlignment(Qt::AlignRight);
+  runningTable->setObjectName("transparentdb");
+  running->setObjectName("transparentdb");
+  dataOn_Off->setObjectName("transparentdb");
+  iconOn_Off->setObjectName("transparentdb");
+  runningTable->setObjectName("transparentdb");
+
+  containTitle->setObjectName("borderdb");
+  containTableList->setObjectName("borderdb");
+  addTable->setObjectName("borderdb");
+  errorMessage->setObjectName("borderdb");
+  layoutInScrollArea->setObjectName("borderdb");
+  widgetScroll->setObjectName("borderdb");
+  containStatu->setObjectName("borderdb");
+
+  layout->setAlignment(Qt::AlignTop);
+  layout->setContentsMargins(0, 0, 0, 0);
+  layout->setSpacing(0);
+  layoutTitle->setSpacing(0);
+
+  layoutTitle->setContentsMargins(0, 0, 0, 0);
+  containTitle->setContentsMargins(0, 0, 0, 0);
+  containTableList->setContentsMargins(0, 0, 0, 0);
+  widgetStack->setContentsMargins(0, 0, 0, 0);
+  containStatu->setContentsMargins(0, 0, 0, 0);
+
   layoutInScrollArea->setAlignment(Qt::AlignTop);
   containTableList->setFixedWidth(this->width() * 2);
   containTableList->setWidgetResizable(true);
@@ -141,18 +180,17 @@ void Database::createTableWidgets(QString tableName)
   header->setSectionResizeMode(QHeaderView::Interactive);
 
   widgetList.insert({tableName, mainTableWidget});
-  displayTable->resizeColumnsToContents();
 
   loadDB->setCursor(Qt::PointingHandCursor);
   deleteDB->setCursor(Qt::PointingHandCursor);
   addItem->setCursor(Qt::PointingHandCursor);
   deleteItem->setCursor(Qt::PointingHandCursor);
 
-  SingleData* data = SingleData::getInstance();
-  loadDB->setIcon(data->getPixMapOnActualTheme("upload"));
-  deleteDB->setIcon(data->getPixMapOnActualTheme("trash"));
-  addItem->setIcon(data->getPixMapOnActualTheme("item"));
-  deleteItem->setIcon(data->getPixMapOnActualTheme("itemdelete"));
+  SingleData* getData = SingleData::getInstance();
+  loadDB->setIcon(getData->getPixMapOnActualTheme("upload"));
+  deleteDB->setIcon(getData->getPixMapOnActualTheme("trash"));
+  addItem->setIcon(getData->getPixMapOnActualTheme("item"));
+  deleteItem->setIcon(getData->getPixMapOnActualTheme("itemdelete"));
 
   connect(loadDB, SIGNAL(clicked()), this, SLOT(loadNewTable()));
   connect(deleteDB, SIGNAL(clicked()), this, SLOT(deleteTableConfirm()));
@@ -213,20 +251,14 @@ void Database::connectNewTable(QString name, QString password)
 
 void Database::deleteTableConfirm()
 {
+  ItemDAO* getDb = ItemDAO::getInstance();
+
   QString tableName = sender()->objectName();
   auto result{QMessageBox::question(this, tr("Valid deletion"), tr("Are you sure to want to delete ") + tableName + ".", QMessageBox::StandardButton::Yes | QMessageBox::StandardButton::No, QMessageBox::StandardButton::No)};
 
   if (result == QMessageBox::Yes)
   {
-    widgetStack->setCurrentIndex(0);
-
-    if (tableName == ItemDAO::getInstance()->getCurrentTable())
-    {
-      ItemDAO::getInstance()->loadDBToLists("");
-    }
-
-    ItemDAO::getInstance()->deleteTable(tableName);
-
+    //DELETE
     widgetStack->removeWidget(widgetList.at(tableName));
 
     delete widgetList.at(tableName);
@@ -237,13 +269,26 @@ void Database::deleteTableConfirm()
     buttonList.at(0) = nullptr;
     buttonList.erase(buttonList.begin());
 
+    ItemDAO::getInstance()->deleteTable(tableName);
+
+    //CREATE
+    std::pair<bool, QString> avaibleTable = getDb->getNoPasswordTable();
+
+    if (avaibleTable.first)
+    {
+      createTableWidgets("SWICH");
+      addTableToList("SWICH");
+    }
     sortItemList();
+    updateLockIcon();
+    widgetStack->setCurrentWidget(widgetList.at(avaibleTable.second));
+    getDb->loadDBToLists(avaibleTable.second);
+    runningTable->setText(avaibleTable.second);
   }
 }
 
 void Database::updateLockIcon()
 {
-
   int listSize = (int)buttonList.size();
   for (int i = 0; i < listSize; i++)
   {

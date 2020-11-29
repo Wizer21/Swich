@@ -305,6 +305,14 @@ QDialog QHeaderView::section:vertical:pressed {
 QDialog QTableView::item:selected {
   background: #536dfe;
 }
+
+QWidget#transparentdb {
+  background-color: transparent;
+}
+QWidget#borderdb {
+  background-color: #262626;
+}
+
 /***********************/
 /*HORIZONTAL SCROLL BAR*/
 /***********************/

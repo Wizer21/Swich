@@ -37,9 +37,9 @@ void ItemDAO::iniDB()
   }
   else
   {
-    loadDBToLists(getTablesList().at(0));
-    currentTable = getTablesList().at(0);
     loadPassword();
+    std::pair<bool, QString> currentTable = getNoPasswordTable();
+    loadDBToLists(currentTable.second);
   }
 }
 
@@ -371,6 +371,9 @@ void ItemDAO::deleteTable(QString tableName)
   queryDB.exec(QString("DROP TABLE %1").arg(tableName + "$factory$"));
   queryDB.exec(QString("DROP TABLE %1").arg(tableName + "$employe$"));
   db.close();
+
+  lockedList.erase(tableName);
+  passwordList.erase(tableName);
 }
 
 std::vector<Item>* ItemDAO::getItemList()
@@ -462,6 +465,21 @@ void ItemDAO::loadPassword()
       lockedList.insert({listTable.at(i), false});
     }
   }
+}
+
+std::pair<bool, QString> ItemDAO::getNoPasswordTable()
+{
+  for (auto it = lockedList.begin(); it != lockedList.end(); ++it)
+  {
+    if (!it->second)
+    {
+      return std::pair(false, it->first);
+    }
+  }
+
+  setNewTable("SWICH", "");
+  currentTable = "SWICH";
+  return std::pair(true, currentTable);
 }
 
 bool ItemDAO::isLocked(QString tableName)

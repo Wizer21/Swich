@@ -12,7 +12,7 @@ NewTable::NewTable(QWidget* parent)
 void NewTable::ini(QGridLayout* layout)
 {
   QLabel* title = new QLabel(tr("New Table"), this);
-  QLabel* name = new QLabel(tr("Table Name *"), this);
+  QLabel* name = new QLabel(tr("Table Name"), this);
   containName = new QLineEdit(this);
   QLabel* passWord = new QLabel(tr("PassWord"), this);
   containPassword = new QLineEdit(this);
@@ -46,7 +46,7 @@ void NewTable::validatePressed()
   QRegExp checkIfFullDigit("\\d*");
   if (containNewName == "")
   {
-    errorMessage->setText(tr("Table name is empty."));
+    errorMessage->setText(tr("No name indicated*"));
     return;
   }
   if (checkIfFullDigit.exactMatch(containNewName))

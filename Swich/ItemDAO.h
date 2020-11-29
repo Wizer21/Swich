@@ -10,7 +10,6 @@
 #include <QSqlQueryModel>
 #include "City.h"
 #include "DragEmployee.h"
-#include <QDebug>
 
 class ItemDAO
 {
@@ -41,6 +40,7 @@ public:
   QStringList getTablesList();
   QString getCurrentTable();
   QString getPassword(QString tableName);
+  std::pair<bool, QString> getNoPasswordTable();
   QSqlQueryModel* getQuerryModel(QString tableName);
 
   std::vector<Item>* getItemList();
@@ -61,6 +61,7 @@ private:
   void iniDB();
   void setItemId(QString tableName);
   void loadPassword();
+
   static ItemDAO* instance;
   QSqlDatabase db;
   QString currentTable;
