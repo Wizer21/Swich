@@ -44,6 +44,35 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("eyedark", ":/icon/images/eyelight.png", 50, 50);
   pushPixmapToSoft("closeeyelight", ":/icon/images/closeeyedark.png", 50, 50);
   pushPixmapToSoft("closeeyedark", ":/icon/images/closeeyelight.png", 50, 50);
+  pushPixmapToSoft("downloaddark", ":/icon/images/downloaddark.png", 50, 50);
+
+  pushPixmapToSoft("closeeyedark", ":/icon/images/closeeyelight.png", 50, 50);
+  pushPixmapToSoft("databasedark", ":/icon/images/databaselight.png", 50, 50);
+  pushPixmapToSoft("itemdeletedark", ":/icon/images/itemdeletelight.png", 50, 50);
+  pushPixmapToSoft("itemdark", ":/icon/images/itemlight.png", 50, 50);
+  pushPixmapToSoft("letterdark", ":/icon/images/letterlight.png", 40, 40);
+  pushPixmapToSoft("nextdark", ":/icon/images/nextlight.png", 50, 50);
+  pushPixmapToSoft("settingsdark", ":/icon/images/settingslight.png", 50, 50);
+  pushPixmapToSoft("tabledark", ":/icon/images/tablelight.png", 50, 50);
+  pushPixmapToSoft("themedark", ":/icon/images/themelight.png", 40, 40);
+  pushPixmapToSoft("translationsdark", ":/icon/images/translationslight.png", 40, 40);
+  pushPixmapToSoft("tutorialdark", ":/icon/images/tutoriallight.png", 50, 50);
+  pushPixmapToSoft("uploaddark", ":/icon/images/uploadlight.png", 50, 50);
+  pushPixmapToSoft("closedark", ":/icon/images/closelight.png", 50, 50);
+
+  pushPixmapToSoft("closeeyelight", ":/icon/images/closeeyedark.png", 50, 50);
+  pushPixmapToSoft("databaselight", ":/icon/images/databasedark.png", 50, 50);
+  pushPixmapToSoft("itemdeletelight", ":/icon/images/itemdeletedark.png", 50, 50);
+  pushPixmapToSoft("itemlight", ":/icon/images/itemdark.png", 50, 50);
+  pushPixmapToSoft("letterlight", ":/icon/images/letterdark.png", 40, 40);
+  pushPixmapToSoft("nextlight", ":/icon/images/nextdark.png", 50, 50);
+  pushPixmapToSoft("settingslight", ":/icon/images/settingsdark.png", 50, 50);
+  pushPixmapToSoft("tablelight", ":/icon/images/tabledark.png", 50, 50);
+  pushPixmapToSoft("themelight", ":/icon/images/themedark.png", 40, 40);
+  pushPixmapToSoft("translationslight", ":/icon/images/translationsdark.png", 40, 40);
+  pushPixmapToSoft("tutoriallight", ":/icon/images/tutorialdark.png", 50, 50);
+  pushPixmapToSoft("uploadlight", ":/icon/images/uploaddark.png", 50, 50);
+  pushPixmapToSoft("closelight", ":/icon/images/closedark.png", 50, 50);
 }
 
 void SingleData::pushCharacter(const QString& addNom, const QString& pixMap)
@@ -70,6 +99,10 @@ void SingleData::addButtoonToAdaptOnTheme(const QString& key, QPushButton* butto
 {
   listButtonToAdapt.push_back(std::pair(key, button));
 }
+void SingleData::addActionToAdaptOnTheme(const QString& key, QAction* action)
+{
+  listActionToAdapt.push_back(std::pair(key, action));
+}
 
 void SingleData::addLabelToAdaptOnFont(const double& multiplier, QLabel* label)
 {
@@ -78,7 +111,6 @@ void SingleData::addLabelToAdaptOnFont(const double& multiplier, QLabel* label)
 
 void SingleData::setColoredIcon(int themeIndex)
 {
-  int list = (int)listLabelToAdapt.size();
   QString subName = "";
 
   if (themeIndex == 0)
@@ -90,16 +122,22 @@ void SingleData::setColoredIcon(int themeIndex)
     subName = "dark";
   }
 
-  for (int i = 0; i < list; i++)
+  int sizeList = (int)listLabelToAdapt.size();
+  for (int i = 0; i < sizeList; i++)
   {
     listLabelToAdapt.at(i).second->setPixmap(getPixmap(listLabelToAdapt.at(i).first + subName));
   }
 
-  list = (int)listButtonToAdapt.size();
-
-  for (int i = 0; i < list; i++)
+  sizeList = (int)listButtonToAdapt.size();
+  for (int i = 0; i < sizeList; i++)
   {
     listButtonToAdapt.at(i).second->setIcon(getPixmap(listButtonToAdapt.at(i).first + subName));
+  }
+
+  sizeList = (int)listActionToAdapt.size();
+  for (int i = 0; i < sizeList; i++)
+  {
+    listActionToAdapt.at(i).second->setIcon(getPixmap(listActionToAdapt.at(i).first + subName));
   }
 }
 

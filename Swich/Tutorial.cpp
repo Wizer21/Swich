@@ -15,24 +15,28 @@ void Tutorial::tutorialOpened(int currentId, QPoint corner)
   isOpen = true;
 
   layout = new QGridLayout(this);
+  QLabel* iconTuto = new QLabel(this);
   isTitle = new QLabel(this);
   QLabel* dockLabel = new QLabel(tr("Dock"), this);
   QCheckBox* checkBox = new QCheckBox(this);
   containText = new QTextEdit(this);
 
-  layout->addWidget(isTitle, 0, 0);
-  layout->addWidget(dockLabel, 0, 1, Qt::AlignCenter);
-  layout->addWidget(checkBox, 0, 2);
-  layout->addWidget(containText, 1, 0, 1, 3);
+  layout->addWidget(iconTuto, 0, 0);
+  layout->addWidget(isTitle, 0, 1);
+  layout->addWidget(dockLabel, 0, 2, Qt::AlignCenter);
+  layout->addWidget(checkBox, 0, 3);
+  layout->addWidget(containText, 1, 0, 1, 4);
 
-  layout->setColumnStretch(0, 1);
-  layout->setColumnStretch(1, 0);
+  layout->setColumnStretch(0, 0);
+  layout->setColumnStretch(1, 1);
   layout->setColumnStretch(2, 0);
+  layout->setColumnStretch(3, 0);
 
   dockLabel->setContentsMargins(5, 5, 5, 5);
   checkBox->setContentsMargins(5, 5, 5, 5);
 
   dockLabel->setAlignment(Qt::AlignRight);
+  containText->setReadOnly(true);
 
   titles.clear();
   titles.append(tr("Hub"));
@@ -67,6 +71,9 @@ void Tutorial::tutorialOpened(int currentId, QPoint corner)
   containText->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
   containText->setAlignment(Qt::AlignTop);
   checkBox->setChecked(true);
+
+  SingleData* data = SingleData::getInstance();
+  iconTuto->setPixmap(data->getPixMapOnActualTheme("tutorial"));
 
   containText->adjustSize();
   this->setGeometry(QRect(corner, QSize(500, 500)));

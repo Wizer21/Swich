@@ -21,6 +21,6 @@ private slots:
 private:
   StructSettings::Settings storedSettings;
   StructSettings::Settings oldSettingsToCompare;
-  void ini(QVBoxLayout* layout);
+  void ini(QGridLayout* layout);
   void closeEvent(QCloseEvent* e) override;
 };

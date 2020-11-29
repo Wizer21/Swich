@@ -54,6 +54,7 @@ void Database::iniDB(QGridLayout* layout)
   containTableList->setFixedWidth(this->width() * 2);
   containTableList->setWidgetResizable(true);
 
+  addTable->setIcon(SingleData::getInstance()->getPixMapOnActualTheme("table"));
   addTable->setCursor(Qt::PointingHandCursor);
 
   if (ItemDAO::getInstance()->isDatableOnline())
@@ -77,7 +78,7 @@ void Database::iniDB(QGridLayout* layout)
   }
 
   QFont font = qApp->font();
-  font.setPixelSize(font.pixelSize() * 1.5);
+  font.setPointSize(font.pointSize() * 1.5);
 
   runningTable->setFont(font);
   dataOn_Off->setFont(font);
@@ -144,6 +145,12 @@ void Database::createTableWidgets(QString tableName)
   deleteDB->setCursor(Qt::PointingHandCursor);
   addItem->setCursor(Qt::PointingHandCursor);
   deleteItem->setCursor(Qt::PointingHandCursor);
+
+  SingleData* data = SingleData::getInstance();
+  loadDB->setIcon(data->getPixMapOnActualTheme("upload"));
+  deleteDB->setIcon(data->getPixMapOnActualTheme("trash"));
+  addItem->setIcon(data->getPixMapOnActualTheme("item"));
+  deleteItem->setIcon(data->getPixMapOnActualTheme("itemdelete"));
 
   connect(loadDB, SIGNAL(clicked()), this, SLOT(loadNewTable()));
   connect(deleteDB, SIGNAL(clicked()), this, SLOT(deleteTableConfirm()));
@@ -240,7 +247,7 @@ void Database::updateLockIcon()
   {
     if (ItemDAO::getInstance()->isLocked(buttonList.at(i)->text()))
     {
-      buttonList.at(i)->setIcon(SingleData::getInstance()->getPixmap("lockdark"));
+      buttonList.at(i)->setIcon(SingleData::getInstance()->getPixMapOnActualTheme("lock"));
     }
     else
     {

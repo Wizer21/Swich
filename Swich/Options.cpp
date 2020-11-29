@@ -9,29 +9,35 @@ Options::Options(QWidget* parent)
 
   storedSettings = Utils::loadSettingsFromFile();
   oldSettingsToCompare = storedSettings;
-  QVBoxLayout* layoutOption = new QVBoxLayout(this);
+  QGridLayout* layoutOption = new QGridLayout(this);
   ini(layoutOption);
 
   this->exec();
 }
 
-void Options::ini(QVBoxLayout* layout)
+void Options::ini(QGridLayout* layout)
 {
+  QLabel* langueIcon = new QLabel(this);
   QLabel* langue = new QLabel(tr("Languages"), this);
   QComboBox* langList = new QComboBox(this);
+  QLabel* themeIcon = new QLabel(this);
   QLabel* theme = new QLabel(tr("Theme"), this);
   QComboBox* themeList = new QComboBox(this);
+  QLabel* fontIcon = new QLabel(this);
   QLabel* font = new QLabel(tr("Font"), this);
-  QPushButton* fontChoser = new QPushButton(tr("Font choser"), this);
+  QPushButton* fontChoser = new QPushButton(tr("Selector"), this);
   QPushButton* closeButton = new QPushButton(tr("Close"), this);
 
-  layout->addWidget(langue);
-  layout->addWidget(langList);
-  layout->addWidget(theme);
-  layout->addWidget(themeList);
-  layout->addWidget(font);
-  layout->addWidget(fontChoser);
-  layout->addWidget(closeButton);
+  layout->addWidget(langueIcon, 0, 0);
+  layout->addWidget(langue, 0, 1);
+  layout->addWidget(langList, 1, 0, 1, 3);
+  layout->addWidget(themeIcon, 2, 0);
+  layout->addWidget(theme, 2, 1);
+  layout->addWidget(themeList, 3, 0, 1, 3);
+  layout->addWidget(fontIcon, 4, 0);
+  layout->addWidget(font, 4, 1);
+  layout->addWidget(fontChoser, 4, 2);
+  layout->addWidget(closeButton, 5, 0, 1, 3);
 
   langList->addItem("Francais");
   langList->addItem("English");
@@ -49,6 +55,8 @@ void Options::ini(QVBoxLayout* layout)
   langList->setItemDelegate(new QStyledItemDelegate());
   themeList->setItemDelegate(new QStyledItemDelegate());
 
+  layout->setAlignment(Qt::AlignLeft);
+
   langList->setObjectName("comboLangue");
   themeList->setObjectName("comboTheme");
   fontChoser->setObjectName("fontButton");
@@ -57,6 +65,15 @@ void Options::ini(QVBoxLayout* layout)
   themeList->setCursor(Qt::PointingHandCursor);
   fontChoser->setCursor(Qt::PointingHandCursor);
   closeButton->setCursor(Qt::PointingHandCursor);
+
+  SingleData* data = SingleData::getInstance();
+  data->addLabelToAdaptOnTheme("translations", langueIcon);
+  data->addLabelToAdaptOnTheme("theme", themeIcon);
+  data->addLabelToAdaptOnTheme("letter", fontIcon);
+
+  langueIcon->setPixmap(data->getPixMapOnActualTheme("translations"));
+  themeIcon->setPixmap(data->getPixMapOnActualTheme("theme"));
+  fontIcon->setPixmap(data->getPixMapOnActualTheme("letter"));
 }
 
 void Options::newFont()
@@ -82,6 +99,7 @@ void Options::setTheme(int index)
 {
   storedSettings.theme = index;
   Utils::applyNewTheme(index);
+  Utils::applyNewFont(storedSettings);
 }
 
 void Options::setTraduction(int index)

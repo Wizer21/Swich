@@ -21,17 +21,42 @@
         <file>images/cashlight.png</file>
         <file>images/dinodark.png</file>
         <file>images/dinolight.png</file>
-        <file>images/lockdark.png</file>
         <file>images/piecedark.png</file>
         <file>images/piecelight.png</file>
         <file>images/trashdark.png</file>
-        <file>images/trashlight.png</file>
-        <file>images/locklight.png</file>
         <file>images/notification.png</file>
         <file>images/closeeyedark.png</file>
         <file>images/closeeyelight.png</file>
         <file>images/eyedark.png</file>
         <file>images/eyelight.png</file>
+        <file>images/closelight.png</file>
+        <file>images/databaselight.png</file>
+        <file>images/itemdeletelight.png</file>
+        <file>images/itemlight.png</file>
+        <file>images/letterlight.png</file>
+        <file>images/nextlight.png</file>
+        <file>images/tablelight.png</file>
+        <file>images/themelight.png</file>
+        <file>images/tutoriallight.png</file>
+        <file>images/uploadlight.png</file>
+        <file>images/trashlight.png</file>
+        <file>images/closedark.png</file>
+        <file>images/databasedark.png</file>
+        <file>images/downloaddark.png</file>
+        <file>images/letterdark.png</file>
+        <file>images/lockdark.png</file>
+        <file>images/nextdark.png</file>
+        <file>images/settingsdark.png</file>
+        <file>images/tabledark.png</file>
+        <file>images/themedark.png</file>
+        <file>images/tutorialdark.png</file>
+        <file>images/uploaddark.png</file>
+        <file>images/itemdark.png</file>
+        <file>images/itemdeletedark.png</file>
+        <file>images/locklight.png</file>
+        <file>images/translationslight.png</file>
+        <file>images/translationsdark.png</file>
+        <file>images/settingslight.png</file>
     </qresource>
     <qresource prefix="/character">
         <file alias="Bob">images/Bob.jpg</file>

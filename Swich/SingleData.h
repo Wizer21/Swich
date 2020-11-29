@@ -13,7 +13,8 @@ public:
     return instance;
   }
   void addLabelToAdaptOnTheme(const QString& key, QLabel* label);
-  void addButtoonToAdaptOnTheme(const QString& key, QPushButton* label);
+  void addButtoonToAdaptOnTheme(const QString& key, QPushButton* button);
+  void addActionToAdaptOnTheme(const QString& key, QAction* label);
   void addLabelToAdaptOnFont(const double& multiplier, QLabel* label);
   void setColoredIcon(int themeIndex);
   void setFontOnLabels(QFont newFont);
@@ -36,5 +37,6 @@ private:
   std::map<QString, QPixmap> listSoftPixmap;
   std::vector<std::pair<QString, QLabel*>> listLabelToAdapt;
   std::vector<std::pair<QString, QPushButton*>> listButtonToAdapt;
+  std::vector<std::pair<QString, QAction*>> listActionToAdapt;
   std::vector<std::pair<double, QLabel*>> listLabelToAdaptToFont;
 };

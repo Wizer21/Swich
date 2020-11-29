@@ -46,6 +46,20 @@ void Swich::ini(QGridLayout* layout)
   bar->addAction(credits);
   bar->setCornerWidget(cornerWidget);
 
+  SingleData* data = SingleData::getInstance();
+
+  data->addActionToAdaptOnTheme("settings", options);
+  data->addActionToAdaptOnTheme("close", closeApp);
+  data->addActionToAdaptOnTheme("database", dataAction);
+  data->addActionToAdaptOnTheme("tutorial", tuto);
+
+  options->setIcon(data->getPixMapOnActualTheme("settings"));
+  closeApp->setIcon(data->getPixMapOnActualTheme("close"));
+  dataAction->setIcon(data->getPixMapOnActualTheme("database"));
+  tuto->setIcon(data->getPixMapOnActualTheme("tutorial"));
+
+  saveButton->setIcon(data->getPixmap("downloaddark"));
+
   cornerWidget->setLayout(containCorner);
   containCorner->addWidget(actualDb);
   containCorner->addWidget(saveButton);

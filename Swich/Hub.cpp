@@ -57,7 +57,10 @@ void Hub::setHub()
 
   gridRight->setSpacing(50);
 
-  SingleData::getInstance()->addLabelToAdaptOnFont(3, displayGain);
+  SingleData* data = SingleData::getInstance();
+  data->addLabelToAdaptOnFont(3, displayGain);
+  data->addButtoonToAdaptOnTheme("next", newMonth);
+  newMonth->setIcon(data->getPixMapOnActualTheme("next"));
 
   //bot
   layoutHub->addWidget(widgetHubBot, 1, 0, 1, 2);

@@ -40,8 +40,7 @@ void Chat::setContactList(QGridLayout* layout)
   layoutText->addWidget(text);
   layoutText->addWidget(icon);
 
-  SingleData* getData = getData->getInstance();
-  getData->addButtoonToAdaptOnTheme("dino", icon);
+  SingleData::getInstance()->addButtoonToAdaptOnTheme("dino", icon);
 
   listLayout->setAlignment(Qt::AlignTop);
 
