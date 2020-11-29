@@ -73,6 +73,7 @@ void Hub::setHub()
   widgetArea->setLayout(layoutAreaHub);
 
   setDefaultWidgets();
+  scrollHub->setContentsMargins(0, 0, 0, 0);
   scrollHub->setWidgetResizable(true);
 
   connect(newMonth, SIGNAL(clicked()), this, SLOT(newMonthClicked()));
@@ -166,6 +167,7 @@ void Hub::newMonthClicked()
 
 void Hub::setDefaultWidgets()
 {
+  SingleData* getData = SingleData::getInstance();
   int pos = 6;
   for (int i = 0; i < 6; i++)
   {
@@ -181,9 +183,9 @@ void Hub::setDefaultWidgets()
     gridLayoutWT->addWidget(gainCT, 1, 0, 1, 3);
     gridLayoutWT->addWidget(bankCT, 2, 0, 1, 3);
 
-    date.insert(date.begin(), dateCT);
-    gain.insert(gain.begin(), gainCT);
-    bank.insert(bank.begin(), bankCT);
+    date.push_back(dateCT);
+    gain.push_back(gainCT);
+    bank.push_back(bankCT);
 
     layoutAreaHub->addWidget(widgetContainerT);
 
@@ -193,7 +195,9 @@ void Hub::setDefaultWidgets()
 
     widgetContainerT->setObjectName("widgetScroll");
 
-    SingleData::getInstance()->addLabelToAdaptOnFont(2, gainCT);
+    getData->addLabelToAdaptOnFont(0.8, dateCT);
+    getData->addLabelToAdaptOnFont(1.5, gainCT);
+    getData->addLabelToAdaptOnFont(0.8, bankCT);
   }
 }
 

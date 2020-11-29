@@ -35,11 +35,11 @@ void Factory::calculEvolution()
 
   if (randProd > 1 && evolution)
   {
-    dice += 5;
+    dice += 10;
   }
   if (randProd < 1 && !evolution)
   {
-    dice += 5;
+    dice += 10;
   }
 
   if (dice > 80)

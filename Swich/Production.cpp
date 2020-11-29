@@ -16,7 +16,7 @@ void Production::setProduction()
 
   displayProduction = new QLabel("0", this);
   QLabel* dailyProduction = new QLabel(tr("Last iteration production"), this);
-  QLabel* investedProduction = new QLabel("To Set", this);
+  investedProduction = new QLabel("To Set", this);
   QLabel* testInvested = new QLabel(tr("Factories total levels"), this);
 
   lockedFactory1 = new QPushButton(QString::number(lockedPrice1), this);
@@ -186,6 +186,7 @@ void Production::validatedUpgrade(int id)
   listFactory.at(id).upgradeAccepted();
   upgradeList.at(id)->setText(QString::number(listFactory.at(id).getNextUpgrade()));
   levelList.at(id)->setText(QString::number(listFactory.at(id).getLevel()));
+  investedProduction->setText(QString::number(investedProduction->text().toInt() + 1));
 }
 
 void Production::askNewFactory()
@@ -211,6 +212,7 @@ void Production::validateNewFactory(int id)
     hidedWidget.at(1)->setVisible(true);
     listFactory.at(1).setLevel(1);
     updateWidgets();
+    investedProduction->setText(QString::number(investedProduction->text().toInt() + 1));
   }
   if (id == 1)
   {
@@ -219,6 +221,7 @@ void Production::validateNewFactory(int id)
     hidedWidget.at(2)->setVisible(true);
     listFactory.at(2).setLevel(1);
     updateWidgets();
+    investedProduction->setText(QString::number(investedProduction->text().toInt() + 1));
   }
 }
 
@@ -226,6 +229,7 @@ void Production::loadDB()
 {
   factoryLevel_upgrade = ItemDAO::getInstance()->getFactory();
 
+  int totalLvl = 0;
   int sizeList = (int)factoryLevel_upgrade.size();
   for (int i = 0; i < sizeList; i++)
   {
@@ -234,6 +238,7 @@ void Production::loadDB()
     levelList.at(i)->setText(QString::number(factoryLevel_upgrade.at(i).first));
     upgradeList.at(i)->setText(QString::number(factoryLevel_upgrade.at(i).second));
 
+    totalLvl += listFactory.at(i).getLevel();
     if (factoryLevel_upgrade.at(1).first != 0)
     {
       lockedFactory1->setVisible(false);
@@ -255,6 +260,7 @@ void Production::loadDB()
       hidedWidget.at(2)->setVisible(false);
     }
   }
+  investedProduction->setText(QString::number(totalLvl));
 }
 
 void Production::productionPushToDB()

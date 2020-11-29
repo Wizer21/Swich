@@ -43,8 +43,6 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("lockdark", ":/icon/images/locklight.png", 50, 50);
   pushPixmapToSoft("eyelight", ":/icon/images/eyedark.png", 50, 50);
   pushPixmapToSoft("eyedark", ":/icon/images/eyelight.png", 50, 50);
-  pushPixmapToSoft("closeeyelight", ":/icon/images/closeeyedark.png", 50, 50);
-  pushPixmapToSoft("closeeyedark", ":/icon/images/closeeyelight.png", 50, 50);
 
   pushPixmapToSoft("closeeyedark", ":/icon/images/closeeyelight.png", 50, 50);
   pushPixmapToSoft("databasedark", ":/icon/images/databaselight.png", 50, 50);

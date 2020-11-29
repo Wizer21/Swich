@@ -74,16 +74,16 @@ void DragEmployee::calculRandStats()
   {
     level += 1;
     dice = Utils::randZeroToVal(100);
-    if (dice < 25)
+    if (dice < 20)
     {
       diceValidated = false;
     }
   }
   //Salary
-  double calculSalary = 250 + Utils::randZeroToVal(250);
+  double calculSalary = 200.0 + Utils::randZeroToVal(300);
   for (int i = 0; i < level; i++)
   {
-    calculSalary *= (1.1 + Utils::randOnlyPositivePercentage(25));
+    calculSalary *= (1.15 + Utils::randOnlyPositivePercentage(25));
   }
   salary = calculSalary;
   note = calculNote(level);

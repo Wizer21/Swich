@@ -68,7 +68,7 @@ void Chat::setContactList(QGridLayout* layout)
 
     pushContact->setCursor(Qt::PointingHandCursor);
     connect(pushContact, SIGNAL(clicked()), this, SLOT(setTextZone()));
-    areaChat->setObjectName("scroll" + QString::number(i));
+    areaChat->setObjectName("scrollchat");
     areaChat->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
     connect(areaChat->verticalScrollBar(), SIGNAL(rangeChanged(int, int)), this, SLOT(setBarPosition(int, int)));

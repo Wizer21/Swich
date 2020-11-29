@@ -1,5 +1,5 @@
 QWidget {
-  background-color: #1c1c1c;
+  background-color: #2e2e2e;
   color: #ffffff;
 }
 QWidget::focus {
@@ -7,20 +7,12 @@ QWidget::focus {
 }
 
 /* -- Button List ---- Main Window -- */
-QToolTip {
-  font-size:12px;
-  border: 0px solid red;
-  background-color: white;
-  color: black;
-  padding: 5px;
-}
-
 QWidget#menulist {
   background-color: #262626;
 }
 
 QPushButton#index0 {
-  background-color: #262626;
+  background-color: transparent;
   color: #ff5252;
   padding: 5px;
   border: 2px solid transparent;
@@ -40,7 +32,7 @@ QPushButton#index0::pressed {
   border: 0px solid transparent;
 }
 QPushButton#index1 {
-  background-color: #262626;
+  background-color: transparent;
   color: #7c4dff;
   padding: 5px;
   border: 2px solid transparent;
@@ -60,7 +52,7 @@ QPushButton#index1::pressed {
   border: 0px solid transparent;
 }
 QPushButton#index2 {
-  background-color: #262626;
+  background-color: transparent;
   color: #536dfe;
   padding: 5px;
   border: 2px solid transparent;
@@ -80,7 +72,7 @@ QPushButton#index2::pressed {
   border: 0px solid transparent;
 }
 QPushButton#index3 {
-  background-color: #262626;
+  background-color: transparent;
   color: #64ffda;
   padding: 5px;
   border: 2px solid transparent;
@@ -100,7 +92,7 @@ QPushButton#index3::pressed {
   border: 0px solid transparent;
 }
 QPushButton#index4 {
-  background-color: #262626;
+  background-color: transparent;
   color: #b2ff59;
   padding: 5px;
   border: 2px solid transparent;
@@ -120,7 +112,7 @@ QPushButton#index4::pressed {
   border: 0px solid transparent;
 }
 QPushButton#index5 {
-  background-color: #262626;
+  background-color: transparent;
   color: #ffd740;
   padding: 5px;
   border: 2px solid transparent;
@@ -140,7 +132,7 @@ QPushButton#index5::pressed {
   border: 0px solid transparent;
 }
 QPushButton#index6 {
-  background-color: #262626;
+  background-color: transparent;
   color: #ff6e40;
   padding: 5px;
   border: 2px solid transparent;
@@ -338,6 +330,12 @@ QScrollBar::handle {
 QScrollBar::handle::pressed {
   background-color: white;
 }
+QScrollBar::vertical {
+    width: 10px;
+}
+QScrollBar::horizontal {
+    height: 10px;
+}
 /***********/
 /*Tutorioal*/
 /***********/
@@ -350,9 +348,16 @@ QTextEdit{
 QScrollArea {
   border: 0px solid white;
 }
+QScrollArea#scrollchat {
+  border: 0px solid white;
+  border-left: 2px solid #ff6e40;
+}
 QWidget#sell QTableWidget {
   border: 0px solid white;
-  border-left: 2px solid #536dfe;
+}
+QSplitter::handle::horizontal{
+  width: 5px;
+  background-color:#536dfe;
 }
 
 /* ------------ Menu List ------------ */
@@ -387,14 +392,14 @@ QWidget#hub QLabel#hubEvolution {
 QWidget#hub QLabel {
   background-color: transparent;
 }
-QWidget#hub QWidget#lastIteration {
-  background-color: #262626;
-}
 QWidget#hub QWidget#widgetScroll {
-  background-color: transparent;
+  background-color: #262626;
   border-right: 2px solid #ff3d40;
 }
 QWidget#hub QWidget#hubScroll {
+  background-color: #262626;
+}
+QWidget#hub QWidget#lastIteration {
   background-color: #262626;
 }
 
@@ -658,4 +663,10 @@ QWidget#chat QPushButton::pressed {
   color: #262626;
   padding: 5px;
   border: 0px solid transparent;
+}
+QToolTip {
+  border: 0px solid red;
+  background-color: white;
+  color: black;
+  padding: 5px;
 }

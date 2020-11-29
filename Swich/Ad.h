@@ -12,7 +12,7 @@ class Ad : public QWidget
 
 public:
   Ad();
-  QString getSalary_Production(int addDays);
+  QString getSalary_Efficiency(int addDays);
   void setNewTableLoaded();
   void teamPushToDB();
 

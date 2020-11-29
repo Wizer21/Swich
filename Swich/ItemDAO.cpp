@@ -215,17 +215,26 @@ void ItemDAO::saveToDatabase()
 
     //Graph
     queryDB.exec(QString("TRUNCATE TABLE %1;").arg(currentTable + "$graph$"));
+    queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?,?,?);").arg(currentTable + "$graph$"));
+
+    QVariantList listSellEvo;
+    QVariantList listBankEvo;
+    QVariantList listTaxEvo;
+    QVariantList listProdEvo;
 
     sizeList = (int)sellEvo.size();
     for (int i = 0; i < sizeList; i++)
     {
-      queryDB.prepare(QString("INSERT INTO %1 VALUES(?,?,?,?);").arg(currentTable + "$graph$"));
-      queryDB.bindValue(0, sellEvo.at(i));
-      queryDB.bindValue(1, bankEvo.at(i));
-      queryDB.bindValue(2, taxEvo.at(i));
-      queryDB.bindValue(3, productionEvo.at(i));
-      queryDB.exec();
+      listSellEvo.push_back(sellEvo.at(i));
+      listBankEvo.push_back(bankEvo.at(i));
+      listTaxEvo.push_back(taxEvo.at(i));
+      listProdEvo.push_back(productionEvo.at(i));
     }
+    queryDB.addBindValue(listSellEvo);
+    queryDB.addBindValue(listBankEvo);
+    queryDB.addBindValue(listTaxEvo);
+    queryDB.addBindValue(listProdEvo);
+    queryDB.execBatch();
 
     //Bank
     queryDB.exec(QString("UPDATE %1 SET banque_data = %2;").arg(currentTable + "$bank$").arg(bank));

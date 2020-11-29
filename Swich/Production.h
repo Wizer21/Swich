@@ -46,6 +46,7 @@ private:
   QPushButton* lockedFactory2;
   QVBoxLayout* layout1;
   QVBoxLayout* layout2;
+  QLabel* investedProduction;
 
   std::vector<QWidget*> hidedWidget;
   std::vector<std::pair<QLabel*, QPushButton*>> listLvl_Upgrade;

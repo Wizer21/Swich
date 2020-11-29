@@ -146,26 +146,27 @@ void Ad::callNewEmploye()
   newEmplo1->setObjectName("new");
 }
 
-QString Ad::getSalary_Production(int addDays)
+QString Ad::getSalary_Efficiency(int addDays)
 {
+  day += addDays;
+
   int lvls = 0;
   int salary = 0;
   double efficiency = 1;
-  day += addDays;
+  double actualEfficiency = 0;
 
-  for (int i = 0; i < employeList.size(); i++)
+  int sizeList = (int)employeList.size();
+  for (int i = 0; i < sizeList; i++)
   {
-    lvls += employeList.at(i)->getLvl();
+    lvls = employeList.at(i)->getLvl();
+    actualEfficiency = 1;
+    for (int i = 0; i < lvls; i++)
+    {
+      actualEfficiency *= 1.15 + Utils::randOnlyPositivePercentage(5);
+    }
+    efficiency += actualEfficiency - 1;
   }
-  for (int i = 0; i < lvls; i++)
-  {
-    efficiency += 0.55 + Utils::randOnlyPositivePercentage(5);
-  }
-  for (int i = 0; i < employeList.size(); i++)
-  {
-    salary += employeList.at(i)->getSalary();
-    lvls += employeList.at(i)->getLvl();
-  }
+
   if (day < 30)
   {
     salary = 0;
@@ -175,7 +176,7 @@ QString Ad::getSalary_Production(int addDays)
     day -= 30;
   }
 
-  teamValueDisplay->setText("+" + QString::number(efficiency * 100) + "%");
+  teamValueDisplay->setText("+" + QString::number(round(efficiency * 100)) + "%");
   teamValueDisplay->setStyleSheet("color:#b2ff59; font-size:80px;background-color:transparent;");
   callNewEmploye();
   return QString("%1$%2").arg(salary).arg(efficiency);

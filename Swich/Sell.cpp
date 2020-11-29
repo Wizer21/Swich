@@ -165,7 +165,7 @@ void Sell::setNewItem(QString nom, QString vol, int newId)
     QGridLayout* layoutItem = new QGridLayout(this);
     QLabel* nomDragged = new QLabel(nom, this);
     QLineEdit* volDragged = new QLineEdit(vol, this);
-    QPushButton* kill = new QPushButton("X", this);
+    QPushButton* kill = new QPushButton(this);
 
     getZone->addWidget(draggedItem);
     draggedItem->setLayout(layoutItem);
@@ -182,6 +182,7 @@ void Sell::setNewItem(QString nom, QString vol, int newId)
     kill->setObjectName(pos);
     widgetToDelete.push_back(draggedItem);
 
+    kill->setIcon(SingleData::getInstance()->getPixMapOnActualTheme("trash"));
     kill->setCursor(Qt::PointingHandCursor);
     connect(kill, SIGNAL(clicked()), this, SLOT(cancelSell()));
   }

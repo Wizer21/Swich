@@ -80,8 +80,7 @@ void Swich::ini(QGridLayout* layout)
   pub = new QPushButton(tr("Team"), this);
   stock = new QPushButton(tr("Stock"), this);
   chat = new QPushButton(tr("Chat"), this);
-  logoSol = new QLabel(this);
-  sold = new QLabel(QString::number(round(bankDisplayed)), this);
+  sold = new QLabel(QString::number(round(bankDisplayed)) + tr("$"), this);
 
   layout->addWidget(widgetMenu, 0, 0);
   widgetMenu->setLayout(layoutMenu);
@@ -94,8 +93,7 @@ void Swich::ini(QGridLayout* layout)
   layoutMenu->addWidget(pub, 5, 0, 1, 2);
   layoutMenu->addWidget(stock, 6, 0, 1, 2);
   layoutMenu->addWidget(chat, 7, 0, 1, 2);
-  layoutMenu->addWidget(logoSol, 8, 0, Qt::AlignBottom);
-  layoutMenu->addWidget(sold, 8, 1, Qt::AlignBottom);
+  layoutMenu->addWidget(sold, 8, 0, 1, 2, Qt::AlignBottom);
 
   layoutMenu->setAlignment(Qt::AlignTop);
   layoutMenu->setRowStretch(8, 1);
@@ -103,6 +101,8 @@ void Swich::ini(QGridLayout* layout)
   layout->setContentsMargins(0, 0, 0, 0);
 
   widgetMenu->setObjectName("menulist");
+  sold->setObjectName("whitetext");
+  swich->setObjectName("whitetext");
 
   // Right Zone
   swichZoneWidget = new QStackedWidget(this);
@@ -261,7 +261,7 @@ void Swich::startNewMonth()
   temporaryCharges += listProd_Cost.at(1).toDouble();
 
   //AD
-  QStringList splitSalary_Efficiency = widgetAd->getSalary_Production(addedDays).split("$");
+  QStringList splitSalary_Efficiency = widgetAd->getSalary_Efficiency(addedDays).split("$");
 
   //city Sell
   QStringList getValue = (randSells(splitSalary_Efficiency.at(1).toDouble())).split("$");
@@ -295,7 +295,7 @@ void Swich::startNewMonth()
     positiveBank = true;
   }
 
-  sold->setText(QString::number(round(bankDisplayed)));
+  sold->setText(QString::number(round(bankDisplayed)) + tr("$"));
   QString date = widgetHub->updateCurrentMonth(round(evoBanque), temporarySoldVol, addedDays);
   widgetHub->updateAndScrollWidgets(date, QString::number(round(evoBanque)), QString::number(bankDisplayed));
 
@@ -379,7 +379,7 @@ void Swich::applyUpgradeFactory(int cost, int id)
     return;
   }
   bankDisplayed -= cost;
-  sold->setText(QString::number(round(bankDisplayed)));
+  sold->setText(QString::number(round(bankDisplayed)) + tr("$"));
   widgetProduction->validatedUpgrade(id);
 }
 
@@ -390,7 +390,7 @@ void Swich::applyNewFactory(int cost, int id)
     return;
   }
   bankDisplayed -= cost;
-  sold->setText(QString::number(round(bankDisplayed)));
+  sold->setText(QString::number(round(bankDisplayed)) + tr("$"));
   widgetProduction->validateNewFactory(id);
 }
 
@@ -441,7 +441,7 @@ void Swich::applyTableChanged()
   widgetAd->setNewTableLoaded();
 
   bankDisplayed = ItemDAO::getInstance()->getBank();
-  sold->setText(QString::number(round(bankDisplayed)));
+  sold->setText(QString::number(round(bankDisplayed)) + tr("$"));
 }
 
 void Swich::buttonSaveToDatabase()
@@ -467,12 +467,9 @@ void Swich::applyStyleAfterLoadApp()
 {
   //Theme
   swich->setStyleSheet("background-color: transparent;");
-  logoSol->setStyleSheet("background-color: transparent");
   sold->setStyleSheet("background-color: transparent;");
 
   SingleData* getData = getData->getInstance();
-  getData->addLabelToAdaptOnTheme("piece", logoSol);
-  logoSol->setPixmap(getData->getPixMapOnActualTheme("piece"));
   getData->addLabelToAdaptOnFont(1.7, swich);
   getData->addLabelToAdaptOnFont(1.5, sold);
 }
@@ -515,7 +512,7 @@ void Swich::commercialTransfertStock()
   while (commercialStrenght > 0)
   {
     currentPushedItems = 0;
-    tryQuantityPushItem = Utils::randZeroToVal(commercialStrenght);
+    tryQuantityPushItem = Utils::randZeroToVal(commercialStrenght / 20);
     randoItem = Utils::randZeroToVal(itemsListSize);
     randoCity = Utils::randZeroToVal(cityListSize);
 
