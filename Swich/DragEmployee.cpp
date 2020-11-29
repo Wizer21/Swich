@@ -42,15 +42,18 @@ void DragEmployee::ini(const QPixmap pix)
   displayPix->setPixmap(pix);
 
   this->setLayout(layoutEmployee);
+  layoutEmployee->setAlignment(Qt::AlignTop);
+
   layoutEmployee->addWidget(displayPix, 0, 0);
-  layoutEmployee->addWidget(displayLvl, 0, 1);
+  layoutEmployee->addWidget(displayLvl, 0, 1, Qt::AlignLeft | Qt::AlignBottom);
   layoutEmployee->addWidget(displayName, 1, 0, 1, 2);
-  layoutEmployee->addWidget(displaySalary, 2, 0);
+  layoutEmployee->addWidget(displaySalary, 2, 0, 1, 2);
 
   layoutEmployee->setAlignment(displayLvl, Qt::AlignLeft | Qt::AlignBottom);
   this->setFixedSize(150, 180);
   this->setContentsMargins(0, 0, 0, 0);
   this->setCursor(Qt::PointingHandCursor);
+  layoutEmployee->setSpacing(0);
 
   if (isCommercial)
   {
@@ -59,7 +62,7 @@ void DragEmployee::ini(const QPixmap pix)
     labelCommercial->setPixmap(getSingle->getPixmap("commercial"));
     labelCommercial->setAlignment(Qt::AlignRight);
 
-    layoutEmployee->addWidget(labelCommercial, 2, 1);
+    layoutEmployee->addWidget(labelCommercial, 3, 0, Qt::AlignLeft);
     labelCommercial->setToolTip(tr("This one will help you to fill cities."));
   }
 }
@@ -92,7 +95,7 @@ void DragEmployee::calculRandStats()
 
   // Role
   dice = Utils::randZeroToVal(100);
-  if (dice > 60)
+  if (dice > 70)
   {
     isCommercial = true;
   }
@@ -102,15 +105,15 @@ void DragEmployee::setBackgroundColor()
 {
   if (level < 3)
   {
-    this->setStyleSheet("background-color:#ff5252");
+    this->setStyleSheet("background-color:#ff5252;");
   }
   else if (level < 6)
   {
-    this->setStyleSheet("background-color:#7c4dff");
+    this->setStyleSheet("background-color:#7c4dff;");
   }
   else if (level < 9)
   {
-    this->setStyleSheet("background-color:#536dfe");
+    this->setStyleSheet("background-color:#536dfe;");
   }
   else if (level < 12)
   {
@@ -167,18 +170,9 @@ QString DragEmployee::calculNote(int lvl)
     default:
       copylvl -= 12;
       newNote = "S";
-      for (int i = 0; i < lvl; i++)
+      if (copylvl > 0)
       {
-        if (copylvl > 0)
-        {
-          newNote.insert(0, "S");
-          copylvl--;
-          if (copylvl > 0)
-          {
-            newNote += "+";
-            copylvl--;
-          }
-        }
+        newNote += QString::number(copylvl);
       }
   }
   return newNote;

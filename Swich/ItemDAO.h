@@ -10,6 +10,7 @@
 #include <QSqlQueryModel>
 #include "City.h"
 #include "DragEmployee.h"
+#include <QDebug>
 
 class ItemDAO
 {

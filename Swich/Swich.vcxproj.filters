@@ -147,9 +147,6 @@
     <ClInclude Include="Factory.h">
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DragEmployee.h">
-      <Filter>Form Files\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SingleData.h">
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
@@ -166,6 +163,9 @@
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SuperSlider.h">
+      <Filter>Form Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DragEmployee.h">
       <Filter>Form Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

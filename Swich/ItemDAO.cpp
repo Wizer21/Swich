@@ -234,6 +234,7 @@ void ItemDAO::saveToDatabase()
     queryDB.addBindValue(listBankEvo);
     queryDB.addBindValue(listTaxEvo);
     queryDB.addBindValue(listProdEvo);
+
     queryDB.execBatch();
 
     //Bank

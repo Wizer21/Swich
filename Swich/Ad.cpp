@@ -162,9 +162,10 @@ QString Ad::getSalary_Efficiency(int addDays)
     actualEfficiency = 1;
     for (int i = 0; i < lvls; i++)
     {
-      actualEfficiency *= 1.15 + Utils::randOnlyPositivePercentage(5);
+      actualEfficiency *= 1.20 + Utils::randOnlyPositivePercentage(10);
     }
     efficiency += actualEfficiency - 1;
+    salary += employeList.at(i)->getSalary();
   }
 
   if (day < 30)

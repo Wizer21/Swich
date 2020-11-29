@@ -21,11 +21,11 @@ and icons from MaterialDesignIcons
 ### Upgrades
 - [X] Sell// Display sliders' value
 - [X] Sell// Slider jumping at cursor position
-- [ ] Sell// Add delete icon on dragged items
+- [X] Sell// Add delete icon on dragged items
 - [ ] Production// Display button's icon, based on buy possibility
 - [ ] Analytics// Display graph value at cursor position
 - [ ] Employee// Prevent to get multiple times the same character
-- [ ] DragEvent// Set an icon at cursor's position, while the DragEvent
+- [X] DragEvent// Set an icon at cursor's position, while the DragEvent
 - [X] Table// Adapt columns' width to content
 - [ ] Employee// Show hovered widget while dragging
 - [X] Tutorial Dialog
