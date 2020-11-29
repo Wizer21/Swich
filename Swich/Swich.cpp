@@ -17,6 +17,7 @@ Swich::Swich(QWidget* parent)
   ini(swichLayout);
 
   applyTableChanged();
+  applyStyleAfterLoadApp();
 }
 
 void Swich::ini(QGridLayout* layout)
@@ -46,19 +47,19 @@ void Swich::ini(QGridLayout* layout)
   bar->addAction(credits);
   bar->setCornerWidget(cornerWidget);
 
-  SingleData* data = SingleData::getInstance();
+  SingleData* dataS = SingleData::getInstance();
 
-  data->addActionToAdaptOnTheme("settings", options);
-  data->addActionToAdaptOnTheme("close", closeApp);
-  data->addActionToAdaptOnTheme("database", dataAction);
-  data->addActionToAdaptOnTheme("tutorial", tuto);
+  dataS->addActionToAdaptOnTheme("settings", options);
+  dataS->addActionToAdaptOnTheme("close", closeApp);
+  dataS->addActionToAdaptOnTheme("database", dataAction);
+  dataS->addActionToAdaptOnTheme("tutorial", tuto);
 
-  options->setIcon(data->getPixMapOnActualTheme("settings"));
-  closeApp->setIcon(data->getPixMapOnActualTheme("close"));
-  dataAction->setIcon(data->getPixMapOnActualTheme("database"));
-  tuto->setIcon(data->getPixMapOnActualTheme("tutorial"));
+  options->setIcon(dataS->getPixMapOnActualTheme("settings"));
+  closeApp->setIcon(dataS->getPixMapOnActualTheme("close"));
+  dataAction->setIcon(dataS->getPixMapOnActualTheme("database"));
+  tuto->setIcon(dataS->getPixMapOnActualTheme("tutorial"));
 
-  saveButton->setIcon(data->getPixmap("downloaddark"));
+  saveButton->setIcon(dataS->getPixmap("downloaddark"));
 
   cornerWidget->setLayout(containCorner);
   containCorner->addWidget(actualDb);
@@ -69,9 +70,9 @@ void Swich::ini(QGridLayout* layout)
   cornerWidget->setObjectName("corner");
 
   // Left Band
-  QWidget* widgetMenu = new QWidget(this);
-  QVBoxLayout* layoutMenu = new QVBoxLayout(this);
-  QLabel* swich = new QLabel(tr("Swich"), this);
+  widgetMenu = new QWidget(this);
+  QGridLayout* layoutMenu = new QGridLayout(this);
+  swich = new QLabel(tr("Swich"), this);
   hub = new QPushButton(tr("Hub"), this);
   analytics = new QPushButton(tr("Analytics"), this);
   sell = new QPushButton(tr("Sales"), this);
@@ -79,30 +80,34 @@ void Swich::ini(QGridLayout* layout)
   pub = new QPushButton(tr("Team"), this);
   stock = new QPushButton(tr("Stock"), this);
   chat = new QPushButton(tr("Chat"), this);
-  QWidget* containSold = new QWidget(this);
-  QHBoxLayout* layoutSold = new QHBoxLayout(this);
-  QLabel* logoSol = new QLabel(this);
+  logoSol = new QLabel(this);
   sold = new QLabel(QString::number(round(bankDisplayed)), this);
 
   layout->addWidget(widgetMenu, 0, 0);
   widgetMenu->setLayout(layoutMenu);
-  layoutMenu->addWidget(swich);
-  layoutMenu->addWidget(hub);
-  layoutMenu->addWidget(analytics);
-  layoutMenu->addWidget(sell);
-  layoutMenu->addWidget(production);
-  layoutMenu->addWidget(pub);
-  layoutMenu->addWidget(stock);
-  layoutMenu->addWidget(chat);
-  layout->addWidget(containSold, 1, 0);
-  containSold->setLayout(layoutSold);
-  layoutSold->addWidget(logoSol);
-  layoutSold->addWidget(sold);
+
+  layoutMenu->addWidget(swich, 0, 0, 1, 2);
+  layoutMenu->addWidget(hub, 1, 0, 1, 2);
+  layoutMenu->addWidget(analytics, 2, 0, 1, 2);
+  layoutMenu->addWidget(sell, 3, 0, 1, 2);
+  layoutMenu->addWidget(production, 4, 0, 1, 2);
+  layoutMenu->addWidget(pub, 5, 0, 1, 2);
+  layoutMenu->addWidget(stock, 6, 0, 1, 2);
+  layoutMenu->addWidget(chat, 7, 0, 1, 2);
+  layoutMenu->addWidget(logoSol, 8, 0, Qt::AlignBottom);
+  layoutMenu->addWidget(sold, 8, 1, Qt::AlignBottom);
+
+  layoutMenu->setAlignment(Qt::AlignTop);
+  layoutMenu->setRowStretch(8, 1);
+
+  layout->setContentsMargins(0, 0, 0, 0);
+
+  widgetMenu->setObjectName("menulist");
 
   // Right Zone
   swichZoneWidget = new QStackedWidget(this);
 
-  layout->addWidget(swichZoneWidget, 0, 1, 2, 1);
+  layout->addWidget(swichZoneWidget, 0, 1);
 
   swichZoneWidget->addWidget(widgetHub);
   swichZoneWidget->addWidget(widgetAnalytics);
@@ -111,14 +116,6 @@ void Swich::ini(QGridLayout* layout)
   swichZoneWidget->addWidget(widgetAd);
   swichZoneWidget->addWidget(widgetStock);
   swichZoneWidget->addWidget(widgetChat);
-
-  //Theme Name
-  QFont font(qApp->font());
-  swich->setStyleSheet("font-size:40px;" + font.toString() + ";");
-  sold->setStyleSheet("font-size:40px;" + font.toString() + ";");
-
-  SingleData* getData = getData->getInstance();
-  getData->addLabelToAdaptOnTheme("piece", logoSol);
 
   hub->setCursor(Qt::PointingHandCursor);
   analytics->setCursor(Qt::PointingHandCursor);
@@ -151,10 +148,6 @@ void Swich::ini(QGridLayout* layout)
   swichZoneWidget->setCurrentIndex(0);
   widgetHub->updateLabels(bankDisplayed, 0, 0);
   setTheme();
-
-  layoutMenu->setAlignment(Qt::AlignTop);
-  widgetMenu->setMaximumWidth(this->width() * 0.3);
-  widgetMenu->setMinimumWidth(this->width() * 0.3);
 
   // Connection Menu
   connect(hub, SIGNAL(clicked()), this, SLOT(connectToMenu()));
@@ -468,6 +461,20 @@ void Swich::setTheme()
   bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
   more->setStyleSheet("QMenu::item::selected{color:" + backgroundColor + ";}");
   saveButton->setStyleSheet("QPushButton::pressed {color:" + backgroundColor + ";}");
+}
+
+void Swich::applyStyleAfterLoadApp()
+{
+  //Theme
+  swich->setStyleSheet("background-color: transparent;");
+  logoSol->setStyleSheet("background-color: transparent");
+  sold->setStyleSheet("background-color: transparent;");
+
+  SingleData* getData = getData->getInstance();
+  getData->addLabelToAdaptOnTheme("piece", logoSol);
+  logoSol->setPixmap(getData->getPixMapOnActualTheme("piece"));
+  getData->addLabelToAdaptOnFont(1.7, swich);
+  getData->addLabelToAdaptOnFont(1.5, sold);
 }
 
 void Swich::applyNewCommercial(DragEmployee* getActualEmployee)

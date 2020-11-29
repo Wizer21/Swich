@@ -29,6 +29,9 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("notification", ":/icon/images/notification.png", 50, 50);
   pushPixmapToSoft("onCircle", ":/Swich/images/onCircle.png", 30, 30);
   pushPixmapToSoft("offCircle", ":/Swich/images/offCircle.png", 30, 30);
+  pushPixmapToSoft("downloaddark", ":/icon/images/downloaddark.png", 50, 50);
+  pushPixmapToSoft("piecedark", ":/icon/images/piecelight.png", 50, 50);
+  pushPixmapToSoft("piecelight", ":/icon/images/piecedark.png", 50, 50);
 
   pushPixmapToSoft("trashlight", ":/icon/images/trashdark.png", 80, 80);
   pushPixmapToSoft("trashdark", ":/icon/images/trashlight.png", 80, 80);
@@ -38,13 +41,10 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("dinodark", ":/icon/images/dinolight.png", 50, 50);
   pushPixmapToSoft("locklight", ":/icon/images/lockdark.png", 50, 50);
   pushPixmapToSoft("lockdark", ":/icon/images/locklight.png", 50, 50);
-  pushPixmapToSoft("piecelight", ":/icon/images/piecedark.png", 50, 50);
-  pushPixmapToSoft("piecedark", ":/icon/images/piecelight.png", 50, 50);
   pushPixmapToSoft("eyelight", ":/icon/images/eyedark.png", 50, 50);
   pushPixmapToSoft("eyedark", ":/icon/images/eyelight.png", 50, 50);
   pushPixmapToSoft("closeeyelight", ":/icon/images/closeeyedark.png", 50, 50);
   pushPixmapToSoft("closeeyedark", ":/icon/images/closeeyelight.png", 50, 50);
-  pushPixmapToSoft("downloaddark", ":/icon/images/downloaddark.png", 50, 50);
 
   pushPixmapToSoft("closeeyedark", ":/icon/images/closeeyelight.png", 50, 50);
   pushPixmapToSoft("databasedark", ":/icon/images/databaselight.png", 50, 50);

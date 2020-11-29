@@ -41,7 +41,7 @@ private:
   int month;
   int year;
 
-  QGridLayout* layoutGridBot;
+  QHBoxLayout* layoutAreaHub;
 
   QString date_1;
   QString gain_1;

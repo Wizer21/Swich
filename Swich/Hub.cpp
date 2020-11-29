@@ -34,8 +34,9 @@ void Hub::setHub()
   displayDate = new QLabel(this);
 
   // bot
-  QWidget* widgetHubBot = new QWidget(this);
-  layoutGridBot = new QGridLayout(this);
+  QScrollArea* scrollHub = new QScrollArea(this);
+  QWidget* widgetArea = new QWidget(this);
+  layoutAreaHub = new QHBoxLayout(this);
 
   //top
   this->setLayout(layoutHub);
@@ -67,9 +68,12 @@ void Hub::setHub()
   trophy->setPixmap(data->getPixMapOnActualTheme("trophy"));
 
   //bot
-  layoutHub->addWidget(widgetHubBot, 1, 0, 1, 2);
-  widgetHubBot->setLayout(layoutGridBot);
+  layoutHub->addWidget(scrollHub, 1, 0, 1, 2);
+  scrollHub->setWidget(widgetArea);
+  widgetArea->setLayout(layoutAreaHub);
+
   setDefaultWidgets();
+  scrollHub->setWidgetResizable(true);
 
   connect(newMonth, SIGNAL(clicked()), this, SLOT(newMonthClicked()));
 
@@ -77,13 +81,13 @@ void Hub::setHub()
   newMonth->setCursor(Qt::PointingHandCursor);
   updateCurrentMonth(0, 0, 0);
   setColorScroll();
-  widgetHubBot->setObjectName("hubScroll");
+  scrollHub->setObjectName("hubScroll");
   evo->setObjectName("hubEvolution");
   uptdateWidget->setObjectName("lastIteration");
 
   newMonth->setToolTip(tr("Begin a new iteration"));
   uptdateWidget->setToolTip(tr("Result of the last month"));
-  widgetHubBot->setToolTip(tr("Result of the last 6 month"));
+  scrollHub->setToolTip(tr("Result of the last 6 month"));
 }
 
 void Hub::updateLabels(double addBank, double addProd, double addSell)
@@ -171,7 +175,7 @@ void Hub::setDefaultWidgets()
     QLabel* gainCT = new QLabel("0", this);
     QLabel* bankCT = new QLabel("0", this);
 
-    layoutGridBot->addWidget(widgetContainerT);
+    layoutAreaHub->addWidget(widgetContainerT);
     widgetContainerT->setLayout(gridLayoutWT);
     gridLayoutWT->addWidget(dateCT, 0, 0, 1, 3);
     gridLayoutWT->addWidget(gainCT, 1, 0, 1, 3);
@@ -181,7 +185,7 @@ void Hub::setDefaultWidgets()
     gain.insert(gain.begin(), gainCT);
     bank.insert(bank.begin(), bankCT);
 
-    layoutGridBot->addWidget(widgetContainerT, 0, pos--);
+    layoutAreaHub->addWidget(widgetContainerT);
 
     gainCT->setAlignment(Qt::AlignRight);
     bankCT->setAlignment(Qt::AlignRight);

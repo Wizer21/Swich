@@ -22,7 +22,6 @@
         <file>images/dinodark.png</file>
         <file>images/dinolight.png</file>
         <file>images/piecedark.png</file>
-        <file>images/piecelight.png</file>
         <file>images/trashdark.png</file>
         <file>images/notification.png</file>
         <file>images/closeeyedark.png</file>
@@ -59,6 +58,7 @@
         <file>images/settingslight.png</file>
         <file>images/trophydark.png</file>
         <file>images/trophylight.png</file>
+        <file>images/piecelight.png</file>
     </qresource>
     <qresource prefix="/character">
         <file alias="Bob">images/Bob.jpg</file>

@@ -59,6 +59,7 @@ private:
   void commercialTransfertStock();
   void updateNotificationChat(bool isVisible);
   QString randSells(double valAd);
+  void applyStyleAfterLoadApp();
 
   double bankDisplayed;
   bool gotCommercial;
@@ -74,6 +75,10 @@ private:
   Stock* widgetStock;
   Chat* widgetChat;
   QPushButton* saveButton;
+
+  QWidget* widgetMenu;
+  QLabel* swich;
+  QLabel* logoSol;
 
   QMenuBar* bar;
   QMenu* more;

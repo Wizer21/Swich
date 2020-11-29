@@ -25,7 +25,7 @@ void Sell::setSell()
   scrollArea->setWidget(widArea);
   widArea->setLayout(layoutArea);
 
-  scrollArea->setMaximumWidth(this->width() * 0.5);
+  scrollArea->setMaximumWidth(this->width() * 0.4);
   layoutArea->setAlignment(Qt::AlignTop);
   scrollArea->setWidgetResizable(true);
   setList();
@@ -140,7 +140,6 @@ void Sell::setCity()
     tabCity->setHorizontalHeaderLabels(columnName);
     QHeaderView* header = tabCity->horizontalHeader();
     header->setSectionResizeMode(QHeaderView::Stretch);
-    header->setSectionResizeMode(QHeaderView::Interactive);
 
     tableList.push_back(tabCity);
     tabCity->setMinimumWidth(150);
