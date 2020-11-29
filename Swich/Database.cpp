@@ -1,16 +1,18 @@
 #include "Database.h"
 
-Database::Database(QWidget* parent)
+Database::Database(QWidget* parent, int addCurrentWidget)
   : QDialog(parent)
 {
   this->setWindowFlags(windowFlags() & ~Qt::WindowContextHelpButtonHint);
   this->setAttribute(Qt::WA_DeleteOnClose);
+  currentWidget = addCurrentWidget;
 
   QGridLayout* mainLayout = new QGridLayout(this);
   iniDB(mainLayout);
 
   this->resize(900, 450);
   this->setObjectName("dialogData");
+  applyStyleSheet();
 }
 
 void Database::iniDB(QGridLayout* layout)
@@ -328,6 +330,32 @@ void Database::deleteNewItem()
   }
   ItemDAO::getInstance()->loadDBToLists(ItemDAO::getInstance()->getCurrentTable());
   emit tableChanged();
+}
+
+void Database::applyStyleSheet()
+{
+  QString currentTheme = Utils::getThemeOnActualWidget(currentWidget);
+
+  this->setStyleSheet(QString(
+                        "QPushButton {"
+                        "background-color: #262626; "
+                        "color: %1; "
+                        "padding: 5px; "
+                        "border: 2px solid transparent; "
+                        "border-right: 2px solid %1; "
+                        "border-bottom: 2px solid %1; "
+                        "font-size: 18px;}"
+                        "QPushButton::hover { "
+                        "border: 0px solid transparent; "
+                        "border-right : 0px solid %1; "
+                        "border-bottom : 0px solid %1;}"
+                        "QPushButton::pressed { "
+                        "background-color: %1; "
+                        "color: #262626; "
+                        "padding: 5px; "
+                        "border: 0px solid transparent;}")
+                        .arg(currentTheme));
+  runningTable->setStyleSheet(QString("color: %1;").arg(currentTheme));
 }
 
 void Database::closeEvent(QCloseEvent* e)

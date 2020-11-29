@@ -17,6 +17,7 @@ void Hub::setHub()
   //top
   QWidget* widgetHubTop = new QWidget(this);
   QGridLayout* gridTop = new QGridLayout(this);
+  QLabel* trophy = new QLabel(this);
   QLabel* evo = new QLabel(tr("High Scores"), this);
   bankMax = new QLabel("0", this);
   QLabel* textBankMax = new QLabel(tr("Top Bank"), this);
@@ -40,14 +41,15 @@ void Hub::setHub()
   this->setLayout(layoutHub);
   layoutHub->addWidget(widgetHubTop, 0, 0);
   widgetHubTop->setLayout(gridTop);
-  gridTop->addWidget(evo, 0, 0, 1, 2);
-  gridTop->addWidget(bankMax, 1, 0, Qt::AlignRight);
-  gridTop->addWidget(textBankMax, 1, 1);
-  gridTop->addWidget(prodMax, 2, 0, Qt::AlignRight);
-  gridTop->addWidget(textProdMax, 2, 1);
-  gridTop->addWidget(sellsMax, 3, 0, Qt::AlignRight);
-  gridTop->addWidget(textSellMax, 3, 1);
-  gridTop->addWidget(newMonth, 4, 0, 1, 2);
+  gridTop->addWidget(trophy, 0, 0, 1, 1);
+  gridTop->addWidget(evo, 0, 1, 1, 1);
+  gridTop->addWidget(bankMax, 1, 1, Qt::AlignRight);
+  gridTop->addWidget(textBankMax, 1, 2);
+  gridTop->addWidget(prodMax, 2, 1, Qt::AlignRight);
+  gridTop->addWidget(textProdMax, 2, 2);
+  gridTop->addWidget(sellsMax, 3, 1, Qt::AlignRight);
+  gridTop->addWidget(textSellMax, 3, 2);
+  gridTop->addWidget(newMonth, 4, 0, 1, 3);
 
   layoutHub->addWidget(uptdateWidget, 0, 1);
   uptdateWidget->setLayout(gridRight);
@@ -60,7 +62,9 @@ void Hub::setHub()
   SingleData* data = SingleData::getInstance();
   data->addLabelToAdaptOnFont(3, displayGain);
   data->addButtoonToAdaptOnTheme("next", newMonth);
+  data->addLabelToAdaptOnTheme("trophy", trophy);
   newMonth->setIcon(data->getPixMapOnActualTheme("next"));
+  trophy->setPixmap(data->getPixMapOnActualTheme("trophy"));
 
   //bot
   layoutHub->addWidget(widgetHubBot, 1, 0, 1, 2);

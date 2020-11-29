@@ -13,7 +13,7 @@ class Database : public QDialog
   Q_OBJECT
 
 public:
-  Database(QWidget* parent);
+  Database(QWidget* parent, int addCurrentWidget);
   ~Database();
 
 public slots:
@@ -37,7 +37,9 @@ private:
   void sortItemList();
   void closeEvent(QCloseEvent* e) override;
   void updateLockIcon();
+  void applyStyleSheet();
 
+  int currentWidget;
   QLabel* errorMessage;
   QVBoxLayout* layoutInScrollArea;
   QStackedWidget* widgetStack;

@@ -57,6 +57,8 @@
         <file>images/translationslight.png</file>
         <file>images/translationsdark.png</file>
         <file>images/settingslight.png</file>
+        <file>images/trophydark.png</file>
+        <file>images/trophylight.png</file>
     </qresource>
     <qresource prefix="/character">
         <file alias="Bob">images/Bob.jpg</file>

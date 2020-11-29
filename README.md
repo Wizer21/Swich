@@ -30,4 +30,5 @@ and icons from MaterialDesignIcons
 - [ ] Employee// Show hovered widget while dragging
 - [X] Tutorial Dialog
 - [ ] Complete traductions
-- [ ] Add many icons
+- [X] Add many icons
+- [ ] Add an automatic backup option

@@ -416,7 +416,7 @@ void Swich::openCredits()
 void Swich::openDatabase()
 {
   Tutorial::getInstance()->pageChanged(8);
-  Database* db = new Database(this);
+  Database* db = new Database(this, swichZoneWidget->currentIndex());
   connect(db, SIGNAL(tableChanged()), this, SLOT(applyTableChanged()));
   db->exec();
   Tutorial::getInstance()->pageChanged(swichZoneWidget->currentIndex());
@@ -463,33 +463,7 @@ void Swich::buttonSaveToDatabase()
 
 void Swich::setTheme()
 {
-  QString backgroundColor = "";
-  switch (swichZoneWidget->currentIndex())
-  {
-    case 0:
-      backgroundColor = "#ff5252";
-      break;
-    case 1:
-      backgroundColor = "#7c4dff";
-      break;
-    case 2:
-      backgroundColor = "#536dfe";
-      break;
-    case 3:
-      backgroundColor = "#64ffda";
-      break;
-    case 4:
-      backgroundColor = "#b2ff59";
-      break;
-    case 5:
-      backgroundColor = "#ffd740";
-      break;
-    case 6:
-      backgroundColor = "#ff6e40";
-      break;
-    default:
-      break;
-  }
+  QString backgroundColor = Utils::getThemeOnActualWidget(swichZoneWidget->currentIndex());
 
   bar->setStyleSheet("QMenuBar{ background-color:" + backgroundColor + "; color:#262626;} QMenuBar::item:selected{border-top: 2px solid #262626} QMenuBar::item:pressed{background-color:#262626; color:" + backgroundColor + ";}");
   more->setStyleSheet("QMenu::item::selected{color:" + backgroundColor + ";}");

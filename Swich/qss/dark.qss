@@ -155,73 +155,6 @@ QPushButton#index6::pressed {
   padding: 5px;
   border: 0px solid transparent;
 }
-/* ----------------------- */
-/* ------ DataBase ------- */
-/* ----------------------- */
-
-QDialog#dialogData QPushButton {
-  background-color: #262626;
-  color: #64ffda;
-  padding: 5px;
-  border: 2px solid transparent;
-  border-right: 2px solid #64ffda;
-  border-bottom: 2px solid #64ffda;
-  font-size: 18px;
-}
-QDialog#dialogData QPushButton::hover {
-  border: 0px solid transparent;
-  border-right: 0px solid #64ffda;
-  border-bottom: 0px solid #64ffda; 
-}
-QDialog#dialogData QPushButton::pressed {
-  background-color: #64ffda;
-  color: #64ffda;
-  padding: 5px;
-  border: 0px solid transparent;
-}
-QDialog QPushButton#addtable {
-  background-color: #262626;
-  color: #64ffda;
-  padding: 5px;
-  border: 2px solid transparent;
-  border-right: 2px solid #64ffda;
-  border-bottom: 2px solid #64ffda;
-  font-size: 18px;
-}
-QDialog QPushButton::hover#addtable {
-  border: 0px solid transparent;
-  border-right: 0px solid #64ffda;
-  border-bottom: 0px solid #64ffda; 
-}
-QDialog QPushButton::pressed#addtable {
-  background-color: #64ffda;
-  color: #262626;
-  padding: 5px;
-  border: 0px solid transparent;
-}
-
-QStackedWidget#stackTable QPushButton {
-  background-color: #262626;
-  color: #64ffda;
-  padding: 5px;
-  border: 2px solid transparent;
-  border-right: 2px solid #64ffda;
-  border-bottom: 2px solid #64ffda;
-  font-size: 18px;
-}
-QStackedWidget#stackTable QPushButton::hover {
-  border: 0px solid transparent;
-  border-right: 0px solid #64ffda;
-  border-bottom: 0px solid #64ffda; 
-}
-QStackedWidget#stackTable QPushButton::pressed {
-  background-color: #64ffda;
-  color: #262626;
-  padding: 5px;
-  border: 0px solid transparent;
-}
-
-
 /* ------------------------------ */
 /* ------------ Corner widget --- */
 /* ------------------------------ */
@@ -283,8 +216,8 @@ QComboBox#comboLangue  {
   min-width: 6em;
   border: 0px solid yellow;
   border-right: 10px solid #64ffda;
-  min-height: 25px;
-  font-size: 15px;
+  min-height: 35px;
+  margin: 5px;
   background-color: #262626;
   color: #64ffda;
 }
@@ -293,8 +226,8 @@ QComboBox#comboTheme {
   min-width: 6em;
   border: 0px solid yellow;
   border-right: 10px solid #ffd740;
-  min-height: 25px;
-  font-size: 15px;
+  min-height: 35px;
+  margin: 5px;
   background-color: #262626;
   color: #ffd740;
 }
@@ -324,11 +257,10 @@ QComboBox QAbstractItemView {
 QDialog QPushButton#fontButton {
   background-color: #262626;
   color: #b2ff59;
-  padding: 0px;
+  padding: 5px;
   border: 2px solid transparent;
   border-right: 2px solid #b2ff59;
   border-bottom: 2px solid #b2ff59;
-  font-size: 18px;
 }
 QDialog QPushButton::hover#fontButton {
   border: 0px solid transparent;
@@ -340,6 +272,10 @@ QDialog QPushButton::pressed#fontButton {
   color: #262626;
   padding: 5px;
   border: 0px solid transparent;
+}
+QCheckBox::indicator {
+    width: 20px;
+    height: 20px;
 }
 /* ----------------------- */
 /* ------ DataBase ------- */

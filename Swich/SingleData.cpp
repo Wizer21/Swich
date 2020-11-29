@@ -59,6 +59,7 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("tutorialdark", ":/icon/images/tutoriallight.png", 50, 50);
   pushPixmapToSoft("uploaddark", ":/icon/images/uploadlight.png", 50, 50);
   pushPixmapToSoft("closedark", ":/icon/images/closelight.png", 50, 50);
+  pushPixmapToSoft("trophydark", ":/icon/images/trophylight.png", 40, 40);
 
   pushPixmapToSoft("closeeyelight", ":/icon/images/closeeyedark.png", 50, 50);
   pushPixmapToSoft("databaselight", ":/icon/images/databasedark.png", 50, 50);
@@ -73,6 +74,7 @@ void SingleData::loadPixmap()
   pushPixmapToSoft("tutoriallight", ":/icon/images/tutorialdark.png", 50, 50);
   pushPixmapToSoft("uploadlight", ":/icon/images/uploaddark.png", 50, 50);
   pushPixmapToSoft("closelight", ":/icon/images/closedark.png", 50, 50);
+  pushPixmapToSoft("trophylight", ":/icon/images/trophydark.png", 40, 40);
 }
 
 void SingleData::pushCharacter(const QString& addNom, const QString& pixMap)

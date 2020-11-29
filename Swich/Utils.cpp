@@ -194,3 +194,42 @@ double Utils::randOnlyPositivePercentage(const int& val)
   std::uniform_int_distribution<int> randval(0, val - 1);
   return randval(generator) * 0.01;
 }
+
+QString Utils::getThemeOnActualWidget(int currentId)
+{
+  int currentTheme = SingleData::getInstance()->getThemeActuel();
+
+  if (currentTheme == 0 || currentTheme == 1)
+  {
+    //List soft colors
+    switch (currentId)
+    {
+      case 0:
+        return "#ff5252";
+        break;
+      case 1:
+        return "#7c4dff";
+        break;
+      case 2:
+        return "#536dfe";
+        break;
+      case 3:
+        return "#64ffda";
+        break;
+      case 4:
+        return "#b2ff59";
+        break;
+      case 5:
+        return "#ffd740";
+        break;
+      case 6:
+        return "#ff6e40";
+        break;
+      default:
+        return "";
+        break;
+    }
+  }
+  return "";
+  //List vibrant colors
+}
