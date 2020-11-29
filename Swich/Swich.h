@@ -20,6 +20,7 @@
 #include "ItemDAO.h"
 #include "Database.h"
 #include <cmath>
+#include "Tutorial.h"
 
 class Swich : public QMainWindow
 {
@@ -37,11 +38,17 @@ private slots:
   void openOptions();
   void openCredits();
   void openDatabase();
+  void openTutorial();
   void applyNewCommercial(DragEmployee* getActualEmployee);
   void applyFireCommercial();
   void applyCommercialIsActivated(bool);
   void applyTableChanged();
   void buttonSaveToDatabase();
+  void applyTutorialMooved(QPoint);
+
+protected:
+  void Swich::moveEvent(QMoveEvent* event);
+  void Swich::resizeEvent(QResizeEvent* event);
 
 private:
   void ini(QGridLayout* widget);

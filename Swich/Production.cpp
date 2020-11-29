@@ -16,8 +16,8 @@ void Production::setProduction()
 
   displayProduction = new QLabel("0", this);
   QLabel* dailyProduction = new QLabel(tr("Last iteration production"), this);
-  QLabel* investedProduction = new QLabel("1250", this);
-  QLabel* testInvested = new QLabel(tr("Invested"), this);
+  QLabel* investedProduction = new QLabel("To Set", this);
+  QLabel* testInvested = new QLabel(tr("Factories total levels"), this);
 
   lockedFactory1 = new QPushButton(QString::number(lockedPrice1), this);
   lockedFactory2 = new QPushButton(QString::number(lockedPrice2), this);

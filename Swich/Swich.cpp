@@ -28,6 +28,7 @@ void Swich::ini(QGridLayout* layout)
   QAction* options = new QAction(tr("Settings"));
   QAction* closeApp = new QAction(tr("Close"));
   QAction* dataAction = new QAction(tr("Database"));
+  QAction* tuto = new QAction(tr("Tutorial"));
   QAction* credits = new QAction(tr("Credits"));
 
   QWidget* cornerWidget = new QWidget(this);
@@ -40,6 +41,7 @@ void Swich::ini(QGridLayout* layout)
 
   more->addAction(options);
   more->addAction(dataAction);
+  more->addAction(tuto);
   more->addAction(closeApp);
   bar->addAction(credits);
   bar->setCornerWidget(cornerWidget);
@@ -154,13 +156,16 @@ void Swich::ini(QGridLayout* layout)
   connect(widgetSell, SIGNAL(callUpdateStock()), this, SLOT(applyUpdateStock()));
   connect(widgetProduction, SIGNAL(transfertUpgrade(int, int)), this, SLOT(applyUpgradeFactory(int, int)));
   connect(widgetProduction, SIGNAL(transfertNewFactory(int, int)), this, SLOT(applyNewFactory(int, int)));
+  connect(widgetAd, SIGNAL(fireCommercial()), this, SLOT(applyFireCommercial()));
+  connect(widgetAd, SIGNAL(newCommercial(DragEmployee*)), this, SLOT(applyNewCommercial(DragEmployee*)));
+  connect(widgetStock, SIGNAL(setIsActivated(bool)), this, SLOT(applyCommercialIsActivated(bool)));
   connect(options, SIGNAL(triggered()), this, SLOT(openOptions()));
   connect(credits, SIGNAL(triggered()), this, SLOT(openCredits()));
   connect(closeApp, SIGNAL(triggered()), this, SLOT(close()));
   connect(dataAction, SIGNAL(triggered()), this, SLOT(openDatabase()));
-  connect(widgetAd, SIGNAL(fireCommercial()), this, SLOT(applyFireCommercial()));
-  connect(widgetAd, SIGNAL(newCommercial(DragEmployee*)), this, SLOT(applyNewCommercial(DragEmployee*)));
-  connect(widgetStock, SIGNAL(setIsActivated(bool)), this, SLOT(applyCommercialIsActivated(bool)));
+  connect(tuto, SIGNAL(triggered()), this, SLOT(openTutorial()));
+
+  connect(Tutorial::getInstance(), SIGNAL(tutorialMooved(QPoint)), this, SLOT(applyTutorialMooved(QPoint)));
 }
 
 void Swich::createDefaultWidget()
@@ -229,6 +234,7 @@ void Swich::connectToMenu()
   }
   setTheme();
   widgetSell->cancelWhatNotValidated();
+  Tutorial::getInstance()->pageChanged(swichZoneWidget->currentIndex());
 }
 
 void Swich::applyUpdateStock()
@@ -383,7 +389,9 @@ void Swich::applyNewFactory(int cost, int id)
 
 void Swich::openOptions()
 {
+  Tutorial::getInstance()->pageChanged(7);
   new Options(this);
+  Tutorial::getInstance()->pageChanged(swichZoneWidget->currentIndex());
 }
 
 void Swich::openCredits()
@@ -393,9 +401,17 @@ void Swich::openCredits()
 
 void Swich::openDatabase()
 {
+  Tutorial::getInstance()->pageChanged(8);
   Database* db = new Database(this);
   connect(db, SIGNAL(tableChanged()), this, SLOT(applyTableChanged()));
   db->exec();
+  Tutorial::getInstance()->pageChanged(swichZoneWidget->currentIndex());
+}
+
+void Swich::openTutorial()
+{
+  QPoint point(this->geometry().x() + this->width() + 10, this->geometry().y());
+  Tutorial::getInstance()->tutorialOpened(swichZoneWidget->currentIndex(), point);
 }
 
 void Swich::applyTableChanged()
@@ -536,4 +552,22 @@ void Swich::updateNotificationChat(bool isVisible)
   {
     chat->setIcon(QPixmap(""));
   }
+}
+
+void Swich::applyTutorialMooved(QPoint newPoint)
+{
+  newPoint.setX(newPoint.x() - (this->width() + 10));
+  this->setGeometry(QRect(newPoint, this->size()));
+}
+
+void Swich::moveEvent(QMoveEvent* event)
+{
+  QPoint point(this->geometry().x() + this->width() + 10, this->geometry().y());
+  Tutorial::getInstance()->mooved(point);
+}
+
+void Swich::resizeEvent(QResizeEvent* event)
+{
+  QPoint point(this->geometry().x() + this->width() + 10, this->geometry().y());
+  Tutorial::getInstance()->mooved(point);
 }

@@ -20,12 +20,14 @@ and icons from MaterialDesignIcons
 
 ### Upgrades
 - [X] Sell// Display sliders' value
-- [ ] Sell// Add a max button to the sliders
+- [X] Sell// Slider jumping at cursor position
 - [ ] Sell// Add delete icon on dragged items
 - [ ] Production// Display button's icon, based on buy possibility
 - [ ] Analytics// Display graph value at cursor position
 - [ ] Employee// Prevent to get multiple times the same character
 - [ ] DragEvent// Set an icon at cursor's position, while the DragEvent
-- [ ] Table// Adapt columns' width to content
-- [ ] Add a program presentation at the first launching of the program
+- [X] Table// Adapt columns' width to content
+- [ ] Employee// Show hovered widget while dragging
+- [X] Tutorial Dialog
 - [ ] Complete traductions
+- [ ] Add many icons
