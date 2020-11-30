@@ -5,7 +5,7 @@ Graphic business simulator
 
 #  **This project**
 This project was mainly made to showcase my skills and keep an history of my progression.
-The developpement started on 2nd, november 2020 and is avaible on GitHub
+The developpement started on 2nd, november 2020.
 This project was only made through C++ with the Qt library.
 
 ## **Credits**
