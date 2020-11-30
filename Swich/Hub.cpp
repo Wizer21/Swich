@@ -60,12 +60,12 @@ void Hub::setHub()
 
   gridRight->setSpacing(50);
 
-  SingleData* data = SingleData::getInstance();
-  data->addLabelToAdaptOnFont(3, displayGain);
-  data->addButtoonToAdaptOnTheme("next", newMonth);
-  data->addLabelToAdaptOnTheme("trophy", trophy);
-  newMonth->setIcon(data->getPixMapOnActualTheme("next"));
-  trophy->setPixmap(data->getPixMapOnActualTheme("trophy"));
+  SingleData* getData = SingleData::getInstance();
+  getData->addLabelToAdaptOnFont(3, displayGain);
+  getData->addButtoonToAdaptOnTheme("next", newMonth);
+  getData->addLabelToAdaptOnTheme("trophy", trophy);
+  newMonth->setIcon(getData->getPixMapOnActualTheme("next"));
+  trophy->setPixmap(getData->getPixMapOnActualTheme("trophy"));
 
   //bot
   layoutHub->addWidget(scrollHub, 1, 0, 1, 2);
@@ -168,7 +168,6 @@ void Hub::newMonthClicked()
 void Hub::setDefaultWidgets()
 {
   SingleData* getData = SingleData::getInstance();
-  int pos = 6;
   for (int i = 0; i < 6; i++)
   {
     QWidget* widgetContainerT = new QWidget(this);

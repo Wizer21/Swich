@@ -66,14 +66,14 @@ void Options::ini(QGridLayout* layout)
   fontChoser->setCursor(Qt::PointingHandCursor);
   closeButton->setCursor(Qt::PointingHandCursor);
 
-  SingleData* data = SingleData::getInstance();
-  data->addLabelToAdaptOnTheme("translations", langueIcon);
-  data->addLabelToAdaptOnTheme("theme", themeIcon);
-  data->addLabelToAdaptOnTheme("letter", fontIcon);
+  SingleData* getData = SingleData::getInstance();
+  getData->addLabelToAdaptOnTheme("translations", langueIcon);
+  getData->addLabelToAdaptOnTheme("theme", themeIcon);
+  getData->addLabelToAdaptOnTheme("letter", fontIcon);
 
-  langueIcon->setPixmap(data->getPixMapOnActualTheme("translations"));
-  themeIcon->setPixmap(data->getPixMapOnActualTheme("theme"));
-  fontIcon->setPixmap(data->getPixMapOnActualTheme("letter"));
+  langueIcon->setPixmap(getData->getPixMapOnActualTheme("translations"));
+  themeIcon->setPixmap(getData->getPixMapOnActualTheme("theme"));
+  fontIcon->setPixmap(getData->getPixMapOnActualTheme("letter"));
 }
 
 void Options::newFont()

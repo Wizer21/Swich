@@ -19,7 +19,7 @@ void Factory::newMonthFactory(int days)
 void Factory::expodentialProduction(int days)
 {
   strenghtProducted = 1;
-  productionCost = 30;
+  productionCost = 50;
   for (int i = 0; i < level; i++)
   {
     strenghtProducted *= 1.4;

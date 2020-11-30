@@ -86,7 +86,7 @@ void DragEmployee::calculRandStats()
   double calculSalary = 200.0 + Utils::randZeroToVal(300);
   for (int i = 0; i < level; i++)
   {
-    calculSalary *= (1.15 + Utils::randOnlyPositivePercentage(25));
+    calculSalary *= (1.1 + Utils::randOnlyPositivePercentage(25));
   }
   salary = calculSalary;
   note = calculNote(level);
