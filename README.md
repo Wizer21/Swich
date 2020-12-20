@@ -32,3 +32,6 @@ and icons from MaterialDesignIcons
 - [ ] Complete traductions
 - [X] Add many icons
 - [ ] Add an automatic backup option
+
+![swich](https://user-images.githubusercontent.com/72104477/102715855-587eb480-42d8-11eb-94c2-52ef0f37abb4.jpg)
+
